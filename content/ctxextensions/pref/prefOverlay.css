@@ -1,0 +1,65 @@
+.scrollbox separator,
+grid separator,
+.separator
+{
+	height: 0;
+	border: thin -moz-bg-inset;
+	margin: 0.2em 0.5em;
+}
+
+#listBoxSampleContainer
+{
+	border: thin -moz-bg-inset;
+	margin: 0.2em 0.5em;
+}
+
+.scrollbox
+{
+	border: thin -moz-bg-inset;
+	overflow: auto;
+}
+
+textbox {
+	font-family: -moz-fixed;
+	font-size: small;
+}
+
+box[orient="horizontal"], row {
+	-moz-box-align: center;
+}
+
+checkbox {
+	-moz-box-flex: 1;
+}
+
+
+button {
+	min-width: 2em;
+}
+
+
+[dragover-at="on"] {
+	-moz-outline: thin dotted !important;
+}
+
+[dragover-at="before"] {
+	-moz-border-top-colors: inherit !important;
+	border-top: thin solid !important;
+}
+
+[dragover-at="after"] {
+	-moz-border-bottom-colors: inherit !important;
+	border-bottom: thin solid !important;
+}
+
+
+/* expert prefs */
+[expert="true"] {
+	display: none;
+}
+
+
+button[disabled="true"] image.button-icon {
+	-moz-opacity: 0.5;
+}
+

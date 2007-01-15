@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://ctxextensions/locale/">
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<script type="application/x-javascript"><![CDATA[
+
+	function extOpenDialog(uri, type)
+	{
+		var WINMAN;
+		if (Components.classes['@mozilla.org/appshell/window-mediator;1'])
+			WINMAN = Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator);
+		else
+			WINMAN = Components.classes['@mozilla.org/rdf/datasource;1?name=window-mediator'].getService(Components.interfaces.nsIWindowMediator);
+
+		var target = WINMAN.getMostRecentWindow(type);
+		if (target)
+			target.focus();
+		else
+			window.openDialog(uri, '_blank', 'chrome,all,dialog=no');
+		return;
+	}
+
+]]></script>
+
+<menupopup id="taskPopup">
+	<menuitem position="5" id="tasks-item-styleSheetsManager"/>
+</menupopup>
+
+<menupopup id="toolsPopup">
+	<menuitem id="tools-item-JSPanel"/>
+	<menuitem id="tools-item-customUserStyleEditor"/>
+</menupopup>
+
+
+<!-- browser.xul -->
+<menupopup id="menu_ToolsPopup">
+	<menuitem position="3" id="tasks-item-styleSheetsManager"/>
+	<menuitem position="3" id="tools-item-JSPanel"/>
+	<menuitem position="3" id="tools-item-customUserStyleEditor"/>
+</menupopup>
+
+
+
+
+<menuitem id="tasks-item-styleSheetsManager"
+	label="&menu.styleSheetsManager.label;"
+	oncommand="extOpenDialog('chrome://ctxextensions/content/styleSheetsManager/styleSheetsManager.xul', 'ctxextensions:StyleSheetsManager');"/>
+
+<menuitem id="tools-item-JSPanel"
+	label="&menu.JSPanel.label;"
+	oncommand="extOpenDialog('chrome://ctxextensions/content/JSPanel/JSPanel.xul', 'ctxextensions:JSPanel');"/>
+<menuitem id="tools-item-customUserStyleEditor"
+	label="&menu.customUserStyleEditor.label;"
+	oncommand="extOpenDialog('chrome://ctxextensions/content/styleSheetsManager/customUserStyleEditor.xul', 'ctxextensions:customUserStyleEditor');"/>
+
+</overlay>

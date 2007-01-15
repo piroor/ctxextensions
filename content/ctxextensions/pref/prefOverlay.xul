@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://ctxextensions/locale/">
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://communicator/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://ctxextensions/content/pref/prefOverlay.css" type="text/css"?>
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+	<!-- DND -->
+	<script type="application/x-javascript" src="chrome://global/content/nsDragAndDrop.js"/>
+	<script type="application/x-javascript" src="chrome://global/content/nsTransferable.js"/>
+	<script type="application/x-javascript" src="chrome://global/content/nsJSSupportsUtils.js"/>
+	<script type="application/x-javascript" src="chrome://global/content/nsJSComponentManager.js"/>
+
+	<script type="application/x-javascript" src="chrome://ctxextensions/content/extCommonUtils.js"/>
+	<script type="application/x-javascript" src="chrome://ctxextensions/content/pRDFData.js"/>
+
+	<script type="application/x-javascript" src="chrome://ctxextensions/content/pref/prefOverlay.js"/>
+
+
+	<box id="listBoxContainer" orient="vertical" flex="1">
+		<listbox flex="1"
+			id="listBox"
+			ondblclick="if (event.button == 0) PrefUtils.editListItem(event.target);"
+			onselect="PrefUtils.activateForListItem();"
+			template="listBoxTemplate"
+			context="listBoxContextMenu"
+			ondraggesture="nsDragAndDrop.startDrag(event, PrefUtils); event.stopPropagation();"
+			ondragexit="nsDragAndDrop.dragExit(event, PrefUtils); event.stopPropagation();"
+			ondragdrop="nsDragAndDrop.drop(event, PrefUtils); event.stopPropagation();"
+			ondragover="nsDragAndDrop.dragOver(event, PrefUtils); event.stopPropagation();"/>
+
+		<box orient="horizontal" id="listBoxSampleContainer">
+			<label value="&pref.listbox.samples.label;"
+				insertbefore="listBoxSample"
+				control="listBoxSamples"/>
+			<menulist id="listBoxSample"
+				label="&pref.listbox.samples.default;"
+				flex="1"
+				template="listBoxSampleTemplate"
+				oncommand="this.nextSibling.disabled = false"/>
+			<button label="&pref.listbox.samples.go;"
+				oncommand="PrefUtils.loadSampleListItem(this.previousSibling.selectedItem);"
+				disabled="true"/>
+		</box>
+
+		<keyset id="listBoxKeyset">
+			<key id="key-new"
+				key="&accelKey.new;" modifiers="accel"
+				oncommand="PrefUtils.addNewListItem();"/>
+			<key id="key-rename"
+				ext-for-listbox-item="true"
+				keycode="VK_F2"
+				oncommand="PrefUtils.renameListItem();"/>
+			<key id="key-edit"
+				ext-for-listbox-item="true"
+				key="&accelKey.edit;" modifiers="accel"
+				oncommand="PrefUtils.editListItem();"/>
+			<key id="key-remove"
+				ext-for-listbox-item="true"
+				keycode="VK_DELETE"
+				oncommand="PrefUtils.removeListItem();"/>
+			<key id="key-moveTop"
+				ext-for-listbox-item="true"
+				keycode="VK_HOME" modifiers="alt"
+				oncommand="PrefUtils.moveListItemTo(null, 0);"/>
+			<key id="key-moveUp"
+				ext-for-listbox-item="true"
+				keycode="VK_UP" modifiers="alt"
+				oncommand="PrefUtils.moveListItemBy(null, -1);"/>
+			<key id="key-moveDown"
+				ext-for-listbox-item="true"
+				keycode="VK_DOWN" modifiers="alt"
+				oncommand="PrefUtils.moveListItemBy(null, 1);"/>
+			<key id="key-moveEnd"
+				ext-for-listbox-item="true"
+				keycode="VK_END" modifiers="alt"
+				oncommand="PrefUtils.moveListItemTo(null, PrefUtils.listBox.childNodes.length-1);"/>
+			<key id="key-undo"
+				ext-for-listbox-undo="true"
+				key="&accelKey.undo;" modifiers="accel"
+				oncommand="PrefUtils.undoForListItem();"/>
+		</keyset>
+
+		<menupopup id="listBoxContextMenu">
+			<menuitem label="&common.new;"
+				key="key-new"
+				oncommand="PrefUtils.addNewListItem(document.popupNode);"/>
+			<menuseparator/>
+			<menuitem label="&common.rename;"
+				ext-for-listbox-item="true"
+				key="key-rename"
+				oncommand="PrefUtils.renameListItem(document.popupNode);"/>
+			<menuitem label="&common.property;"
+				ext-for-listbox-item="true"
+				key="key-edit"
+				oncommand="PrefUtils.editListItem(document.popupNode);"/>
+			<menuseparator/>
+			<menuitem label="&common.moveUp;"
+				ext-for-listbox-item="true"
+				key="key-moveUp"
+				oncommand="PrefUtils.moveListItemBy(document.popupNode, -1);"/>
+			<menuitem label="&common.moveDown;"
+				ext-for-listbox-item="true"
+				key="key-moveDown"
+				oncommand="PrefUtils.moveListItemBy(document.popupNode, 1);"/>
+			<menuseparator/>
+			<menuitem label="&common.remove;"
+				ext-for-listbox-item="true"
+				key="key-remove"
+				oncommand="PrefUtils.removeListItem(document.popupNode);"/>
+			<menuseparator/>
+			<menuitem label="&common.undo;"
+				key="key-undo"
+				ext-for-listbox-undo="true"
+				oncommand="PrefUtils.undoForListItem();"/>
+		</menupopup>
+
+		<box id="listBoxButtonSet" orient="horizontal"
+			insertbefore="listBoxSampleContainer">
+			<button id="listItemDeleteButton"
+				oncommand="PrefUtils.removeListItem();"
+				ext-for-listbox-item="true"
+				ondragdrop="nsDragAndDrop.drop(event, PrefUtils); event.stopPropagation();"
+				ondragover="nsDragAndDrop.dragOver(event, PrefUtils); event.stopPropagation();"
+				ondragexit="nsDragAndDrop.dragExit(event, PrefUtils); event.stopPropagation();">
+				<box orient="vertical">
+					<box orient="horizontal">
+						<spacer flex="1"/>
+						<image class="button-icon"
+							src="chrome://ctxextensions/content/res/dustbox.png"/>
+						<spacer flex="1"/>
+					</box>
+					<description value="&common.remove;"/>
+				</box>
+			</button>
+			<button oncommand="PrefUtils.undoForListItem();"
+				ext-for-listbox-undo="true">
+				<box orient="vertical">
+					<box orient="horizontal">
+						<spacer flex="1"/>
+						<image class="button-icon"
+							src="chrome://ctxextensions/content/res/undo.png"/>
+						<spacer flex="1"/>
+					</box>
+					<description value="&common.undo;"/>
+				</box>
+			</button>
+			<spacer flex="1"/>
+			<box orient="vertical" flex="1">
+				<spacer flex="1"/>
+				<button label="&common.arrowUp;"
+					ext-for-listbox-item="true"
+					id="button-up"
+					oncommand="PrefUtils.moveListItemBy(null, -1);"/>
+				<spacer flex="1"/>
+				<button label="&common.arrowDown;"
+					ext-for-listbox-item="true"
+					id="button-down"
+					oncommand="PrefUtils.moveListItemBy(null, 1);"/>
+				<spacer flex="1"/>
+			</box>
+			<spacer flex="1"/>
+			<box orient="vertical">
+				<spacer flex="1"/>
+				<box orient="horizontal">
+					<button label="&common.new;"
+						oncommand="PrefUtils.addNewListItem();"/>
+					<button label="&common.rename;"
+						id="listItemRenameButton"
+						ext-for-listbox-item="true"
+						oncommand="PrefUtils.renameListItem();"
+						ondragdrop="nsDragAndDrop.drop(event, PrefUtils); event.stopPropagation();"
+						ondragover="nsDragAndDrop.dragOver(event, PrefUtils); event.stopPropagation();"
+						ondragexit="nsDragAndDrop.dragExit(event, PrefUtils); event.stopPropagation();"/>
+					<button label="&common.property;"
+						id="listItemEditButton"
+						ext-for-listbox-item="true"
+						oncommand="PrefUtils.editListItem();"
+						ondragdrop="nsDragAndDrop.drop(event, PrefUtils); event.stopPropagation();"
+						ondragover="nsDragAndDrop.dragOver(event, PrefUtils); event.stopPropagation();"
+						ondragexit="nsDragAndDrop.dragExit(event, PrefUtils); event.stopPropagation();"/>
+				</box>
+				<spacer flex="1"/>
+			</box>
+		</box>
+	</box>
+
+</overlay>

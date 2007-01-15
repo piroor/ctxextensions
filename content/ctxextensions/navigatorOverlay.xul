@@ -1,0 +1,271 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://ctxextensions/locale/">
+
+<overlay
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:EX="http://piro.sakura.ne.jp/ctxextensions"
+	xmlns:EXRDF="http://white.sakura.ne.jp/~piro/rdf#">
+
+
+
+<menupopup id="menu_View_Popup">
+	<menu id="view-item-styleSheets"
+		insertafter="menu_textZoom"
+		label="&useStyleSheetMenu.label;"
+		accesskey="&useStyleSheetMenu.accesskey;">
+		<menupopup id="view-item-styleSheets:mpopup"
+			onpopupshowing="ExtService.updateStyleSheetsPopup(); ExtService.duplicateMPopup('ext-common-styleSheets:mpopup', this.id); event.stopPropagation();"
+			oncommand="ExtFunc.ApplyStyle(event, true); event.stopPropagation();"
+			onclick="if (event.button == 1) ExtService.editRDFItem(event, 'StyleSheets');"/>
+	</menu>
+</menupopup>
+
+
+<menubar id="main-menubar">
+
+	<menu id="menu-item-styleSheets"
+		label="&menu.styleSheets.label;"
+		accesskey="&menu.styleSheets.accesskey;"
+		hidden="true">
+		<menupopup id="menu-item-styleSheets:mpopup"
+			onpopupshowing="ExtService.updateStyleSheetsPopup(); ExtService.duplicateMPopup('ext-common-styleSheets:mpopup', this.id);"
+			oncommand="ExtFunc.ApplyStyle(event, true); event.stopPropagation();"
+			onclick="if (event.button == 1) ExtService.editRDFItem(event, 'StyleSheets');"/>
+	</menu>
+	<menu id="menu-item-outline"
+		label="&menu.outline.label;"
+		accesskey="&menu.outline.accesskey;"
+		hidden="true">
+		<menupopup id="menu-item-outline:mpopup"
+			onpopupshowing="ExtService.updateOutlinePopup(true); ExtService.duplicateMPopup('ext-common-outline:mpopup', this.id);"
+			oncommand="ExtFunc.Outline(event);"/>
+	</menu>
+	<menu id="menu-item-navigations"
+		label="&menu.navigations.label_short;"
+		accesskey="&menu.navigations.accesskey;"
+		hidden="true">
+		<menupopup id="menu-item-navigations:mpopup"
+			onpopupshowing="ExtService.updateNavigationsPopup(true); ExtService.duplicateMPopup('ext-common-navigations:mpopup', this.id);"
+			oncommand="ExtFunc.Navigations(event);"
+			ondraggesture="nsDragAndDrop.startDrag(event, ExtService.NavigationDNDObserver); event.stopPropagation(); return;"
+			ondragexit="nsDragAndDrop.dragExit(event, ExtService.NavigationDNDObserver); event.stopPropagation(); return;"
+			onerror="event.stopPropagation(); return;"/>
+	</menu>
+	<menu id="menu-item-sendURI"
+		label="&menu.sendURI.label;"
+		hidden="true">
+		<menupopup id="menu-item-sendURI:mpopup"
+			datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+			ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:SendURI:root"
+			template="ext-common-template"
+			oncommand="ExtFunc.SendURI(event, true);"
+			onclick="if (event.button == 1) ExtService.editRDFItem(event, 'SendURI');"
+			ext-datasource="ExtCommonUtils.SENDURI"/>
+	</menu>
+	<menu id="menu-item-sendStr"
+		label="&menu.sendStr.label;"
+		hidden="true">
+		<menupopup id="menu-item-sendStr:mpopup"
+			datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+			ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:SendStr:root"
+			template="ext-common-template"
+			oncommand="ExtFunc.SendStr(event);"
+			onclick="if (event.button == 1) ExtService.editRDFItem(event, 'SendStr');"
+			ext-datasource="ExtCommonUtils.SENDSTR"/>
+	</menu>
+	<menu id="menu-item-execApps"
+		label="&menu.execApps.label_short;"
+		accesskey="&menu.execApps.accesskey;"
+		hidden="true">
+		<menupopup id="menu-item-execApps:mpopup"
+			datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+			ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:ExecApps:root"
+			template="ext-common-template"
+			oncommand="ExtFunc.ExecApps(event, true);"
+			onclick="if (event.button == 1) ExtService.editRDFItem(event, 'ExecApps');"
+			ext-datasource="ExtCommonUtils.EXECAPPS"/>
+	</menu>
+	<menu id="menu-item-customScripts"
+		label="&menu.customScripts.label_short;"
+		accesskey="&menu.customScripts.accesskey;"
+		hidden="true">
+		<menupopup id="menu-item-customScripts:mpopup"
+			datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+			ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:CustomScripts:root"
+			template="ext-common-template"
+			oncommand="ExtFunc.CustomScripts(event);"
+			onclick="if (event.button == 1) ExtService.editRDFItem(event, 'CustomScripts');"
+			ext-datasource="ExtCommonUtils.CUSTOMSCRIPTS"/>
+	</menu>
+
+	<menu id="menu-item-extensions"
+		label="&menu.extensions.label;"
+		accesskey="&menu.extensions.accesskey;">
+		<menupopup onpopupshowing="if (event.target == this) ExtService.updateMenubarSubmenu();">
+
+			<menu id="menu-item-styleSheets:submenu"
+				label="&menu.styleSheets.label;"
+				key="ext-key-showMenu:stylesheets"
+				ext-key="ext-key-showMenu:stylesheets">
+				<menupopup id="menu-item-styleSheets:mpopup:submenu"
+					onpopupshowing="ExtService.duplicateMPopup('ext-common-styleSheets:mpopup', this.id);"
+					oncommand="ExtFunc.ApplyStyle(event, true);"
+					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'StyleSheets');"/>
+			</menu>
+			<menuseparator/>
+			<menuitem id="menu-item-up:submenu"
+				label="&menu.up.label;"
+				oncommand="ExtFunc.doCommand('up');"
+				accesskey="&menu.up.accesskey;"
+				key="ext-key-up"
+				ext-key="ext-key-up"/>
+			<menuitem id="menu-item-nextHeading:submenu"
+				label="&menu.nextHeading.label;"
+				oncommand="ExtFunc.goHeadings('next');"
+				accesskey="&menu.nextHeading.accesskey;"
+				key="ext-key-goHeading:next"
+				ext-key="ext-key-goHeading:next"/>
+			<menuitem id="menu-item-prevHeading:submenu"
+				label="&menu.prevHeading.label;"
+				oncommand="ExtFunc.goHeadings('prev');"
+				accesskey="&menu.prevHeading.accesskey;"
+				key="ext-key-goHeading:prev"
+				ext-key="ext-key-goHeading:prev"/>
+			<menu id="menu-item-outline:submenu"
+				label="&menu.outline.label;"
+				label-for-normal="&menu.outline.label;"
+				label-for-frame="&menu.outline.label_frame;"
+				key="ext-key-showMenu:outline"
+				ext-key="ext-key-showMenu:outline">
+				<menupopup id="menu-item-outline:mpopup:submenu"
+					onpopupshowing="ExtService.duplicateMPopup('ext-common-outline:mpopup', this.id);"
+					oncommand="ExtFunc.Outline(event);"/>
+			</menu>
+			<menu id="menu-item-navigations:submenu"
+				label="&menu.navigations.label;"
+				label-for-normal="&menu.navigations.label;"
+				label-for-frame="&menu.navigations.label_frame;"
+				key="ext-key-showMenu:navigations"
+				ext-key="ext-key-showMenu:navigations">
+				<menupopup id="menu-item-navigations:mpopup:submenu"
+					onpopupshowing="ExtService.duplicateMPopup('ext-common-navigations:mpopup', this.id);"
+					oncommand="ExtFunc.Navigations(event);"
+					ondraggesture="nsDragAndDrop.startDrag(event, ExtService.NavigationDNDObserver); event.stopPropagation(); return;"
+					ondragexit="nsDragAndDrop.dragExit(event, ExtService.NavigationDNDObserver); event.stopPropagation(); return;"
+					onerror="event.stopPropagation(); return;"/>
+			</menu>
+			<menuseparator/>
+			<menuitem id="menu-item-JSPanel:submenu"
+				label="&menu.JSPanel.label;"
+				oncommand="ExtFunc.doCommand('JSPanel')"/>
+			<menuitem id="menu-item-getLinks:submenu"
+				label="&menu.getLinks.label;"
+				label-for-normal="&menu.getLinks.label;"
+				label-for-select="&menu.getLinks.label_select;"
+				oncommand="ExtFunc.getLinks()"/>
+			<menuseparator/>
+			<menuitem id="menu-item-showComments:submenu"
+				label="&menu.showComments.label;"
+				oncommand="ExtFunc.doCommand('showComments')"/>
+			<menuitem id="menu-item-showLinks:submenu"
+				label="&menu.showLinks.label;"
+				oncommand="ExtFunc.doCommand('showLinks')"/>
+			<menuitem id="menu-item-showIDs:submenu"
+				label="&menu.showIDs.label;"
+				oncommand="ExtFunc.doCommand('showIDs')"/>
+			<menuitem id="menu-item-showCites:submenu"
+				label="&menu.showCites.label;"
+				oncommand="ExtFunc.doCommand('showCites')"/>
+			<menuitem id="menu-item-showTitles:submenu"
+				label="&menu.showTitles.label;"
+				oncommand="ExtFunc.doCommand('showTitles')"/>
+			<menuitem id="menu-item-showEvents:submenu"
+				label="&menu.showEvents.label;"
+				oncommand="ExtFunc.doCommand('showEvents')"/>
+			<menuitem id="menu-item-showAll:submenu"
+				label="&menu.showAll.label;"
+				oncommand="ExtFunc.doCommand('showAll')"/>
+			<menuseparator/>
+			<menuitem id="menu-item-openSelectionAsURI:submenu"
+				label="&menu.openSelectionAsURI.label;"
+				label-for-select="&menu.openSelectionAsURI.label_select;"
+				oncommand="ExtFunc.doCommand('openSelectionAsURI')"
+				accesskey="&menu.openSelectionAsURI.accesskey;"/>
+			<menuseparator/>
+			<menu id="menu-item-sendURI:submenu"
+				label="&menu.sendURI.label;">
+				<menupopup id="menu-item-sendURI:mpopup:submenu"
+					datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+					ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:SendURI:root"
+					template="ext-common-template"
+					oncommand="ExtFunc.SendURI(event, true);"
+					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'SendURI');"
+					ext-datasource="ExtCommonUtils.SENDURI"/>
+			</menu>
+			<menu id="menu-item-sendURI-frame:submenu"
+				label="&menu.sendURI.label_frame;">
+				<menupopup id="menu-item-sendURI-frame:mpopup:submenu"
+					datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+					ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:SendURI:root"
+					template="ext-common-template"
+					oncommand="ExtFunc.SendURI(event);"
+					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'SendURI');"
+					ext-datasource="ExtCommonUtils.SENDURI"/>
+			</menu>
+			<menu id="menu-item-sendStr:submenu"
+				label="&menu.sendStr.label;"
+				label-for-select="&menu.sendStr.label_select;">
+				<menupopup id="menu-item-sendStr:mpopup:submenu"
+					datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+					ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:SendStr:root"
+					template="ext-common-template"
+					oncommand="ExtFunc.SendStr(event);"
+					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'SendStr');"
+					ext-datasource="ExtCommonUtils.SENDSTR"/>
+			</menu>
+			<menuseparator/>
+			<menu id="menu-item-execApps:submenu"
+				label="&menu.execApps.label;"
+				key="ext-key-showMenu:execapps"
+				ext-key="ext-key-showMenu:execapps">
+				<menupopup id="menu-item-execApps:mpopup:submenu"
+					datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+					ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:ExecApps:root"
+					template="ext-common-template"
+					oncommand="ExtFunc.ExecApps(event, true);"
+					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'ExecApps');"
+					ext-datasource="ExtCommonUtils.EXECAPPS"/>
+			</menu>
+			<menu id="menu-item-execApps-frame:submenu"
+				label="&menu.execApps.label_frame;">
+				<menupopup id="menu-item-execApps-frame:mpopup:submenu"
+					datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+					ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:ExecApps:root"
+					template="ext-common-template"
+					oncommand="ExtFunc.ExecApps(event);"
+					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'ExecApps');"
+					ext-datasource="ExtCommonUtils.EXECAPPS"/>
+			</menu>
+			<menu id="menu-item-customScripts:submenu"
+				label="&menu.customScripts.label;"
+				key="ext-key-showMenu:customscripts"
+				ext-key="ext-key-showMenu:customscripts">
+				<menupopup id="menu-item-customScripts:mpopup:submenu"
+					datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+					ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:CustomScripts:root"
+					template="ext-common-template"
+					oncommand="ExtFunc.CustomScripts(event);"
+					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'CustomScripts');"
+					ext-datasource="ExtCommonUtils.CUSTOMSCRIPTS"/>
+			</menu>
+			<menuseparator/>
+			<menuitem label="&menu.pref.label;"
+				oncommand="ExtFunc.doCommand('pref')"/>
+
+		</menupopup>
+	</menu>
+</menubar>
+
+</overlay>

@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<!DOCTYPE RDF SYSTEM "chrome://ctxextensions/locale/">
+<RDF:RDF xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		xmlns:EXT="http://white.sakura.ne.jp/~piro/rdf#">
+
+	<RDF:Seq ID="urn:StyleSheets:root">
+		<RDF:li>
+			<RDF:Description about="urn:StyleSheets:sample1"
+				EXT:Name="&styleSheets.cancelPhysical.label;"
+				EXT:StyleRules="&styleSheets.cancelPhysical.rules;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:StyleSheets:sample2"
+				EXT:Name="&styleSheets.showElements.label;"
+				EXT:StyleRules="&styleSheets.showElements.rules;"/>
+		</RDF:li>
+	</RDF:Seq>
+
+
+	<RDF:Seq ID="urn:SendURI:root">
+		<RDF:li>
+			<RDF:Description about="urn:SendURI:sample1"
+				EXT:Name="&sendURI.sample1.label;"
+				EXT:Path="&sendURI.sample1.uri;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:SendURI:sample2"
+				EXT:Name="&sendURI.sample2.label;"
+				EXT:Path="&sendURI.sample2.uri;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:SendURI:sample3"
+				EXT:Name="&sendURI.sample3.label;"
+				EXT:Path="&sendURI.sample3.uri;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:SendURI:sample4"
+				EXT:Name="&sendURI.sample4.label;"
+				EXT:Path="&sendURI.sample4.uri;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:SendURI:sample5"
+				EXT:Name="&sendURI.sample5.label;"
+				EXT:Path="&sendURI.sample5.uri;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:SendURI:sample6"
+				EXT:Name="&sendURI.sample6.label;"
+				EXT:Path="&sendURI.sample6.uri;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:SendURI:sample7"
+				EXT:Name="&sendURI.sample7.label;"
+				EXT:Path="&sendURI.sample7.uri;"/>
+		</RDF:li>
+	</RDF:Seq>
+
+
+	<RDF:Seq ID="urn:SendStr:root">
+		<RDF:li>
+			<RDF:Description about="urn:SendStr:sample1"
+				EXT:Name="&sendStr.sample1.label;"
+				EXT:Path="&sendStr.sample1.uri;"
+				EXT:Charset="&sendStr.sample1.charset;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:SendStr:sample2"
+				EXT:Name="&sendStr.sample2.label;"
+				EXT:Path="&sendStr.sample2.uri;"
+				EXT:Charset="&sendStr.sample2.charset;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:SendStr:sample3"
+				EXT:Name="&sendStr.sample3.label;"
+				EXT:Path="&sendStr.sample3.uri;"
+				EXT:Charset="&sendStr.sample3.charset;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:SendStr:sample4"
+				EXT:Name="&sendStr.sample4.label;"
+				EXT:Path="&sendStr.sample4.uri;"
+				EXT:Charset="&sendStr.sample4.charset;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:SendStr:sample5"
+				EXT:Name="&sendStr.sample5.label;"
+				EXT:Path="&sendStr.sample5.uri;"
+				EXT:Charset="&sendStr.sample5.charset;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:SendStr:sample6"
+				EXT:Name="&sendStr.sample6.label;"
+				EXT:Path="&sendStr.sample6.uri;"
+				EXT:Charset="&sendStr.sample6.charset;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:SendStr:sample7"
+				EXT:Name="&sendStr.sample7.label;"
+				EXT:Path="&sendStr.sample7.uri;"
+				EXT:Charset="&sendStr.sample7.charset;"/>
+		</RDF:li>
+	</RDF:Seq>
+
+
+	<RDF:Seq ID="urn:ExecApps:root">
+		<RDF:li>
+			<RDF:Description about="urn:ExecApps:sample1"
+				EXT:Name="&execApps.sample1.label;"
+				EXT:Path="&execApps.sample1.value;"
+				EXT:Arguments="&execApps.sample1.arg;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:ExecApps:sample2"
+				EXT:Name="&execApps.sample2.label;"
+				EXT:Path="&execApps.sample2.value;"
+				EXT:Arguments="&execApps.sample2.arg;"/>
+		</RDF:li>
+	</RDF:Seq>
+
+
+	<RDF:Seq ID="urn:CustomScripts:root">
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample1"
+				EXT:Name="&customScripts.sample1.label;"/>
+		</RDF:li>
+		<!--RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample2"
+				EXT:Name="&customScripts.sample2.label;"/>
+		</RDF:li-->
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample3"
+				EXT:Name="&customScripts.sample3.label;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample4"
+				EXT:Name="&customScripts.sample4.label;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample22"
+				EXT:Name="&customScripts.sample22.label;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample5"
+				EXT:Name="&customScripts.sample5.label;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample6"
+				EXT:Name="&customScripts.sample6.label;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample7"
+				EXT:Name="&customScripts.sample7.label;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample8"
+				EXT:Name="&customScripts.sample8.label;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample9"
+				EXT:Name="&customScripts.sample9.label;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample10"
+				EXT:Name="&customScripts.sample10.label;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample11"
+				EXT:Name="&customScripts.sample11.label;"/>
+		</RDF:li>
+		<!--RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample12"
+				EXT:Name="&customScripts.sample12.label;"/>
+		</RDF:li-->
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample13"
+				EXT:Name="&customScripts.sample13.label;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample13-2"
+				EXT:Name="&customScripts.sample13-2.label;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample14"
+				EXT:Name="&customScripts.sample14.label;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample15"
+				EXT:Name="&customScripts.sample15.label;"
+				EXT:Automatically="true"
+				EXT:Hidden="true"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample16"
+				EXT:Name="&customScripts.sample16.label;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample17"
+				EXT:Name="&customScripts.sample17.label;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample18"
+				EXT:Name="&customScripts.sample18.label;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample19"
+				EXT:Name="&customScripts.sample19.label;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample20"
+				EXT:Name="&customScripts.sample20.label;"/>
+		</RDF:li>
+		<RDF:li>
+			<RDF:Description about="urn:CustomScripts:sample21"
+				EXT:Name="&customScripts.sample21.label;"/>
+		</RDF:li>
+	</RDF:Seq>
+
+
+</RDF:RDF>

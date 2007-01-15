@@ -1,0 +1,611 @@
+<!ENTITY common.import                     "Import...">
+<!ENTITY common.choose                     "Choose File...">
+<!ENTITY common.save                       "Save">
+<!ENTITY common.reload                     "Reload">
+<!ENTITY common.clear                      "Clear">
+<!ENTITY common.reset                      "Reset">
+<!ENTITY common.close                      "Close">
+<!ENTITY common.rename                     "Rename">
+<!ENTITY common.property                   "Property">
+<!ENTITY common.new                        "New Item">
+<!ENTITY common.remove                     "Delete">
+<!ENTITY common.arrowUp                    "&#9650; Up">
+<!ENTITY common.arrowDown                  "&#9660; Down">
+<!ENTITY common.moveUp                     "Move Up">
+<!ENTITY common.moveDown                   "Move Down">
+<!ENTITY common.undo                       "Undo">
+
+
+
+<!-- Generic Keyboard Shortcuts -->
+<!ENTITY accelKey.save                   "S">
+<!ENTITY accelKey.run                    "R">
+<!ENTITY accelKey.reload                 "R">
+<!ENTITY accelKey.exit                   "Q">
+<!ENTITY accelKey.close                  "W">
+<!ENTITY accelKey.edit                   "E">
+<!ENTITY accelKey.new                    "N">
+<!ENTITY accelKey.undo                   "Z">
+
+<!ENTITY accelKey.gotoNextHeading        "S">
+<!ENTITY accelKey.gotoPrevHeading        "W">
+<!ENTITY accelKey.getLinks               "J">
+<!ENTITY accelKey.focusNextByAlphabets   "A">
+<!ENTITY accelKey.focusPrevByAlphabets   "Q">
+<!ENTITY accelKey.showMenu.navigations   "N">
+<!ENTITY accelKey.showMenu.outline       "O">
+<!ENTITY accelKey.showMenu.customScripts "C">
+<!ENTITY accelKey.showMenu.styleSheets   "S">
+<!ENTITY accelKey.showMenu.execApps      "A">
+<!ENTITY accelKey.navigations.top        "T">
+<!ENTITY accelKey.navigations.up         "U">
+<!ENTITY accelKey.navigations.first      "F">
+<!ENTITY accelKey.navigations.prev       "P">
+<!ENTITY accelKey.navigations.next       "N">
+<!ENTITY accelKey.navigations.last       "L">
+<!ENTITY accelKey.navigations.toc        "C">
+<!ENTITY accelKey.navigations.chapter    "1">
+<!ENTITY accelKey.navigations.section    "2">
+<!ENTITY accelKey.navigations.subsection "3">
+<!ENTITY accelKey.navigations.appendix   "X">
+<!ENTITY accelKey.navigations.glossary   "G">
+<!ENTITY accelKey.navigations.index      "I">
+<!ENTITY accelKey.navigations.help       "?">
+<!ENTITY accelKey.navigations.search     "H">
+<!ENTITY accelKey.navigations.author     "&#64;"><!-- @ -->
+<!ENTITY accelKey.navigations.copyright  "R">
+<!ENTITY accelKey.navigations.bookmark   "B">
+<!ENTITY accelKey.navigations.alternate  "O">
+<!ENTITY accelKey.navigations.stylesheet "Y">
+
+
+
+
+<!-- Custom User Style Editor -->
+<!ENTITY customUserStyleEditor.title       "Custom User Style Editor">
+<!ENTITY customUserStyleEditor.caption     "Custom User Style for &quot;&#37;s&quot;">
+<!ENTITY customUserStyleEditor.dir.before  "Apply for">
+<!ENTITY customUserStyleEditor.dir.after   "">
+<!ENTITY customUserStyleEditor.reload      "Current directory">
+<!ENTITY customUserStyleEditor.import      "&common.import;">
+<!ENTITY customUserStyleEditor.save        "&common.save;">
+<!ENTITY customUserStyleEditor.clear       "&common.clear;">
+<!ENTITY customUserStyleEditor.close       "&common.close;">
+<!ENTITY customUserStyleEditor.manage      "Manage User Styles">
+
+
+
+<!-- StyleSheets Manager -->
+<!ENTITY styleSheetsManager.title          "StyleSheets Manager">
+<!ENTITY styleSheetsManager.import         "&common.import;">
+<!ENTITY styleSheetsManager.save           "&common.save;">
+<!ENTITY styleSheetsManager.reload         "&common.reload;">
+<!ENTITY styleSheetsManager.edit           "Edit">
+<!ENTITY styleSheetsManager.open           "Open">
+<!ENTITY styleSheetsManager.delete         "Delete">
+<!ENTITY styleSheetsManager.close          "&common.close;">
+<!ENTITY styleSheetsManager.clear          "&common.clear;">
+
+<!ENTITY styleSheetsManager.userContentCSS.title "Global UserStylesheet">
+
+<!ENTITY styleSheetsManager.userStyles.title "Custom User Styles">
+<!ENTITY styleSheetsManager.userStyles.path  "Target Directory">
+<!ENTITY styleSheetsManager.userStyles.value "User Style">
+
+<!ENTITY styleSheetsManager.selectedStyles.title "Selected Styles">
+<!ENTITY styleSheetsManager.selectedStyles.path  "Target Directory">
+<!ENTITY styleSheetsManager.selectedStyles.value "Selected Style">
+
+
+
+<!-- JavaScript Panel -->
+<!ENTITY JSPanel.title                     "JavaScript Panel">
+<!ENTITY JSPanel.tabsLabel                 "page&#37;s">
+<!ENTITY JSPanel.inport                    "&common.import;">
+<!ENTITY JSPanel.run                       "Run">
+<!ENTITY JSPanel.clear                     "&common.clear;">
+<!ENTITY JSPanel.close                     "&common.close;">
+
+
+
+<!-- Menu Labels -->
+<!ENTITY context.go.label                     "Go">
+<!ENTITY context.bookmarks.label              "Bookmarks">
+<!ENTITY context.up.label                     "Up">
+<!ENTITY context.up.accesskey                 "u">
+<!ENTITY context.openSelectionAsURI.label     "Open selection as URI">
+<!ENTITY context.openSelectionAsURI.label_select "Open &quot;&#37;s&quot; as URI">
+<!ENTITY context.openSelectionAsURI.accesskey "o">
+<!ENTITY context.nextHeading.label            "Go to Next Heading">
+<!ENTITY context.nextHeading.accesskey        "s">
+<!ENTITY context.prevHeading.label            "Go to Previous Heading">
+<!ENTITY context.prevHeading.accesskey        "w">
+<!ENTITY context.openCiteForQuote.label       "View Original Document of Quotation">
+<!ENTITY context.openCiteForQuote.accesskey   "q">
+<!ENTITY context.openCiteForEdit.label        "Show Explanation of Editing">
+<!ENTITY context.openCiteForEdit.accesskey    "e">
+<!ENTITY context.openLongdesc.label           "View Description of Image">
+<!ENTITY context.openLongdesc.accesskey       "d">
+<!ENTITY context.extensions.label             "Extensions">
+<!ENTITY context.extensions.accesskey         "x">
+<!ENTITY context.outline.label                "Outline of This Page">
+<!ENTITY context.outline.label_frame          "Outline of This Frame">
+<!ENTITY context.navigations.label            "Site Navigations">
+<!ENTITY context.navigations.label_frame      "Site Navigations of This Frame">
+<!ENTITY context.styleSheets.label            "StyleSheets">
+<!ENTITY context.JSPanel.label                "&JSPanel.title;">
+<!ENTITY context.getLinks.label               "Copy Links List">
+<!ENTITY context.getLinks.label_frame         "Copy Links List of This Frame">
+<!ENTITY context.getLinks.label_select        "Copy Selected Links List">
+<!ENTITY context.showComments.label           "Show Comments">
+<!ENTITY context.showLinks.label              "Show Link References">
+<!ENTITY context.showIDs.label                "Show IDs/NAMEs">
+<!ENTITY context.showCites.label              "Show Cited from">
+<!ENTITY context.showTitles.label             "Show Descriptions">
+<!ENTITY context.showEvents.label             "Show Events">
+<!ENTITY context.showAll.label                "Show Any Invisible Data">
+<!ENTITY context.sendURI.label                "Send This Page to">
+<!ENTITY context.sendURI.label_frame          "Send This Frame to">
+<!ENTITY context.sendURI.label_link           "Send Link to">
+<!ENTITY context.sendStr.label                "Send selection to">
+<!ENTITY context.sendStr.label_select         "Send &quot;&#37;s&quot; to">
+<!ENTITY context.customScripts.label          "Custom Scripts">
+<!ENTITY context.execApps.label               "Open with Applications">
+<!ENTITY context.execApps.label_frame         "Open This Frame with Applications">
+<!ENTITY context.execApps.label_link          "Open Link with Applications">
+<!ENTITY context.pref.label                   "Preferences">
+
+
+<!ENTITY menu.up.label                     "&context.up.label;">
+<!ENTITY menu.up.accesskey                 "&context.up.accesskey;">
+<!ENTITY menu.openSelectionAsURI.label     "&context.openSelectionAsURI.label;">
+<!ENTITY menu.openSelectionAsURI.label_select "&context.openSelectionAsURI.label_select;">
+<!ENTITY menu.openSelectionAsURI.accesskey "&context.openSelectionAsURI.accesskey;">
+<!ENTITY menu.nextHeading.label            "&context.nextHeading.label;">
+<!ENTITY menu.nextHeading.accesskey        "&context.nextHeading.accesskey;">
+<!ENTITY menu.prevHeading.label            "&context.prevHeading.label;">
+<!ENTITY menu.prevHeading.accesskey        "&context.prevHeading.accesskey;">
+<!ENTITY menu.openCiteForQuote.label       "&context.openCiteForQuote.label;">
+<!ENTITY menu.openCiteForQuote.accesskey   "&context.openCiteForQuote.accesskey;">
+<!ENTITY menu.openCiteForEdit.label        "&context.openCiteForEdit.label;">
+<!ENTITY menu.openCiteForEdit.accesskey    "&context.openCiteForEdit.accesskey;">
+<!ENTITY menu.openLongdesc.label           "&context.openLongdesc.label;">
+<!ENTITY menu.openLongdesc.accesskey       "&context.openLongdesc.accesskey;">
+<!ENTITY menu.extensions.label             "&context.extensions.label;">
+<!ENTITY menu.extensions.accesskey         "&context.extensions.accesskey;">
+<!ENTITY menu.outline.label                "Outline">
+<!ENTITY menu.outline.label_frame          "Outline of Current Frame">
+<!ENTITY menu.outline.accesskey            "O">
+<!ENTITY menu.navigations.label            "&context.navigations.label;">
+<!ENTITY menu.navigations.label_frame      "Site Navigations of Current Frame">
+<!ENTITY menu.navigations.label_short      "Navigations">
+<!ENTITY menu.navigations.accesskey        "N">
+<!ENTITY menu.styleSheets.label            "&context.styleSheets.label;">
+<!ENTITY menu.styleSheets.accesskey        "S">
+<!ENTITY menu.JSPanel.label                "&JSPanel.title;">
+<!ENTITY menu.getLinks.label               "&context.getLinks.label;">
+<!ENTITY menu.getLinks.label_frame         "&context.getLinks.label_frame;">
+<!ENTITY menu.getLinks.label_select        "&context.getLinks.label_select;">
+<!ENTITY menu.showComments.label           "&context.showComments.label;">
+<!ENTITY menu.showLinks.label              "&context.showLinks.label;">
+<!ENTITY menu.showIDs.label                "&context.showIDs.label;">
+<!ENTITY menu.showCites.label              "&context.showCites.label;">
+<!ENTITY menu.showTitles.label             "&context.showTitles.label;">
+<!ENTITY menu.showEvents.label             "&context.showEvents.label;">
+<!ENTITY menu.showAll.label                "&context.showAll.label;">
+<!ENTITY menu.sendURI.label                "&context.sendURI.label;">
+<!ENTITY menu.sendURI.label_frame          "Send Current Frame to">
+<!ENTITY menu.sendStr.label                "&context.sendStr.label;">
+<!ENTITY menu.sendStr.label_select         "&context.sendStr.label_select;">
+<!ENTITY menu.customScripts.label          "&context.customScripts.label;">
+<!ENTITY menu.customScripts.label_short    "Scripts">
+<!ENTITY menu.customScripts.accesskey      "C">
+<!ENTITY menu.execApps.label               "&context.execApps.label;">
+<!ENTITY menu.execApps.label_short         "Applications">
+<!ENTITY menu.execApps.label_frame         "Open Current Frame with Applications">
+<!ENTITY menu.execApps.accesskey           "A">
+<!ENTITY menu.pref.label                   "&context.pref.label;">
+
+
+<!ENTITY menu.styleSheetsManager.label     "&styleSheetsManager.title;">
+<!ENTITY menu.customUserStyleEditor.label  "&customUserStyleEditor.title;">
+<!ENTITY menu.customUserStyleEditor.label_site "Edit Custom User Style for &quot;&#37;s&quot;">
+
+<!ENTITY styleSheets.noStyle.label         "No Style">
+<!ENTITY styleSheets.onlyPermanence.label  "Basic Page Style">
+<!ENTITY styleSheets.sources.label         "Sources">
+
+<!ENTITY styleSheets.editUserContentCSS.label "Edit Global User StyleSheet">
+
+<!ENTITY styleSheets.cancelPhysical.label  "Cancel Physical Styles">
+<!ENTITY styleSheets.cancelPhysical.rules  "&#64;import url(chrome://ctxextensions/content/res/CancelPhysical.css);">
+<!ENTITY styleSheets.showElements.label    "Show Elements Model (XHTML1.1)">
+<!ENTITY styleSheets.showElements.rules    "&#64;import url(chrome://ctxextensions/content/res/ShowElements-xhtml11.css);">
+
+
+
+
+<!-- Preferences -->
+<!ENTITY preftree.about.label              "ContextMenu Extensions">
+<!ENTITY preftree.general.label            "General(1)">
+<!ENTITY preftree.general2.label           "General(2)">
+<!ENTITY preftree.contextmenu.label        "Context Menu">
+<!ENTITY preftree.menubar.label            "Menubar">
+<!ENTITY preftree.navigations.label        "Site Navigations">
+<!ENTITY preftree.override.label           "Use External Apps">
+<!ENTITY preftree.styleSheets.label        "StyleSheets">
+<!ENTITY preftree.sendURI.label            "Send Page To">
+<!ENTITY preftree.sendStr.label            "Send Selection To">
+<!ENTITY preftree.execApps.label           "Applications">
+<!ENTITY preftree.customScripts.label      "Custom Scripts">
+
+<!ENTITY pref.saveSample                   "Add as New Item">
+
+<!ENTITY pref.listbox.samples.label        "Sample:">
+<!ENTITY pref.listbox.samples.default      "(Select)">
+<!ENTITY pref.listbox.samples.go           "Load this sample">
+<!ENTITY pref.listbox.newItem.message      "Please wait...">
+
+<!ENTITY prefDialog.title                  "Preferences of ContextMenu Extensions">
+<!ENTITY prefDialog.category               "Category">
+<!ENTITY prefDialog.size                   "width: 52em; height: 41em;">
+<!ENTITY prefDialog.apply                  "Apply">
+
+
+
+<!ENTITY about.datasource.caption          "Datafile">
+<!ENTITY about.datasource.import           "Import from Other Datafiles">
+<!ENTITY about.datasource.label            "Use External Datafile:">
+<!ENTITY about.datasource.choose           "&common.choose;">
+
+<!ENTITY about.expert.caption              "Expert Preferences">
+<!ENTITY about.expert.label                "Use Expert Preferences">
+
+<!ENTITY about.about.caption               "About ContextMenu Extensions">
+<!ENTITY about.about.label_before          "ContextMenu Extensions Ver.">
+<!ENTITY about.about.label_after           "">
+
+<!ENTITY importRDFData.message             "Please wait...">
+
+
+
+
+<!ENTITY contextmenu.caption               "Context Menu Items">
+<!ENTITY contextmenu.show.label            "Show">
+<!ENTITY contextmenu.submenu.label         "Submenu">
+
+
+
+<!ENTITY menubar.caption                   "Menubar Items">
+<!ENTITY menubar.submenu.label             "Submenu">
+
+
+
+<!ENTITY general.showResultIn.caption        "Open Result in">
+<!ENTITY general.showResultIn.current        "Current Tab">
+<!ENTITY general.showResultIn.newtab         "New Tab">
+<!ENTITY general.showResultIn.newbgtab       "New Background Tab">
+<!ENTITY general.showResultIn.newwindow      "New Window">
+<!ENTITY general.showResultIn.forceNewWindowOrTab "Open New Window/Tab for internal links in the page.">
+
+<!ENTITY general.keys.caption              "Keyboard Shortcuts">
+<!ENTITY general.keys.goHeadings           "Assign &quot;&accelKey.gotoNextHeading;&quot;/&quot;&accelKey.gotoPrevHeading;&quot; to &quot;&menu.nextHeading.label;&quot;/&quot;&menu.prevHeading.label;&quot;">
+<!ENTITY general.keys.advanceFocus_alphabet "Focus Next link with &quot;&accelKey.focusNextByAlphabets;&quot; or Prev link with &quot;&accelKey.focusPrevByAlphabets;&quot;">
+<!ENTITY general.keys.advanceFocus_arrow   "Focus Next Link with &quot;Ctrl+Down&quot; or Prev link with &quot;Ctrl+Up&quot;">
+<!ENTITY general.keys.advanceFocus_arrow.mac "Focus Next Link with &quot;Command+Down&quot; or Prev link with &quot;Command+Up&quot;">
+<!ENTITY general.keys.getLinks             "Assign &quot;Ctrl+&accelKey.getLinks;&quot; to &quot;&menu.getLinks.label;&quot;">
+<!ENTITY general.keys.getLinks.mac         "Assign &quot;Command+&accelKey.getLinks;&quot; to &quot;&menu.getLinks.label;&quot;">
+<!ENTITY general.keys.up                   "Assign &quot;Alt+Back Space&quot; to &quot;&menu.up.label;&quot;">
+
+<!ENTITY general.misc.caption              "Misc">
+<!ENTITY general.autoexec.caption          "Do Automatically when pages are loaded">
+<!ENTITY general.showAll.caption           "Do in &quot;&menu.showAll.label;&quot;">
+
+<!ENTITY general.outline.caption           "Outline of Pages">
+<!ENTITY general.outline.scan_in_background "Update outline automatically when pages are loaded">
+
+<!ENTITY general.style.caption             "Style of Elements">
+<!ENTITY general.style.group               "Style of Generated Elements by">
+<!ENTITY general.style.showEvents.label    "&menu.showEvents.label;: Name of Events">
+<!ENTITY general.style.showEvents.value    "&menu.showEvents.label;: Contents">
+<!ENTITY general.style.default             "Default Style">
+
+
+<!ENTITY general.general2.caption          "Advanced Behavior">
+<!ENTITY general.getLinks_collectOnClick.label "Find URIs from onclick events too, with &quot;&menu.getLinks.label;&quot;">
+
+<!ENTITY general.JSPanel.pageNum.label_before "Number of pages for scripts:">
+<!ENTITY general.JSPanel.pageNum.label_after "">
+
+
+
+<!ENTITY navigations.scan_in_background    "Scan navigations automatically when pages are loaded">
+<!ENTITY navigations.shortcut              "Use keyboard shortcuts for navigations">
+<!ENTITY navigations.collectLinks          "Collect links which has navigation info">
+<!ENTITY navigations.advanced              "Use conjectured navigations from links">
+<!ENTITY navigations.regexp.caption        "Regard links matching following regular expressions as navigations">
+<!ENTITY navigations.regexp.default        "Default RegExps">
+
+<!ENTITY navigations.regexp.next           "Next Page:">
+<!ENTITY navigations.regexp.prev           "Previous Page:">
+<!ENTITY navigations.regexp.home           "Home:">
+<!ENTITY navigations.regexp.contents       "Contents:">
+<!ENTITY navigations.regexp.index          "Index:">
+<!ENTITY navigations.regexp.glossary       "Glossary:">
+<!ENTITY navigations.regexp.copyright      "Copyright:">
+<!ENTITY navigations.regexp.appendix       "Appendix:">
+<!ENTITY navigations.regexp.help           "Help:">
+<!ENTITY navigations.regexp.search         "Search:">
+
+
+
+<!ENTITY override.tab.viewerAndEditor      "Viewer &amp; Editor">
+
+<!ENTITY override.viewer.caption           "Viewer for &quot;View Source&quot;">
+<!ENTITY override.viewer.path              "Path:">
+<!ENTITY override.viewer.filePicker        "&common.choose;">
+<!ENTITY override.viewer.arguments         "Additional Options(*):">
+
+<!ENTITY override.CSSEditor.caption        "Editor for the Global User StyleSheet(userContent.css)">
+<!ENTITY override.CSSEditor.path           "Path:">
+<!ENTITY override.CSSEditor.filePicker     "&common.choose;">
+<!ENTITY override.CSSEditor.arguments      "Additional Options(*):">
+
+<!ENTITY override.description              "*Additional options are handed to the application after the URI or the file path. Write &quot;&#37;S&quot; to the desirable place to hand it if you want to change their order.">
+
+
+<!ENTITY override.tab.mailer               "Mailer">
+
+<!ENTITY override.mailer.caption           "Mailer">
+<!ENTITY override.mailer.system            "Use default mailer of the system">
+<!ENTITY override.mailer.webmail           "Use Web Mail Service">
+<!ENTITY override.mailer.webmail_path      "Path(*):">
+<!ENTITY override.mailer.webmail_usetab    "Open the page in New Tab">
+<!ENTITY override.mailer.path              "Path:">
+<!ENTITY override.mailer.filePicker        "&common.choose;">
+<!ENTITY override.mailer.arguments         "Additional Options(*):">
+<!ENTITY override.mailer.charset           "Character Coding of parameters:">
+
+<!ENTITY override.mailer.description       "*Additional options are handed to the application after the e-mail address(es). Write signs to the desirable places to hand them if you want to change their order or use other parameters, following:">
+<!ENTITY override.mailer.description.to      "&#37;to      : e-mail address(es)">
+<!ENTITY override.mailer.description.subject "&#37;subject : subject">
+<!ENTITY override.mailer.description.cc      "&#37;cc      : carbon copy(s)">
+<!ENTITY override.mailer.description.bcc     "&#37;bcc     : blind carbon copy(s)">
+<!ENTITY override.mailer.description.body    "&#37;body    : body of the mail">
+
+
+
+<!ENTITY styleSheets.description           "These items are shown in the bottom of the menu &quot;&menu.styleSheets.label;&quot;.">
+<!ENTITY styleSheets.caption               "User-Defined StyleSheets">
+
+
+
+<!ENTITY sendURI.description               "These items are shown in the menu &quot;&menu.sendURI.label;&quot;.">
+<!ENTITY sendURI.caption                   "Launched Web Services">
+
+<!ENTITY sendURI.sample1.label             "Validate by Another HTML-lint">
+<!ENTITY sendURI.sample1.uri               "http://openlab.ring.gr.jp/k16/htmllint/htmllint.cgi?Method=URL&amp;ViewSource=on&amp;HTTPHeader=on&amp;URL=&#37;s">
+<!ENTITY sendURI.sample2.label             "Validate by W3C HTML Validator">
+<!ENTITY sendURI.sample2.uri               "http://validator.w3.org/check?charset=&#37;28detect+automatically&#37;29&amp;doctype=Inline&amp;ss=&amp;sp=&amp;outline=&amp;uri=&#37;s">
+<!ENTITY sendURI.sample3.label             "Validate by WDG HTML Validator">
+<!ENTITY sendURI.sample3.uri               "http://www.htmlhelp.com/cgi-bin/validate.cgi?warnings=yes&amp;input=yes&amp;url=&#37;s">
+<!ENTITY sendURI.sample4.label             "Validate by WDG HTML Validator (follow links)">
+<!ENTITY sendURI.sample4.uri               "http://www.htmlhelp.com/cgi-bin/validate.cgi?warnings=yes&amp;spider=yes&amp;url=&#37;s">
+<!ENTITY sendURI.sample5.label             "Open Google's cache">
+<!ENTITY sendURI.sample5.uri               "http://www.google.com/search?q=cache:&#37;s">
+<!ENTITY sendURI.sample6.label             "Find Internet Archive">
+<!ENTITY sendURI.sample6.uri               "http://web.archive.org/web/*/&#37;s">
+<!ENTITY sendURI.sample7.label             "infoseek Translation: English to Japanese">
+<!ENTITY sendURI.sample7.uri               "http://www.infoseek.co.jp/Honyaku?wto=EJ&amp;pg=honyaku_w_out.html&amp;webin=&#37;s">
+
+
+
+<!ENTITY sendStr.description               "These items are shown in the menu &quot;&menu.sendStr.label;&quot;.">
+<!ENTITY sendStr.caption                   "Launched Web Services">
+
+<!ENTITY sendStr.sample1.label             "Search by Google">
+<!ENTITY sendStr.sample1.uri               "http://www.google.com/search?hl=ja&amp;ie=utf8&amp;oe=utf8&amp;q=&#37;s">
+<!ENTITY sendStr.sample1.charset           "">
+<!ENTITY sendStr.sample2.label             "Search by English Dic.(Dictionary.com)">
+<!ENTITY sendStr.sample2.uri               "http://www.dictionary.com/cgi-bin/dict.pl?term=&#37;s">
+<!ENTITY sendStr.sample2.charset           "">
+<!ENTITY sendStr.sample3.label             "Search by Japanese Dic.(goo)">
+<!ENTITY sendStr.sample3.uri               "http://dictionary.goo.ne.jp/cgi-bin/dict_search.cgi?sw=2&amp;MT=&#37;s">
+<!ENTITY sendStr.sample3.charset           "ISO-2022-JP">
+<!ENTITY sendStr.sample4.label             "Search by IT Words(jp)">
+<!ENTITY sendStr.sample4.uri               "http://www.wdic.org/?do=m&amp;mode=match&amp;word=&#37;s">
+<!ENTITY sendStr.sample4.charset           "ISO-2022-JP">
+<!ENTITY sendStr.sample5.label             "Search by Acronym Finder">
+<!ENTITY sendStr.sample5.uri               "http://www.acronymfinder.com/af-query.asp?String=exact&amp;Find=Find&amp;Acronym=&#37;s">
+<!ENTITY sendStr.sample5.charset           "">
+<!ENTITY sendStr.sample6.label             "Search by Mozilla Cross-Reference:Text Search">
+<!ENTITY sendStr.sample6.uri               "http://lxr.mozilla.org/mozilla/search?string=&#37;s">
+<!ENTITY sendStr.sample6.charset           "">
+<!ENTITY sendStr.sample7.label             "Search by Mozilla Cross-Reference:File Search">
+<!ENTITY sendStr.sample7.uri               "http://lxr.mozilla.org/mozilla/find?string=&#37;s">
+<!ENTITY sendStr.sample7.charset           "">
+
+
+
+<!ENTITY execApps.description              "These items are shown in the menu &quot;&menu.execApps.label;&quot;.">
+<!ENTITY execApps.caption                  "Launched Applications">
+
+<!ENTITY execApps.sample1.label            "InternetExplorer">
+<!ENTITY execApps.sample1.value            "C:\Program Files\Internet Explorer\Iexplore.exe">
+<!ENTITY execApps.sample1.arg              "&#37;S">
+<!ENTITY execApps.sample2.label            "Hidemaru Editor(Viewer Mode)">
+<!ENTITY execApps.sample2.value            "C:\Program Files\hidemaru\hidemaru.exe">
+<!ENTITY execApps.sample2.arg              "/b &#37;S">
+
+
+
+<!ENTITY customScripts.description         "These items are shown in the menu &quot;&menu.customScripts.label;&quot;.">
+<!ENTITY customScripts.caption             "User-Defined Scripts">
+
+<!ENTITY customScripts.sample1.label       "Create Link to the Current Page">
+<!ENTITY customScripts.sample2.label       "Quote Selection">
+<!ENTITY customScripts.sample3.label       "Quote Selection as HTML">
+<!ENTITY customScripts.sample4.label       "Create Outline List">
+<!ENTITY customScripts.sample5.label       "Escape strings to Unicode for JavaScript">
+<!ENTITY customScripts.sample6.label       "Escape strings for CSS">
+<!ENTITY customScripts.sample7.label       "Convert strings to XML numeric character references (in decimal)">
+<!ENTITY customScripts.sample8.label       "Convert strings to XML numeric character references (in hexadecimal)">
+<!ENTITY customScripts.sample9.label       "Show Content of NOFRAMES">
+<!ENTITY customScripts.sample10.label      "Get Properties List of JS Object">
+<!ENTITY customScripts.sample11.label      "Get Properties List of JS Object(2)">
+<!ENTITY customScripts.sample12.label      "Hide Element">
+<!ENTITY customScripts.sample13.label      "Create Download List for Iria">
+<!ENTITY customScripts.sample13-2.label    "Download all of specified files at once">
+<!ENTITY customScripts.sample14.label      "Uninstall Package">
+<!ENTITY customScripts.sample15.label      "Resize images automatically (MSIE6 compatible)">
+<!ENTITY customScripts.sample16.label      "Add Page to Sidebar">
+<!ENTITY customScripts.sample17.label      "Add Page to Sidebar(2)">
+<!ENTITY customScripts.sample18.label      "Custom Scripts Launcher">
+<!ENTITY customScripts.sample19.label      "Toggle XUL Cache">
+<!ENTITY customScripts.sample20.label      "Remove Duplicated Emtries from installed-chrome.txt">
+<!ENTITY customScripts.sample21.label      "Find and Highlight Links which refers to the inputted site">
+<!ENTITY customScripts.sample22.label      "Encode a text file to UTF-8">
+
+
+
+
+<!-- PrefProp -->
+<!ENTITY PrefProp.title                    "Property">
+<!ENTITY PrefProp.title_for                "Property of &#37;s">
+<!ENTITY PrefProp.import                   "&common.import;">
+<!ENTITY PrefProp.clear                    "&common.clear;">
+<!ENTITY PrefProp.reset                    "&common.reset;">
+<!ENTITY PrefProp.run                      "Test Run">
+
+<!ENTITY PrefProp.tab.main                 "Info">
+<!ENTITY PrefProp.tab.options              "Options">
+
+<!ENTITY PrefProp.application.path         "Path:">
+<!ENTITY PrefProp.application.arguments    "Options(*):">
+<!ENTITY PrefProp.application.choose       "&common.choose;">
+<!ENTITY PrefProp.application.description  "*Write &quot;&#37;S&quot; to the desirable place to hand URIs (or file paths), or &quot;&#37;C&quot; for selected texts.">
+
+<!ENTITY PrefProp.webService.path          "Path(*):">
+<!ENTITY PrefProp.webService.useCurrent    "Current Page">
+<!ENTITY PrefProp.webService.forURI        "*Write &quot;&#37;S&quot; to the desirable place to hand URIs (or file paths).">
+<!ENTITY PrefProp.webService.forSelection  "*Write &quot;&#37;S&quot; to the desirable place to hand selected texts.">
+
+<!ENTITY PrefProp.checkbox.cancelStyles    "Cancel all styles before applying this style">
+<!ENTITY PrefProp.checkbox.defaultSelected "Apply this style always">
+<!ENTITY PrefProp.checkbox.download        "Hand temporary local files instead of remote resources">
+<!ENTITY PrefProp.checkbox.autoExec        "Execute automatically when pages are loaded">
+<!ENTITY PrefProp.checkbox.autoExecStartup "Execute automatically when Navigator starts up">
+<!ENTITY PrefProp.checkbox.hiddenInMenu    "Hide in menus">
+
+<!ENTITY PrefProp.checkbox.newContextItem  "Append to the context menu">
+<!ENTITY PrefProp.checkbox.contextShowNormal "Normally">
+<!ENTITY PrefProp.checkbox.contextShowLink   "on Links">
+<!ENTITY PrefProp.checkbox.contextShowSelect "with Selection">
+
+<!ENTITY PrefProp.charset.label            "Character Coding of handed texts:">
+
+<!ENTITY PrefProp.openIn.label             "Open results in:">
+<!ENTITY PrefProp.openIn.current           "Current Tab">
+<!ENTITY PrefProp.openIn.newTab            "New Tab">
+<!ENTITY PrefProp.openIn.newBackgroundTab  "New Background Tab">
+<!ENTITY PrefProp.openIn.newWindow         "New Window">
+
+<!ENTITY PrefProp.shortcut.label           "Keyboard Shortcut:">
+<!ENTITY PrefProp.shortcut.set             "Set">
+<!ENTITY PrefProp.shortcut.clear           "&common.clear;">
+
+
+
+
+<!ENTITY shortExpressions.label            "Short Expressions:">
+<!ENTITY shortExpressions.insert           "Insert">
+<!ENTITY shortExpressions.default          "(Select)">
+
+<!ENTITY shortExpressions.window           "&quot;window&quot; object of the current page">
+<!ENTITY shortExpressions.navigations      "navigation items in the current page">
+<!ENTITY shortExpressions.headings         "headings in the current page">
+<!ENTITY shortExpressions.contextual       "location of the link, or the location of the page">
+<!ENTITY shortExpressions.focusedElement   "The focused element node">
+<!ENTITY shortExpressions.popupNode        "The node context menu was popped up">
+<!ENTITY shortExpressions.selection        "Selected Text">
+<!ENTITY shortExpressions.selectionSource  "Selected Source">
+<!ENTITY shortExpressions.selectionNodes   "Selected Nodes in the selection">
+
+<!ENTITY shortExpressions.profileURI       "URI of the current profile directory">
+<!ENTITY shortExpressions.profilePath      "Localized path of the current profile directory">
+<!ENTITY shortExpressions.installedURI     "URI of the directory Mozilla/Netscape is installed in">
+<!ENTITY shortExpressions.installedPath    "Localized path of the directory Mozilla/Netscape is installed in">
+<!ENTITY shortExpressions.temporaryURI     "URI of the directory temporary files are put in">
+<!ENTITY shortExpressions.temporaryPath    "Localized path of the directory temporary files are put in">
+<!ENTITY shortExpressions.homeURI          "URI of the home directory (like desktop)">
+<!ENTITY shortExpressions.homePath         "Localized path of the home directory (like desktop)">
+
+<!ENTITY shortExpressions.isOnline         "Is the browser online?">
+<!ENTITY shortExpressions.inFrame          "Is the page a frame?">
+<!ENTITY shortExpressions.menuMethods      "Features">
+<!ENTITY shortExpressions.getTopWindowOf   "Get a XUL window which has the specified window type">
+<!ENTITY shortExpressions.getWindowsOf     "Get all of XUL windows which have the specified window type">
+<!ENTITY shortExpressions.load             "Load URIs">
+<!ENTITY shortExpressions.newWindow        "Open new window">
+<!ENTITY shortExpressions.newTab           "Open new tab">
+<!ENTITY shortExpressions.loadAndDo        "Load URIs and execute functions">
+<!ENTITY shortExpressions.newWindowAndDo   "Open new window and execute functions">
+<!ENTITY shortExpressions.newTabAndDo      "Open new tab and execute functions">
+<!ENTITY shortExpressions.selectButton     "Select from Buttons">
+<!ENTITY shortExpressions.selectButtonTitle "Select from Buttons (with title)">
+<!ENTITY shortExpressions.selectList       "Select from a List">
+<!ENTITY shortExpressions.selectListTitle  "Select from a List (with title)">
+<!ENTITY shortExpressions.getClipBoard     "Get string from the clipboard">
+<!ENTITY shortExpressions.setClipBoard     "Copy string to the clipboard">
+<!ENTITY shortExpressions.getInnerText     "Get and return texts in the element">
+<!ENTITY shortExpressions.convCharset1     "Convert charset A to B">
+<!ENTITY shortExpressions.convCharset2     "Convert Unicode string to other charset">
+<!ENTITY shortExpressions.addStyleSheet    "Append New StyleSheet">
+<!ENTITY shortExpressions.run              "Run external applications">
+<!ENTITY shortExpressions.menuIO           "Input and Output Files">
+<!ENTITY shortExpressions.include          "Load an external JavaScript file">
+<!ENTITY shortExpressions.read             "Read and return content of a text file">
+<!ENTITY shortExpressions.write            "Save string to a textfile">
+<!ENTITY shortExpressions.saveURIAs        "Download a remote resource as a file">
+<!ENTITY shortExpressions.saveURIInBackgroundAs "Download a remote resource as a file in the background">
+<!ENTITY shortExpressions.chooseFile       "Choose a file with the common dialog">
+<!ENTITY shortExpressions.chooseFileToSave "Choose a file should be saved, with the common dialog">
+
+<!ENTITY shortExpressions.menuExt          "Extensions">
+<!ENTITY shortExpressions.cancelStyles     "Cancel all stylesheets">
+<!ENTITY shortExpressions.switchStyleTo    "Switch to the specified style">
+<!ENTITY shortExpressions.openStyleSheetSource "Open source of the specified sytlesheet">
+<!ENTITY shortExpressions.addOptionalStyleSheet "Enable the specified optional stylesheet">
+<!ENTITY shortExpressions.removeOptionalStyleSheet "Disable the specified optional stylesheet">
+<!ENTITY shortExpressions.sendURITo        "Send an URI to the specified receiver">
+<!ENTITY shortExpressions.sendStrTo        "Send a string to the specified receiver">
+<!ENTITY shortExpressions.openWithApp      "Open an URI and a string with the specified application">
+<!ENTITY shortExpressions.customScript     "Execute the specified custom script">
+<!ENTITY shortExpressions.getLinksWithNode "Collect an array of links in the page">
+
+<!ENTITY shortExpressions.menuPrefs        "Read/Write the preference">
+<!ENTITY shortExpressions.getPref          "Read the preference">
+<!ENTITY shortExpressions.setPref          "Save the preference">
+<!ENTITY shortExpressions.clearPref        "Clear the preference">
+
+
+
+
+
+<!ENTITY initial.desc     "Choose the default setting of CME.">
+<!ENTITY initial.note     "*This choice changes just the default settings. You can change behaviors by the configuration dialog, like &quot;Normal Settings&quot; even if you choose &quot;Light Settings.&quot;">
+<!ENTITY initial.normal      "Normal Settings:">
+<!ENTITY initial.normal.desc "All of recommended features are enabled.">
+<!ENTITY initial.light       "Light Settings:">
+<!ENTITY initial.light.desc  "Some features are disabled but browser works fast.">
+
+
+
+
+
+<!-- for Firefox 0.9 or later -->
+<!ENTITY useStyleSheetMenu.label     "Use Style">
+<!ENTITY useStyleSheetMenu.accesskey "U">
+<!ENTITY bookmarksMenu.label         "Bookmarks">
+<!ENTITY emptyItem.label             "(empty)">
+<!ENTITY goMenu.label                "Go">

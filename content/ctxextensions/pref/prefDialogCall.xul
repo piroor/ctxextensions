@@ -1,0 +1,17 @@
+<?xml version="1.0"?> 
+<window
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<script type="application/x-javascript"><![CDATA[
+
+window.opener.openDialog(
+	'chrome://ctxextensions/content/pref/prefDialog.xul',
+	'',
+	'chrome,all,dependent'
+);
+
+window.setTimeout(function() { window.close(); }, 0);
+
+]]></script>
+
+</window>

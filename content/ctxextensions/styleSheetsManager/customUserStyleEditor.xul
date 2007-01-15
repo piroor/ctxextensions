@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://ctxextensions/content/res/dialog.css" type="text/css"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://ctxextensions/locale/">
+
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+		xmlns:html="http://www.w3.org/1999/xhtml"
+		id="customUserStyle-editor-window"
+		windowtype="ctxextensions:customUserStyleEditor"
+		title="&customUserStyleEditor.title;"
+		orient="vertical"
+		onload="CustomUserStyleEditorService.init();"
+		ondragdrop="nsDragAndDrop.drop(event, gCustomUserStyleEditorDNDObserver);"
+		ondragover="nsDragAndDrop.dragOver(event, gCustomUserStyleEditorDNDObserver);"
+		persist="screenX screenY width height"
+		buttons="extra1,extra2"
+		ondialogextra1="ExtCommonUtils.goStyleSheetsManager(1);"
+		ondialogextra2="window.close();">
+
+	<data id="extra1-label" label="&customUserStyleEditor.manage;"/>
+	<data id="extra2-label" label="&customUserStyleEditor.close;"/>
+
+
+	<script src="chrome://global/content/nsDragAndDrop.js"/>
+	<script src="chrome://global/content/nsTransferable.js"/>
+	<script src="chrome://global/content/nsJSSupportsUtils.js"/>
+	<script src="chrome://global/content/nsJSComponentManager.js"/>
+
+	<script type="application/x-javascript" src="chrome://ctxextensions/content/pRDFData.js"/>
+	<script type="application/x-javascript" src="chrome://ctxextensions/content/extCommonUtils.js"/>
+
+	<script type="application/x-javascript" src="customUserStyleEditor.js"/>
+
+	<keyset>
+		<key key="&accelKey.save;" modifiers="accel" oncommand="CustomUserStyleEditorService.saveRules();"/>
+		<key key="&accelKey.reload;" modifiers="accel" oncommand="CustomUserStyleEditorService.reload(true);"/>
+		<key key="&accelKey.exit;" modifiers="accel" oncommand="window.close();"/>
+		<key key="&accelKey.close;" modifiers="accel" oncommand="window.close();"/>
+	</keyset>
+
+	<groupbox orient="vertical" flex="1">
+		<caption id="title"
+			label="&customUserStyleEditor.caption;"
+			label-for-site="&customUserStyleEditor.caption;"/>
+		<box orient="vertical">
+			<box orient="horizontal">
+				<label control="targetDir"
+					value="&customUserStyleEditor.dir.before;"/>
+				<menulist id="targetDir"
+					flex="1"
+					editable="true"
+					oncommand="CustomUserStyleEditorService.restoreRules();">
+					<menupopup/>
+				</menulist>
+				<label control="targetDir"
+					value="&customUserStyleEditor.dir.after;"/>
+				<data id="targetDirReload"
+					label="&customUserStyleEditor.reload;"
+					style="border-top: thin solid !important;"
+					oncommand="CustomUserStyleEditorService.reload(true); event.stopPropagation();"/>
+			</box>
+		</box>
+		<box orient="vertical" flex="1">
+			<textbox id="rules"
+				value=""
+				multiline="true"
+				style="min-height: 12em; min-width: 20em;"
+				flex="1"/>
+		</box>
+		<box orient="horizontal">
+			<button label="&customUserStyleEditor.import;"
+				oncommand="CustomUserStyleEditorService.importRules();"/>
+			<button label="&customUserStyleEditor.clear;"
+				oncommand="CustomUserStyleEditorService.clearRules();"/>
+			<spacer flex="1"/>
+			<button label="&customUserStyleEditor.save;"
+				oncommand="CustomUserStyleEditorService.saveRules();"/>
+		</box>
+	</groupbox>
+
+</dialog>

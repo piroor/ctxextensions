@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://tabextensions/locale/">
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<treechildren id="panelChildren">
+	<treeitem container="true" id="tabextensions-root">
+		<treerow>
+			<treecell label="&tabextensions.label;"
+				url="chrome://tabextensions/content/pref/pref-tabs.xul"/> 
+		</treerow>
+		<treechildren id="appearanceChildren">
+			<treeitem>
+				<treerow>
+					<treecell label="&tabPref.advanced.title;"
+						url="chrome://tabextensions/content/pref/pref-tabsAdvanced.xul"/> 
+				</treerow>
+			</treeitem>
+			<treeitem>
+				<treerow>
+					<treecell label="&tabPref.startup.title;"
+						url="chrome://tabextensions/content/pref/pref-tabsStartup.xul"/> 
+				</treerow>
+			</treeitem>
+			<treeitem>
+				<treerow>
+					<treecell label="&tabPref.tabbar.title;"
+						url="chrome://tabextensions/content/pref/pref-tabsTabbar.xul"/> 
+				</treerow>
+			</treeitem>
+			<treeitem>
+				<treerow>
+					<treecell label="&tabPref.tabs.title;"
+						url="chrome://tabextensions/content/pref/pref-tabsTabs.xul"/> 
+				</treerow>
+			</treeitem>
+			<treeitem>
+				<treerow>
+					<treecell label="&tabPref.use.title;"
+						url="chrome://tabextensions/content/pref/pref-tabsUse.xul"/> 
+				</treerow>
+			</treeitem>
+			<treeitem>
+				<treerow>
+					<treecell label="&tabPref.bookmarks.title;"
+						url="chrome://tabextensions/content/pref/pref-tabsBookmarks.xul"/> 
+				</treerow>
+			</treeitem>
+			<treeitem>
+				<treerow>
+					<treecell label="&tabPref.focus.title;"
+						url="chrome://tabextensions/content/pref/pref-tabsFocus.xul"/> 
+				</treerow>
+			</treeitem>
+			<treeitem>
+				<treerow>
+					<treecell label="&tabPref.menu.title;"
+						url="chrome://tabextensions/content/pref/pref-tabsMenu.xul"/> 
+				</treerow>
+			</treeitem>
+			<treeitem>
+				<treerow>
+					<treecell label="&tabPref.group.title;"
+						url="chrome://tabextensions/content/pref/pref-tabsGroup.xul"/> 
+				</treerow>
+			</treeitem>
+		</treechildren>
+	</treeitem>
+</treechildren>
+
+</overlay>

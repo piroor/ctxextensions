@@ -1,0 +1,235 @@
+<?xml version="1.0"?>
+
+<?xul-overlay href="shortexpressionsOverlay.xul"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://ctxextensions/content/res/dialog.css" type="text/css"?>
+
+<!DOCTYPE dialog [
+<!ENTITY % ctxextensionsDTD SYSTEM "chrome://ctxextensions/locale/">
+%ctxextensionsDTD;
+]>
+
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+		id="ctxextensions-common-property"
+		windowtype="ctxextensions:PrefProperty"
+		title="&PrefProp.title;"
+		title-for="&PrefProp.title_for;"
+		orient="vertical"
+		onload="PrefPropService.init();"
+		onunload="PrefPropService.destruct();"
+		ondialogaccept="return PrefPropService.onAccept();"
+		ondialogcancel="return PrefPropService.onClose();"
+		ondialogextra1="PrefPropService.returnValue(); PrefPropService.data.save = true; window.close();"
+		buttons="accept,cancel,extra1">
+
+	<script type="application/x-javascript" src="chrome://ctxextensions/content/extCommonUtils.js"/>
+	<script type="application/x-javascript" src="prefProperty.js"/>
+
+	<data id="saveSample-label" label="&pref.saveSample;"/>
+
+	<keyset>
+		<key key="&accelKey.close;" modifiers="accel"
+			oncommand="return PrefPropService.onClose();"/>
+		<key key="&accelKey.exit;" modifiers="accel"
+			oncommand="return PrefPropService.onClose();"/>
+		<key key="&accelKey.save;" modifiers="accel"
+			oncommand="if (PrefPropService.isSample) { PrefPropService.returnValue(); PrefPropService.data.save = true; } else PrefPropService.onAccept(); window.close();"/>
+	</keyset>
+
+
+	<tabbox flex="1">
+
+		<tabs>
+			<tab id="tab-main"    label="&PrefProp.tab.main;"/>
+			<tab id="tab-options" label="&PrefProp.tab.options;"/>
+		</tabs>
+
+		<tabpanels orient="vertical" flex="1">
+			<tabpanel id="tabpanel-main">
+			<box orient="vertical" id="editors" flex="1"
+				oninput="PrefPropService.data.modified = true;">
+				<box orient="vertical" flex="1" id="editor">
+					<textbox multiline="true" flex="1"/>
+					<box orient="horizontal">
+						<button label="&PrefProp.import;"
+							oncommand="PrefPropService.importEditor();"/>
+						<button label="&PrefProp.clear;"
+							oncommand="PrefPropService.clear('editor');"/>
+						<button label="&PrefProp.reset;"
+							oncommand="PrefPropService.reset('editor');"/>
+						<spacer flex="1"/>
+					</box>
+				</box>
+				<box orient="vertical" flex="1" id="styleRules">
+					<textbox multiline="true" flex="1"/>
+					<box orient="horizontal">
+						<button label="&PrefProp.import;"
+							oncommand="PrefPropService.importCSS();"/>
+						<button label="&PrefProp.clear;"
+							oncommand="PrefPropService.clear('styleRules');"/>
+						<button label="&PrefProp.reset;"
+							oncommand="PrefPropService.reset('styleRules');"/>
+						<spacer flex="1"/>
+					</box>
+				</box>
+				<box orient="vertical" flex="1" id="customScripts">
+					<box orient="vertical" flex="1" class="customScriptsEditor">
+						<description value="function() {"/>
+						<textbox multiline="true" id="customScriptsTextbox" flex="1"/>
+						<description value="}"/>
+					</box>
+					<box id="shortExpressions" target="customScriptsTextbox"/>
+					<box orient="horizontal">
+						<button label="&PrefProp.import;"
+							oncommand="PrefPropService.importScript();"/>
+						<button label="&PrefProp.clear;"
+							oncommand="PrefPropService.clear('customScripts');"/>
+						<button label="&PrefProp.reset;"
+							oncommand="PrefPropService.reset('customScripts');"/>
+						<spacer flex="1"/>
+						<button label="&PrefProp.run;"
+							oncommand="PrefPropService.runScript()"/>
+					</box>
+				</box>
+			</box>
+
+			<box orient="vertical" id="application" flex="1"
+				oninput="PrefPropService.data.modified = true;">
+				<grid>
+					<columns>
+						<column/>
+						<column flex="1"/>
+					</columns>
+					<rows>
+						<row align="center">
+							<label value="&PrefProp.application.path;"
+								control="applicationPath"/>
+							<textbox id="applicationPath" flex="1"/>
+						</row>
+						<row align="center">
+							<spacer/>
+							<box orient="horizontal">
+								<spacer flex="1"/>
+								<button label="&PrefProp.application.choose;"
+									oncommand="PrefPropService.getApplicationPath();"/>
+							</box>
+						</row>
+						<row align="center">
+							<label value="&PrefProp.application.arguments;"
+								control="applicationArguments"/>
+							<textbox flex="1" id="applicationArguments"/>
+						</row>
+					</rows>
+				</grid>
+				<description flex="1">
+					&PrefProp.application.description;
+				</description>
+			</box>
+
+			<box orient="vertical" id="webService" flex="1"
+				oninput="PrefPropService.data.modified = true;">
+				<grid>
+					<columns>
+						<column/>
+						<column flex="1"/>
+					</columns>
+					<rows>
+						<row align="center">
+							<label value="&PrefProp.webService.path;"
+								control="webServicePath"/>
+							<textbox id="webServicePath" flex="1"/>
+						</row>
+						<row align="center">
+							<spacer/>
+							<box orient="horizontal">
+								<spacer flex="1"/>
+								<button label="&PrefProp.webService.useCurrent;"
+									oncommand="PrefPropService.getCurrentURI();"/>
+							</box>
+						</row>
+						<row align="center">
+						</row>
+					</rows>
+				</grid>
+				<description id="webServiceDescriptionForURI" flex="1">
+					&PrefProp.webService.forURI;
+				</description>
+				<description id="webServiceDescriptionForSelection" flex="1">
+					&PrefProp.webService.forSelection;
+				</description>
+			</box>
+			</tabpanel>
+
+
+			<tabpanel id="tabpanel-options" orient="vertical" flex="1">
+			<box orient="vertical" id="checkboxes"
+				oncommand="PrefPropService.data.modified = true;">
+				<checkbox id="cancelStyles" label="&PrefProp.checkbox.cancelStyles;"/>
+				<checkbox id="defaultSelected" label="&PrefProp.checkbox.defaultSelected;"/>
+
+				<checkbox id="download" label="&PrefProp.checkbox.download;"/>
+
+				<checkbox id="autoExec" label="&PrefProp.checkbox.autoExec;"/>
+				<checkbox id="autoExecStartup" label="&PrefProp.checkbox.autoExecStartup;"/>
+				<checkbox id="hiddenInMenu" label="&PrefProp.checkbox.hiddenInMenu;"/>
+
+				<groupbox id="contextChecks">
+					<caption>
+						<checkbox id="newContextItem"
+							label="&PrefProp.checkbox.newContextItem;"
+							oncommand="PrefPropService.controlContextChecks();"/>
+					</caption>
+					<checkbox id="contextShowNormal" label="&PrefProp.checkbox.contextShowNormal;"/>
+					<checkbox id="contextShowLink" label="&PrefProp.checkbox.contextShowLink;"/>
+					<checkbox id="contextShowSelect" label="&PrefProp.checkbox.contextShowSelect;"/>
+				</groupbox>
+			</box>
+
+			<box id="charset" orient="vertical"
+				oncommand="PrefPropService.data.modified = true;">
+				<label control="charsetList" value="&PrefProp.charset.label;"/>
+				<box orient="horizontal">
+					<menulist id="charsetList"
+						datasources="rdf:charset-menu"
+						ref="NC:DecodersRoot">
+						<template>
+							<menupopup>
+								<menuitem uri="..."
+									label="rdf:http://home.netscape.com/NC-rdf#Name"
+									value="..."/>
+							</menupopup>
+						</template>
+					</menulist>
+				</box>
+			</box>
+
+			<box id="openIn" orient="horizontal"
+				oncommand="PrefPropService.data.modified = true;">
+				<label control="openInList" value="&PrefProp.openIn.label;"/>
+				<menulist id="openInList">
+					<menupopup>
+						<menuitem label="&PrefProp.openIn.current;" value="Current"/>
+						<menuitem label="&PrefProp.openIn.newTab;" value="NewTab"/>
+						<menuitem label="&PrefProp.openIn.newBackgroundTab;" value="NewBackgroundTab"/>
+						<menuitem label="&PrefProp.openIn.newWindow;" value="NewWindow"/>
+					</menupopup>
+				</menulist>
+			</box>
+
+			<box orient="horizontal" id="keyboardShortcut">
+				<label value="&PrefProp.shortcut.label;"/>
+				<textbox id="keyboardShortcutIndicator" readonly="true" flex="1"/>
+				<button label="&PrefProp.shortcut.set;"
+					style="min-width:1em;"
+					oncommand="PrefPropService.setKeyboardShortcut();"/>
+				<button label="&PrefProp.shortcut.clear;"
+					style="min-width:1em;"
+					oncommand="PrefPropService.clearKeyboardShortcut();"/>
+			</box>
+			</tabpanel>
+		</tabpanels>
+
+	</tabbox>
+
+</dialog>

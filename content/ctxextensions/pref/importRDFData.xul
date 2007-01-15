@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<!DOCTYPE dialog [
+<!ENTITY % ctxextensionsDTD SYSTEM "chrome://ctxextensions/locale/">
+%ctxextensionsDTD;
+]>
+
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+		id="ctxextensions-importRDFData-window"
+		windowtype="ctxextensions:importRDFData-window"
+		orient="vertical"
+		onload="init();"
+		onclose="if (!gShouldClose) return false;"
+		buttons="accept,cancel">
+
+	<script type="application/x-javascript" src="chrome://ctxextensions/content/pRDFData.js"/>
+	<script type="application/x-javascript" src="chrome://ctxextensions/content/extCommonUtils.js"/>
+
+	<box orient="vertical">
+		<box orient="horizontal">
+			<spacer flex="1"/>
+			<description value="&importRDFData.message;"/>
+			<spacer flex="1"/>
+		</box>
+		<progressmeter id="progressbar" mode="undetermined" value="0"/>
+	</box>
+
+	<script type="application/x-javascript"><![CDATA[
+
+var gProgressbar;
+var gShouldClose = false;
+var gSourceURI = window.arguments[0];
+var gCounter = 0;
+
+var gNS      = 'http://white.sakura.ne.jp/~piro/rdf#',
+	gBase    = 'chrome://ctxextensions/content/ctxextensions.rdf#',
+	gOldNS   = 'http://www.cc-net.or.jp/~piro/works/moz-extensions/rdf#',
+	gOldBase = 'chrome://extensions/content/extensions.rdf#';
+
+
+function init()
+{
+	gProgressbar = document.getElementById('progressbar');
+
+	// hide buttons
+	document.documentElement.getButton('accept').hidden = true;
+	document.documentElement.getButton('cancel').hidden = true;
+
+	gProgressbar.setAttribute('mode', 'determined');
+
+	importRDFDataFrom();
+}
+
+
+function exitDialog()
+{
+	window.setTimeout('gShouldClose = true; window.close();', 0);
+}
+
+
+function importRDFDataFrom()
+{
+	var data  = [
+			ExtCommonUtils.USERSTYLES,
+			ExtCommonUtils.SELECTEDSTYLES,
+			ExtCommonUtils.CUSTOMSCRIPTS,
+			ExtCommonUtils.EXECAPPS,
+			ExtCommonUtils.SENDSTR,
+			ExtCommonUtils.SENDURI,
+			ExtCommonUtils.STYLESHEETS
+		],
+		oldIDs = [
+			'UserStyles',
+			'SelectedStyles',
+			'CustomScript',
+			'ExecApp',
+			'WordSearch',
+			'SendURI',
+			'StyleSheets'
+		];
+
+	var source = new pRDFData(data[0].id, gSourceURI, data[0].type, gNS, gBase);
+	var oldSource = new pRDFData(oldIDs[0], gSourceURI, data[0].type, gOldNS, gOldBase);
+
+	window.setTimeout(importRDFDataCallBack, 0, data, oldIDs, source, oldSource);
+}
+
+function importRDFDataCallBack(aDataArray, aOldIDs, aSourceData, aOldSourceData)
+{
+	var sourceData,
+		resource,
+		name,
+		key,
+		keys,
+		value;
+
+	gProgressbar.setAttribute('value', parseInt(((gCounter+1)/aDataArray.length)*100)+'%');
+
+	aSourceData.reset();
+	aOldSourceData.reset();
+
+	sourceData = aSourceData.length ? aSourceData : aOldSourceData.length ? aOldSourceData : null ;
+
+	if (sourceData) {
+		for (i = 0; i < sourceData.length; i++)
+		{
+			resource = sourceData.item(i);
+			name     = ExtCommonUtils.unescapeString(resource.Value.replace(/^[^#]+#\w+:\w+:/, ''));
+			keys     = sourceData.dsource.ArcLabelsOut(resource);
+			while (keys.hasMoreElements())
+			{
+				key = keys.getNext().QueryInterface(Components.interfaces.nsIRDFResource);
+				value = sourceData.dsource.GetTarget(resource, key, true).QueryInterface(Components.interfaces.nsIRDFLiteral);
+				aDataArray[gCounter].setData(
+					name,
+					key.Value.split('#')[1],
+					value.Value
+				);
+			}
+		}
+	}
+
+	gCounter++;
+
+	if (gCounter >= aDataArray.length)
+		window.close();
+	else
+		window.setTimeout(
+			importRDFDataCallBack,
+			0,
+			aDataArray,
+			aOldIDs,
+			new pRDFData(aDataArray[gCounter].id, gSourceURI, aDataArray[gCounter].type, gNS, gBase),
+			new pRDFData(aOldIDs[gCounter], gSourceURI, aDataArray[gCounter].type, gOldNS, gOldBase)
+		);
+}
+
+
+
+	]]></script>
+
+</dialog>

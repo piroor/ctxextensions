@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<!DOCTYPE dialog [
+<!ENTITY % ctxextensionsDTD SYSTEM "chrome://ctxextensions/locale/">
+%ctxextensionsDTD;
+]>
+
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+		id="ctxextensions-newItem-window"
+		windowtype="ctxextensions:newItem-window"
+		orient="vertical"
+		onload="init();"
+		onclose="if (!gShouldClose) return false;"
+		buttons="accept,cancel">
+
+	<box orient="vertical">
+		<box orient="horizontal">
+			<spacer flex="1"/>
+			<description value="&pref.listbox.newItem.message;"/>
+			<spacer flex="1"/>
+		</box>
+	</box>
+
+	<script type="application/x-javascript"><![CDATA[
+
+var gShouldClose = false;
+var gRDFData = window.arguments[0];
+var gID;
+var gTimer;
+
+var gCounter = 0;
+
+var WINMAN;
+if (Components.classes['@mozilla.org/appshell/window-mediator;1'])
+	WINMAN = Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator);
+else
+	WINMAN = Components.classes['@mozilla.org/rdf/datasource;1?name=window-mediator'].getService(Components.interfaces.nsIWindowMediator);
+
+function init()
+{
+	// hide buttons
+	document.documentElement.getButton('accept').hidden = true;
+	document.documentElement.getButton('cancel').hidden = true;
+
+	var listBox = window.opener.PrefUtils.listBox;
+
+	if (window.opener.PrefUtils.utils.getPref('ctxextensions.enable.nsIXULTemplateBuilder'))
+		listBox.builder.rebuild();
+	else
+		window.opener.PrefUtils.utils.rebuildFromTemplate(listBox);
+
+	listBox.selectedIndex = listBox.childNodes.length-1;
+	window.opener.PrefUtils.editListItem(null, gRDFData, true);
+
+	gShouldClose = true;
+
+
+	gID = listBox.selectedItem.getAttribute('label');
+
+	gTimer = window.setTimeout('window.close();', 300);
+}
+
+	]]></script>
+
+</dialog>

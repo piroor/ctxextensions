@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+
+<?xul-overlay href="prefOverlay.xul"?>
+
+<!DOCTYPE window [
+<!ENTITY % ctxextensionsDTD SYSTEM "chrome://ctxextensions/locale/">
+%ctxextensionsDTD;
+]>
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+		orient="vertical"
+		headertitle="&preftree.navigations.label;"
+		onload="window.setTimeout('controlItems();', 0);">
+
+	<script type="application/x-javascript"><![CDATA[
+
+	function restoreDefaults()
+	{
+		if (!ExtCommonUtils.PromptService.confirm(
+				window,
+				ExtCommonUtils.getMsg('pref_confirm_title'),
+				ExtCommonUtils.getMsg('pref_navigations_setDefault')
+			))
+			return;
+
+		var textbox = document.getElementById('regexp').getElementsByTagName('textbox')
+
+		var prefstring;
+		for (var i = 0; i < textbox.length; i++)
+		{
+			textbox[i].value = ExtCommonUtils.getDefPref(textbox[i].getAttribute('prefstring'));
+		}
+	}
+
+	function controlItems()
+	{
+		PrefUtils.controlLinkedItems(document.getElementById('collectLinks'));
+
+		var disabled = !document.getElementById('advanced').checked || document.getElementById('advanced').disabled;
+		var group = document.getElementById('regexp');
+
+		var items = ExtCommonUtils.concatArray(
+				group.getElementsByTagName('caption'),
+				group.getElementsByTagName('label'),
+				group.getElementsByTagName('textbox'),
+				group.getElementsByTagName('button')
+			);
+		for (var i = 0; i < items.length; i++)
+		{
+			if (disabled)
+				items[i].setAttribute('disabled', true);
+			else
+				items[i].removeAttribute('disabled');
+		}
+	}
+
+	]]></script>
+
+	<box orient="vertical">
+		<checkbox label="&navigations.scan_in_background;" expert="true"
+			prefstring="ctxextensions.scan_navigations_in_background.enable"/>
+		<checkbox label="&navigations.shortcut;"
+			prefstring="ctxextensions.shortcut.navigations"/>
+		<checkbox label="&navigations.collectLinks;"
+			id="collectLinks"
+			oncommand="controlItems();"
+			linked="advanced"
+			prefstring="ctxextensions.enable.navigations_collectLinks"/>
+		<checkbox label="&navigations.advanced;"
+			oncommand="controlItems();"
+			id="advanced"
+			prefstring="ctxextensions.enable.navigations_advanced"/>
+	</box>
+
+
+	<groupbox orient="vertical" id="regexp" flex="1">
+		<caption label="&navigations.regexp.caption;"/>
+		<grid flex="1">
+			<rows>
+				<row/>
+				<row/>
+				<row/>
+				<row/>
+				<row/>
+				<row/>
+				<row/>
+				<row/>
+				<row/>
+			</rows>
+			<columns flex="1" class="scrollbox">
+				<column>
+					<label value="&navigations.regexp.next;"/>
+					<label value="&navigations.regexp.prev;"/>
+					<label value="&navigations.regexp.home;"/>
+					<label value="&navigations.regexp.contents;"/>
+					<label value="&navigations.regexp.index;"/>
+					<label value="&navigations.regexp.glossary;"/>
+					<label value="&navigations.regexp.copyright;"/>
+					<label value="&navigations.regexp.appendix;"/>
+					<label value="&navigations.regexp.help;"/>
+					<label value="&navigations.regexp.search;"/>
+				</column>
+				<column flex="1">
+					<textbox flex="1"
+						prefstring="ctxextensions.regexp.navigations.next"/>
+					<textbox flex="1"
+						prefstring="ctxextensions.regexp.navigations.prev"/>
+					<textbox flex="1"
+						prefstring="ctxextensions.regexp.navigations.home"/>
+					<textbox flex="1"
+						prefstring="ctxextensions.regexp.navigations.contents"/>
+					<textbox flex="1"
+						prefstring="ctxextensions.regexp.navigations.index"/>
+					<textbox flex="1"
+						prefstring="ctxextensions.regexp.navigations.glossary"/>
+					<textbox flex="1"
+						prefstring="ctxextensions.regexp.navigations.copyright"/>
+					<textbox flex="1"
+						prefstring="ctxextensions.regexp.navigations.appendix"/>
+					<textbox flex="1"
+						prefstring="ctxextensions.regexp.navigations.help"/>
+					<textbox flex="1"
+						prefstring="ctxextensions.regexp.navigations.search"/>
+				</column>
+			</columns>
+		</grid>
+		<box orient="horizontal">
+			<spacer flex="1"/>
+			<button label="&navigations.regexp.default;"
+				oncommand="restoreDefaults();"/>
+		</box>
+
+	</groupbox>
+
+</window>

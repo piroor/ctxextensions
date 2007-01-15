@@ -1,0 +1,673 @@
+<?xml version="1.0"?> 
+<!--
+	The category tree have to be inserted by overlaying.
+
+	This is compatible with Mozilla's one but "Help" button
+	is not available. And, this cannot operate preftype="color"
+	and preftype="localizedstring" items.
+
+	This window can be resizable. To show a resizer at bottom
+	of this window, set resizable="true" to the document element
+	(root element).
+
+	You can select the last selected panel automatically on the
+	next time. To enable this feature, set
+	restoreLastSelectedPanel="true" to the document element
+	(root element).
+
+
+	This window needs some entities following:
+
+	prefDialog.title：title of this window
+	prefDialog.size：size of this window
+		(for example, Mozilla for Win32(ja) has "width: 57em; height: 44em;"
+			for Win32(en) has "width: 52em; height: 41em;")
+	prefDialog.category：heading of the category tree
+	prefDialog.apply："Apply" button (if no label, the button is hidden)
+-->
+<!--
+	オーバーレイでツリーを組み込んだりしてケテトーに使って下さい。
+	Communicatorのコードを流用してるので、ヘルプボタンがない以外は
+	ある程度互換性があります。
+	（preftype="color"や"localizedstring"は正しく扱えません）
+
+	Communicatorの物と異なり、ウィンドウ右下端（Win32の場合）に
+	リサイザを表示できます。dialog要素（ルート要素）に
+	resizable="true"という属性を書き加えればOKです。
+
+	dialog要素（ルート要素）にrestoreLastSelectedPanel="true"という
+	属性が書かれていると、ダイアログを開いた時に、前回選択していた
+	パネルを自動で開きます。
+
+
+	以下のエンティティを定義しておくと吉。
+
+	prefDialog.title：ダイアログのタイトル
+	prefDialog.size：ダイアログの縦横サイズ
+		（Win32の場合、日本語版は"width: 57em; height: 44em;"
+		　英語版は"width: 52em; height: 41em;"）
+	prefDialog.category：カテゴリツリーの見出し
+	prefDialog.apply：「適用」ボタンのラベル（空文字の場合、ボタンを隠す）
+-->
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<?xul-overlay href="chrome://ctxextensions/content/pref/treeOverlay.xul"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://ctxextensions/locale/">
+
+<dialog id="prefDialog"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	title="&prefDialog.title;"
+	style="&prefDialog.size;"
+	windowtype="mozilla:preferences"
+	buttons="accept,cancel,extra1"
+	onload="PrefDialogService.init();"
+	ondialogaccept="return PrefDialogService.onOK(event);"
+	ondialogcancel="return PrefDialogService.onCancel(event);"
+	ondialogextra1="PrefDialogService.onApply(event);"
+	persist="width height screenX screenY lastSelectedPanel"
+	restoreLastSelectedPanel="true"
+	resizable="true">
+
+<script type="application/x-javascript" src="chrome://global/content/nsWidgetStateManager.js"/>
+
+<box ordinal="horizontal" flex="1">
+	<box orient="vertical">
+		<label value="&prefDialog.category;"/>
+		<tree id="prefsTree"
+			style="width: 13em;"
+			flex="1"
+			seltype="single"
+			hidecolumnpicker="true"
+			onselect="PrefDialogService.switchPage();">
+			<treecols>
+				<treecol id="categoryCol"
+					flex="1"
+					primary="true"
+					hideheader="true"/>
+			</treecols>
+			<treechildren id="panelChildren"/>
+		</tree>
+	</box>
+	<box orient="vertical" flex="1">
+		<dialogheader id="header"/>
+		<iframe id="panelFrame" name="panelFrame"
+			style="width: 0px"
+			oncommand="PrefDialogService.onModified(event);"
+			oninput="PrefDialogService.onModified(event);"
+			onchange="PrefDialogService.onModified(event);"
+			flex="1"/>
+	</box>
+</box>
+
+<data id="extra1-label" label="&prefDialog.apply;"/>
+
+<separator/>
+
+
+<script type="application/x-javascript"><![CDATA[
+var _elementIDs = [];
+
+var PrefDialogService = 
+{
+	
+	// properties 
+	queuedPanel           : null,
+	initialized           : false,
+	completelyInitialized : false,
+
+	cancelHandlers : [],
+	okHandlers     : [],
+
+	contentFrameID : 'panelFrame',
+	prefTreeID     : 'prefsTree',
+	
+	get prefTree() 
+	{
+		if (!this._prefTree) {
+			this._prefTree = document.getElementById(this.prefTreeID);
+		}
+		return this._prefTree;
+	},
+	_prefTree : null,
+ 
+	get applyButton() 
+	{
+		return document.documentElement.getButton('extra1');
+	},
+ 
+	get contentFrame() 
+	{
+		if (!this._contentFrame) {
+			this._contentFrame = document.getElementById(this.contentFrameID);
+		}
+		return this._contentFrame;
+	},
+	_contentFrame : null,
+	
+	get currentPanel() 
+	{
+		return this.contentFrame.getAttribute('tag') || this.contentFrame.getAttribute('src');
+	},
+  
+	get wsm() 
+	{
+		if (!this._wsm) {
+			this._wsm = new nsWidgetStateManager(this.contentFrameID);
+			this._wsm.attributes = ['preftype', 'prefstring', 'prefattribute', 'disabled'];
+		}
+		return this._wsm;
+	},
+	set wsm(val)
+	{
+		if (!val) this._wsm = val;
+	},
+	_wsm : null,
+ 
+	get pref() 
+	{
+		if (!this._pref) {
+			this._pref = Components.classes['@mozilla.org/preferences;1'].getService(Components.interfaces.nsIPrefBranch);
+			try {
+				this._pref = this._pref.QueryInterface(Components.interfaces.nsIPrefService);
+			}
+			catch(e) {
+			}
+		}
+		return this._pref;
+	},
+	_pref : null,
+	
+	get defpref() 
+	{
+		if (!this._defpref) {
+			this._defpref = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getDefaultBranch(null);
+		}
+		return this._defpref;
+	},
+	_defpref : null,
+ 
+	get prefservice() 
+	{
+		if (!this._prefservice) {
+			this._prefservice = Components.classes['@mozilla.org/preferences;1'].getService(Components.interfaces.nsIPref);
+		}
+		return this._prefservice;
+	},
+	_prefservice : null,
+    
+	// initializing 
+	init : function()
+	{
+		var label = document.getElementById('extra1-label').getAttribute('label');
+		if (label) {
+			this.applyButton.setAttribute('label', label);
+			this.applyButton.removeAttribute('hidden');
+			this.applyButton.setAttribute('disabled', true);
+		}
+		else
+			this.applyButton.setAttribute('hidden', true);
+
+
+		if (this.initialized) return;
+		this.initialized = true;
+
+		this.createResizer();
+
+		if ('arguments' in window &&
+			window.arguments.length &&
+			window.arguments[0]) {
+			this.contentFrame.setAttribute('src', window.arguments[0]);
+			this.contentFrame.setAttribute('tag', window.arguments[0]);
+		}
+		else {
+			var nodes = document.getElementsByAttribute('url', '*');
+			this.contentFrame.setAttribute('src', nodes.length ? nodes[0].getAttribute('url') : 'about:blank' );
+			this.contentFrame.setAttribute('tag', nodes.length ? nodes[0].getAttribute('url') : 'about:blank' );
+		}
+
+
+		var nullPointer;
+		nullPointer = this.wsm;
+		nullPointer = this.pref;
+
+
+		if (this.queuedPanel)
+			this.onPageLoad(this.queuedPanel);
+
+		if ('arguments' in window &&
+			window.arguments.length > 2 &&
+			window.arguments[1])
+			this.openBranch(window.arguments[1], window.arguments[2]);
+		else {
+			var firstItem = document.getElementById('panelChildren').firstChild;
+			this.openBranch(firstItem.id, firstItem.id);
+
+			if (document.documentElement.getAttribute('restoreLastSelectedPanel') == 'true') {
+				lastItem = document.getElementsByAttribute('url', document.documentElement.getAttribute('lastSelectedPanel'));
+				lastItem = lastItem.length ? lastItem[0].parentNode.parentNode : null ;
+				if (lastItem) {
+					items = [];
+					items.push(lastItem);
+					while (items[0].parentNode.parentNode.localName == 'treeitem')
+						items.unshift(items[0].parentNode.parentNode);
+
+					for (var i in items)
+						this.openBranch(items[i], items[i]);
+				}
+			}
+		}
+
+		this.completelyInitialized = true;
+	},
+	createResizer : function()
+	{
+		if (document.documentElement.getAttribute('resizable') != 'true')
+			return;
+
+		var box = document.getAnonymousElementByAttribute(document.documentElement, 'anonid', 'buttons') || document.getAnonymousElementByAttribute(document.documentElement, 'class', 'dialog-button-box') ; // platformDialog.xml for MacOS doesn't have "anonid".
+		if (!box) return;
+		if (
+			box.getAttribute('align') &&
+			box.getAttribute('align') != 'right' &&
+			box.getAttribute('pack') &&
+			box.getAttribute('pack') != 'end'
+			) {
+			box = box.appendChild(document.createElement('box'));
+			box.setAttribute('flex', 1);
+			box.setAttribute('align', 'end');
+			box.setAttribute('pack', 'end');
+		}
+		box.appendChild(document.createElement('resizer'));
+		box.lastChild.setAttribute('dir', 'bottomright');
+		box.lastChild.setAttribute('resizerdirection', 'bottomright');
+	},
+ 
+	// preferences 
+	
+	savePrefs : function() 
+	{
+		var panel,
+			pageData,
+			elementID,
+			itemObject,
+			attr,
+			value;
+
+		for (var panel in this.wsm.dataManager.pageData)
+		{
+			pageData = this.wsm.dataManager.getPageData(panel);
+			if (!('initialized' in pageData) || !pageData.initialized) continue;
+
+			if ('elementIDs' in pageData && pageData.elementIDs)
+				pageData = pageData.elementIDs;
+
+			for (elementID in pageData)
+			{
+				if (elementID == 'initialized') continue;
+
+				itemObject = pageData[elementID];
+				if (typeof itemObject != 'object') break;
+
+				if (!('prefstring' in itemObject) ||
+					!itemObject.prefstring) continue;
+
+				attr = itemObject.prefattribute;
+				if (!attr)
+					switch(itemObject.localname)
+					{
+						case 'radiogroup':
+						case 'textbox':
+						case 'menulist':
+							attr = 'value';
+							break;
+						case 'checkbox':
+							attr = 'checked';
+							break
+						case 'button':
+							attr = 'disabled';
+							break;
+						default:
+							continue;
+					}
+
+				value = itemObject[attr];
+
+				switch(itemObject.preftype || itemObject.localname)
+				{
+					case 'bool':
+					case 'checkbox':
+					case 'button':
+						if (typeof value == 'string')
+							value = (value == 'true');
+						break;
+					case 'string':
+					case 'textbox':
+						if (typeof value != 'string')
+							value = String(value);
+						break;
+					case 'int':
+					case 'radiogroup':
+					case 'menulist':
+						value = parseInt(value);
+						break;
+					default:
+						continue;
+				}
+
+				if(value != this.getPref(null, itemObject.prefstring))
+					this.setPref(itemObject.prefstring, value);
+			}
+		}
+
+		try {
+			this.pref.savePrefFile(null);
+		}
+		catch(e) {
+		}
+	},
+ 
+	getPref : function(aType, aPrefstring, aDefaultFlag) 
+	{
+		try {
+			var type = aType;
+			if (type) {
+				type = String(type).toLowerCase();
+				switch (type)
+				{
+					case 'string':
+					case 'localizedstring':
+					case 'color':
+					case 'int':
+						break;
+					default:
+						type = 'bool';
+						break;
+				}
+			}
+			else {
+				type = this.pref.getPrefType(aPrefstring);
+				switch (type)
+				{
+					case this.pref.PREF_STRING:
+						type = 'string';
+						break;
+					case this.pref.PREF_INT:
+						type = 'int';
+						break;
+					default:
+						type = 'bool';
+						break;
+				}
+			}
+
+			switch (type)
+			{
+				case 'string':
+				case 'localizedstring':
+				case 'color':
+					var nsISupportsString = ('nsISupportsWString' in Components.interfaces) ? Components.interfaces.nsISupportsWString : Components.interfaces.nsISupportsString;
+					return aDefaultFlag ? this.defpref.getComplexValue(aPrefstring, nsISupportsString).data : this.pref.getComplexValue(aPrefstring, nsISupportsString).data;
+				case 'int':
+					return aDefaultFlag ? this.defpref.getIntPref(aPrefstring) : this.pref.getIntPref(aPrefstring);
+				default:
+					return aDefaultFlag ? this.defpref.getBoolPref(aPrefstring) : this.pref.getBoolPref(aPrefstring);
+			}
+		}
+		catch(e) {
+		}
+
+		return null;
+	},
+ 
+	setPref : function(aPrefstring, aNewValue) 
+	{
+		var type;
+		try {
+			type = typeof aNewValue;
+		}
+		catch(e) {
+			type = null;
+		}
+
+		switch (type)
+		{
+			case 'string':
+				var nsISupportsString = ('nsISupportsWString' in Components.interfaces) ? Components.interfaces.nsISupportsWString : Components.interfaces.nsISupportsString;
+				var string = ('@mozilla.org/supports-wstring;1' in Components.classes) ?
+						Components.classes['@mozilla.org/supports-wstring;1'].createInstance(nsISupportsString) :
+						Components.classes['@mozilla.org/supports-string;1'].createInstance(nsISupportsString) ;
+				string.data = String(aNewValue);
+				this.pref.setComplexValue(aPrefstring, nsISupportsString, string);
+				break;
+			case 'number':
+				this.pref.setIntPref(aPrefstring, parseInt(aNewValue));
+				break;
+			default:
+				this.pref.setBoolPref(aPrefstring, Boolean(aNewValue));
+				break;
+		}
+	},
+  
+	onOK : function() 
+	{
+		if (this.currentPanel in this.wsm.dataManager.pageData &&
+			this.wsm.dataManager.pageData[this.currentPanel].initialized)
+			this.wsm.savePageData(this.currentPanel);
+
+		for (var i = 0; i < this.okHandlers.length; i++)
+		{
+			try {
+				this.okHandlers[i]();
+			}
+			catch(e) {
+			}
+		}
+
+		this.savePrefs();
+	},
+	
+	registerOKCallbackFunc : function(aFunc) 
+	{
+		this.okHandlers[this.okHandlers.length] = aFunc;
+
+		if (this.applyButton.getAttribute('disabled'))
+			this.applyButton.removeAttribute('disabled');
+	},
+  
+	onCancel : function() 
+	{
+		for (var i = 0; i < this.cancelHandlers.length; i++)
+		{
+			try {
+				this.cancelHandlers[i]();
+			}
+			catch (e) {
+			}
+		}
+	},
+	
+	registerCancelCallbackFunc : function(aFunc) 
+	{
+		this.cancelHandlers[this.cancelHandlers.length] = aFunc;
+	},
+  
+	onApply : function() 
+	{
+		if (this.currentPanel in this.wsm.dataManager.pageData &&
+			this.wsm.dataManager.pageData[this.currentPanel].initialized)
+			this.wsm.savePageData(this.currentPanel);
+
+		for (var i = 0; i < this.okHandlers.length; i++)
+		{
+			try {
+				this.okHandlers[i]();
+			}
+			catch(e) {
+			}
+		}
+
+		this.savePrefs();
+
+		this.okHandlers     = [];
+		this.cancelHandlers = [];
+		this.wsm = null;
+		this.applyButton.setAttribute('disabled', true);
+
+		var nullPointer = this.wsm;
+
+		var page = this.contentFrame.getAttribute('src');
+
+		// unload
+		this.contentFrame.setAttribute('src', 'about:blank');
+		this.contentFrame.setAttribute('tag', 'about:blank');
+
+		// reload
+		this.contentFrame.setAttribute('src', page);
+		this.contentFrame.setAttribute('tag', page);
+	},
+ 
+	switchPage : function() 
+	{
+		var selectedItem = this.prefTree.contentView.getItemAtIndex(this.prefTree.currentIndex);
+
+		this.wsm.savePageData(this.currentPanel);
+
+		var newPanel = selectedItem.firstChild.firstChild.getAttribute('url');
+		var newTag = selectedItem.firstChild.firstChild.getAttribute('tag');
+
+		if (this.completelyInitialized)
+			document.documentElement.setAttribute('lastSelectedPanel', newPanel);
+
+		if (newPanel == this.currentPanel) return;
+
+		this.contentFrame.setAttribute('src', newPanel);
+
+		if (!newTag)
+			this.contentFrame.removeAttribute('tag');
+		else
+			this.contentFrame.setAttribute('tag', newTag);
+	},
+ 
+	onPageLoad : function(aPanelURL) 
+	{
+		var doc = this.contentFrame.contentDocument;
+
+		var header = document.getElementById('header');
+		header.setAttribute('title', doc.documentElement.getAttribute('headertitle'));
+
+		var pageData = this.wsm.dataManager.getPageData(aPanelURL)
+
+		if(!('initialized' in pageData)) {
+			var prefElements = doc.getElementsByAttribute('prefstring', '*'),
+				root,
+				prefattribute;
+			for (var i = 0; i < prefElements.length; i++)
+			{
+				root = this.wsm.dataManager.getItemData(aPanelURL, prefElements[i].getAttribute('id'));
+				root.localname  = prefElements[i].localName;
+				root.prefstring = prefElements[i].getAttribute('prefstring');
+
+				root.preftype = prefElements[i].getAttribute('preftype');
+				if (!root.preftype)
+					switch(root.localname)
+					{
+						case 'textbox':
+							root.preftype = 'string';
+							break;
+						case 'checkbox':
+						case 'button':
+							root.preftype = 'bool';
+							break;
+						case 'radiogroup':
+						case 'menulist':
+							root.preftype = 'int';
+							break;
+						default:
+							break;
+					}
+
+				root.prefattribute = prefElements[i].getAttribute('prefattribute');
+				if (!root.prefattribute)
+					switch(root.localname)
+					{
+						case 'radiogroup':
+						case 'textbox':
+						case 'menulist':
+						default:
+							root.prefattribute = 'value';
+							break;
+						case 'checkbox':
+							root.prefattribute = 'checked';
+							break;
+						case 'button':
+							root.prefattribute = 'disabled';
+							break;
+					}
+
+				root[root.prefattribute] = this.getPref(null, root.prefstring);
+				if (root[root.prefattribute] === null)
+					root[root.prefattribute] = prefElements[i].getAttribute('prefdefval');
+
+				if (this.prefservice.PrefIsLocked(root.prefstring))
+					root.disabled = 'true';
+			}
+		}
+
+		this.wsm.setPageData(aPanelURL, doc.defaultView);
+		if ('Startup' in doc.defaultView) doc.defaultView.Startup();
+
+		this.wsm.dataManager.pageData[aPanelURL].initialized = true;
+	},
+ 
+	onModified : function(aEvent) 
+	{
+		var node = aEvent.target;
+		if (node.localName == 'menuitem')
+			while (node.parentNode && node.localName != 'menulist')
+				node = node.parentNode;
+
+		if (
+			!this.applyButton.getAttribute('disabled') ||
+			(
+				!node.getAttribute('prefstring') &&
+				node.localName == 'button'
+			)
+			) return;
+
+		this.applyButton.removeAttribute('disabled');
+	},
+ 
+	openBranch : function(aComponentName, aSelectItem) 
+	{
+		var selectItem     = (aSelectItem && aSelectItem.localName) ? aSelectItem : document.getElementById(aSelectItem) ;
+		var selectItemroot = (aComponentName && aComponentName.localName) ? aComponentName : document.getElementById(aComponentName) ;
+		var parentIndex    = this.prefTree.contentView.getIndexOfItem(selectItemroot);
+
+		if (parentIndex != -1 && !this.prefTree.view.isContainerOpen(parentIndex))
+			this.prefTree.view.toggleOpenState(parentIndex);
+
+		var index = this.prefTree.view.getIndexOfItem(selectItem);
+		if (index != -1) {
+			if ('selection' in this.prefTree.treeBoxObject) // old implementations for 1.7x
+				this.prefTree.treeBoxObject.selection.select(index);
+			else // new implementation for 1.8a or later
+				this.prefTree.view.selection.select(index);
+		}
+	}
+ 
+}; 
+window.hPrefWindow = PrefDialogService;
+ 
+function initPanel(aPanelURL) 
+{
+	if (PrefDialogService.initialized)
+		PrefDialogService.onPageLoad(aPanelURL);
+	else
+		PrefDialogService.queuedPanel = aPanelURL;
+}
+ 
+]]></script>
+
+</dialog>

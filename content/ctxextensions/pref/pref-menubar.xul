@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+
+<?xul-overlay href="prefOverlay.xul"?>
+
+<!DOCTYPE window [
+<!ENTITY % ctxextensionsDTD SYSTEM "chrome://ctxextensions/locale/">
+%ctxextensionsDTD;
+]>
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+		orient="vertical"
+		headertitle="&preftree.menubar.label;">
+
+
+	<groupbox orient="vertical" flex="1">
+		<caption label="&menubar.caption;"/>
+		<grid flex="1">
+			<columns>
+				<column flex="2"/>
+				<column flex="1"/>
+			</columns>
+			<rows flex="1" class="scrollbox">
+				<row>
+					<spacer/>
+					<label flex="1" value="&menubar.submenu.label;"/>
+				</row>
+				<separator/>
+				<row>
+					<label value="&menu.outline.label;"/>
+					<checkbox prefstring="ctxextensions.submenu.menubar.outline"/>
+				</row>
+				<row>
+					<label value="&menu.navigations.label;"/>
+					<checkbox prefstring="ctxextensions.submenu.menubar.navigations"/>
+				</row>
+				<row>
+					<label value="&menu.styleSheets.label;"/>
+					<checkbox prefstring="ctxextensions.submenu.menubar.styleSheets"/>
+				</row>
+				<row>
+					<label value="&menu.sendURI.label;"/>
+					<checkbox prefstring="ctxextensions.submenu.menubar.sendURI"/>
+				</row>
+				<row>
+					<label value="&menu.sendStr.label;"/>
+					<checkbox prefstring="ctxextensions.submenu.menubar.sendStr"/>
+				</row>
+				<row>
+					<label value="&menu.execApps.label;"/>
+					<checkbox prefstring="ctxextensions.submenu.menubar.execApps"/>
+				</row>
+				<row>
+					<label value="&menu.customScripts.label;"/>
+					<checkbox prefstring="ctxextensions.submenu.menubar.customScripts"/>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+
+
+</window>

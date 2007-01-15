@@ -1,0 +1,66 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+@namespace html url("http://www.w3.org/1999/xhtml");
+
+textbox {
+	font-family: -moz-fixed;
+	font-size: small;
+}
+
+box[orient="horizontal"],
+box.about {
+	-moz-box-align: center;
+}
+
+
+editor {
+	border: thin inset;
+}
+
+
+.keyboard-shortcut > * {
+	margin: 0;
+}
+
+.scrollBox {
+	border: thin -moz-bg-inset;
+	overflow: auto;
+}
+
+.keyboardShortcutIndicaterBox button {
+	min-width: 1em;
+}
+
+
+
+
+#ctxextensions-common-property #editors textbox[multiline]
+{
+	min-height: 18em;
+	min-width: 36em;
+}
+
+#ctxextensions-common-property #application,
+#ctxextensions-common-property #webService
+{
+	min-width: 33em;
+	width: 33em;
+}
+
+.customScriptsEditor {
+	font-size: small;
+	font-family: -moz-fixed;
+	background: -moz-Field;
+	color: -moz-FieldText;
+	border: thin -moz-bg-inset;
+	padding: 0.1em;
+}
+
+.customScriptsEditor>* {
+	margin: 0;
+}
+
+
+.submenu {
+	margin: 0 3em;
+	border-left: dotted thin;
+}

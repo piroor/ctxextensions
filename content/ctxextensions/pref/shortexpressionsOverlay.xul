@@ -1,0 +1,251 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://ctxextensions/locale/">
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<box id="shortExpressions"
+	orient="horizontal" style="border: thin -moz-bg-inset;">
+
+	<script type="application/x-javascript"><![CDATA[
+		// ’èŒ^•¶‚Ì‘}“ü
+		function insertExpression()
+		{
+			var box = document.getElementById('shortExpressions');
+			var target = document.getElementById('insertExpression').selectedItem;
+			if (!target || !target.value) return;
+
+			var textbox = document.getElementById(box.getAttribute('target'));
+
+			ExtCommonUtils.insertTextFor(target.value, textbox);
+			textbox.focus();
+		}
+	]]></script>
+
+	<label control="insertExpression" value="&shortExpressions.label;"/>
+	<menulist id="insertExpression" flex="1"
+		oncommand="this.nextSibling.removeAttribute('disabled');">
+		<menupopup>
+			<menuitem label="&shortExpressions.default;" disabled="true"/>
+
+			<menuseparator/>
+
+			<menuitem label="&shortExpressions.window;"
+				value="_window"/>
+			<menuitem label="&shortExpressions.navigations;"
+				value="_window.document.navigations"/>
+			<menuitem label="&shortExpressions.headings;"
+				value="_window.document.headings"/>
+
+			<menuseparator/>
+
+			<menuitem label="&shortExpressions.contextual;"
+				value="_contextualURI"/>
+			<menuitem label="&shortExpressions.focusedElement;"
+				value="_focusedElement"/>
+			<menuitem label="&shortExpressions.popupNode;"
+				value="_popupNode"/>
+			<menuitem label="&shortExpressions.selection;"
+				value="_selection"/>
+			<menuitem label="&shortExpressions.selectionSource;"
+				value="_selectionSource"/>
+			<menuitem label="&shortExpressions.selectionNodes;"
+				value="_selectionNodes"/>
+
+			<menuseparator/>
+
+			<menuitem label="&shortExpressions.profileURI;"
+				value="_profileURI"/>
+			<menuitem label="&shortExpressions.profilePath;"
+				value="_profilePath"/>
+			<menuitem label="&shortExpressions.installedURI;"
+				value="_installedURI"/>
+			<menuitem label="&shortExpressions.installedPath;"
+				value="_installedPath"/>
+			<menuitem label="&shortExpressions.temporaryURI;"
+				value="_temporaryURI"/>
+			<menuitem label="&shortExpressions.temporaryPath;"
+				value="_temporaryPath"/>
+			<menuitem label="&shortExpressions.homeURI;"
+				value="_homeURI"/>
+			<menuitem label="&shortExpressions.homePath;"
+				value="_homePath"/>
+
+			<menuseparator/>
+
+			<menuitem label="&shortExpressions.isOnline;"
+				value="_isOnline"/>
+			<menuitem label="&shortExpressions.inFrame;"
+				value="_inFrame"/>
+
+			<menuseparator/>
+
+<!--
+			<menu label="&shortExpressions.menuMethods;">
+				<menupopup>
+-->
+					<menuitem label="&shortExpressions.getTopWindowOf;"
+						value="_getTopWindowOf(windowtype)"/>
+					<menuitem label="&shortExpressions.getWindowsOf;"
+						value="_getWindowsOf(windowtype)"/>
+
+			<menuseparator/>
+
+					<menuitem label="&shortExpressions.load;"
+						value="_loadURI(uri)"/>
+					<menuitem label="&shortExpressions.newWindow;"
+						value="_openNewWindow(uri)"/>
+					<menuitem label="&shortExpressions.newTab;"
+						value="_openNewTab(uri)"/>
+
+					<menuitem label="&shortExpressions.loadAndDo;"
+						value="_loadURIAndDo(uri, func1, func2)"/>
+					<menuitem label="&shortExpressions.newWindowAndDo;"
+						value="_openNewWindowAndDo(uri, func1, func2)"/>
+					<menuitem label="&shortExpressions.newTabAndDo;"
+						value="_openNewTabAndDo(uri, func1, func2)"/>
+
+			<menuseparator/>
+
+					<menuitem label="&shortExpressions.selectButton;"
+						value="_selectButton(text, [label1, label2, label3])"/>
+					<menuitem label="&shortExpressions.selectButtonTitle;"
+						value="_selectButtonWithTitle(title, text, [label1, label2, label3])"/>
+					<menuitem label="&shortExpressions.selectList;"
+						value="_selectList(text, [item1, item2, ...])"/>
+					<menuitem label="&shortExpressions.selectListTitle;"
+						value="_selectListWithTitle(title, text, [item1, item2, ...])"/>
+
+			<menuseparator/>
+
+					<menuitem label="&shortExpressions.getClipBoard;"
+						value="_getClipBoard()"/>
+					<menuitem label="&shortExpressions.setClipBoard;"
+						value="_setClipBoard(string)"/>
+					<menuitem label="&shortExpressions.getInnerText;"
+						value="_getInnerText(ElementNode)"/>
+					<menuitem label="&shortExpressions.convCharset1;"
+						value="_convertCharset(string, charsetFrom, charsetTo)"/>
+					<menuitem label="&shortExpressions.convCharset2;"
+						value="_convertCharset(string, charsetTo)"/>
+
+			<menuseparator/>
+
+					<menuitem label="&shortExpressions.addStyleSheet;"
+						value="_addStyleSheet(path)"/>
+					<menuitem label="&shortExpressions.run;"
+						value="_run(filepath, arguments)"/>
+<!--
+				</menupopup>
+			</menu>
+			<menu label="&shortExpressions.menuIO;">
+				<menupopup>
+-->
+
+			<menuseparator/>
+
+					<menuitem label="&shortExpressions.include;"
+						value="_include(filepath or URI)"/>
+					<menuitem label="&shortExpressions.read;"
+						value="_readFrom(filepath)"/>
+					<menuitem label="&shortExpressions.write;"
+						value="_writeTo(string, filepath)"/>
+
+					<menuitem label="&shortExpressions.saveURIAs;"
+						value="_saveURIAs(URI, filepath)"/>
+					<menuitem label="&shortExpressions.saveURIInBackgroundAs;"
+						value="_saveURIInBackgroundAs(URI, filepath)"/>
+
+					<menuitem label="&shortExpressions.chooseFile;"
+						value="_chooseFile(title, default, filter)"/>
+					<menuitem label="&shortExpressions.chooseFileToSave;"
+						value="_chooseFileToSave(title, default, filter)"/>
+<!--
+				</menupopup>
+			</menu>
+			<menu label="&shortExpressions.menuExt;">
+				<menupopup>
+-->
+
+			<menuseparator/>
+
+					<menuitem label="&shortExpressions.cancelStyles;"
+						value="_cancelStyles()"/>
+					<menuitem label="&shortExpressions.switchStyleTo;"
+						value="_switchStyleTo(aName)"/>
+					<menuitem label="&shortExpressions.openStyleSheetSource;"
+						value="_openStyleSheetSource(aName)"/>
+					<menuitem label="&styleSheets.editUserContentCSS.label;"
+						value="_editGlobalUserStyleSheet()"/>
+					<menuitem label="&menu.customUserStyleEditor.label;"
+						value="_editCustomUserStyle()"/>
+					<menuitem label="&shortExpressions.addOptionalStyleSheet;"
+						value="_addOptionalStyleSheet()"/>
+					<menuitem label="&shortExpressions.removeOptionalStyleSheet;"
+						value="_removeOptionalStyleSheet()"/>
+
+					<menuitem label="&menu.up.label;"
+						value="_up()"/>
+					<menuitem label="&menu.nextHeading.label;"
+						value="_goNextHeading()"/>
+					<menuitem label="&menu.prevHeading.label;"
+						value="_goPrevHeading()"/>
+
+					<menuitem label="&menu.JSPanel.label;"
+						value="_goJSPanel()"/>
+					<menuitem label="&menu.getLinks.label;"
+						value="_getLinks(RegExp-string)"/>
+					<menuitem label="&shortExpressions.getLinksWithNode;"
+						value="_getLinksWithNode(RegExp-string)"/>
+
+					<menuitem label="&menu.showComments.label;"
+						value="_showComments()"/>
+					<menuitem label="&menu.showLinks.label;"
+						value="_showLinks()"/>
+					<menuitem label="&menu.showIDs.label;"
+						value="_showIDs()"/>
+					<menuitem label="&menu.showCites.label;"
+						value="_showCites()"/>
+					<menuitem label="&menu.showTitles.label;"
+						value="_showTitles()"/>
+					<menuitem label="&menu.showEvents.label;"
+						value="_showEvents()"/>
+					<menuitem label="&menu.showAll.label;"
+						value="_showAll()"/>
+
+					<menuitem label="&shortExpressions.sendURITo;"
+						value="_SendURITo(uri, name)"/>
+					<menuitem label="&shortExpressions.sendStrTo;"
+						value="_SendStringTo(string, name)"/>
+					<menuitem label="&shortExpressions.openWithApp;"
+						value="_OpenWithApp(uri, string, name)"/>
+					<menuitem label="&shortExpressions.customScript;"
+						value="_CustomScript(name)"/>
+
+<!--
+				</menupopup>
+			</menu>
+			<menu label="&shortExpressions.menuPrefs;">
+				<menupopup>
+-->
+
+			<menuseparator/>
+
+					<menuitem label="&shortExpressions.getPref;"
+						value="_getPref(prefstring)"/>
+					<menuitem label="&shortExpressions.setPref;"
+						value="_setPref(presfstring, value)"/>
+					<menuitem label="&shortExpressions.clearPref;"
+						value="_clearPref(prefstring)"/>
+<!--
+				</menupopup>
+			</menu>
+-->
+		</menupopup>
+	</menulist>
+	<button label="&shortExpressions.insert;"
+		disabled="true"
+		oncommand="insertExpression();"/>
+</box>
+
+</overlay>

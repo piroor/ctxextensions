@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<?xul-overlay href="prefOverlay.xul"?>
+
+<!DOCTYPE window [
+<!ENTITY % ctxextensionsDTD SYSTEM "chrome://ctxextensions/locale/">
+%ctxextensionsDTD;
+]>
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+		orient="vertical"
+		headertitle="&preftree.general2.label;">
+
+	<groupbox>
+		<caption label="&general.general2.caption;"/>
+		<box orient="vertical">
+
+		<checkbox label="&general.getLinks_collectOnClick.label;"
+			prefstring="ctxextensions.enable.getLinks_collectOnClick"/>
+
+		</box>
+	</groupbox>
+
+	<groupbox>
+		<caption label="&JSPanel.title;"/>
+		<box orient="vertical">
+			<box orient="horizontal">
+				<label id="JSPanelPageNumLabelBefore"
+					control="JSPanelPageNum"
+					value="&general.JSPanel.pageNum.label_before;"/>
+				<textbox id="JSPanelPageNum"
+					size="5"
+					preftype="int"
+					prefstring="ctxextensions.JSPanel.page.number"
+					oninput="if (Number(this.value) &lt; 1) this.value = 1;"/>
+				<spinbuttons id="JSPanelPageNumSpinButton"
+					onup="PrefUtils.spinButtonsUpDown(event, 'JSPanelPageNum');"
+					ondown="PrefUtils.spinButtonsUpDown(event, 'JSPanelPageNum', 1);"/>
+				<label id="JSPanelPageNumLabelAfter"
+					control="JSPanelPageNum"
+					value="&general.JSPanel.pageNum.label_after;"/>
+			</box>
+		</box>
+	</groupbox>
+
+
+	<spacer flex="1"/>
+
+</window>

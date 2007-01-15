@@ -1,0 +1,674 @@
+<?xml version="1.0"?>
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+
+<data id="samples:CustomScripts:root">
+
+<data id="samples:CustomScripts:sample1"><![CDATA[
+var title = _window.document.title
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/&/g, '&amp;'),
+    uri = _window.location.href.replace(/&/g, '&amp;');
+_setClipBoard('<a href="'+uri+'" title="'+title+'">'+title+'</a>');
+]]></data>
+
+<data id="samples:CustomScripts:sample2"><![CDATA[
+var quot = _selection;
+if (!quot) return;
+
+var quot = quot.replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/&/g, '&amp;'),
+    title = _window.document.title
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/&/g, '&amp;'),
+    uri = _window.location.href.replace(/&/g, '&amp;'),
+    attr = ' cite="'+uri+'" title="'+title+'"';
+
+if (quot.match(/\n/)) {
+    var para = quot.split('\n');
+    quot = '';
+    for (i in para)
+    {
+        para[i] = para[i].replace(/\n|\r/g, '');
+        if (!para[i]) continue;
+        quot += '\t<p>'+para[i]+'</p>\n';
+    }
+    quot = '<blockquote'+attr+'>\n'+quot+'</blockquote>\n';
+} else
+    quot = '<q'+attr+'>'+quot+'</q>';
+
+_setClipBoard(quot);
+]]></data>
+
+<data id="samples:CustomScripts:sample3"><![CDATA[
+var quot = _selectionSource;
+if (!quot) return;
+
+var title = _window.document.title
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/&/g, '&amp;'),
+    uri = _window.location.href.replace(/&/g, '&amp;'),
+    attr = ' cite="'+uri+'" title="'+title+'"',
+    elemtype = (quot.match(/<(html:)?(address|blockquote|caption|center|dir|div|dldt|dd|fieldset|form|h[1-6]|head|hr|html|iframe|menu|noframes|noscript|ol|p|pre|table|tbody|td|tfoot|th|thead|tr|ul)/i)) ? 'blockquote' : 'q' ;
+var br = (elemtype == 'q') ? '' : '\n';
+
+quot = '<'+elemtype+attr+'>'+br+quot+br+'</'+elemtype+'>'+br;
+
+_setClipBoard(quot);
+]]></data>
+
+<data id="samples:CustomScripts:sample4"><![CDATA[
+var type = 'ul',
+    tab  = '\t',
+    headings = _window.document.headings,
+    list = [],
+    h,
+    n,
+    i,
+    j,
+    item,
+    nest = 0;
+
+var tabs = function(n) {
+        var ret = [];
+        for (var i = 0; i < n; i++) ret.push(tab);
+        return ret.join('');
+    };
+
+for (i = 0; i < headings.length; i++)
+{
+    h = headings[i];
+
+    item = (h.id) ? '<a href="#'+h.id+'">'+h.label+'</a>' : h.label ;
+
+    if (nest == 0) {
+        nest++;
+        list.push('<'+type+'>\n'+tab+'<li>'+item);
+    } else if (h.level > headings[i-1].level) {
+        n = parseInt(nest);
+        while (nest < n + h.level - headings[i-1].level)
+        {
+            nest += 2;
+            list.push('\n'+tabs(nest-1)+'<'+type+'>\n'+tabs(nest)+'<li>');
+        }
+        list.push(item);
+    } else if (h.level < headings[i-1].level) {
+        if (headings[i-1].level - h.level > 1) {
+            nest -= 2;
+            list.push('</li>\n'+tabs(nest+1)+'</'+type+'>\n'+tabs(nest));
+        }
+        n = parseInt(nest);
+        while (nest + headings[i-1].level - h.level > n)
+        {
+            nest -= 2;
+            list.push('</li>\n'+tabs(nest+1)+'</'+type+'>\n'+tabs(nest));
+        }
+        list.push('</li>\n'+tabs(nest)+'<li>'+item);
+    } else
+        list.push('</li>\n'+tabs(nest)+'<li>'+item);
+}
+
+if (headings.length > 0 && nest > 0) {
+    while (nest > 1)
+    {
+        nest -= 2;
+        list.push('</li>\n'+tabs(nest+1)+'</'+type+'>\n'+tabs(nest));
+    }
+    list.push('</li>\n</'+type+'>\n');
+}
+
+if (list.length) _setClipBoard(list.join(''));
+]]></data>
+
+<data id="samples:CustomScripts:sample5"><![CDATA[
+var prefix = '\\u%s',
+    string = prompt('Enter a string.', _getClipBoard() || ''),
+    ret    = [],
+    code;
+if (string)
+    for (var i = 0; i < string.length; i++)
+    {
+        code = string.charCodeAt(i);
+        ret.push(
+            ((code >= 48 && code <= 57) ||
+             (code >= 65 && code <= 90) ||
+             (code >= 97 && code <= 122)) ? string.charAt(i) :
+             prefix.replace(/%s/, code.toString(16))
+        );
+    }
+if (ret.length) _setClipBoard(ret.join(''));
+]]></data>
+
+<data id="samples:CustomScripts:sample6"><![CDATA[
+var prefix = '\\%s ',
+    string = prompt('Enter a string.', _getClipBoard() || ''),
+    ret    = [];
+
+if (string)
+    for (var i = 0; i < string.length; i++)
+        ret.push(prefix.replace(/%s/, string.charCodeAt(i).toString(16)));
+
+if (ret.length) _setClipBoard(ret.join(''));
+]]></data>
+
+<data id="samples:CustomScripts:sample7"><![CDATA[
+var prefix = '&#%s;',
+    string = prompt('Enter a string.'),
+    ret    = [];
+
+if (string)
+    for (var i = 0; i < string.length; i++)
+        ret.push(prefix.replace(/%s/, string.charCodeAt(i).toString(10)));
+
+if (ret.length) _setClipBoard(ret.join(''));
+]]></data>
+
+<data id="samples:CustomScripts:sample8"><![CDATA[
+var prefix = '&#x%s;',
+    string = prompt('Enter a string.', _getClipBoard() || ''),
+    ret    = [];
+
+if (string)
+    for (var i = 0; i < string.length; i++)
+        ret.push(prefix.replace(/%s/, string.charCodeAt(i).toString(10)));
+
+if (ret.length) _setClipBoard(ret.join(''));
+]]></data>
+
+<data id="samples:CustomScripts:sample9"><![CDATA[
+var w = Components.lookupMethod(_window, 'top').call(_window),
+    d = w.document,
+    i;
+var noframes = d.getElementsByTagName('NOFRAMES');
+if (!noframes.length) noframes = d.getElementsByTagName('NOFRAME');
+
+if (!noframes.length) return;
+
+var no_root = d.createElement('body');
+no_root.innerHTML += noframes[0].firstChild.nodeValue;
+d.documentElement.appendChild(no_root);
+
+var frameset = d.getElementsByTagName('FRAMESET');
+frameset[0].parentNode.removeChild(frameset[0]);
+]]></data>
+
+<data id="samples:CustomScripts:sample10"><![CDATA[
+var string = prompt('Enter a object.', _getClipBoard() || ''),
+    ret    = [],
+    prefix = '[obj]';
+if (!string || !string.replace(/\s/g, '')) return;
+
+var obj = eval(string);
+if (!obj) return;
+
+for (var prop in obj)
+{
+    try {
+        ret.push(prefix+'.'+prop+' : '+obj[prop]+'\n');
+    }
+    catch(e) {
+        ret.push(prefix+'.'+prop+' : [???]\n');
+    }
+}
+
+if (ret.length) _setClipBoard('Property list of "'+string+'":\n\n'+ret.join(''));
+]]></data>
+
+<data id="samples:CustomScripts:sample11"><![CDATA[
+var string = prompt('Enter a object.', _getClipBoard() || ''),
+    getPropList = function(string, depth, prefix)
+    {
+        if (!depth) depth = 0;
+        if (!prefix) prefix = '[obj]';
+        if (depth > 2 ||
+            !string || 
+            !string.replace(/\s/g, '') ||
+            !eval(string)) return '';
+
+        var obj = eval(string),
+            ret = [];
+        for (var prop in obj)
+        {
+            try {
+                ret.push(prefix+'.'+prop+' : '+obj[prop]+'\n');
+            }
+            catch(e) {
+                ret.push(prefix+'.'+prop+' : [???]\n');
+            }
+
+            try {
+                ret.push(getPropList(string+'.'+prop, depth+1, prefix+'.'+prop));
+            }
+            catch(e) {
+            }
+        }
+        return (ret.length) ? '\n>>>\n'+ret.join('')+'\n<<<\n' : '' ;
+    };
+
+if (!string) return;
+
+var ret = getPropList(string);
+if (ret) _setClipBoard('Property list of "'+string+'":\n\n'+ret);
+]]></data>
+
+<data id="samples:CustomScripts:sample12"><![CDATA[
+var node = _popupNode || _focusedElement;
+if (!node || !gContextMenu) return;
+
+while (node != _window.document.documentElement && node.parentNode && node.nodeType != Node.ELEMENT_NODE) node = node.parentNode;
+if (node == _window.document.documentElement) return;
+
+var title = node.title || _getInnerText(node) || node.nodeName ;
+title = title.replace(/\s+/g, ' ');
+if (title.length > 30) title = title.substring(0, 30)+'...';
+
+var mark = document.createElementNS(XHTMLNS, 'object');
+mark.data = 'chrome://communicator/skin/bookmarks/bookmark-item.gif';
+mark.type = 'image/gif';
+mark.title = title;
+mark.setAttribute('ondblclick', 'var node = this.removeChild(this.firstChild); this.parentNode.insertBefore(node, this); this.parentNode.removeChild(this);');
+
+node.parentNode.insertBefore(mark, node);
+mark.appendChild(node.parentNode.removeChild(node));
+]]></data>
+
+<data id="samples:CustomScripts:sample13"><![CDATA[
+var dir   = prompt('Set the name of the output folder.', _getClipBoard() || '') || '' ;
+var links = _getLinks('/\\.(jpe?g|gif|png)$/i', true);
+
+if (!dir || !links.length) return;
+
+for (i in links)
+    if (links[i] && links[i] != '')
+        links[i] = 'Url='+links[i]+'\nFolder='+dir;
+
+var path = dir+'\\list.iri';
+var content = _convertCharset(links.join('\n\n'), 'Shift_JIS');
+
+var existingList = _readFrom(path);
+if (existingList) content =+  existingList + content;
+
+_writeTo(content, path, 'CreateDirectory,Overwrite');
+]]></data>
+
+<data id="samples:CustomScripts:sample13-2"><![CDATA[
+window.gDLRootDir    = 'c:\\temp\\';
+window.gDLFilter     = /\.(jpe?g|gif|png)|\.html?$/i;
+window.gDLMax        = 10;
+window.gDLOpenTabMax = 10;
+
+
+window.gDLOpenTabURIs      = [];
+window.gDLOpenTabReferrers = [];
+window.gDLOpenTabFinished  = true;
+window.gDLTabs             = [];
+window.gDLSaveList         = [];
+window.gDLSavingFinished   = true;
+window.gDLPermissions      = [];
+
+window.gDLDir     = null;
+window.gDLChecked = {};
+
+
+window.gDLGetList = function(aWindow) {
+
+	var dir = window.gDLDir;
+	if (!dir) {
+		dir = prompt('Set the name of the output folder.') || '';
+		if (dir)
+			dir = dir.replace(/( +|@+)$|^( +|@+)/g, '').replace(/ +|@+/g, '_');
+		window.gDLDir = dir;
+	}
+
+	if (!dir) return;
+
+
+	var links = _getLinksWithNode(window.gDLFilter, aWindow || _window);
+	var img = (aWindow ? aWindow : _window).document.getElementsByTagName('IMG');
+	for (var j = 0; j < img.length; j++)
+		links[links.length] = {
+			uri  : img[j].src,
+			node : img[j]
+		};
+
+	var i;
+
+	if (links.length) {
+		for (i in links)
+		{
+			if (links[i] &&
+				links[i].uri &&
+				!(links[i].uri in window.gDLChecked) &&
+				links[i].uri.indexOf(_window.location.href.replace(/[^\/]*$/, '')) > -1 &&
+				!links[i].uri.match(/BBLhGdTS|\?/)) {
+				window.gDLChecked[links[i].uri] = true;
+				if (links[i].uri.match(/html?$/i)) {
+					window.gDLOpenTabURIs.push(links[i].uri);
+					window.gDLOpenTabReferrers.push(ExtCommonUtils.makeURIFromSpec(links[i].node.ownerDocument.location.href));
+					if (window.gDLOpenTabFinished)
+						window.gDLOpenTabs();
+				}
+				else {
+					window.gDLSaveList.push(links[i].uri);
+					if (window.gDLSavingFinished)
+						window.gDLSaveFiles();
+				}
+			}
+		}
+	}
+};
+
+
+window.gDLOpenTabs = function() {
+	var i;
+	window.gDLOpenTabFinished = false;
+
+	var incomplete = window.gDLOpenTabMax;
+	var t;
+	for (i = window.gDLTabs.length-1; i > -1; i--)
+	{
+		t = window.gDLTabs[i];
+		if (t &&
+			getBrowser().getBrowserForTab(t).contentDocument.ctxextensionsReadyState == 'complete') {
+			window.gDLGetList(getBrowser().getBrowserForTab(t).contentWindow);
+			getBrowser().removeTab(t);
+			window.gDLTabs.splice(i, 1);
+			incomplete--;
+		}
+	}
+
+	for (i = 0; i < incomplete-1 && window.gDLOpenTabURIs.length && window.gDLOpenTabURIs[0] && window.gDLTabs.length < window.gDLOpenTabMax; i++)
+	{
+		dump('OPEN '+window.gDLOpenTabURIs[0]+'\n');
+		window.gDLTabs.push(_openNewTab(
+			window.gDLOpenTabURIs[0],
+			window.gDLOpenTabReferrers[0]
+		));
+		window.gDLOpenTabURIs.splice(0, 1);
+		window.gDLOpenTabReferrers.splice(0, 1);
+	}
+
+	if (window.gDLOpenTabURIs.length || window.gDLTabs.length)
+		window.setTimeout(window.gDLOpenTabs, 1000);
+	else
+		window.gDLOpenTabFinished = true;
+}
+
+
+window.gDLSaveFiles = function() {
+	var i;
+	window.gDLSavingFinished = false;
+	var incomplete = window.gDLMax;
+	for (i = window.gDLPermissions.length-1; i > -1; i--)
+		if (window.gDLPermissions[i] &&
+			window.gDLPermissions[i].currentState == window.gDLPermissions[i].PERSIST_STATE_FINISHED) {
+			dump('COMPLETE ('+window.gDLPermissions.length);
+			window.gDLPermissions.splice(i, 1);
+			incomplete--;
+			dump(' > '+window.gDLPermissions.length+')\n');
+		}
+
+	var permission;
+	for (i = 0; i < incomplete-1 && window.gDLSaveList.length && window.gDLSaveList[0] && window.gDLPermissions.length < window.gDLMax; i++)
+	{
+		permission = _saveURIInBackgroundAs(
+			window.gDLSaveList[0],
+			window.gDLRootDir+window.gDLDir+'\\'+ExtCommonUtils.unescapeString((window.gDLSaveList[0].match(/[^\/]+$/))),
+			'Overwrite=no,CreateDirectory=yes'
+		);
+		if (permission) {
+			window.gDLPermissions.push(permission);
+			dump('SAVING '+window.gDLSaveList[0]+'\n');
+		}
+		else
+			dump('SKIPPED '+window.gDLSaveList[0]+'\n');
+		window.gDLSaveList.splice(0, 1);
+	}
+
+	if (window.gDLSaveList.length || window.gDLPermissions.length)
+		window.setTimeout(window.gDLSaveFiles, 1000);
+	else
+		window.gDLSavingFinished = true;
+}
+
+
+
+window.gDLGetList();
+]]></data>
+
+<data id="samples:CustomScripts:sample14"><![CDATA[
+var name  = prompt('Input the name of the package you want to be uninstalled.\n(e.g. "chatzilla", "venkman", etc.)', _getClipBoard() || '') || '' ;
+
+if (!name || !confirm('Do you want the package "'+name+'" to be uninstalled, really?')) return;
+
+_include('chrome://ctxextensions/content/pref/exUnregisterer.js');
+var unreg = new exUnregisterer(
+    'chrome://'+name+'/content/contents.rdf',
+    'chrome://'+name+'/skin/contents.rdf',
+    'chrome://'+name+'/locale/contents.rdf'
+);
+unreg.unregister();
+
+alert('Completely uninstalled.');
+]]></data>
+
+<data id="samples:CustomScripts:sample15"><![CDATA[
+/*
+When the image is larger than the window, fit it to window
+automatically like MSIE6.
+To show it with its original size, click "Full Size" button.
+*/
+
+if (!_window.document.contentType.match(/^image\//)) return;
+
+_window.autoResize = function(aEvent, aDocument)
+{
+    var d = aEvent ? aEvent.target : aDocument ;
+    var w = ExtCommonUtils.getWindowFromDocument(d);
+
+    var button = d.getElementById('button');
+
+    var i = w.gImage;
+    i.style.width = 'auto';
+    i.style.height = 'auto';
+
+    if (w.gMaxWidth <= w.innerWidth && w.gMaxHeight <= w.innerHeight) {
+        if (button) button.parentNode.removeChild(button);
+        return;
+    }
+
+    if (w.gMaxWidth > w.gMaxHeight) {
+        if (w.innerHeight < w.innerWidth / w.gMaxWidth * w.gMaxHeight) {
+            i.style.width = 'auto';
+            i.style.height = '100%';
+        }
+        else i.style.width = '100%';
+    }
+    else {
+        if (w.innerWidth < w.innerHeight / w.gMaxHeight * w.gMaxWidth) {
+            i.style.width = '100%';
+            i.style.height = 'auto';
+        }
+        else i.style.height = '100%';
+    }
+
+    if (button) return;
+
+    button = d.createElement('button');
+    button.setAttribute('id', 'button');
+    button.appendChild(document.createTextNode('Full Size'));
+    button.addEventListener('click', w.cancelAutoResize, true);
+    i.parentNode.appendChild(button);
+};
+
+_window.cancelAutoResize = function(aEvent)
+{
+    var t = aEvent.target;
+    var w = ExtCommonUtils.getWindowFromDocument(t.ownerDocument);
+    var i = w.gImage;
+
+    i.style.width = 'auto';
+    i.style.height = 'auto';
+
+    w.removeEventListener('load', w.autoResize, true);
+    w.removeEventListener('resize', w.autoResize, true);
+
+    t.parentNode.removeChild(t);
+}
+
+_window.gImage = _window.document.images[0];
+_window.gMaxWidth = _window.gImage.width;
+_window.gMaxHeight = _window.gImage.height;
+
+_window.addEventListener('load', _window.autoResize, true);
+_window.addEventListener('resize', _window.autoResize, true);
+_window.autoResize(null, _window.document);
+]]></data>
+
+<data id="samples:CustomScripts:sample16"><![CDATA[
+var uri = (window.gContextMenu) ? _contextualURI : prompt('Input the URI to add as a new sidebar panel', _getClipBoard() || '') ;
+if (!uri) return;
+
+var title = prompt('Input the name of panel', _getClipBoard() || '');
+if (!title) return;
+
+window.sidebar.addPanel(title, uri, '');
+]]></data>
+
+<data id="samples:CustomScripts:sample17"><![CDATA[
+var uri = (window.gContextMenu) ? _contextualURI : prompt('Input the URI to add as a new sidebar panel', _getClipBoard() || '') ;
+if (!uri) return;
+
+var title = prompt('Input the name of panel', _getClipBoard() || '');
+if (!title) return;
+
+var RDF = Components.classes['@mozilla.org/rdf/rdf-service;1'].getService(Components.interfaces.nsIRDFService);
+var RDFC = Components.classes['@mozilla.org/rdf/container;1'].getService(Components.interfaces.nsIRDFContainer);
+var RDFCUtils = Components.classes['@mozilla.org/rdf/container-utils;1'].getService(Components.interfaces.nsIRDFContainerUtils);
+
+var DS = RDF.GetDataSource(exGetURISpecFromKey('UPnls')).QueryInterface(Components.interfaces.nsIRDFRemoteDataSource);
+
+var res = RDF.GetResource('urn:sidebar:3rdparty-panel:' + uri);
+DS.Assert(res, RDF.GetResource('http://home.netscape.com/NC-rdf#title'), RDF.GetLiteral(title), true);
+DS.Assert(res, RDF.GetResource('http://home.netscape.com/NC-rdf#content'), RDF.GetLiteral(uri), true);
+
+var seqRes = RDF.GetResource('urn:sidebar:current-panel-list');
+var seqTarget = DS.GetTarget(RDF.GetResource('urn:sidebar:current-panel-list'), RDF.GetResource('http://home.netscape.com/NC-rdf#panel-list'), true);
+
+RDFC.Init(DS, seqTarget);
+RDFC.AppendElement(res);
+
+var refreshRes = RDF.GetResource('http://home.netscape.com/NC-rdf#refresh');
+var trueRes = RDF.GetLiteral('true');
+DS.Assert(seqRes, refreshRes, trueRes, true);
+DS.Unassert(seqRes, refreshRes, trueRes);
+
+DS.Flush();
+]]></data>
+
+<data id="samples:CustomScripts:sample18"><![CDATA[
+var scripts = [
+        'script1',
+        'script2',
+        'script3',
+        'script4',
+        'script5'
+    ];
+var index = _selectList('select script', scripts);
+if (index < 0)
+    return;
+else
+    _CustomScript(index);
+]]></data>
+
+<data id="samples:CustomScripts:sample19"><![CDATA[
+var val = _getPref('nglayout.debug.disable_xul_cache');
+_setPref('nglayout.debug.disable_xul_cache', !val);
+
+alert(!val ? 'XUL cache is disabled.' : 'XUL cache is enabled.');
+]]></data>
+
+<data id="samples:CustomScripts:sample20"><![CDATA[
+/*
+   This is for idlers, which overwrite nightly builds
+   without uninstallation of the previous build, like me ;-)
+*/
+
+var uri = ExtCommonUtils.getURISpecFromKey('AChrom');
+if (!uri.match(/\/$/)) uri += '/';
+uri += 'installed-chrome.txt';
+
+var path = ExtCommonUtils.getFileFromURLSpec(uri).path;
+
+var entry = _readFrom(path).split('\n');
+var array = [],
+    ret   = [],
+    i;
+for (i in entry) array[entry[i]] = true;
+for (i in array) if (i) ret.push(i+'\n');
+
+_writeTo(ret.join(''), path, 'CreateDirectory,Overwrite');
+
+alert('installed-chrome.txt updated successfully');
+]]></data>
+
+<data id="samples:CustomScripts:sample21"><![CDATA[
+var base = prompt('Input the target URI');
+if (!base) return;
+
+var links = _window.document.links;
+for (var i = 0; i < links.length; i++)
+{
+	if (links[i].href.indexOf(base) < 0) continue;
+	links[i].style.fontSize   = 'xx-large !important';
+	links[i].style.border     = 'dotted thick green !important';
+	links[i].style.display    = 'block !important';
+	links[i].style.color      = 'green !important';
+	links[i].style.background = 'white !important';
+	links[i].style.padding    = '2em !important';
+}
+]]></data>
+
+<data id="samples:CustomScripts:sample22"><![CDATA[
+var defCharset = 'Shift_JIS';
+
+var origFile = _chooseFile('Choose source file');
+if (!origFile) return;
+
+var newFile = _chooseFileToSave('Choose output file', origFile.leafName);
+if (!newFile) return;
+
+var content = _readFrom(origFile);
+var charset = prompt('Input the encoding of original file', defCharset);
+if (!charset) return;
+
+if (origFile.path == newFile.path)
+    _writeTo(content, origFile.path+'.bak', 'CreateDirectory,Overwrite');
+
+_writeTo(_convertCharset(content, charset, 'UTF-8'), newFile, 'CreateDirectory,Overwrite');
+alert('Encoded successfully.');
+]]></data>
+
+<data id="samples:CustomScripts:sample23"><![CDATA[
+]]></data>
+
+<data id="samples:CustomScripts:sample24"><![CDATA[
+]]></data>
+
+<data id="samples:CustomScripts:sample25"><![CDATA[
+]]></data>
+
+
+</data>
+
+
+</overlay>

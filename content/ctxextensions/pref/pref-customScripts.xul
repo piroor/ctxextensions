@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+
+<?xul-overlay href="prefOverlay.xul"?>
+<?xul-overlay href="samples.xul"?>
+
+<!DOCTYPE window [
+<!ENTITY % ctxextensionsDTD SYSTEM "chrome://ctxextensions/locale/">
+%ctxextensionsDTD;
+]>
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+		orient="vertical"
+		headertitle="&preftree.customScripts.label;"
+		onload="init();">
+
+	<script type="application/x-javascript"><![CDATA[
+
+	function init()
+	{
+		PrefUtils.RDFData = ExtCommonUtils.CUSTOMSCRIPTS;
+
+		var items = document.getElementById('listBoxSample').getElementsByTagName('menuitem');
+		for (var i = 0; i < items.length; i++)
+			items[i].setAttribute('script', ExtCommonUtils.escape(document.getElementById('samples:'+items[i].id.match(/[^:]+:[^:]+$/)).firstChild.nodeValue));
+	}
+
+	function getDataFromNode(aNode, aRDFData)
+	{
+		var mod   = aNode.getAttribute('modifiers');
+		var label = aNode.getAttribute('label');
+
+		return {
+				name          : label,
+				customScripts : ExtCommonUtils.unescape(aNode.getAttribute('script')),
+				autoExec      : aNode.getAttribute('autoExec') == 'true',
+				autoExecStartup : aNode.getAttribute('autoExecStartup') == 'true',
+				hiddenInMenu  : aNode.getAttribute('hiddenInMenu') == 'true',
+				newContextItem : aNode.getAttribute('newitem') == 'true',
+				contextShowNormal : aNode.getAttribute('contextShowNormal') != 'false',
+				contextShowSelect : aNode.getAttribute('contextShowSelect') != 'false',
+				contextShowLink   : aNode.getAttribute('contextShowLink') != 'false',
+				keyboardShortcut : {
+					key      : aNode.getAttribute('key').toUpperCase(),
+					charCode : aNode.getAttribute('key').toUpperCase().charCodeAt(0),
+					keyCode  : aNode.getAttribute('keycode'),
+					altKey   : (mod.match(/alt/) ? true : false),
+					ctrlKey  : (mod.match(/control/) ? true : false),
+					metaKey  : (mod.match(/meta/) ? true : false),
+					shiftKey : (mod.match(/shift/) ? true : false)
+				}
+			};
+	}
+
+	function saveData(aName, aData, aRDFData)
+	{
+		var modifiers    = [],
+			modifiersStr = '';
+		if (aData.keyboardShortcut.altKey)   modifiers.push('alt');
+		if (aData.keyboardShortcut.ctrlKey)  modifiers.push('control');
+		if (aData.keyboardShortcut.metaKey)  modifiers.push('meta');
+		if (aData.keyboardShortcut.shiftKey) modifiers.push('shift');
+		if (modifiers.length) modifiersStr = modifiers.join(',');
+
+		return aRDFData.setData(aName,
+			'Script',        ExtCommonUtils.escape(aData.customScripts),
+			'Key',           aData.keyboardShortcut.key,
+			'Keycode',       aData.keyboardShortcut.keyCode,
+			'Automatically', (aData.autoExec ? 'true' : 'false'),
+			'Startup',       (aData.autoExecStartup ? 'true' : 'false'),
+			'Hidden',        (aData.hiddenInMenu ? 'true' : 'false'),
+			'Modifier',      modifiersStr,
+
+			'NewContextItem', (aData.newContextItem ? 'true' : 'false'),
+			'ShowContextItemNormally', (aData.contextShowNormal ? 'true' : 'false'),
+			'ShowContextItemWithSelection', (aData.contextShowSelect ? 'true' : 'false'),
+			'ShowContextItemOnLink', (aData.contextShowLink ? 'true' : 'false')
+		);
+	}
+
+
+
+	]]></script>
+
+
+	<data id="samples:CustomScripts:root"/>
+
+	<box orient="horizontal">
+		<description value="&customScripts.description;"/>
+	</box>
+	<groupbox orient="vertical" flex="1">
+		<caption label="&customScripts.caption;"/>
+		<template id="listBoxTemplate" ext-template="
+			function(aIndex, aObj)
+			{
+				var obj = ExtCommonUtils.CUSTOMSCRIPTS;
+				var res = obj.item(aIndex);
+				return {
+						localName : 'listitem',
+						attr : {
+							uri       : res.Value,
+							label     : obj.getData(res, 'Name'),
+							script    : obj.getData(res, 'Script'),
+							autoExec  : obj.getData(res, 'Automatically'),
+							autoExecStartup  : obj.getData(res, 'Startup'),
+							hiddenInMenu     : obj.getData(res, 'Hidden'),
+							key       : obj.getData(res, 'Key'),
+							keycode   : obj.getData(res, 'Keycode'),
+							modifiers : obj.getData(res, 'Modifier'),
+							newitem   : obj.getData(res, 'NewContextItem'),
+							contextShowNormal : obj.getData(res, 'ShowContextItemNormally'),
+							contextShowSelect : obj.getData(res, 'ShowContextItemWithSelection'),
+							contextShowLink   : obj.getData(res, 'ShowContextItemOnLink')
+						}
+					};
+			}
+			">
+			<listitem uri="rdf:*"
+				label="rdf:http://white.sakura.ne.jp/~piro/rdf#Name"
+				script="rdf:http://white.sakura.ne.jp/~piro/rdf#Script"
+				autoExec="rdf:http://white.sakura.ne.jp/~piro/rdf#Automatically"
+				autoExecStartup="rdf:http://white.sakura.ne.jp/~piro/rdf#Startup"
+				hiddenInMenu="rdf:http://white.sakura.ne.jp/~piro/rdf#Hidden"
+				key="rdf:http://white.sakura.ne.jp/~piro/rdf#Key"
+				keycode="rdf:http://white.sakura.ne.jp/~piro/rdf#Keycode"
+				modifiers="rdf:http://white.sakura.ne.jp/~piro/rdf#Modifier"
+				newitem="rdf:http://white.sakura.ne.jp/~piro/rdf#NewContextItem"
+				contextShowNormal="rdf:http://white.sakura.ne.jp/~piro/rdf#ShowContextItemNormally"
+				contextShowSelect="rdf:http://white.sakura.ne.jp/~piro/rdf#ShowContextItemWithSelection"
+				contextShowLink="rdf:http://white.sakura.ne.jp/~piro/rdf#ShowContextItemOnLink"/>
+		</template>
+		<template id="listBoxSampleTemplate">
+			<menupopup>
+			<menuitem uri="rdf:*"
+				label="rdf:http://white.sakura.ne.jp/~piro/rdf#Name"
+				script="rdf:http://white.sakura.ne.jp/~piro/rdf#Script"
+				autoExec="rdf:http://white.sakura.ne.jp/~piro/rdf#Automatically"
+				autoExecStartup="rdf:http://white.sakura.ne.jp/~piro/rdf#Startup"
+				hiddenInMenu="rdf:http://white.sakura.ne.jp/~piro/rdf#Hidden"
+				key="rdf:http://white.sakura.ne.jp/~piro/rdf#Key"
+				keycode="rdf:http://white.sakura.ne.jp/~piro/rdf#Keycode"
+				modifiers="rdf:http://white.sakura.ne.jp/~piro/rdf#Modifier"/>
+			</menupopup>
+		</template>
+		<box id="listBoxContainer">
+			<listbox id="listBox"
+				datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+				ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:CustomScripts:root"
+				ext-datasource="ExtCommonUtils.CUSTOMSCRIPTS"/>
+			<box id="listBoxSampleContainer">
+				<menulist id="listBoxSample"
+					datasources="chrome://ctxextensions/content/pref/samples.rdf"
+					ref="chrome://ctxextensions/content/pref/samples.rdf#urn:CustomScripts:root"/>
+			</box>
+		</box>
+	</groupbox>
+
+
+</window>

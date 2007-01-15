@@ -1,0 +1,414 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://ctxextensions/locale/">
+
+<overlay
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:EX="http://piro.sakura.ne.jp/ctxextensions"
+	xmlns:EXRDF="http://white.sakura.ne.jp/~piro/rdf#">
+
+<script type="application/x-javascript" src="chrome://ctxextensions/content/extCommonUtils.js"/>
+<script type="application/x-javascript" src="chrome://ctxextensions/content/extService.js"/>
+<script type="application/x-javascript" src="chrome://ctxextensions/content/extFunc.js"/>
+
+<script type="application/x-javascript" src="chrome://ctxextensions/content/pRDFData.js"/>
+<script type="application/x-javascript" src="chrome://ctxextensions/content/pProgressManager.js"/>
+
+<popup id="contentAreaContextMenu">
+
+	<menu id="context-item-go"
+		insertbefore="context-sep-stop"
+		label="&goMenu.label;"
+		oncommand="gotoHistoryIndex(event);"/>
+	<menuitem id="context-item-up"
+		insertbefore="context-sep-stop"
+		label="&context.up.label;"
+		oncommand="ExtFunc.doCommand('up');"
+		accesskey="&context.up.accesskey;"/>
+
+	<menuitem id="context-item-openSelectionAsURI"
+		insertafter="context-sep-selectall"
+		label="&context.openSelectionAsURI.label;"
+		label-for-select="&context.openSelectionAsURI.label_select;"
+		oncommand="ExtFunc.doCommand('openSelectionAsURI')"
+		accesskey="&context.openSelectionAsURI.accesskey;"/>
+
+	<menuitem id="context-item-nextHeading"
+		insertbefore="context-sep-stop"
+		label="&context.nextHeading.label;"
+		oncommand="ExtFunc.goHeadings('next');"
+		accesskey="&context.nextHeading.accesskey;"/>
+	<menuitem id="context-item-prevHeading"
+		insertbefore="context-sep-stop"
+		label="&context.prevHeading.label;"
+		oncommand="ExtFunc.goHeadings('prev');"
+		accesskey="&context.prevHeading.accesskey;"/>
+
+	<menuitem id="context-item-openCiteForQuote"
+		insertbefore="context-metadata"
+		label="&context.openCiteForQuote.label;"
+		oncommand="ExtFunc.doCommand('openCiteForQuote');"
+		accesskey="&context.openCiteForQuote.accesskey;"/>
+	<menuitem id="context-item-openCiteForEdit"
+		insertbefore="context-metadata"
+		label="&context.openCiteForEdit.label;"
+		oncommand="ExtFunc.doCommand('openCiteForEdit');"
+		accesskey="&context.openCiteForEdit.accesskey;"/>
+	<menuitem id="context-item-openLongdesc"
+		insertbefore="context-sep-image"
+		label="&context.openLongdesc.label;"
+		oncommand="ExtFunc.doCommand('openLongdesc');"
+		accesskey="&context.openLongdesc.accesskey;"/>
+
+
+	<menu id="context-item-bookmarks"
+		insertbefore="context-bookmarkpage"
+		label="&bookmarksMenu.label;"
+		datasources="rdf:bookmarks rdf:files rdf:localsearch rdf:internetsearch"
+		ref="NC:BookmarksRoot"
+		oncommand="
+			if ('OpenBookmarkURL' in window)
+				OpenBookmarkURL(event.target, this.database, event, this);
+			else if (BookmarksMenu.loadBookmark.arity == 2)
+				BookmarksMenu.loadBookmark(event.target, this.database);
+			else
+				BookmarksMenu.loadBookmark(event, event.target, this.database);
+		"
+		onclick="
+			if ('OpenBookmarkURL' in window)
+				OpenBookmarkURL(event.target, this.database, event, this);
+			else if (BookmarksMenu.loadBookmark.arity == 2)
+				BookmarksMenu.loadBookmark(event.target, this.database);
+			else
+				BookmarksMenu.loadBookmark(event, event.target, this.database);
+
+			this.parentNode.hidePopup();
+		">
+		<template xmlns:nc="http://home.netscape.com/NC-rdf#">
+			<rule iscontainer="true" isempty="true"
+				rdf:type="http://home.netscape.com/NC-rdf#Folder">
+				<menupopup>
+					<menu class="menu-iconic bookmark-item" uri="rdf:*" 
+						type="rdf:http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+						label="rdf:http://home.netscape.com/NC-rdf#Name">
+						<menupopup>
+							<menuitem label="&emptyItem.label;" disabled="true"/>
+						</menupopup>
+					</menu>
+				</menupopup>
+			</rule>
+			<rule iscontainer="true">
+				<menupopup>
+					<menu class="menu-iconic bookmark-item" uri="rdf:*"
+						label="rdf:http://home.netscape.com/NC-rdf#Name"
+						type="rdf:http://www.w3.org/1999/02/22-rdf-syntax-ns#type">
+						<menupopup />
+					</menu>
+				</menupopup>
+			</rule>
+			<rule rdf:type="http://home.netscape.com/NC-rdf#BookmarkSeparator">
+				<menupopup> 
+					<menuseparator uri="rdf:*" />
+				</menupopup>
+			</rule>
+			<rule>
+				<menupopup>
+					<menuitem class="menuitem-iconic bookmark-item" uri="rdf:*"
+						label="rdf:http://home.netscape.com/NC-rdf#Name" 
+						image="rdf:http://home.netscape.com/NC-rdf#Icon"
+						status="rdf:http://home.netscape.com/WEB-rdf#status"/>
+				</menupopup>
+			</rule>
+		</template>
+		<menupopup/>
+	</menu>
+
+
+	<menuseparator id="context-sep-extensions"/>
+	<menu id="context-item-extensions"
+		label="&context.extensions.label;"
+		accesskey="&context.extensions.accesskey;">
+		<menupopup id="context-item-extensions:mpopup">
+			<menu id="context-item-go:submenu"
+				label="&goMenu.label;"
+				oncommand="gotoHistoryIndex(event);"/>
+			<menuitem id="context-item-up:submenu"
+				label="&context.up.label;"
+				oncommand="ExtFunc.doCommand('up');"
+				accesskey="&context.up.accesskey;"/>
+			<menuitem id="context-item-nextHeading:submenu"
+				label="&context.nextHeading.label;"
+				oncommand="ExtFunc.goHeadings('next');"
+				accesskey="&context.nextHeading.accesskey;"/>
+			<menuitem id="context-item-prevHeading:submenu"
+				label="&context.prevHeading.label;"
+				oncommand="ExtFunc.goHeadings('prev');"
+				accesskey="&context.prevHeading.accesskey;"/>
+			<menuseparator id="context-sep-extensionsOpen:submenu"/>
+			<menuitem id="context-item-openSelectionAsURI:submenu"
+				label="&context.openSelectionAsURI.label;"
+				label-for-select="&context.openSelectionAsURI.label_select;"
+				oncommand="ExtFunc.doCommand('openSelectionAsURI')"
+				accesskey="&context.openSelectionAsURI.accesskey;"/>
+			<menuitem id="context-item-openCiteForQuote:submenu"
+				label="&context.openCiteForQuote.label;"
+				oncommand="ExtFunc.doCommand('openCiteForQuote');"
+				accesskey="&context.openCiteForQuote.accesskey;"/>
+			<menuitem id="context-item-openCiteForEdit:submenu"
+				label="&context.openCiteForEdit.label;"
+				oncommand="ExtFunc.doCommand('openCiteForEdit');"
+				accesskey="&context.openCiteForEdit.accesskey;"/>
+			<menuitem id="context-item-openLongdesc:submenu"
+				label="&context.openLongdesc.label;"
+				oncommand="ExtFunc.doCommand('openLongdesc');"
+				accesskey="&context.openLongdesc.accesskey;"/>
+			<menuseparator id="context-sep-navigations:submenu"/>
+			<menu id="context-item-outline:submenu"
+				label="&context.outline.label;"
+				label-for-normal="&context.outline.label;"
+				label-for-frame="&context.outline.label_frame;">
+				<menupopup id="context-item-outline:submenu:mpopup"
+					onpopupshowing="ExtService.duplicateMPopup('ext-common-outline:mpopup', this.id);"
+					oncommand="ExtFunc.Outline(event);"/>
+			</menu>
+			<menu id="context-item-navigations:submenu"
+				label="&context.navigations.label;"
+				label-for-normal="&context.navigations.label;"
+				label-for-frame="&context.navigations.label_frame;">
+				<menupopup id="context-item-navigations:submenu:mpopup"
+					onpopupshowing="ExtService.duplicateMPopup('ext-common-navigations:mpopup', this.id);"
+					oncommand="ExtFunc.Navigations(event);"
+					ondraggesture="nsDragAndDrop.startDrag(event, ExtService.NavigationDNDObserver); event.stopPropagation(); return;"
+					ondragexit="nsDragAndDrop.dragExit(event, ExtService.NavigationDNDObserver); event.stopPropagation(); return;"
+					onerror="event.stopPropagation(); return;"/>
+			</menu>
+			<menu id="context-item-styleSheets:submenu"
+				label="&context.styleSheets.label;">
+				<menupopup id="context-item-styleSheets:submenu:mpopup"
+					onpopupshowing="ExtService.duplicateMPopup('ext-common-styleSheets:mpopup', this.id);"
+					oncommand="ExtFunc.ApplyStyle(event, true);"
+					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'StyleSheets');"/>
+			</menu>
+			<menuseparator id="context-sep-extensionsMisc:submenu"/>
+			<menuitem id="context-item-JSPanel:submenu"
+				label="&context.JSPanel.label;"
+				oncommand="ExtFunc.doCommand('JSPanel')"/>
+			<menuitem id="context-item-getLinks:submenu"
+				label="&context.getLinks.label;"
+				label-for-normal="&context.getLinks.label;"
+				label-for-frame="&context.getLinks.label_frame;"
+				label-for-select="&context.getLinks.label_select;"
+				oncommand="ExtFunc.getLinks()"/>
+			<menuseparator id="context-sep-show:submenu"/>
+			<menuitem id="context-item-showComments:submenu"
+				label="&context.showComments.label;"
+				oncommand="ExtFunc.doCommand('showComments')"/>
+			<menuitem id="context-item-showLinks:submenu"
+				label="&context.showLinks.label;"
+				oncommand="ExtFunc.doCommand('showLinks')"/>
+			<menuitem id="context-item-showIDs:submenu"
+				label="&context.showIDs.label;"
+				oncommand="ExtFunc.doCommand('showIDs')"/>
+			<menuitem id="context-item-showCites:submenu"
+				label="&context.showCites.label;"
+				oncommand="ExtFunc.doCommand('showCites')"/>
+			<menuitem id="context-item-showTitles:submenu"
+				label="&context.showTitles.label;"
+				oncommand="ExtFunc.doCommand('showTitles')"/>
+			<menuitem id="context-item-showEvents:submenu"
+				label="&context.showEvents.label;"
+				oncommand="ExtFunc.doCommand('showEvents')"/>
+			<menuitem id="context-item-showAll:submenu"
+				label="&context.showAll.label;"
+				oncommand="ExtFunc.doCommand('showAll')"/>
+			<menuseparator id="context-sep-send:submenu"/>
+			<menu id="context-item-sendURI:submenu"
+				label="&context.sendURI.label;"
+				label-for-normal="&context.sendURI.label;"
+				label-for-link="&context.sendURI.label_link;">
+				<menupopup id="context-item-sendURI:mpopup:submenu"
+					datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+					ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:SendURI:root"
+					template="ext-common-template"
+					oncommand="ExtFunc.SendURI(event, true);"
+					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'SendURI');"
+					ext-datasource="ExtCommonUtils.SENDURI"/>
+			</menu>
+			<menu id="context-item-sendStr:submenu"
+				label="&context.sendStr.label;"
+				label-for-select="&context.sendStr.label_select;">
+				<menupopup id="context-item-sendStr:mpopup:submenu"
+					datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+					ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:SendStr:root"
+					template="ext-common-template"
+					oncommand="ExtFunc.SendStr(event);"
+					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'SendStr');"
+					ext-datasource="ExtCommonUtils.SENDSTR"/>
+			</menu>
+			<menuseparator id="context-sep-exec:submenu"/>
+			<menu id="context-item-execApps:submenu"
+				label="&context.execApps.label;"
+				label-for-normal="&context.execApps.label;"
+				label-for-link="&context.execApps.label_link;">
+				<menupopup id="context-item-execApps:mpopup:submenu"
+					datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+					ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:ExecApps:root"
+					template="ext-common-template"
+					oncommand="ExtFunc.ExecApps(event, true);"
+					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'ExecApps');"
+					ext-datasource="ExtCommonUtils.EXECAPPS"/>
+			</menu>
+			<menu id="context-item-customScripts:submenu"
+				label="&context.customScripts.label;">
+				<menupopup id="context-item-customScripts:mpopup:submenu"
+					datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+					ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:CustomScripts:root"
+					template="ext-common-template"
+					oncommand="ExtFunc.CustomScripts(event);"
+					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'CustomScripts');"
+					ext-datasource="ExtCommonUtils.CUSTOMSCRIPTS"/>
+			</menu>
+		</menupopup>
+	</menu>
+
+	<menuseparator id="context-sep-navigations"/>
+
+	<menu id="context-item-outline"
+		label="&context.outline.label;"
+		label-for-normal="&context.outline.label;"
+		label-for-frame="&context.outline.label_frame;">
+		<menupopup id="context-item-outline:mpopup"
+			onpopupshowing="ExtService.duplicateMPopup('ext-common-outline:mpopup', this.id);"
+			oncommand="ExtFunc.Outline(event);"/>
+	</menu>
+	<menu id="context-item-navigations"
+		label="&context.navigations.label;"
+		label-for-normal="&context.navigations.label;"
+		label-for-frame="&context.navigations.label_frame;">
+		<menupopup id="context-item-navigations:mpopup"
+			onpopupshowing="ExtService.duplicateMPopup('ext-common-navigations:mpopup', this.id);"
+			oncommand="ExtFunc.Navigations(event);"
+			ondraggesture="nsDragAndDrop.startDrag(event, ExtService.NavigationDNDObserver); event.stopPropagation(); return;"
+			ondragexit="nsDragAndDrop.dragExit(event, ExtService.NavigationDNDObserver); event.stopPropagation(); return;"
+			onerror="event.stopPropagation(); return;"/>
+	</menu>
+	<menu id="context-item-styleSheets"
+		label="&context.styleSheets.label;">
+		<menupopup id="context-item-styleSheets:mpopup"
+			onpopupshowing="ExtService.duplicateMPopup('ext-common-styleSheets:mpopup', this.id);"
+			oncommand="ExtFunc.ApplyStyle(event, true);"
+			onclick="if (event.button == 1) ExtService.editRDFItem(event, 'StyleSheets');"/>
+	</menu>
+
+	<menuseparator id="context-sep-extensionsMisc"/>
+
+	<menuitem id="context-item-JSPanel"
+		label="&context.JSPanel.label;"
+		oncommand="ExtFunc.doCommand('JSPanel')"/>
+	<menuitem id="context-item-getLinks"
+		label="&context.getLinks.label;"
+		label-for-normal="&context.getLinks.label;"
+		label-for-select="&context.getLinks.label_select;"
+		oncommand="ExtFunc.getLinks()"/>
+
+	<menuseparator id="context-sep-show"/>
+
+	<menuitem id="context-item-showComments"
+		label="&context.showComments.label;"
+		oncommand="ExtFunc.doCommand('showComments')"/>
+	<menuitem id="context-item-showLinks"
+		label="&context.showLinks.label;"
+		oncommand="ExtFunc.doCommand('showLinks')"/>
+	<menuitem id="context-item-showIDs"
+		label="&context.showIDs.label;"
+		oncommand="ExtFunc.doCommand('showIDs')"/>
+	<menuitem id="context-item-showCites"
+		label="&context.showCites.label;"
+		oncommand="ExtFunc.doCommand('showCites')"/>
+	<menuitem id="context-item-showTitles"
+		label="&context.showTitles.label;"
+		oncommand="ExtFunc.doCommand('showTitles')"/>
+	<menuitem id="context-item-showEvents"
+		label="&context.showEvents.label;"
+		oncommand="ExtFunc.doCommand('showEvents')"/>
+	<menuitem id="context-item-showAll"
+		label="&context.showAll.label;"
+		oncommand="ExtFunc.doCommand('showAll')"/>
+
+	<menuseparator id="context-sep-send"/>
+
+	<menu id="context-item-sendURI"
+		label="&context.sendURI.label;"
+		label-for-normal="&context.sendURI.label;"
+		label-for-link="&context.sendURI.label_link;">
+		<menupopup id="context-item-sendURI:mpopup"
+			datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+			ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:SendURI:root"
+			template="ext-common-template"
+			oncommand="ExtFunc.SendURI(event, true);"
+			onclick="if (event.button == 1) ExtService.editRDFItem(event, 'SendURI');"
+			ext-datasource="ExtCommonUtils.SENDURI"/>
+	</menu>
+	<menu id="context-item-sendURI-frame"
+		label="&context.sendURI.label_frame;">
+		<menupopup id="context-item-sendURI-frame:mpopup"
+			datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+			ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:SendURI:root"
+			template="ext-common-template"
+			oncommand="ExtFunc.SendURI(event);"
+			onclick="if (event.button == 1) ExtService.editRDFItem(event, 'SendURI');"
+			ext-datasource="ExtCommonUtils.SENDURI"/>
+	</menu>
+	<menu id="context-item-sendStr"
+		label="&context.sendStr.label;"
+		label-for-select="&context.sendStr.label_select;">
+		<menupopup id="context-item-sendStr:mpopup"
+			datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+			ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:SendStr:root"
+			template="ext-common-template"
+			oncommand="ExtFunc.SendStr(event);"
+			onclick="if (event.button == 1) ExtService.editRDFItem(event, 'SendStr');"
+			ext-datasource="ExtCommonUtils.SENDSTR"/>
+	</menu>
+
+	<menuseparator id="context-sep-exec"/>
+
+	<menu id="context-item-execApps"
+		label="&context.execApps.label;"
+		label-for-normal="&context.execApps.label;"
+		label-for-link="&context.execApps.label_link;">
+		<menupopup id="context-item-execApps:mpopup"
+			datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+			ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:ExecApps:root"
+			template="ext-common-template"
+			oncommand="ExtFunc.ExecApps(event, true);"
+			onclick="if (event.button == 1) ExtService.editRDFItem(event, 'ExecApps');"
+			ext-datasource="ExtCommonUtils.EXECAPPS"/>
+	</menu>
+	<menu id="context-item-execApps-frame"
+		label="&context.execApps.label_frame;">
+		<menupopup id="context-item-execApps-frame:mpopup"
+			datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+			ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:ExecApps:root"
+			template="ext-common-template"
+			oncommand="ExtFunc.ExecApps(event);"
+			onclick="if (event.button == 1) ExtService.editRDFItem(event, 'ExecApps');"
+			ext-datasource="ExtCommonUtils.EXECAPPS"/>
+	</menu>
+	<menu id="context-item-customScripts"
+		label="&context.customScripts.label;">
+		<menupopup id="context-item-customScripts:mpopup"
+			datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+			ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:CustomScripts:root"
+			template="ext-common-template"
+			oncommand="ExtFunc.CustomScripts(event);"
+			onclick="if (event.button == 1) ExtService.editRDFItem(event, 'CustomScripts');"
+			ext-datasource="ExtCommonUtils.CUSTOMSCRIPTS"/>
+	</menu>
+
+	<menuseparator id="context-sep-extensionsExtra" hidden="true"/>
+</popup>
+
+
+</overlay>

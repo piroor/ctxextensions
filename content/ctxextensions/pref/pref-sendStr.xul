@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+
+<?xul-overlay href="prefOverlay.xul"?>
+
+<!DOCTYPE window [
+<!ENTITY % ctxextensionsDTD SYSTEM "chrome://ctxextensions/locale/">
+%ctxextensionsDTD;
+]>
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+		orient="vertical"
+		headertitle="&preftree.sendStr.label;"
+		onload="init();">
+
+	<script type="application/x-javascript"><![CDATA[
+
+	function init()
+	{
+		PrefUtils.RDFData = ExtCommonUtils.SENDSTR;
+	}
+
+	function getDataFromNode(aNode, aRDFData)
+	{
+		var mod   = aNode.getAttribute('modifiers');
+		var label = aNode.getAttribute('label');
+
+		return {
+				name                   : label,
+				webServicePath         : aNode.getAttribute('path'),
+				webServiceForSelection : true,
+				charset                : aNode.getAttribute('charset'),
+				openIn                 : aNode.getAttribute('openIn'),
+				newContextItem       : aNode.getAttribute('newitem') == 'true',
+				contextShowNormal : aNode.getAttribute('contextShowNormal') == 'true',
+				contextShowSelect : aNode.getAttribute('contextShowSelect') != 'false',
+				contextShowLink   : aNode.getAttribute('contextShowLink') == 'true',
+				keyboardShortcut : {
+					key      : aNode.getAttribute('key').toUpperCase(),
+					charCode : aNode.getAttribute('key').toUpperCase().charCodeAt(0),
+					keyCode  : aNode.getAttribute('keycode'),
+					altKey   : (mod.match(/alt/) ? true : false),
+					ctrlKey  : (mod.match(/control/) ? true : false),
+					metaKey  : (mod.match(/meta/) ? true : false),
+					shiftKey : (mod.match(/shift/) ? true : false)
+				}
+			};
+	}
+
+	function saveData(aName, aData, aRDFData)
+	{
+		var modifiers    = [],
+			modifiersStr = '';
+		if (aData.keyboardShortcut.altKey)   modifiers.push('alt');
+		if (aData.keyboardShortcut.ctrlKey)  modifiers.push('control');
+		if (aData.keyboardShortcut.metaKey)  modifiers.push('meta');
+		if (aData.keyboardShortcut.shiftKey) modifiers.push('shift');
+		if (modifiers.length) modifiersStr = modifiers.join(',');
+
+		return aRDFData.setData(aName,
+			'Path',     aData.webServicePath,
+			'Charset',  aData.charset,
+			'OpenIn',   aData.openIn,
+			'Key',      aData.keyboardShortcut.key,
+			'Keycode',  aData.keyboardShortcut.keyCode,
+			'Modifier', modifiersStr,
+
+			'NewContextItem', (aData.newContextItem ? 'true' : 'false'),
+			'ShowContextItemNormally', (aData.contextShowNormal ? 'true' : 'false'),
+			'ShowContextItemWithSelection', (aData.contextShowSelect ? 'true' : 'false'),
+			'ShowContextItemOnLink', (aData.contextShowLink ? 'true' : 'false')
+		);
+	}
+
+
+
+	]]></script>
+
+	<box orient="horizontal">
+		<description value="&sendStr.description;"/>
+	</box>
+	<groupbox orient="vertical" flex="1">
+		<caption label="&sendStr.caption;"/>
+		<template id="listBoxTemplate" ext-template="
+			function(aIndex, aObj)
+			{
+				var obj = ExtCommonUtils.SENDSTR;
+				var res = obj.item(aIndex);
+				return {
+						localName : 'listitem',
+						attr : {
+							uri       : res.Value,
+							label     : obj.getData(res, 'Name'),
+							path      : obj.getData(res, 'Path'),
+							charset   : obj.getData(res, 'Charset'),
+							openIn    : obj.getData(res, 'OpenIn'),
+							key       : obj.getData(res, 'Key'),
+							keycode   : obj.getData(res, 'Keycode'),
+							modifiers : obj.getData(res, 'Modifier'),
+							newitem   : obj.getData(res, 'NewContextItem'),
+							contextShowNormal : obj.getData(res, 'ShowContextItemNormally'),
+							contextShowSelect : obj.getData(res, 'ShowContextItemWithSelection'),
+							contextShowLink   : obj.getData(res, 'ShowContextItemOnLink')
+						}
+					};
+			}
+			">
+			<listitem uri="rdf:*"
+				label="rdf:http://white.sakura.ne.jp/~piro/rdf#Name"
+				path="rdf:http://white.sakura.ne.jp/~piro/rdf#Path"
+				charset="rdf:http://white.sakura.ne.jp/~piro/rdf#Charset"
+				openIn="rdf:http://white.sakura.ne.jp/~piro/rdf#OpenIn"
+				key="rdf:http://white.sakura.ne.jp/~piro/rdf#Key"
+				keycode="rdf:http://white.sakura.ne.jp/~piro/rdf#Keycode"
+				modifiers="rdf:http://white.sakura.ne.jp/~piro/rdf#Modifier"
+				newitem="rdf:http://white.sakura.ne.jp/~piro/rdf#NewContextItem"
+				contextShowNormal="rdf:http://white.sakura.ne.jp/~piro/rdf#ShowContextItemNormally"
+				contextShowSelect="rdf:http://white.sakura.ne.jp/~piro/rdf#ShowContextItemWithSelection"
+				contextShowLink="rdf:http://white.sakura.ne.jp/~piro/rdf#ShowContextItemOnLink"/>
+		</template>
+		<template id="listBoxSampleTemplate">
+			<menupopup>
+			<menuitem uri="rdf:*"
+				label="rdf:http://white.sakura.ne.jp/~piro/rdf#Name"
+				path="rdf:http://white.sakura.ne.jp/~piro/rdf#Path"
+				charset="rdf:http://white.sakura.ne.jp/~piro/rdf#Charset"
+				openIn="rdf:http://white.sakura.ne.jp/~piro/rdf#OpenIn"
+				key="rdf:http://white.sakura.ne.jp/~piro/rdf#Key"
+				keycode="rdf:http://white.sakura.ne.jp/~piro/rdf#Keycode"
+				modifiers="rdf:http://white.sakura.ne.jp/~piro/rdf#Modifier"/>
+			</menupopup>
+		</template>
+		<box id="listBoxContainer">
+			<listbox id="listBox"
+				datasources="chrome://ctxextensions/content/ctxextensions.rdf"
+				ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:SendStr:root"
+				ext-datasource="ExtCommonUtils.SENDSTR"/>
+			<box id="listBoxSampleContainer">
+				<menulist id="listBoxSample"
+					datasources="chrome://ctxextensions/content/pref/samples.rdf"
+					ref="chrome://ctxextensions/content/pref/samples.rdf#urn:SendStr:root"/>
+			</box>
+		</box>
+	</groupbox>
+
+
+</window>

@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://communicator/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://ctxextensions/content/initializeDefaultPref.css" type="text/css"?>
+
+<!DOCTYPE dialog [
+<!ENTITY % versionDTD SYSTEM "chrome://ctxextensions/content/_version.dtd">
+%versionDTD;
+<!ENTITY % ctxextensionsDTD SYSTEM "chrome://ctxextensions/locale/">
+%ctxextensionsDTD;
+]>
+
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+		orient="vertical"
+		buttons="accept"
+		ondialogaccept="accept();"
+		onload="init();"
+		style="width: 35em;">
+
+<script type="application/x-javascript"><![CDATA[
+
+const pref = Components.classes['@mozilla.org/preferences;1'].getService(Components.interfaces.nsIPrefBranch);
+
+
+function init()
+{
+	window.setTimeout('window.moveTo((screen.availWidth-window.outerWidth)/2, (screen.availHeight-window.outerHeight)/2);', 0);
+}
+
+function accept()
+{
+	pref.setIntPref('ctxextensions.default.type', parseInt(document.getElementById('type').selectedItem.value));
+
+	window.close();
+}
+
+]]></script>
+
+
+<box orient="vertical" flex="1">
+	<box orient="horizontal">
+		<spacer flex="1"/>
+		<description value="&about.about.label_before;&version;&about.about.label_after;"/>
+		<spacer flex="1"/>
+	</box>
+	<box orient="horizontal">
+		<spacer flex="1"/>
+		<description value="&initial.desc;"/>
+		<spacer flex="1"/>
+	</box>
+	<radiogroup id="type" orient="horizontal">
+		<grid>
+			<columns>
+				<column class=""/>
+				<column flex="1"/>
+			</columns>
+			<rows>
+				<row align="center">
+					<radio label="&initial.normal;" orient="horizontal" value="0"/>
+					<label value="&initial.normal.desc;"/>
+				</row>
+				<row align="center">
+					<radio label="&initial.light;" orient="horizontal" value="1" selected="true"/>
+					<label value="&initial.light.desc;"/>
+				</row>
+			</rows>
+		</grid>
+	</radiogroup>
+	<box orient="horizontal">
+		<description flex="1">&initial.note;</description>
+	</box>
+</box>
+
+</dialog>

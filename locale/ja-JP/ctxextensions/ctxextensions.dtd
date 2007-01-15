@@ -1,0 +1,612 @@
+<!ENTITY common.import                     "参照...">
+<!ENTITY common.choose                     "参照...">
+<!ENTITY common.save                       "保存">
+<!ENTITY common.reload                     "再読み込み">
+<!ENTITY common.clear                      "内容をクリア">
+<!ENTITY common.reset                      "リセット">
+<!ENTITY common.close                      "閉じる">
+<!ENTITY common.rename                     "名前を変える">
+<!ENTITY common.property                   "プロパティ">
+<!ENTITY common.new                        "新しい項目を追加">
+<!ENTITY common.remove                     "削除">
+<!ENTITY common.arrowUp                    "&#9650; 上へ">
+<!ENTITY common.arrowDown                  "&#9660; 下へ">
+<!ENTITY common.moveUp                     "上へ移動">
+<!ENTITY common.moveDown                   "下へ移動">
+<!ENTITY common.undo                       "元に戻す">
+
+
+<!-- Generic Keyboard Shortcuts -->
+<!ENTITY accelKey.save                   "S">
+<!ENTITY accelKey.run                    "R">
+<!ENTITY accelKey.reload                 "R">
+<!ENTITY accelKey.exit                   "Q">
+<!ENTITY accelKey.close                  "W">
+<!ENTITY accelKey.edit                   "E">
+<!ENTITY accelKey.new                    "N">
+<!ENTITY accelKey.undo                   "Z">
+
+<!ENTITY accelKey.gotoNextHeading        "S">
+<!ENTITY accelKey.gotoPrevHeading        "W">
+<!ENTITY accelKey.getLinks               "J">
+<!ENTITY accelKey.focusNextByAlphabets   "A">
+<!ENTITY accelKey.focusPrevByAlphabets   "Q">
+<!ENTITY accelKey.showMenu.navigations   "N">
+<!ENTITY accelKey.showMenu.outline       "O">
+<!ENTITY accelKey.showMenu.customScripts "C">
+<!ENTITY accelKey.showMenu.styleSheets   "S">
+<!ENTITY accelKey.showMenu.execApps      "A">
+<!ENTITY accelKey.navigations.top        "T">
+<!ENTITY accelKey.navigations.up         "U">
+<!ENTITY accelKey.navigations.first      "F">
+<!ENTITY accelKey.navigations.prev       "P">
+<!ENTITY accelKey.navigations.next       "N">
+<!ENTITY accelKey.navigations.last       "L">
+<!ENTITY accelKey.navigations.toc        "C">
+<!ENTITY accelKey.navigations.chapter    "1">
+<!ENTITY accelKey.navigations.section    "2">
+<!ENTITY accelKey.navigations.subsection "3">
+<!ENTITY accelKey.navigations.appendix   "X">
+<!ENTITY accelKey.navigations.glossary   "G">
+<!ENTITY accelKey.navigations.index      "I">
+<!ENTITY accelKey.navigations.help       "?">
+<!ENTITY accelKey.navigations.search     "H">
+<!ENTITY accelKey.navigations.author     "&#64;"><!-- @ -->
+<!ENTITY accelKey.navigations.copyright  "R">
+<!ENTITY accelKey.navigations.bookmark   "B">
+<!ENTITY accelKey.navigations.alternate  "O">
+<!ENTITY accelKey.navigations.stylesheet "Y">
+
+
+
+
+<!-- Custom User Style Editor -->
+<!ENTITY customUserStyleEditor.title       "サイト別ユーザースタイルの編集">
+<!ENTITY customUserStyleEditor.caption     "「&#37;s」用のユーザースタイル">
+<!ENTITY customUserStyleEditor.dir.before  "">
+<!ENTITY customUserStyleEditor.dir.after   "に適用">
+<!ENTITY customUserStyleEditor.reload      "現在のディレクトリ">
+<!ENTITY customUserStyleEditor.import      "&common.import;">
+<!ENTITY customUserStyleEditor.save        "&common.save;">
+<!ENTITY customUserStyleEditor.clear       "&common.clear;">
+<!ENTITY customUserStyleEditor.close       "&common.close;">
+<!ENTITY customUserStyleEditor.manage      "ユーザースタイルの管理">
+
+
+
+<!-- StyleSheets Manager -->
+<!ENTITY styleSheetsManager.title          "スタイルシートマネージャ">
+<!ENTITY styleSheetsManager.import         "&common.import;">
+<!ENTITY styleSheetsManager.save           "&common.save;">
+<!ENTITY styleSheetsManager.reload         "&common.reload;">
+<!ENTITY styleSheetsManager.edit           "編集">
+<!ENTITY styleSheetsManager.open           "開く">
+<!ENTITY styleSheetsManager.delete         "削除">
+<!ENTITY styleSheetsManager.close          "&common.close;">
+<!ENTITY styleSheetsManager.clear          "&common.clear;">
+
+<!ENTITY styleSheetsManager.userContentCSS.title "グローバルユーザースタイルの編集">
+
+<!ENTITY styleSheetsManager.userStyles.title "サイト別ユーザースタイル">
+<!ENTITY styleSheetsManager.userStyles.path  "適用するディレクトリ">
+<!ENTITY styleSheetsManager.userStyles.value "ユーザースタイル">
+
+<!ENTITY styleSheetsManager.selectedStyles.title "スタイルの選択状態">
+<!ENTITY styleSheetsManager.selectedStyles.path  "適用するディレクトリ">
+<!ENTITY styleSheetsManager.selectedStyles.value "選択されたスタイル">
+
+
+
+<!-- JavaScript Panel -->
+<!ENTITY JSPanel.title                     "JavaScriptパネル">
+<!ENTITY JSPanel.tabsLabel                 "ページ&#37;s">
+<!ENTITY JSPanel.inport                    "&common.import;">
+<!ENTITY JSPanel.run                       "実行">
+<!ENTITY JSPanel.clear                     "&common.clear;">
+<!ENTITY JSPanel.close                     "&common.close;">
+
+
+
+<!-- Menu Labels -->
+<!ENTITY context.go.label                     "移動">
+<!ENTITY context.bookmarks.label              "ブックマーク">
+<!ENTITY context.up.label                     "一つ上の階層へ">
+<!ENTITY context.up.accesskey                 "u">
+<!ENTITY context.openSelectionAsURI.label     "選択文字列をURIとして開く">
+<!ENTITY context.openSelectionAsURI.label_select "「&#37;s」をURIとして開く">
+<!ENTITY context.openSelectionAsURI.accesskey "o">
+<!ENTITY context.nextHeading.label            "次の見出しへ">
+<!ENTITY context.nextHeading.accesskey        "s">
+<!ENTITY context.prevHeading.label            "前の見出しへ">
+<!ENTITY context.prevHeading.accesskey        "w">
+<!ENTITY context.openCiteForQuote.label       "引用元を表示">
+<!ENTITY context.openCiteForQuote.accesskey   "q">
+<!ENTITY context.openCiteForEdit.label        "編集の説明を表示">
+<!ENTITY context.openCiteForEdit.accesskey    "e">
+<!ENTITY context.openLongdesc.label           "画像の説明を表示">
+<!ENTITY context.openLongdesc.accesskey       "d">
+<!ENTITY context.extensions.label             "拡張機能">
+<!ENTITY context.extensions.accesskey         "x">
+<!ENTITY context.outline.label                "アウトライン">
+<!ENTITY context.outline.label_frame          "このフレームのアウトライン">
+<!ENTITY context.navigations.label            "ナビゲーション">
+<!ENTITY context.navigations.label_frame      "このフレームのナビゲーション">
+<!ENTITY context.styleSheets.label            "スタイルシート">
+<!ENTITY context.JSPanel.label                "&JSPanel.title;">
+<!ENTITY context.getLinks.label               "リンクの一覧をコピー">
+<!ENTITY context.getLinks.label_frame         "このフレームのリンクの一覧をコピー">
+<!ENTITY context.getLinks.label_select        "選択したリンクの一覧をコピー">
+<!ENTITY context.showComments.label           "コメントを表示">
+<!ENTITY context.showLinks.label              "リンク先を表示">
+<!ENTITY context.showIDs.label                "id/nameを表示">
+<!ENTITY context.showCites.label              "引用元を表示">
+<!ENTITY context.showTitles.label             "要素の説明を表示">
+<!ENTITY context.showEvents.label             "イベントの内容を表示">
+<!ENTITY context.showAll.label                "全ての不可視情報を表示">
+<!ENTITY context.sendURI.label                "このページを送る">
+<!ENTITY context.sendURI.label_frame          "このフレームを送る">
+<!ENTITY context.sendURI.label_link           "リンク先を送る">
+<!ENTITY context.sendStr.label                "選択文字列を送る">
+<!ENTITY context.sendStr.label_select         "「&#37;s」を送る">
+<!ENTITY context.customScripts.label          "カスタムスクリプト">
+<!ENTITY context.execApps.label               "アプリで開く">
+<!ENTITY context.execApps.label_frame         "このフレームをアプリで開く">
+<!ENTITY context.execApps.label_link          "リンク先をアプリで開く">
+<!ENTITY context.pref.label                   "設定">
+
+
+<!ENTITY menu.up.label                     "&context.up.label;">
+<!ENTITY menu.up.accesskey                 "&context.up.accesskey;">
+<!ENTITY menu.openSelectionAsURI.label     "&context.openSelectionAsURI.label;">
+<!ENTITY menu.openSelectionAsURI.label_select "&context.openSelectionAsURI.label_select;">
+<!ENTITY menu.openSelectionAsURI.accesskey "&context.openSelectionAsURI.accesskey;">
+<!ENTITY menu.nextHeading.label            "&context.nextHeading.label;">
+<!ENTITY menu.nextHeading.accesskey        "&context.nextHeading.accesskey;">
+<!ENTITY menu.prevHeading.label            "&context.prevHeading.label;">
+<!ENTITY menu.prevHeading.accesskey        "&context.prevHeading.accesskey;">
+<!ENTITY menu.openCiteForQuote.label       "&context.openCiteForQuote.label;">
+<!ENTITY menu.openCiteForQuote.accesskey   "&context.openCiteForQuote.accesskey;">
+<!ENTITY menu.openCiteForEdit.label        "&context.openCiteForEdit.label;">
+<!ENTITY menu.openCiteForEdit.accesskey    "&context.openCiteForEdit.accesskey;">
+<!ENTITY menu.openLongdesc.label           "&context.openLongdesc.label;">
+<!ENTITY menu.openLongdesc.accesskey       "&context.openLongdesc.accesskey;">
+<!ENTITY menu.extensions.label             "&context.extensions.label;">
+<!ENTITY menu.extensions.accesskey         "&context.extensions.accesskey;">
+<!ENTITY menu.outline.label                "アウトライン">
+<!ENTITY menu.outline.label_frame          "現在のフレームのアウトライン">
+<!ENTITY menu.outline.accesskey            "O">
+<!ENTITY menu.navigations.label            "&context.navigations.label;">
+<!ENTITY menu.navigations.label_frame      "現在のフレームのナビゲーション">
+<!ENTITY menu.navigations.label_short      "&context.navigations.label;">
+<!ENTITY menu.navigations.accesskey        "N">
+<!ENTITY menu.styleSheets.label            "&context.styleSheets.label;">
+<!ENTITY menu.styleSheets.accesskey        "S">
+<!ENTITY menu.JSPanel.label                "&JSPanel.title;">
+<!ENTITY menu.getLinks.label               "&context.getLinks.label;">
+<!ENTITY menu.getLinks.label_frame         "&context.getLinks.label_frame;">
+<!ENTITY menu.getLinks.label_select        "&context.getLinks.label_select;">
+<!ENTITY menu.showComments.label           "&context.showComments.label;">
+<!ENTITY menu.showLinks.label              "&context.showLinks.label;">
+<!ENTITY menu.showIDs.label                "&context.showIDs.label;">
+<!ENTITY menu.showCites.label              "&context.showCites.label;">
+<!ENTITY menu.showTitles.label             "&context.showTitles.label;">
+<!ENTITY menu.showEvents.label             "&context.showEvents.label;">
+<!ENTITY menu.showAll.label                "&context.showAll.label;">
+<!ENTITY menu.sendURI.label                "&context.sendURI.label;">
+<!ENTITY menu.sendURI.label_frame          "現在のフレームを送る">
+<!ENTITY menu.sendStr.label                "&context.sendStr.label;">
+<!ENTITY menu.sendStr.label_select         "&context.sendStr.label_select;">
+<!ENTITY menu.customScripts.label          "&context.customScripts.label;">
+<!ENTITY menu.customScripts.label_short    "スクリプト">
+<!ENTITY menu.customScripts.accesskey      "C">
+<!ENTITY menu.execApps.label               "&context.execApps.label;">
+<!ENTITY menu.execApps.label_short         "&context.execApps.label;">
+<!ENTITY menu.execApps.label_frame         "現在のフレームをアプリで開く">
+<!ENTITY menu.execApps.accesskey           "A">
+<!ENTITY menu.pref.label                   "&context.pref.label;">
+
+
+
+<!ENTITY menu.styleSheetsManager.label     "&styleSheetsManager.title;">
+<!ENTITY menu.customUserStyleEditor.label  "&customUserStyleEditor.title;">
+<!ENTITY menu.customUserStyleEditor.label_site "「&#37;s」用のサイト別ユーザースタイル">
+
+<!ENTITY styleSheets.noStyle.label         "全て無効">
+<!ENTITY styleSheets.onlyPermanence.label  "基本のスタイルシート">
+<!ENTITY styleSheets.sources.label         "ソース">
+
+<!ENTITY styleSheets.editUserContentCSS.label "グローバルユーザースタイルシートの編集">
+
+<!ENTITY styleSheets.cancelPhysical.label  "物理要素スタイル解除">
+<!ENTITY styleSheets.cancelPhysical.rules  "&#64;import url(chrome://ctxextensions/content/res/CancelPhysical.css);">
+<!ENTITY styleSheets.showElements.label    "要素構造表示（XHTML1.1）">
+<!ENTITY styleSheets.showElements.rules    "&#64;import url(chrome://ctxextensions/content/res/ShowElements-xhtml11.css);">
+
+
+
+
+<!-- Preferences -->
+<!ENTITY preftree.about.label              "コンテキストメニュー拡張">
+<!ENTITY preftree.general.label            "全般(1)">
+<!ENTITY preftree.general2.label           "全般(2)">
+<!ENTITY preftree.contextmenu.label        "コンテキストメニュー">
+<!ENTITY preftree.menubar.label            "メニューバー">
+<!ENTITY preftree.navigations.label        "ナビゲーション">
+<!ENTITY preftree.override.label           "外部アプリの使用">
+<!ENTITY preftree.styleSheets.label        "追加のスタイルシート">
+<!ENTITY preftree.sendURI.label            "ページを送る">
+<!ENTITY preftree.sendStr.label            "選択範囲を送る">
+<!ENTITY preftree.execApps.label           "アプリで開く">
+<!ENTITY preftree.customScripts.label      "カスタムスクリプト">
+
+<!ENTITY pref.saveSample                   "新しい項目として追加">
+
+<!ENTITY pref.listbox.samples.label        "サンプル：">
+<!ENTITY pref.listbox.samples.default      "（選択して下さい）">
+<!ENTITY pref.listbox.samples.go           "サンプルを読み込む">
+<!ENTITY pref.listbox.newItem.message      "しばらくお待ち下さい...">
+
+<!ENTITY prefDialog.title                  "コンテキストメニュー拡張の設定">
+<!ENTITY prefDialog.category               "カテゴリ">
+<!ENTITY prefDialog.size                   "width: 57em; height: 44em;">
+<!ENTITY prefDialog.apply                  "適用">
+
+
+
+<!ENTITY about.datasource.caption          "データファイル">
+<!ENTITY about.datasource.import           "他のデータファイルをインポート">
+<!ENTITY about.datasource.label            "外部データファイルの使用：">
+<!ENTITY about.datasource.choose           "&common.choose;">
+
+<!ENTITY about.expert.caption              "エキスパート設定">
+<!ENTITY about.expert.label                "詳細な設定を利用する">
+
+<!ENTITY about.about.caption               "コンテキストメニュー拡張について">
+<!ENTITY about.about.label_before          "コンテキストメニュー拡張 Ver.">
+<!ENTITY about.about.label_after           "">
+
+<!ENTITY importRDFData.message             "しばらくお待ち下さい...">
+
+
+
+
+<!ENTITY contextmenu.caption               "コンテキストメニューの項目">
+<!ENTITY contextmenu.show.label            "表示">
+<!ENTITY contextmenu.submenu.label         "サブメニュー">
+
+
+
+<!ENTITY menubar.caption                   "メニューバーの項目">
+<!ENTITY menubar.submenu.label             "サブメニュー">
+
+
+
+<!ENTITY general.showResultIn.caption        "処理結果の表示">
+<!ENTITY general.showResultIn.current        "現在のタブで開く">
+<!ENTITY general.showResultIn.newtab         "新しいタブで開く">
+<!ENTITY general.showResultIn.newbgtab       "新しい背景のタブで開く">
+<!ENTITY general.showResultIn.newwindow      "新しいウィンドウで開く">
+<!ENTITY general.showResultIn.forceNewWindowOrTab "ページ内リンクも別ウィンドウまたはタブで開く">
+
+<!ENTITY general.keys.caption              "キーボードショートカット">
+<!ENTITY general.keys.goHeadings           "「&accelKey.gotoNextHeading;」/「&accelKey.gotoPrevHeading;」に「&menu.nextHeading.label;」/「&menu.prevHeading.label;」を割り当てる">
+<!ENTITY general.keys.advanceFocus_alphabet "「&accelKey.focusNextByAlphabets;」で次のリンク、「&accelKey.focusPrevByAlphabets;」で前のリンクにフォーカスする">
+<!ENTITY general.keys.advanceFocus_arrow   "「Ctrl+↓」で次のリンク、「Ctrl+↑」で前のリンクにフォーカスする">
+<!ENTITY general.keys.advanceFocus_arrow.mac "「Command+↓」で次のリンク、「Command+↑」で前のリンクにフォーカスする">
+<!ENTITY general.keys.getLinks             "「Ctrl+&accelKey.getLinks;」に「&menu.getLinks.label;」を割り当てる">
+<!ENTITY general.keys.getLinks.mac         "「Command+&accelKey.getLinks;」に「&menu.getLinks.label;」を割り当てる">
+<!ENTITY general.keys.up                   "「Alt+Back Space」に「&menu.up.label;」を割り当てる">
+
+<!ENTITY general.misc.caption              "その他">
+<!ENTITY general.autoexec.caption          "ページ読み込み時に自動で実行する">
+<!ENTITY general.showAll.caption           "「&menu.showAll.label;」で実行する">
+
+<!ENTITY general.outline.caption           "ページのアウトライン">
+<!ENTITY general.outline.scan_in_background "ページ読み込み時にアウトライン情報を自動で更新する">
+
+<!ENTITY general.style.caption             "要素の表示">
+<!ENTITY general.style.group               "ラベルの表示スタイル">
+<!ENTITY general.style.showEvents.label    "&menu.showEvents.label;：イベント名">
+<!ENTITY general.style.showEvents.value    "&menu.showEvents.label;：内容">
+<!ENTITY general.style.default             "初期値に戻す">
+
+
+<!ENTITY general.general2.caption          "特殊な動作">
+<!ENTITY general.getLinks_collectOnClick.label "リンク一覧の取得でonclickイベントも検索する">
+
+<!ENTITY general.JSPanel.pageNum.label_before "同時に編集するスクリプトの数：">
+<!ENTITY general.JSPanel.pageNum.label_after "">
+
+
+
+<!ENTITY navigations.scan_in_background    "ページ読み込み時にナビゲーション情報を自動で更新する">
+<!ENTITY navigations.shortcut              "ナビゲーション項目のキーボードショートカットを有効にする">
+<!ENTITY navigations.collectLinks          "ページ中のリンクに埋め込まれたナビゲーション情報も取得する">
+<!ENTITY navigations.advanced              "ページ中のリンクから推測したナビゲーションも利用する">
+<!ENTITY navigations.regexp.caption        "以下の正規表現にマッチするリンクをナビゲーションと見なす">
+<!ENTITY navigations.regexp.default        "全ての正規表現を初期値に戻す">
+
+<!ENTITY navigations.regexp.next           "次のページ：">
+<!ENTITY navigations.regexp.prev           "前のページ：">
+<!ENTITY navigations.regexp.home           "ホーム：">
+<!ENTITY navigations.regexp.contents       "目次：">
+<!ENTITY navigations.regexp.index          "索引：">
+<!ENTITY navigations.regexp.glossary       "用語集：">
+<!ENTITY navigations.regexp.copyright      "著作権：">
+<!ENTITY navigations.regexp.appendix       "付録：">
+<!ENTITY navigations.regexp.help           "ヘルプ：">
+<!ENTITY navigations.regexp.search         "検索：">
+
+
+
+<!ENTITY override.tab.viewerAndEditor      "ビューワーとエディタ">
+
+<!ENTITY override.viewer.caption           "ソース表示に使うビューワー">
+<!ENTITY override.viewer.path              "パス：">
+<!ENTITY override.viewer.filePicker        "&common.choose;">
+<!ENTITY override.viewer.arguments         "追加の起動オプション(※)：">
+
+<!ENTITY override.CSSEditor.caption        "ユーザースタイルシートの編集に使うエディタ">
+<!ENTITY override.CSSEditor.path           "パス：">
+<!ENTITY override.CSSEditor.filePicker     "&common.choose;">
+<!ENTITY override.CSSEditor.arguments      "追加の起動オプション(※)：">
+
+<!ENTITY override.description              "※起動オプションはURI, ファイルパスの後に渡されます。オプションの後でこれらを渡したい場合、「&#37;S」を任意の位置に書いて下さい。">
+
+
+
+<!ENTITY override.tab.mailer               "メーラー">
+
+<!ENTITY override.mailer.caption           "メーラー">
+<!ENTITY override.mailer.system            "標準のメーラを使う">
+<!ENTITY override.mailer.webmail           "Webメールを使う">
+<!ENTITY override.mailer.webmail_path      "パス（※）：">
+<!ENTITY override.mailer.webmail_usetab    "Webメールのページをタブで開く">
+<!ENTITY override.mailer.path              "パス：">
+<!ENTITY override.mailer.filePicker        "&common.choose;">
+<!ENTITY override.mailer.arguments         "追加の起動オプション(※)：">
+<!ENTITY override.mailer.charset           "パラメータの文字コード：">
+
+<!ENTITY override.mailer.description       "※起動オプションはE-mailアドレスの後に渡されます。オプションの順番を変えたい場合や、その他のパラメータも渡す場合は、以下の記号を任意の位置に置いて下さい。">
+<!ENTITY override.mailer.description.to      "&#37;to      ：メールアドレス">
+<!ENTITY override.mailer.description.subject "&#37;subject ：件名">
+<!ENTITY override.mailer.description.cc      "&#37;cc      ：カーボンコピー">
+<!ENTITY override.mailer.description.bcc     "&#37;bcc     ：ブラインド カーボコピー">
+<!ENTITY override.mailer.description.body    "&#37;body    ：本文">
+
+
+
+<!ENTITY styleSheets.description           "ここで登録した項目は「&menu.styleSheets.label;」メニューに表示されます。">
+<!ENTITY styleSheets.caption               "ユーザー定義のスタイルシート">
+
+
+
+<!ENTITY sendURI.description               "ここで登録した項目は「&menu.sendURI.label;」メニューに表示されます。">
+<!ENTITY sendURI.caption                   "登録されたWebサービス">
+
+<!ENTITY sendURI.sample1.label             "Another HTML-lintで検証">
+<!ENTITY sendURI.sample1.uri               "http://openlab.ring.gr.jp/k16/htmllint/htmllint.cgi?Method=URL&amp;ViewSource=on&amp;HTTPHeader=on&amp;URL=&#37;s">
+<!ENTITY sendURI.sample2.label             "W3C HTML Validatorで検証">
+<!ENTITY sendURI.sample2.uri               "http://validator.w3.org/check?charset=&#37;28detect+automatically&#37;29&amp;doctype=Inline&amp;ss=&amp;sp=&amp;outline=&amp;uri=&#37;s">
+<!ENTITY sendURI.sample3.label             "WDG HTML Validatorで検証">
+<!ENTITY sendURI.sample3.uri               "http://www.htmlhelp.com/cgi-bin/validate.cgi?warnings=yes&amp;input=yes&amp;url=&#37;s">
+<!ENTITY sendURI.sample4.label             "WDG HTML Validatorで検証（リンク先も含める）">
+<!ENTITY sendURI.sample4.uri               "http://www.htmlhelp.com/cgi-bin/validate.cgi?warnings=yes&amp;spider=yes&amp;url=&#37;s">
+<!ENTITY sendURI.sample5.label             "Googleのキャッシュを開く">
+<!ENTITY sendURI.sample5.uri               "http://www.google.com/search?q=cache:&#37;s">
+<!ENTITY sendURI.sample6.label             "インターネットアーカイブを検索">
+<!ENTITY sendURI.sample6.uri               "http://web.archive.org/web/*/&#37;s">
+<!ENTITY sendURI.sample7.label             "Infoseek英和翻訳">
+<!ENTITY sendURI.sample7.uri               "http://www.infoseek.co.jp/Honyaku?wto=EJ&amp;pg=honyaku_w_out.html&amp;webin=&#37;s">
+
+
+
+<!ENTITY sendStr.description               "ここで登録した項目は「&menu.sendStr.label;」メニューに表示されます。">
+<!ENTITY sendStr.caption                   "登録されたWebサービス">
+
+<!ENTITY sendStr.sample1.label             "Google">
+<!ENTITY sendStr.sample1.uri               "http://www.google.com/search?hl=ja&amp;ie=utf8&amp;oe=utf8&amp;q=&#37;s">
+<!ENTITY sendStr.sample1.charset           "">
+<!ENTITY sendStr.sample2.label             "英英辞書（Dictionary.com）">
+<!ENTITY sendStr.sample2.uri               "http://www.dictionary.com/cgi-bin/dict.pl?term=&#37;s">
+<!ENTITY sendStr.sample2.charset           "">
+<!ENTITY sendStr.sample3.label             "国語辞典（goo）">
+<!ENTITY sendStr.sample3.uri               "http://dictionary.goo.ne.jp/cgi-bin/dict_search.cgi?sw=2&amp;MT=&#37;s">
+<!ENTITY sendStr.sample3.charset           "ISO-2022-JP">
+<!ENTITY sendStr.sample4.label             "通信用語の基礎知識">
+<!ENTITY sendStr.sample4.uri               "http://www.wdic.org/?do=m&amp;mode=match&amp;word=&#37;s">
+<!ENTITY sendStr.sample4.charset           "ISO-2022-JP">
+<!ENTITY sendStr.sample5.label             "Acronym Finder">
+<!ENTITY sendStr.sample5.uri               "http://www.acronymfinder.com/af-query.asp?String=exact&amp;Find=Find&amp;Acronym=&#37;s">
+<!ENTITY sendStr.sample5.charset           "">
+<!ENTITY sendStr.sample6.label             "Mozilla Cross-Reference:文字列検索">
+<!ENTITY sendStr.sample6.uri               "http://lxr.mozilla.org/mozilla/search?string=&#37;s">
+<!ENTITY sendStr.sample6.charset           "">
+<!ENTITY sendStr.sample7.label             "Mozilla Cross-Reference:ファイル検索">
+<!ENTITY sendStr.sample7.uri               "http://lxr.mozilla.org/mozilla/find?string=&#37;s">
+<!ENTITY sendStr.sample7.charset           "">
+
+
+
+<!ENTITY execApps.description              "ここで登録した項目は「&menu.execApps.label;」メニューに表示されます。">
+<!ENTITY execApps.caption                  "登録されたアプリケーション">
+
+<!ENTITY execApps.sample1.label            "インターネットエクスプローラ">
+<!ENTITY execApps.sample1.value            "C:\Program Files\Internet Explorer\Iexplore.exe">
+<!ENTITY execApps.sample1.arg              "&#37;S">
+<!ENTITY execApps.sample2.label            "秀丸エディタ（閲覧モード）">
+<!ENTITY execApps.sample2.value            "C:\Program Files\hidemaru\hidemaru.exe">
+<!ENTITY execApps.sample2.arg              "/b &#37;S">
+
+
+
+<!ENTITY customScripts.description         "ここで登録した項目は「&menu.customScripts.label;」メニューに表示されます。">
+<!ENTITY customScripts.caption             "ユーザー定義のスクリプト">
+
+<!ENTITY customScripts.sample1.label       "現在のページへのリンクを生成">
+<!ENTITY customScripts.sample2.label       "選択範囲を引用">
+<!ENTITY customScripts.sample3.label       "選択範囲をHTMLとして引用">
+<!ENTITY customScripts.sample4.label       "見出しのリストを生成">
+<!ENTITY customScripts.sample5.label       "文字列をUnicodeエスケープする">
+<!ENTITY customScripts.sample6.label       "文字列をCSS用にエスケープする">
+<!ENTITY customScripts.sample7.label       "文字列をXMLの文字数値参照に変換する（10進数）">
+<!ENTITY customScripts.sample8.label       "文字列をXMLの文字数値参照に変換する（16進数）">
+<!ENTITY customScripts.sample9.label       "noframesの中身を表示">
+<!ENTITY customScripts.sample10.label      "オブジェクトのプロパティ一覧を取得する">
+<!ENTITY customScripts.sample11.label      "オブジェクトのプロパティ一覧を取得する（再帰処理）">
+<!ENTITY customScripts.sample12.label      "要素を隠す">
+<!ENTITY customScripts.sample13.label      "Iria形式のダウンロードリストを生成">
+<!ENTITY customScripts.sample13-2.label    "特定の形式のファイルをまとめてダウンロード">
+<!ENTITY customScripts.sample14.label      "パッケージをアンインストール">
+<!ENTITY customScripts.sample15.label      "画像の自動リサイズ（IE互換）">
+<!ENTITY customScripts.sample16.label      "サイドバーに追加">
+<!ENTITY customScripts.sample17.label      "サイドバーに追加（2）">
+<!ENTITY customScripts.sample18.label      "他のスクリプトを選択して起動">
+<!ENTITY customScripts.sample19.label      "XULキャッシュのON/OFF">
+<!ENTITY customScripts.sample20.label      "installed-chrome.txtから重複しているエントリを消す">
+<!ENTITY customScripts.sample21.label      "指定したサイトへのリンクを強調表示する">
+<!ENTITY customScripts.sample22.label      "テキストファイルをUTF-8でエンコードする">
+
+
+
+
+
+<!-- PrefProp -->
+<!ENTITY PrefProp.title                    "プロパティ">
+<!ENTITY PrefProp.title_for                "&#37;sのプロパティ">
+<!ENTITY PrefProp.import                   "&common.import;">
+<!ENTITY PrefProp.clear                    "&common.clear;">
+<!ENTITY PrefProp.reset                    "&common.reset;">
+<!ENTITY PrefProp.run                      "テスト実行">
+
+<!ENTITY PrefProp.tab.main                 "情報">
+<!ENTITY PrefProp.tab.options              "オプション">
+
+<!ENTITY PrefProp.application.path         "パス：">
+<!ENTITY PrefProp.application.arguments    "起動オプション（※）：">
+<!ENTITY PrefProp.application.choose       "&common.choose;">
+<!ENTITY PrefProp.application.description  "※URI（またはファイルパス）を渡したい位置に「&#37;S」、選択範囲のテキストを渡したい位置に「&#37;C」を書いて下さい。">
+
+<!ENTITY PrefProp.webService.path          "パス（※）：">
+<!ENTITY PrefProp.webService.useCurrent    "現在のページ">
+<!ENTITY PrefProp.webService.forURI        "※URIを渡したい位置に「&#37;S」を書いて下さい。">
+<!ENTITY PrefProp.webService.forSelection  "※選択範囲のテキストを渡したい位置に「&#37;S」を書いて下さい。">
+
+<!ENTITY PrefProp.checkbox.cancelStyles    "このスタイルを適用する前に他の全てのスタイルを無効にする">
+<!ENTITY PrefProp.checkbox.defaultSelected "このスタイルを常に適用する">
+<!ENTITY PrefProp.checkbox.download        "リモートのファイルの場合、テンポラリファイルを作成して開く">
+<!ENTITY PrefProp.checkbox.autoExec        "ページ読み込み時に自動で実行する">
+<!ENTITY PrefProp.checkbox.autoExecStartup "ブラウザ起動時に自動で実行する">
+<!ENTITY PrefProp.checkbox.hiddenInMenu    "メニューに表示しない">
+
+<!ENTITY PrefProp.checkbox.newContextItem  "コンテキストメニューに加える">
+<!ENTITY PrefProp.checkbox.contextShowNormal "通常のメニュー">
+<!ENTITY PrefProp.checkbox.contextShowLink   "リンクのメニュー">
+<!ENTITY PrefProp.checkbox.contextShowSelect "範囲選択時のメニュー">
+
+<!ENTITY PrefProp.charset.label            "送るテキストの文字コード：">
+
+<!ENTITY PrefProp.openIn.label             "結果を">
+<!ENTITY PrefProp.openIn.current           "現在のタブに読み込む">
+<!ENTITY PrefProp.openIn.newTab            "新しいタブで開く">
+<!ENTITY PrefProp.openIn.newBackgroundTab  "新しい背景のタブで開く">
+<!ENTITY PrefProp.openIn.newWindow         "新しいウィンドウで開く">
+
+<!ENTITY PrefProp.shortcut.label           "キーボードショートカット：">
+<!ENTITY PrefProp.shortcut.set             "設定">
+<!ENTITY PrefProp.shortcut.clear           "クリア">
+
+
+
+
+<!ENTITY shortExpressions.label            "短縮構文：">
+<!ENTITY shortExpressions.insert           "挿入">
+<!ENTITY shortExpressions.default          "（選択して下さい）">
+
+<!ENTITY shortExpressions.window           "現在参照しているページのwindow">
+<!ENTITY shortExpressions.navigations      "現在参照しているページのナビゲーション項目">
+<!ENTITY shortExpressions.headings         "現在参照しているページの見出し項目">
+<!ENTITY shortExpressions.contextual       "リンク先URIまたは現在のページのURI">
+<!ENTITY shortExpressions.focusedElement   "フォーカスされている要素ノード">
+<!ENTITY shortExpressions.popupNode        "コンテキストメニューを開いたノード">
+<!ENTITY shortExpressions.selection        "選択範囲のテキスト">
+<!ENTITY shortExpressions.selectionSource  "選択範囲のソース">
+<!ENTITY shortExpressions.selectionNodes   "選択範囲に含まれるノード（一次配列）">
+
+<!ENTITY shortExpressions.profileURI       "プロファイルディレクトリのURI">
+<!ENTITY shortExpressions.profilePath      "プロファイルディレクトリのパス">
+<!ENTITY shortExpressions.installedURI     "Mozilla/NetscapeのあるディレクトリのURI">
+<!ENTITY shortExpressions.installedPath    "Mozilla/Netscapeのあるディレクトリのパス">
+<!ENTITY shortExpressions.temporaryURI     "一時ファイルを置くディレクトリのURI">
+<!ENTITY shortExpressions.temporaryPath    "一時ファイルを置くディレクトリのパス">
+<!ENTITY shortExpressions.homeURI          "ホームディレクトリ（デスクトップなど）のURI">
+<!ENTITY shortExpressions.homePath         "ホームディレクトリ（デスクトップなど）のパス">
+
+<!ENTITY shortExpressions.isOnline         "オンラインモードかどうか">
+<!ENTITY shortExpressions.inFrame          "現在参照しているページがフレームかどうか">
+<!ENTITY shortExpressions.menuMethods      "機能">
+<!ENTITY shortExpressions.getTopWindowOf   "指定のタイプ名のXULウィンドウを得る">
+<!ENTITY shortExpressions.getWindowsOf     "指定のタイプ名のXULウィンドウを全て得る">
+<!ENTITY shortExpressions.load             "URIを読み込む">
+<!ENTITY shortExpressions.newWindow        "URIを新しいウィンドウで読み込む">
+<!ENTITY shortExpressions.newTab           "URIを新しいタブで読み込む">
+<!ENTITY shortExpressions.loadAndDo        "URIを読み込み、関数を実行する">
+<!ENTITY shortExpressions.newWindowAndDo   "URIを新しいウィンドウで読み込み、関数を実行する">
+<!ENTITY shortExpressions.newTabAndDo      "URIを新しいタブで読み込み、関数を実行する">
+<!ENTITY shortExpressions.selectButton     "ボタンで選択する">
+<!ENTITY shortExpressions.selectButtonTitle "ボタンで選択する（タイトル指定）">
+<!ENTITY shortExpressions.selectList       "リストで選択する">
+<!ENTITY shortExpressions.selectListTitle  "リストで選択する（タイトル指定）">
+<!ENTITY shortExpressions.getClipBoard     "クリップボードから文字列を得る">
+<!ENTITY shortExpressions.setClipBoard     "クリップボードに文字列をコピーする">
+<!ENTITY shortExpressions.getInnerText     "要素の内部テキストを得、文字列として返す">
+<!ENTITY shortExpressions.convCharset1     "文字列の文字コードを相互変換して返す">
+<!ENTITY shortExpressions.convCharset2     "Unicode文字列を別の文字コードに変換して返す">
+<!ENTITY shortExpressions.addStyleSheet    "スタイルシートを加える">
+<!ENTITY shortExpressions.run              "外部アプリを実行する">
+<!ENTITY shortExpressions.menuIO           "ファイルの入出力">
+<!ENTITY shortExpressions.include          "外部のJavaScriptを実行する">
+<!ENTITY shortExpressions.read             "テキストファイルを読み込み、内容を文字列として返す">
+<!ENTITY shortExpressions.write            "文字列をテキストファイルに保存する">
+<!ENTITY shortExpressions.saveURIAs        "リモートのリソースをファイルに保存する">
+<!ENTITY shortExpressions.saveURIInBackgroundAs "リモートのリソースをバックグラウンドでファイルに保存する">
+<!ENTITY shortExpressions.chooseFile       "コモンダイアログでファイルを選択する">
+<!ENTITY shortExpressions.chooseFileToSave "コモンダイアログで保存用にファイルを選択する">
+
+<!ENTITY shortExpressions.menuExt          "拡張機能">
+<!ENTITY shortExpressions.cancelStyles     "全てのスタイルシートを無効にする">
+<!ENTITY shortExpressions.switchStyleTo    "指定したスタイルに切り替える">
+<!ENTITY shortExpressions.openStyleSheetSource "指定したスタイルのソースを開く">
+<!ENTITY shortExpressions.addOptionalStyleSheet "指定したユーザー定義スタイルシートを有効にする">
+<!ENTITY shortExpressions.removeOptionalStyleSheet "指定したユーザー定義スタイルシートを無効にする">
+<!ENTITY shortExpressions.sendURITo        "URIを指定した送り先に送る">
+<!ENTITY shortExpressions.sendStrTo        "文字列を指定した送り先に送る">
+<!ENTITY shortExpressions.openWithApp      "URIと文字列を指定した外部アプリに渡す">
+<!ENTITY shortExpressions.customScript     "指定したカスタムスクリプトを実行する">
+<!ENTITY shortExpressions.getLinksWithNode "ページ中のリンクの配列を得る">
+
+<!ENTITY shortExpressions.menuPrefs        "設定の読み書き">
+<!ENTITY shortExpressions.getPref          "設定を読み込む">
+<!ENTITY shortExpressions.setPref          "設定を保存する">
+<!ENTITY shortExpressions.clearPref        "設定を消去する">
+
+
+
+
+<!ENTITY initial.desc     "コンテキストメニュー拡張の初期設定を選択して下さい">
+<!ENTITY initial.note     "※ここで変更されるのは初期設定の状態のみです。ライト設定を選択しても、後から通常設定と同じ動作に変更できます。">
+<!ENTITY initial.normal      "通常設定：">
+<!ENTITY initial.normal.desc "全ての推奨機能が有効になります">
+<!ENTITY initial.light       "ライト設定：">
+<!ENTITY initial.light.desc  "一部の機能が無効になりますが、動作が多少軽くなります">
+
+
+
+
+
+<!-- for Firefox 0.9 or later -->
+<!ENTITY useStyleSheetMenu.label     "スタイルシート">
+<!ENTITY useStyleSheetMenu.accesskey "U">
+<!ENTITY bookmarksMenu.label         "ブックマーク">
+<!ENTITY emptyItem.label             "(なし)">
+<!ENTITY goMenu.label                "移動">

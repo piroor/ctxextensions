@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+
+<?xul-overlay href="chrome://ctxextensions/content/pref/shortexpressionsOverlay.xul"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://ctxextensions/content/res/dialog.css" type="text/css"?>
+
+<!DOCTYPE dialog [
+<!ENTITY % ctxextensionsDTD SYSTEM "chrome://ctxextensions/locale/">
+%ctxextensionsDTD;
+]>
+
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+		xmlns:html="http://www.w3.org/1999/xhtml"
+		id="JavaScript-panel-window"
+		windowtype="ctxextensions:JSPanel"
+		title="&JSPanel.title;"
+		orient="vertical"
+		width="350px"
+		height="300px"
+		persist="screenX screenY width height"
+		onload="JSPanelService.init();"
+		onunload="JSPanelService.destruct();"
+		onfocus="JSPanelService.clearStatus();"
+		ondialogextra1="window.close();"
+		buttons="extra1">
+
+	<data id="extra1-label" label="&JSPanel.close;"/>
+
+	<script type="application/x-javascript" src="chrome://ctxextensions/content/pProgressManager.js"/>
+	<script type="application/x-javascript" src="chrome://ctxextensions/content/extCommonUtils.js"/>
+
+	<script type="application/x-javascript" src="JSPanel.js"/>
+
+	<keyset>
+		<key key="&accelKey.run;" modifiers="accel"
+			oncommand="JSPanelService.runScript();"/>
+		<key key="&accelKey.exit;" modifiers="accel"
+			oncommand="window.close();"/>
+		<key key="&accelKey.close;" modifiers="accel"
+			oncommand="window.close();"/>
+	</keyset>
+
+
+	<tabbox flex="1" orient="vertical">
+		<tabs id="scriptPageTabs"
+			onselect="document.getElementById('shortExpressions').setAttribute('target', 'script'+(this.selectedIndex+1));"
+			oncommand="if (document.commandDispatcher.focusedElement.localName.match(/textbox|textarea|input/)) JSPanelService.script.focus();"
+			labelTemplate="&JSPanel.tabsLabel;">
+			<tab/>
+		</tabs>
+<!--
+		<tabpanels id="scriptPagePanels" flex="1" orient="vertical"
+			onkeypress="event.stopPropagation();"
+			onkeyup="event.stopPropagation();"
+			onfocus="JSPanelService.clearStatus();"
+			oninput="JSPanelService.clearStatus(); event.stopPropagation();">
+-->
+		<tabpanels id="scriptPagePanels" flex="1" orient="vertical"
+			onfocus="JSPanelService.clearStatus();"
+			oninput="JSPanelService.clearStatus();">
+			<box orient="vertical" flex="1">
+				<textbox
+					id="script1"
+					multiline="true"
+					value=""
+					style="min-height: 12em; min-width: 20em;"
+					wrap="true"
+					flex="1"/>
+			</box>
+		</tabpanels>
+	</tabbox>
+
+	<box id="shortExpressions" target="script1"/>
+
+	<box orient="horizontal">
+		<button label="&JSPanel.inport;" oncommand="JSPanelService.importScript();"/>
+		<button label="&JSPanel.clear;"  oncommand="JSPanelService.clearScript();"/>
+		<spacer flex="1"/>
+		<button label="&JSPanel.run;" oncommand="JSPanelService.runScript()"/>
+	</box>
+
+	<box orient="horizontal">
+		<statusbarpanel id="statusbar" label="" flex="1"/>
+	</box>
+
+</dialog>

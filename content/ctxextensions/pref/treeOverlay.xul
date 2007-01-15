@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://ctxextensions/locale/">
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<treechildren id="panelChildren">
+	<treeitem id="ctxextensions-root" container="true"
+		insertafter="advancedItem">
+		<treerow>
+			<treecell
+				label="&preftree.about.label;"
+				url="chrome://ctxextensions/content/pref/pref-about.xul"/>
+		</treerow>
+		<treechildren id="ctxextensions-children">
+			<treeitem id="ctxextensions-general">
+				<treerow>
+					<treecell
+						label="&preftree.general.label;"
+						url="chrome://ctxextensions/content/pref/pref-general.xul"/>
+				</treerow>
+			</treeitem>
+			<treeitem id="ctxextensions-general2">
+				<treerow>
+					<treecell
+						label="&preftree.general2.label;"
+						url="chrome://ctxextensions/content/pref/pref-general2.xul"/>
+				</treerow>
+			</treeitem>
+			<treeitem id="ctxextensions-contextmenu">
+				<treerow>
+					<treecell
+						label="&preftree.contextmenu.label;"
+						url="chrome://ctxextensions/content/pref/pref-contextmenu.xul"/>
+				</treerow>
+			</treeitem>
+			<treeitem id="ctxextensions-menubar">
+				<treerow>
+					<treecell
+						label="&preftree.menubar.label;"
+						url="chrome://ctxextensions/content/pref/pref-menubar.xul"/>
+				</treerow>
+			</treeitem>
+			<treeitem id="ctxextensions-navigations">
+				<treerow>
+					<treecell
+						label="&preftree.navigations.label;"
+						url="chrome://ctxextensions/content/pref/pref-navigations.xul"/>
+				</treerow>
+			</treeitem>
+			<treeitem id="ctxextensions-override">
+				<treerow>
+					<treecell
+						label="&preftree.override.label;"
+						url="chrome://ctxextensions/content/pref/pref-override.xul"/>
+				</treerow>
+			</treeitem>
+			<treeitem id="ctxextensions-styleSheets">
+				<treerow>
+					<treecell
+						label="&preftree.styleSheets.label;"
+						url="chrome://ctxextensions/content/pref/pref-styleSheets.xul"/>
+				</treerow>
+			</treeitem>
+			<treeitem id="ctxextensions-sendURI">
+				<treerow>
+					<treecell
+						label="&preftree.sendURI.label;"
+						url="chrome://ctxextensions/content/pref/pref-sendURI.xul"/>
+				</treerow>
+			</treeitem>
+			<treeitem id="ctxextensions-sendStr">
+				<treerow>
+					<treecell
+						label="&preftree.sendStr.label;"
+						url="chrome://ctxextensions/content/pref/pref-sendStr.xul"/>
+				</treerow>
+			</treeitem>
+			<treeitem id="ctxextensions-execApps">
+				<treerow>
+					<treecell
+						label="&preftree.execApps.label;"
+						url="chrome://ctxextensions/content/pref/pref-execApps.xul"/>
+				</treerow>
+			</treeitem>
+			<treeitem id="ctxextensions-customScripts">
+				<treerow>
+					<treecell
+						label="&preftree.customScripts.label;"
+						url="chrome://ctxextensions/content/pref/pref-customScripts.xul"/>
+				</treerow>
+			</treeitem>
+		</treechildren>
+	</treeitem>
+</treechildren>
+
+</overlay>

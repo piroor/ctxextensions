@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+
+<?xul-overlay href="prefOverlay.xul"?>
+
+<!DOCTYPE window [
+<!ENTITY % versionDTD SYSTEM "chrome://ctxextensions/content/_version.dtd">
+%versionDTD;
+<!ENTITY % ctxextensionsDTD SYSTEM "chrome://ctxextensions/locale/">
+%ctxextensionsDTD;
+]>
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+		orient="vertical"
+		onload="init();"
+		headertitle="&preftree.about.label;">
+
+<script type="application/x-javascript" src="pref-about.js"/>
+
+
+	<groupbox orient="vertical">
+		<caption label="&about.expert.caption;"/>
+		<checkbox label="&about.expert.label;"
+			id="expertCheck"
+			oncommand="ExtCommonUtils.setPref('ctxextensions.enable.expert_prefs', this.getAttribute('checked') == 'true'); PrefUtils.initExpert();"/>
+	</groupbox>
+
+	<groupbox orient="vertical">
+		<caption label="&about.datasource.caption;"/>
+		<box orient="horizontal">
+			<button flex="1" label="&about.datasource.import;"
+				oncommand="importRDFData();"/>
+		</box>
+		<box orient="horizontal" expert="true">
+			<label value="&about.datasource.label;"
+				control="datasourcePath"/>
+			<textbox id="datasourcePath"
+				prefstring="ctxextensions.override.datasource_path"
+				flex="1"/>
+			<button label="&about.datasource.choose;"
+				oncommand="chooseExtensionsData(this.previousSibling.id);"/>
+		</box>
+	</groupbox>
+
+	<spacer flex="1"/>
+
+	<groupbox orient="vertical">
+		<caption label="&about.about.caption;"/>
+		<box orient="horizontal">
+			<spacer flex="1"/>
+			<description value="&about.about.label_before;&version;&about.about.label_after;"/>
+			<spacer flex="1"/>
+		</box>
+		<box orient="horizontal">
+			<spacer flex="1"/>
+			<description value="http://piro.sakura.ne.jp/"
+				onclick="PrefUtils.loadURI('http://piro.sakura.ne.jp/');"
+				class="text-link"/>
+			<spacer flex="1"/>
+		</box>
+	</groupbox>
+
+
+
+</window>

@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+
+<?xul-overlay href="prefOverlay.xul"?>
+
+<!DOCTYPE window [
+<!ENTITY % ctxextensionsDTD SYSTEM "chrome://ctxextensions/locale/">
+%ctxextensionsDTD;
+]>
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+		orient="vertical"
+		headertitle="&preftree.contextmenu.label;">
+
+
+	<groupbox orient="vertical" flex="1">
+		<caption label="&contextmenu.caption;"/>
+		<grid flex="1">
+			<columns>
+				<column flex="2"/>
+				<column flex="1"/>
+				<column flex="1"/>
+			</columns>
+			<rows flex="1" class="scrollbox">
+				<row>
+					<spacer/>
+					<label flex="1" value="&contextmenu.show.label;"/>
+					<label flex="1" value="&contextmenu.submenu.label;"/>
+				</row>
+				<separator/>
+				<row>
+					<label value="&context.up.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.up"/>
+					<spacer/>
+				</row>
+				<separator/>
+				<row>
+					<label value="&context.extensions.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.extensions"/>
+					<spacer/>
+				</row>
+				<separator/>
+				<row>
+					<label value="&context.go.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.go"/>
+					<spacer/>
+				</row>
+				<row>
+					<label value="&context.bookmarks.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.bookmarks"/>
+					<spacer/>
+				</row>
+				<row>
+					<label value="&context.nextHeading.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.nextHeading"/>
+					<checkbox prefstring="ctxextensions.submenu.context.nextHeading"/>
+				</row>
+				<row>
+					<label value="&context.prevHeading.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.prevHeading"/>
+					<checkbox prefstring="ctxextensions.submenu.context.prevHeading"/>
+				</row>
+				<separator/>
+				<row>
+					<label value="&context.openSelectionAsURI.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.openSelectionAsURI"/>
+					<checkbox prefstring="ctxextensions.submenu.context.openSelectionAsURI"/>
+				</row>
+				<row>
+					<label value="&context.openCiteForQuote.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.openCiteForQuote"/>
+					<checkbox prefstring="ctxextensions.submenu.context.openCiteForQuote"/>
+				</row>
+				<row>
+					<label value="&context.openCiteForEdit.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.openCiteForEdit"/>
+					<checkbox prefstring="ctxextensions.submenu.context.openCiteForEdit"/>
+				</row>
+				<row>
+					<label value="&context.openLongdesc.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.openLongdesc"/>
+					<checkbox prefstring="ctxextensions.submenu.context.openLongdesc"/>
+				</row>
+				<separator/>
+				<row>
+					<label value="&context.outline.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.outline"/>
+					<checkbox prefstring="ctxextensions.submenu.context.outline"/>
+				</row>
+				<row>
+					<label value="&context.navigations.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.navigations"/>
+					<checkbox prefstring="ctxextensions.submenu.context.navigations"/>
+				</row>
+				<row>
+					<label value="&context.styleSheets.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.styleSheets"/>
+					<checkbox prefstring="ctxextensions.submenu.context.styleSheets"/>
+				</row>
+				<separator/>
+				<row>
+					<label value="&context.JSPanel.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.JSPanel"/>
+					<checkbox prefstring="ctxextensions.submenu.context.JSPanel"/>
+				</row>
+				<row>
+					<label value="&context.getLinks.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.getLinks"/>
+					<checkbox prefstring="ctxextensions.submenu.context.getLinks"/>
+				</row>
+				<separator/>
+				<row>
+					<label value="&context.showComments.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.showComments"/>
+					<checkbox prefstring="ctxextensions.submenu.context.showComments"/>
+				</row>
+				<row>
+					<label value="&context.showLinks.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.showLinks"/>
+					<checkbox prefstring="ctxextensions.submenu.context.showLinks"/>
+				</row>
+				<row>
+					<label value="&context.showIDs.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.showIDs"/>
+					<checkbox prefstring="ctxextensions.submenu.context.showIDs"/>
+				</row>
+				<row>
+					<label value="&context.showCites.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.showCites"/>
+					<checkbox prefstring="ctxextensions.submenu.context.showCites"/>
+				</row>
+				<row>
+					<label value="&context.showTitles.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.showTitles"/>
+					<checkbox prefstring="ctxextensions.submenu.context.showTitles"/>
+				</row>
+				<row>
+					<label value="&context.showEvents.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.showEvents"/>
+					<checkbox prefstring="ctxextensions.submenu.context.showEvents"/>
+				</row>
+				<row>
+					<label value="&context.showAll.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.showAll"/>
+					<checkbox prefstring="ctxextensions.submenu.context.showAll"/>
+				</row>
+				<separator/>
+				<row>
+					<label value="&context.sendURI.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.sendURI"/>
+					<checkbox prefstring="ctxextensions.submenu.context.sendURI"/>
+				</row>
+				<row>
+					<label value="&context.sendStr.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.sendStr"/>
+					<checkbox prefstring="ctxextensions.submenu.context.sendStr"/>
+				</row>
+				<separator/>
+				<row>
+					<label value="&context.execApps.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.execApps"/>
+					<checkbox prefstring="ctxextensions.submenu.context.execApps"/>
+				</row>
+				<row>
+					<label value="&context.customScripts.label;"/>
+					<checkbox prefstring="ctxextensions.show_item.context.customScripts"/>
+					<checkbox prefstring="ctxextensions.submenu.context.customScripts"/>
+				</row>
+
+			</rows>
+		</grid>
+	</groupbox>
+
+
+</window>

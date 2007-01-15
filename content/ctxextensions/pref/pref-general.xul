@@ -1,0 +1,372 @@
+<?xml version="1.0"?>
+
+<?xul-overlay href="prefOverlay.xul"?>
+
+<!DOCTYPE window [
+<!ENTITY % ctxextensionsDTD SYSTEM "chrome://ctxextensions/locale/">
+%ctxextensionsDTD;
+]>
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+		orient="vertical"
+		headertitle="&preftree.general.label;">
+
+	<script type="application/x-javascript"><![CDATA[
+
+	function setStyle(aName)
+	{
+		var data = {
+			styleRules : ExtCommonUtils.getPref('ctxextensions.style.'+aName, true),
+
+			mName        : aName,
+			callBackFunc : function()
+			{
+				if ('modified' in this)
+					ExtCommonUtils.setPref('ctxextensions.style.'+this.mNName, this.styleRules, true);
+			}
+		};
+
+		window.openDialog('chrome://ctxextensions/content/pref/prefProperty.xul', '_blank', 'chrome,all,dialog=no,centerscreen', data);
+	}
+
+	function setDefaultStyle(aName)
+	{
+		if (ExtCommonUtils.PromptService.confirm(
+				window,
+				ExtCommonUtils.getMsg('pref_confirm_title'),
+				ExtCommonUtils.getMsg('pref_general_style_setDefault')
+			))
+			ExtCommonUtils.clearPref('ctxextensions.style.'+aName);
+	}
+
+	]]></script>
+
+	<tabbox orient="vertical" flex="1">
+	<tabs orient="horizontal">
+		<tab label="&general.showResultIn.caption;"/>
+		<tab label="&general.misc.caption;"/>
+		<tab label="&general.keys.caption;" expert="true"/>
+		<tab label="&general.style.caption;" expert="true"/>
+	</tabs>
+	<tabpanels flex="1">
+
+
+		<box orient="vertical">
+		<grid>
+			<columns>
+				<column flex="2"/>
+				<column flex="1"/>
+			</columns>
+			<rows flex="1" class="scrollbox">
+				<row>
+					<spacer/>
+					<label flex="1" value="&general.showResultIn.caption;"/>
+				</row>
+				<separator/>
+				<row>
+					<label value="&context.up.label;"/>
+					<menulist prefstring="ctxextensions.showResultIn.up"
+						preftype="int">
+						<menupopup>
+							<menuitem label="&general.showResultIn.current;" value="0" />
+							<menuitem label="&general.showResultIn.newtab;" value="10" />
+							<menuitem label="&general.showResultIn.newbgtab;" value="11" />
+							<menuitem label="&general.showResultIn.newwindow;" value="20" />
+						</menupopup>
+					</menulist>
+				</row>
+				<row>
+					<separator/>
+					<spacer/>
+				</row>
+				<row>
+					<label value="&context.openSelectionAsURI.label;"/>
+					<menulist prefstring="ctxextensions.showResultIn.openSelectionAsURI"
+						preftype="int">
+						<menupopup>
+							<menuitem label="&general.showResultIn.current;" value="0" />
+							<menuitem label="&general.showResultIn.newtab;" value="10" />
+							<menuitem label="&general.showResultIn.newbgtab;" value="11" />
+							<menuitem label="&general.showResultIn.newwindow;" value="20" />
+						</menupopup>
+					</menulist>
+				</row>
+				<row>
+					<label value="&context.openCiteForQuote.label;"/>
+					<menulist prefstring="ctxextensions.showResultIn.openCiteForQuote"
+						preftype="int">
+						<menupopup>
+							<menuitem label="&general.showResultIn.current;" value="0" />
+							<menuitem label="&general.showResultIn.newtab;" value="10" />
+							<menuitem label="&general.showResultIn.newbgtab;" value="11" />
+							<menuitem label="&general.showResultIn.newwindow;" value="20" />
+						</menupopup>
+					</menulist>
+				</row>
+				<row>
+					<label value="&context.openCiteForEdit.label;"/>
+					<menulist prefstring="ctxextensions.showResultIn.openCiteForEdit"
+						preftype="int">
+						<menupopup>
+							<menuitem label="&general.showResultIn.current;" value="0" />
+							<menuitem label="&general.showResultIn.newtab;" value="10" />
+							<menuitem label="&general.showResultIn.newbgtab;" value="11" />
+							<menuitem label="&general.showResultIn.newwindow;" value="20" />
+						</menupopup>
+					</menulist>
+				</row>
+				<row>
+					<label value="&context.openLongdesc.label;"/>
+					<menulist prefstring="ctxextensions.showResultIn.openLongdesc"
+						preftype="int">
+						<menupopup>
+							<menuitem label="&general.showResultIn.current;" value="0" />
+							<menuitem label="&general.showResultIn.newtab;" value="10" />
+							<menuitem label="&general.showResultIn.newbgtab;" value="11" />
+							<menuitem label="&general.showResultIn.newwindow;" value="20" />
+						</menupopup>
+					</menulist>
+				</row>
+				<row>
+					<separator/>
+					<spacer/>
+				</row>
+				<row>
+					<label value="&context.navigations.label;"/>
+					<menulist prefstring="ctxextensions.showResultIn.navigations"
+						preftype="int">
+						<menupopup>
+							<menuitem label="&general.showResultIn.current;" value="0" />
+							<menuitem label="&general.showResultIn.newtab;" value="10" />
+							<menuitem label="&general.showResultIn.newbgtab;" value="11" />
+							<menuitem label="&general.showResultIn.newwindow;" value="20" />
+						</menupopup>
+					</menulist>
+				</row>
+				<row>
+					<separator/>
+					<spacer/>
+				</row>
+				<row>
+					<label value="&context.styleSheets.label;"/>
+					<menulist prefstring="ctxextensions.showResultIn.styleSheets"
+						preftype="int">
+						<menupopup>
+							<menuitem label="&general.showResultIn.current;" value="0" />
+							<menuitem label="&general.showResultIn.newtab;" value="10" />
+							<menuitem label="&general.showResultIn.newbgtab;" value="11" />
+							<menuitem label="&general.showResultIn.newwindow;" value="20" />
+						</menupopup>
+					</menulist>
+				</row>
+				<row>
+					<separator/>
+					<spacer/>
+				</row>
+				<row>
+					<label value="&context.sendURI.label;"/>
+					<menulist prefstring="ctxextensions.showResultIn.sendURI"
+						preftype="int">
+						<menupopup>
+							<menuitem label="&general.showResultIn.current;" value="0" />
+							<menuitem label="&general.showResultIn.newtab;" value="10" />
+							<menuitem label="&general.showResultIn.newbgtab;" value="11" />
+							<menuitem label="&general.showResultIn.newwindow;" value="20" />
+						</menupopup>
+					</menulist>
+				</row>
+				<row>
+					<label value="&context.sendStr.label;"/>
+					<menulist prefstring="ctxextensions.showResultIn.sendStr"
+						preftype="int">
+						<menupopup>
+							<menuitem label="&general.showResultIn.current;" value="0" />
+							<menuitem label="&general.showResultIn.newtab;" value="10" />
+							<menuitem label="&general.showResultIn.newbgtab;" value="11" />
+							<menuitem label="&general.showResultIn.newwindow;" value="20" />
+						</menupopup>
+					</menulist>
+				</row>
+			</rows>
+		</grid>
+		<box orient="vertical">
+		<checkbox label="&general.showResultIn.forceNewWindowOrTab;"
+			expert="true"
+			prefstring="ctxextensions.showResultIn.forceNewWindowOrTab"/>
+		</box>
+		</box>
+
+
+		<box orient="vertical">
+		<groupbox>
+			<caption label="&general.autoexec.caption;"/>
+			<grid>
+				<columns>
+					<column/>
+					<column/>
+				</columns>
+				<rows>
+					<row>
+						<checkbox label="&menu.showComments.label;"
+							prefstring="ctxextensions.autoexec.showComments"/>
+						<checkbox label="&menu.showLinks.label;"
+							prefstring="ctxextensions.autoexec.showLinks"/>
+					</row>
+					<row>
+						<checkbox label="&menu.showIDs.label;"
+							prefstring="ctxextensions.autoexec.showIDs"/>
+						<checkbox label="&menu.showCites.label;"
+							prefstring="ctxextensions.autoexec.showCites"/>
+					</row>
+					<row>
+						<checkbox label="&menu.showTitles.label;"
+							prefstring="ctxextensions.autoexec.showTitles"/>
+						<checkbox label="&menu.showEvents.label;"
+							prefstring="ctxextensions.autoexec.showEvents"/>
+					</row>
+					<row>
+						<checkbox label="&menu.customScripts.label;"
+							prefstring="ctxextensions.autoexec.customScripts"/>
+						<spacer/>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		<groupbox expert="true">
+			<caption label="&general.showAll.caption;"/>
+			<grid>
+				<columns>
+					<column/>
+					<column/>
+				</columns>
+				<rows>
+					<row>
+						<checkbox label="&menu.showComments.label;"
+							prefstring="ctxextensions.showall_enable.showComments"/>
+						<checkbox label="&menu.showLinks.label;"
+							prefstring="ctxextensions.showall_enable.showLinks"/>
+					</row>
+					<row>
+						<checkbox label="&menu.showIDs.label;"
+							prefstring="ctxextensions.showall_enable.showIDs"/>
+						<checkbox label="&menu.showCites.label;"
+							prefstring="ctxextensions.showall_enable.showCites"/>
+					</row>
+					<row>
+						<checkbox label="&menu.showTitles.label;"
+							prefstring="ctxextensions.showall_enable.showTitles"/>
+						<checkbox label="&menu.showEvents.label;"
+							prefstring="ctxextensions.showall_enable.showEvents"/>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		<groupbox expert="true">
+			<caption label="&general.outline.caption;"/>
+			<checkbox label="&general.outline.scan_in_background;"
+				prefstring="ctxextensions.scan_outline_in_background.enable"/>
+		</groupbox>
+		</box>
+
+
+
+		<box orient="vertical" expert="true">
+			<box orient="vertical">
+			<checkbox label="&general.keys.goHeadings;"
+				prefstring="ctxextensions.shortcut.goHeadings"/>
+			<checkbox label="&general.keys.advanceFocus_alphabet;"
+				prefstring="ctxextensions.shortcut.advanceFocus_alphabet"/>
+			<checkbox label="&general.keys.advanceFocus_arrow;"
+				id="advanceFocus_arrow"
+				prefstring="ctxextensions.shortcut.advanceFocus_arrow"/>
+			<checkbox label="&general.keys.getLinks;"
+				id="getLinks"
+				prefstring="ctxextensions.shortcut.getLinks"/>
+			<checkbox label="&general.keys.up;"
+				prefstring="ctxextensions.shortcut.up"/>
+
+			<data maclabel-for="advanceFocus_arrow"
+				value="&general.keys.advanceFocus_arrow.mac;"/>
+			<data maclabel-for="getLinks"
+				value="&general.keys.getLinks.mac;"/>
+			</box>
+		</box>
+
+
+		<box orient="vertical">
+		<groupbox>
+			<caption label="&general.style.group;"/>
+			<grid>
+				<columns>
+					<column flex="1"/>
+					<column/>
+				</columns>
+				<rows>
+					<row>
+						<button
+							label="&menu.showComments.label;"
+							oncommand="setStyle('showComments');"/>
+						<button
+							label="&general.style.default;"
+							oncommand="setDefaultStyle('showComments');"/>
+					</row>
+					<row>
+						<button
+							label="&menu.showLinks.label;"
+							oncommand="setStyle('showLinks');"/>
+						<button
+							label="&general.style.default;"
+							oncommand="setDefaultStyle('showLinks');"/>
+					</row>
+					<row>
+						<button
+							label="&menu.showIDs.label;"
+							oncommand="setStyle('showIDs');"/>
+						<button
+							label="&general.style.default;"
+							oncommand="setDefaultStyle('showIDs');"/>
+					</row>
+					<row>
+						<button
+							label="&menu.showCites.label;"
+							oncommand="setStyle('showCites');"/>
+						<button
+							label="&general.style.default;"
+							oncommand="setDefaultStyle('showCites');"/>
+					</row>
+					<row>
+						<button
+							label="&menu.showTitles.label;"
+							oncommand="setStyle('showTitles');"/>
+						<button
+							label="&general.style.default;"
+							oncommand="setDefaultStyle('showTitles');"/>
+					</row>
+					<row>
+						<button
+							label="&general.style.showEvents.label;"
+							oncommand="setStyle('showEvents.label');"/>
+						<button
+							label="&general.style.default;"
+							oncommand="setDefaultStyle('showEvents.label');"/>
+					</row>
+					<row>
+						<button
+							label="&general.style.showEvents.value;"
+							oncommand="setStyle('showEvents.value');"/>
+						<button
+							label="&general.style.default;"
+							oncommand="setDefaultStyle('showEvents.value');"/>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		</box>
+
+
+
+	</tabpanels>
+	</tabbox>
+
+
+</window>
