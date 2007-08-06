@@ -8,14 +8,14 @@ var ExtService = {
 	XLinkNS : 'http://www.w3.org/1999/xlink',
 	XULNS   : 'http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul',
 	EXNS    : 'http://piro.sakura.ne.jp/ctxextensions',
-	
+	 
 //============================== Generic Values ===============================
 // プロパティ 
-	
+	 
 	debug : false, 
  
 	// 状態 
-	
+	 
 	// 現在のドキュメントのURIがHTTPスキームを含むかどうか 
 	get isHTTP()
 	{
@@ -61,14 +61,26 @@ var ExtService = {
 		return ('headings' in this.contentInfo() && this.contentInfo().headings) ? this.contentInfo().headings.length : null ;
 	},
  
+	get hasRecieverForStr() 
+	{
+		return this.utils.getNodesFromXPath('descendant::xul:menuitem[not(@hidden)]', document.getElementById('context-item-sendStr')).snapshotLength;
+	},
+ 
+	get hasRecieverForURI() 
+	{
+		return this.utils.getNodesFromXPath('descendant::xul:menuitem[not(@hidden)]', document.getElementById('context-item-sendURI')).snapshotLength;
+	},
+ 
 	get hasCustomScripts() 
 	{
+		return this.utils.getNodesFromXPath('descendant::xul:menuitem[not(@hidden)]', document.getElementById('context-item-customScripts')).snapshotLength;
 		var popup = document.getElementById('ext-common-customScripts:mpopup');
 		return popup && popup.hasChildNodes();
 	},
  
 	get hasExecApps() 
 	{
+		return this.utils.getNodesFromXPath('descendant::xul:menuitem[not(@hidden)]', document.getElementById('context-item-execApps')).snapshotLength;
 		var mpopup = document.getElementById('ext-common-execApps:mpopup');
 		return mpopup && mpopup.hasChildNodes() && mpopup.lastChild.localName == 'menuitem';
 	},
@@ -81,7 +93,7 @@ var ExtService = {
 		return this._process;
 	},
 	_process : null,
-  
+ 	 
 	// content 
 	
 	// 現在のフレームの内容を返す 
@@ -2517,11 +2529,6 @@ catch(e) {
 
 		var normal = !sel && !this.onLink;
 
-		var hasRecieverForStr = this.utils.getNodesFromXPath('descendant::xul:menuitem[not(@hidden)]', document.getElementById('context-item-sendStr')).snapshotLength;
-		var hasRecieverForURI = this.utils.getNodesFromXPath('descendant::xul:menuitem[not(@hidden)]', document.getElementById('context-item-sendURI')).snapshotLength;
-		var hasCustomScripts = this.utils.getNodesFromXPath('descendant::xul:menuitem[not(@hidden)]', document.getElementById('context-item-customScripts')).snapshotLength;
-		var hasExecApps = this.utils.getNodesFromXPath('descendant::xul:menuitem[not(@hidden)]', document.getElementById('context-item-execApps')).snapshotLength;
-
 		var items = [
 				'go',                 hasHistory && showGo && normal,
 				'up',                 this.canUp && normal,
@@ -2544,10 +2551,10 @@ catch(e) {
 				'showTitles',         this.isWebPage && normal,
 				'showEvents',         this.isWebPage && normal,
 				'showAll',            this.isWebPage && normal,
-				'sendURI',            hasRecieverForURI && (this.onLink || !sel),
-				'sendStr',            hasRecieverForStr && sel,
-				'customScripts',      hasCustomScripts,
-				'execApps',           hasExecApps
+				'sendURI',            this.hasRecieverForURI && (this.onLink || !sel),
+				'sendStr',            this.hasRecieverForStr && sel,
+				'customScripts',      this.hasCustomScripts,
+				'execApps',           this.hasExecApps
 			];
 
 		var prefName;

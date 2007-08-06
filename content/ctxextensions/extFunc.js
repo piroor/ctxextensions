@@ -810,6 +810,7 @@ var ExtFunc = {
 					'var _installedPath = window._installedPath;',
 					'var _temporaryPath = window._temporaryPath;',
 					'var _homePath = window._homePath;',
+
 					script,
 				' } }'
 			].join('\n\r'));

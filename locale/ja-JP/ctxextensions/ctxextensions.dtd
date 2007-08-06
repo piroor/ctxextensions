@@ -535,8 +535,8 @@
 
 <!ENTITY shortExpressions.profileURI       "プロファイルディレクトリのURI">
 <!ENTITY shortExpressions.profilePath      "プロファイルディレクトリのパス">
-<!ENTITY shortExpressions.installedURI     "Mozilla/NetscapeのあるディレクトリのURI">
-<!ENTITY shortExpressions.installedPath    "Mozilla/Netscapeのあるディレクトリのパス">
+<!ENTITY shortExpressions.installedURI     "FirefoxのあるディレクトリのURI">
+<!ENTITY shortExpressions.installedPath    "Firefoxのあるディレクトリのパス">
 <!ENTITY shortExpressions.temporaryURI     "一時ファイルを置くディレクトリのURI">
 <!ENTITY shortExpressions.temporaryPath    "一時ファイルを置くディレクトリのパス">
 <!ENTITY shortExpressions.homeURI          "ホームディレクトリ（デスクトップなど）のURI">

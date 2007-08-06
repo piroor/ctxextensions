@@ -533,8 +533,8 @@
 
 <!ENTITY shortExpressions.profileURI       "URI of the current profile directory">
 <!ENTITY shortExpressions.profilePath      "Localized path of the current profile directory">
-<!ENTITY shortExpressions.installedURI     "URI of the directory Mozilla/Netscape is installed in">
-<!ENTITY shortExpressions.installedPath    "Localized path of the directory Mozilla/Netscape is installed in">
+<!ENTITY shortExpressions.installedURI     "URI of the directory Firefox is installed in">
+<!ENTITY shortExpressions.installedPath    "Localized path of the directory Firefox is installed in">
 <!ENTITY shortExpressions.temporaryURI     "URI of the directory temporary files are put in">
 <!ENTITY shortExpressions.temporaryPath    "Localized path of the directory temporary files are put in">
 <!ENTITY shortExpressions.homeURI          "URI of the home directory (like desktop)">
