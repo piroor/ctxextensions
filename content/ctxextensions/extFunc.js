@@ -785,10 +785,35 @@ var ExtFunc = {
 
 		try {
 			// windowオブジェクトのメソッドにする
-			eval(['window.extCustomScripts[id] = function() { with(window) {', script, '} }'].join('\n\r'));
+			eval([
+				'window.extCustomScripts[id] = function() { with (window) {',
+					'var _window = window._window;',
+					'var _contextualURI = window._contextualURI;',
+					'var _selection = window._selection;',
+					'var _selectionSource = window._selectionSource;',
+					'var _selectionSourceXML = window._selectionSourceXML;',
+					'var _selectionNodes = window._selectionNodes;',
+					'var _focusedElement = window._focusedElement;',
+
+					// 以前のバージョン'
+					'var _getSelection = window._getSelection;',
+					'var _getSelectionSource = window._getSelectionSource;',
+					'var _getSelectionNodes = window._getSelectionNodes;',
+					'var _isOnline = window._isOnline;',
+					'var _inFrame = window._inFrame;',
+					'var _popupNode = window._popupNode;',
+					'var _profileURI = window._profileURI;',
+					'var _installedURI = window._installedURI;',
+					'var _temporaryURI = window._temporaryURI;',
+					'var _homeURI = window._homeURI;',
+					'var _profilePath = window._profilePath;',
+					'var _installedPath = window._installedPath;',
+					'var _temporaryPath = window._temporaryPath;',
+					'var _homePath = window._homePath;',
+					script,
+				' } }'
+			].join('\n\r'));
 			return window.extCustomScripts[id]();
-//			delete window.extCustomScripts[id];
-//			return ret;
 		}
 		catch(e) {
 			alert(e);
