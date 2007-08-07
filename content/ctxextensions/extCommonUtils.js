@@ -629,9 +629,7 @@ var ExtCommonUtils = {
 	// URLをファイルパスに変換する 
 	getFileFromURLSpec : function(aURI)
 	{
-		var URI = this.IOService.newURI(aURI, null, null);
-
-		if (!URI.schemeIs('file')) return '';
+		if ((aURI || '').indexOf('file://') != 0) return '';
 
 		var fileHandler = this.IOService.getProtocolHandler('file').QueryInterface(Components.interfaces.nsIFileProtocolHandler);
 		return fileHandler.getFileFromURLSpec(aURI);

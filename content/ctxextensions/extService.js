@@ -3362,19 +3362,19 @@ window.__defineGetter__('_window', function() {
 });
 
 window.__defineGetter__('_contextualURI', function() {
-	return ExtService.contextualURI(false, _window);
+	return ExtService.contextualURI(false, window._window);
 });
 window.__defineGetter__('_selection', function() {
-	return ExtService.getSelection(_window);
+	return ExtService.getSelection(window._window);
 });
 window.__defineGetter__('_selectionSource', function() {
-	return ExtService.getSelectionSource(_window);
+	return ExtService.getSelectionSource(window._window);
 });
 window.__defineGetter__('_selectionSourceXML', function() {
-	return ExtService.getSelectionSource(_window, null, true);
+	return ExtService.getSelectionSource(window._window, null, true);
 });
 window.__defineGetter__('_selectionNodes', function() {
-	return ExtCommonUtils.getSelectionNodes(_window);
+	return ExtCommonUtils.getSelectionNodes(window._window);
 });
 window.__defineGetter__('_focusedElement', function() {
 	return document.commandDispatcher.focusedElement;
@@ -3382,20 +3382,20 @@ window.__defineGetter__('_focusedElement', function() {
 
 // 以前のバージョン
 window.__defineGetter__('_getSelection', function() {
-	return ExtService.getSelection(_window);
+	return ExtService.getSelection(window._window);
 });
 window.__defineGetter__('_getSelectionSource', function() {
-	return ExtService.getSelectionSource(_window);
+	return ExtService.getSelectionSource(window._window);
 });
 window.__defineGetter__('_getSelectionNodes', function() {
-	return ExtCommonUtils.getSelectionNodes(_window);
+	return ExtCommonUtils.getSelectionNodes(window._window);
 });
 
 window.__defineGetter__('_isOnline', function() {
 	return ExtService.isOnline;
 });
 window.__defineGetter__('_inFrame', function() {
-	return (_window != Components.lookupMethod(_window, 'top').call(_window));
+	return (window._window != Components.lookupMethod(window._window, 'top').call(window._window));
 });
 
 window.__defineGetter__('_popupNode', function() {
