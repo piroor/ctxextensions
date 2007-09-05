@@ -1,41 +1,34 @@
-<?xml version="1.0"?>
-<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-	 xmlns:em="http://www.mozilla.org/2004/em-rdf#">
-	<Description about="urn:mozilla:install-manifest">
-
-		<em:id>{4C4D8A1D-1E3C-439e-9298-16073A5C4851}</em:id>
-
-		<em:version>4.1.2007080701</em:version>
-
-
-		<em:targetApplication>
-			<Description><!-- Firefox -->
-				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-				<em:minVersion>1.5</em:minVersion>
-				<em:maxVersion>2.0.0.*</em:maxVersion>
-			</Description>
-			<Description><!-- Netscape Browser 8 -->
-				<em:id>{3db10fab-e461-4c80-8b97-957ad5f8ea47}</em:id>
-				<em:minVersion>8.0</em:minVersion>
-				<em:maxVersion>8.1</em:maxVersion>
-			</Description>
-			<Description><!-- Thunderbird -->
-				<em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
-				<em:minVersion>1.5</em:minVersion>
-				<em:maxVersion>2.0.0.*</em:maxVersion>
-			</Description>
-		</em:targetApplication>
+<?xml version="1.0" encoding="UTF-8"?>
+<RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="urn:mozilla:install-manifest"
+                   em:id="{4C4D8A1D-1E3C-439e-9298-16073A5C4851}"
+                   em:name="ContextMenu Extensions"
+                   em:version="4.1.2007080701"
+                   em:creator="SHIMODA Hiroshi"
+                   em:description="Adds many useful features to the browser."
+                   em:homepageURL="http://piro.sakura.ne.jp/xul/ctxextensions/index.html.en"
+                   em:iconURL=""
+                   em:optionsURL="chrome://ctxextensions/content/pref/prefDialogCall.xul">
 
 
-		<em:name>ContextMenu Extensions</em:name>
-		<em:description>Adds many useful features to the browser.</em:description>
-		<em:creator>SHIMODA Hiroshi</em:creator>
-		<em:homepageURL>http://piro.sakura.ne.jp/xul/ctxextensions/index.html.en</em:homepageURL>
-		<em:updateURL>https://pub.cozmixng.org/~piro/xul/xul.rdf.en</em:updateURL>
+    <em:updateURL>https://pub.cozmixng.org/~piro/xul/xul.rdf.en</em:updateURL>
 
 
-		<em:optionsURL>chrome://ctxextensions/content/pref/prefDialogCall.xul</em:optionsURL>
-		<!--em:aboutURL>chrome://ctxextensions/content/pref/prefDialogCall.xul</em:aboutURL-->
-		<!--em:iconURL></em:iconURL-->
-	</Description>
-</RDF>
+    <em:targetApplication>
+      <!-- Firefox -->
+      <RDF:Description em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                       em:minVersion="1.5"
+                       em:maxVersion="2.0.0.*" />
+      <!-- Netscape Browser 8 -->
+      <RDF:Description em:id="{86c18b42-e466-45a9-ae7a-9b95ba6f5640}"
+                       em:minVersion="8.0"
+                       em:maxVersion="8.*" />
+      <!-- Thunderbird -->
+      <RDF:Description em:id="{3550f703-e582-4d05-9a08-453d09bdfdc6}"
+                       em:minVersion="1.5"
+                       em:maxVersion="2.0.0.*" />
+    </em:targetApplication>
+  </RDF:Description>
+</RDF:RDF>
