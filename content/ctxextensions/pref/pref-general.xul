@@ -11,6 +11,21 @@
 		orient="vertical"
 		headertitle="&preftree.general.label;">
 
+<script type="application/x-javascript" src="chrome://ctxextensions/content/extCommonUtils.js"/>
+<script type="application/x-javascript"><![CDATA[
+window.addEventListener('load', function() {
+	window.removeEventListener('load', arguments.callee, false);
+	if (!ExtCommonUtils.isBrowser) {
+		var nodes = document.getElementsByAttribute('class',  'for-browser');
+		for (var i = nodes.length-1; i > -1; i--)
+		{
+			nodes[i].parentNode.removeChild(nodes[i]);
+		}
+	}
+}, false);
+]]></script>
+
+
 	<script type="application/x-javascript"><![CDATA[
 
 	function setStyle(aName)
@@ -43,15 +58,15 @@
 
 	<tabbox orient="vertical" flex="1">
 	<tabs orient="horizontal">
-		<tab label="&general.showResultIn.caption;"/>
-		<tab label="&general.misc.caption;"/>
+		<tab label="&general.showResultIn.caption;" class="for-browser"/>
+		<tab label="&general.misc.caption;" class="for-browser"/>
 		<tab label="&general.keys.caption;" expert="true"/>
-		<tab label="&general.style.caption;" expert="true"/>
+		<tab label="&general.style.caption;" expert="true" class="for-browser"/>
 	</tabs>
-	<tabpanels flex="1">
+	<tabpanels flex="1" class="for-browser">
 
 
-		<box orient="vertical">
+		<box orient="vertical" class="for-browser">
 		<grid>
 			<columns>
 				<column flex="2"/>
@@ -197,7 +212,7 @@
 		</box>
 
 
-		<box orient="vertical">
+		<box orient="vertical" class="for-browser">
 		<groupbox>
 			<caption label="&general.autoexec.caption;"/>
 			<grid>
@@ -272,17 +287,17 @@
 
 		<box orient="vertical" expert="true">
 			<box orient="vertical">
-			<checkbox label="&general.keys.goHeadings;"
+			<checkbox class="for-browser" label="&general.keys.goHeadings;"
 				prefstring="ctxextensions.shortcut.goHeadings"/>
-			<checkbox label="&general.keys.advanceFocus_alphabet;"
+			<checkbox class="for-browser" label="&general.keys.advanceFocus_alphabet;"
 				prefstring="ctxextensions.shortcut.advanceFocus_alphabet"/>
-			<checkbox label="&general.keys.advanceFocus_arrow;"
+			<checkbox class="for-browser" label="&general.keys.advanceFocus_arrow;"
 				id="advanceFocus_arrow"
 				prefstring="ctxextensions.shortcut.advanceFocus_arrow"/>
 			<checkbox label="&general.keys.getLinks;"
 				id="getLinks"
 				prefstring="ctxextensions.shortcut.getLinks"/>
-			<checkbox label="&general.keys.up;"
+			<checkbox class="for-browser" label="&general.keys.up;"
 				prefstring="ctxextensions.shortcut.up"/>
 
 			<data maclabel-for="advanceFocus_arrow"
@@ -293,7 +308,7 @@
 		</box>
 
 
-		<box orient="vertical">
+		<box orient="vertical" class="for-browser">
 		<groupbox>
 			<caption label="&general.style.group;"/>
 			<grid>

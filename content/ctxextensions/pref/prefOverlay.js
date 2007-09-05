@@ -166,13 +166,13 @@ var PrefUtils = {
  
 	loadURI : function(aURI) 
 	{
-		var target = this.utils.browserWindow;
+		var target = this.utils.mainWindow;
 		if (target) {
 			target.loadURI(aURI);
 			target.focus();
 		}
 		else
-			window.openDialog(this.utils.browserURI, '_blank', 'chrome,all,dialog=no', aURI);
+			window.openDialog(this.utils.mainURI, '_blank', 'chrome,all,dialog=no', aURI);
 	},
  
 	controlLinkedItems : function(aNode) 

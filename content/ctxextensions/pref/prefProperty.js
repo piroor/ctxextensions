@@ -368,14 +368,14 @@ dump('5\n');
 		var script = this.customScripts.value;
 		if (!script.replace(/\s/gi, '')) return;
 
-		if (!this.utils.browserWindow) {
-			var w = window.openDialog(this.utils.browserURI, '_blank', 'chrome,all,dialog=no');
+		if (!this.utils.mainWindow) {
+			var w = window.openDialog(this.utils.mainURI, '_blank', 'chrome,all,dialog=no');
 			var progress = new pProgressManager(this.runScriptCallback, 50/*, w*/);
 			progress.appendItem(w, script);
 			progress.start();
 		}
 		else {
-			this.utils.browserWindow.ExtFunc.CustomScripts(null, script);
+			this.utils.mainWindow.ExtFunc.CustomScripts(null, script);
 			this.editor.focus();
 			this.editor.label = this.utils.getMsg('JSPanel_OK');
 		}
@@ -461,9 +461,9 @@ dump('5\n');
  
 	getCurrentURI : function(aTitle) 
 	{
-		if (!this.utils.browserWindow) return;
+		if (!this.utils.mainWindow) return;
 
-		var uri = this.utils.browserWindow.ExtService.currentURI();
+		var uri = this.utils.mainWindow.ExtService.currentURI();
 		if (uri)
 			this.webService.path.value = uri;
 	},

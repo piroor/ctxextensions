@@ -678,12 +678,12 @@ var ExtFunc = {
 				this.service.loadURI(uri, null, this.service.NEW_WINDOW);
 				break;
 			case 'NewTab':
-				if (this.utils.browserWindow.ExtService.currentURI(true) != 'about:blank') {
+				if (this.utils.mainWindow.ExtService.currentURI(true) != 'about:blank') {
 					this.service.openNewTab(uri, null, this.service.NEW_TAB);
 					break;
 				}
 			case 'NewBackgroundTab':
-				if (this.utils.browserWindow.ExtService.currentURI(true) != 'about:blank') {
+				if (this.utils.mainWindow.ExtService.currentURI(true) != 'about:blank') {
 					this.service.openNewTab(uri, null, this.service.NEW_BG_TAB);
 					break;
 				}

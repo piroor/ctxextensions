@@ -41,21 +41,21 @@
 						url="chrome://ctxextensions/content/pref/pref-menubar.xul"/>
 				</treerow>
 			</treeitem>
-			<treeitem id="ctxextensions-navigations">
+			<treeitem id="ctxextensions-navigations" class="for-browser">
 				<treerow>
 					<treecell
 						label="&preftree.navigations.label;"
 						url="chrome://ctxextensions/content/pref/pref-navigations.xul"/>
 				</treerow>
 			</treeitem>
-			<treeitem id="ctxextensions-override">
+			<treeitem id="ctxextensions-override" class="for-browser">
 				<treerow>
 					<treecell
 						label="&preftree.override.label;"
 						url="chrome://ctxextensions/content/pref/pref-override.xul"/>
 				</treerow>
 			</treeitem>
-			<treeitem id="ctxextensions-styleSheets">
+			<treeitem id="ctxextensions-styleSheets" class="for-browser">
 				<treerow>
 					<treecell
 						label="&preftree.styleSheets.label;"
@@ -93,5 +93,20 @@
 		</treechildren>
 	</treeitem>
 </treechildren>
+
+<script type="application/x-javascript" src="chrome://ctxextensions/content/extCommonUtils.js"/>
+<script type="application/x-javascript"><![CDATA[
+window.addEventListener('load', function() {
+	window.removeEventListener('load', arguments.callee, false);
+	if (!ExtCommonUtils.isBrowser) {
+		var nodes = document.getElementsByAttribute('class',  'for-browser');
+		for (var i = nodes.length-1; i > -1; i--)
+		{
+			nodes[i].parentNode.removeChild(nodes[i]);
+		}
+	}
+}, false);
+]]></script>
+
 
 </overlay>

@@ -13,12 +13,12 @@ var CustomUserStyleEditorService = {
 	
 	get contentDocument() 
 	{
-		return (this.utils.browserWindow) ? this.utils.browserWindow.ExtService.contentDocument(true) : null ;
+		return (this.utils.mainWindow) ? this.utils.mainWindow.ExtService.contentDocument(true) : null ;
 	},
  
 	get currentURI() 
 	{
-		return (this.utils.browserWindow && (this.forceDone || !this.forcePath)) ? this.utils.browserWindow.ExtService.currentURI(true) : this.forcePath ;
+		return (this.utils.mainWindow && (this.forceDone || !this.forcePath)) ? this.utils.mainWindow.ExtService.currentURI(true) : this.forcePath ;
 	},
  
 	get titleMax() 
@@ -112,11 +112,11 @@ var CustomUserStyleEditorService = {
  
 	reload : function(aForce) 
 	{
-		if (this.utils.browserWindow &&
+		if (this.utils.mainWindow &&
 			this.title.getAttribute('uri').split('#')[0] == this.currentURI.split('#')[0] &&
 			!aForce)
 			return;
-		else if (!this.utils.browserWindow && this.forcePath)
+		else if (!this.utils.mainWindow && this.forcePath)
 			this.initDialog(this.forcePath);
 		else
 			this.initDialog();

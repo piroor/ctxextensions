@@ -7,13 +7,13 @@ var ExtCommonUtils = {
 
 	content      : 'chrome://ctxextensions/content/',
 	locale       : 'chrome://ctxextensions/locale/',
-	
+	 
 	// プロパティ 
 	// properties
-	
-	get browserURI() 
+	 
+	get mainURI() 
 	{
-		if (!this._browserURI) {
+		if (this._mainURI === void(0)) {
 			var uri = this.getPref('browser.chromeURL');
 			if (!uri) {
 				try {
@@ -23,18 +23,26 @@ var ExtCommonUtils = {
 				catch(e) {
 				}
 			}
-			if (uri.charAt(uri.length-1) == '/')
-				uri = uri.replace(/chrome:\/\/([^\/]+)\/content\//, 'chrome://$1/content/$1.xul');
-			this._browserURI = uri;
+			if (uri) {
+				if (uri.charAt(uri.length-1) == '/')
+					uri = uri.replace(/chrome:\/\/([^\/]+)\/content\//, 'chrome://$1/content/$1.xul');
+			}
+			this._mainURI = uri;
 		}
-		return this._browserURI;
+		return this._mainURI;
 	},
-	_browserURI : null,
+//	_mainURI : null,
   
+	get isBrowser() 
+	{
+		return (this.mainURI && this.mainURI.indexOf('chrome://browser/') > -1) ? true : false ;
+	},
+ 
 	get contextMenu() 
 	{
 		if (!this.mContextMenu)
-			this.mContextMenu = document.getElementById('contentAreaContextMenu');
+			this.mContextMenu = document.getElementById('contentAreaContextMenu') || // Firefox
+								document.getElementById('messagePaneContext'); // Thunderbird
 		return this.mContextMenu;
 	},
 	mContextMenu : null,
@@ -42,7 +50,8 @@ var ExtCommonUtils = {
 	get browser() 
 	{
 		if (this._browser === void(0)) {
-			this._browser = document.getElementById('content');
+			this._browser = document.getElementById('content') || // Firefox
+							document.getElementById('messagepane'); // Thunderbird
 			if (this._browser &&
 				(
 					this._browser.localName != 'browser' &&
@@ -82,14 +91,21 @@ var ExtCommonUtils = {
 		return document.getElementsByTagNameNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'tabbrowser');
 	},
   
-	get browserWindow() 
+	get mainWindow() 
 	{
-		return this.getTopWindowOf('navigator:browser');
+		return this.isBrowser ?
+				this.getTopWindowOf('navigator:browser') : // Firefox
+				( // Thunderbird
+					this.getTopWindowOf('mail:3pane') ||
+					this.getTopWindowOf('mail:messageWindow')
+				);
 	},
  
-	get browserWindows() 
+	get mainWindows() 
 	{
-		return this.getWindowsOf('navigator:browser');
+		return this.isBrowser ?
+				this.getWindowsOf('navigator:browser') :
+				this.getWindowsOf('mail:3pane').concat(this.getWindowsOf('mail:messageWindow'));
 	},
  
 	get datasource() 
@@ -101,7 +117,7 @@ var ExtCommonUtils = {
 		return this.mDatasource;
 	},
 	mDatasource : null,
-	
+	 
 	// RDFデータソースの位置 
 	get datasourceURI()
 	{
@@ -594,7 +610,7 @@ var ExtCommonUtils = {
 	},
   
 	// URI操作 
-	
+	 
 	// 渡されたURIからnsIURIのオブジェクトを生成する 
 	makeURIFromSpec : function(aURI)
 	{
@@ -703,7 +719,14 @@ var ExtCommonUtils = {
 			dir[i] = this.getParentDir(dir[i-1]);
 		return dir;
 	},
-    
+   
+	openURIInExternalApp : function(aURI) 
+	{
+		var uri = Components.classes['@mozilla.org/network/io-service;1'].getService(Components.interfaces.nsIIOService).newURI(aURI, null, null);
+		var protocolSvc = Components.classes['@mozilla.org/uriloader/external-protocol-service;1'].getService(Components.interfaces.nsIExternalProtocolService);
+		protocolSvc.loadUrl(uri);
+	},
+ 	 
 	// ファイル操作 
 	
 	// 渡されたパスからnsIFileのオブジェクトを生成する 
@@ -1494,11 +1517,13 @@ var ExtCommonUtils = {
 	// nsIXULTemplateBuilder.rebuild() の代わり 
 	rebuildFromTemplate : function(aContainer)
 	{
+		if (!aContainer) return;
+
 		var i, j;
 		const XULNS = 'http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul';
 
 		var template = aContainer.hasAttribute('template') ? document.getElementById(aContainer.getAttribute('template')) : aContainer.getElementsByTagNameNS(XULNS, 'template')[0] ;
-		if (!template.hasAttribute('ext-template')) return;
+		if (!template || !template.hasAttribute('ext-template')) return;
 
 		if (!('extTemplate' in template))
 			eval('template.extTemplate = '+template.getAttribute('ext-template'));

@@ -136,7 +136,7 @@ var StyleSheetsManagerService = {
 	openURI : function(aID) 
 	{
 		var tree   = document.getElementById('tree:'+this[aID].groupID),
-			target = this.utils.browserWindow;
+			target = this.utils.mainWindow;
 
 		var items = this.getSelectedItems(tree);
 		var path = (items.length) ? items[0].getElementsByTagName('treecell')[0].getAttribute('label') : '';
@@ -146,7 +146,7 @@ var StyleSheetsManagerService = {
 		if (target)
 			target.loadURI(path);
 		else
-			window.openDialog(this.utils.browserURI, '_blank', 'chrome,all,dialog=no', path);
+			window.openDialog(this.utils.mainURI, '_blank', 'chrome,all,dialog=no', path);
 
 		return;
 	},

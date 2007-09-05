@@ -108,7 +108,7 @@ var ExtService = {
 				focusedWindow == window ||
 				Components.lookupMethod(focusedWindow, 'top').call(focusedWindow) == window
 			) ?
-				gBrowser.contentWindow :
+				this.utils.browser.contentWindow :
 				focusedWindow ;
 	},
 
@@ -121,7 +121,7 @@ var ExtService = {
 				focusedWindow == window ||
 				Components.lookupMethod(focusedWindow, 'top').call(focusedWindow) == window
 			) ?
-				gBrowser.contentDocument :
+				this.utils.browser.contentDocument :
 				focusedWindow.document ;
 	},
 
@@ -206,10 +206,13 @@ var ExtService = {
 				'context-item-sendURI-frame',
 				'context-item-execApps-frame'
 			];
-		var framePopup = document.getElementById('frame').lastChild;
-		framePopup.appendChild(document.createElement('menuseparator'));
-		for (var i in frameItems)
-			framePopup.appendChild(document.getElementById(frameItems[i]));
+		var framePopup = document.getElementById('frame');
+		if (framePopup) {
+			framePopup = framePopup.lastChild;
+			framePopup.appendChild(document.createElement('menuseparator'));
+			for (var i in frameItems)
+				framePopup.appendChild(document.getElementById(frameItems[i]));
+		}
 
 
 		// ラベル文字列の初期化
@@ -370,23 +373,25 @@ var ExtService = {
 	{
 
 		// ソース表示の乗っ取り
-		window.__ctxextensions__BrowserViewSourceOfDocument = window.BrowserViewSourceOfDocument;
-		window.BrowserViewSourceOfDocument = function(aDocument)
-		{
-			return ExtService.viewSourceOf('document', aDocument);
-		};
+		if (window.BrowserViewSourceOfDocument) {
+			window.__ctxextensions__BrowserViewSourceOfDocument = window.BrowserViewSourceOfDocument;
+			window.BrowserViewSourceOfDocument = function(aDocument)
+			{
+				return ExtService.viewSourceOf('document', aDocument);
+			};
 
-		window.__ctxextensions__BrowserViewSourceOfURL = window.BrowserViewSourceOfURL;
-		window.BrowserViewSourceOfURL = function(aURI, aCharset, aPageCookie)
-		{
-			return ExtService.viewSourceOf('url', aURI, aCharset, aPageCookie);
-		};
+			window.__ctxextensions__BrowserViewSourceOfURL = window.BrowserViewSourceOfURL;
+			window.BrowserViewSourceOfURL = function(aURI, aCharset, aPageCookie)
+			{
+				return ExtService.viewSourceOf('url', aURI, aCharset, aPageCookie);
+			};
 
-		nsContextMenu.prototype.__ctxextensions__viewPartialSource = nsContextMenu.prototype.viewPartialSource;
-		nsContextMenu.prototype.viewPartialSource = function(aContext)
-		{
-			return ExtService.viewSourceOf('partial', aContext, this);
-		};
+			nsContextMenu.prototype.__ctxextensions__viewPartialSource = nsContextMenu.prototype.viewPartialSource;
+			nsContextMenu.prototype.viewPartialSource = function(aContext)
+			{
+				return ExtService.viewSourceOf('partial', aContext, this);
+			};
+		}
 
 
 		// 内容領域をクリックした際の処理
@@ -442,7 +447,7 @@ var ExtService = {
 
 				if (mailer) {
 					if (!aDocument)
-						aDocument = gBrowser.contentDocument;
+						aDocument = this.utils.browser.contentDocument;
 
 					var uri   = aDocument.URL;
 					var title = Components.lookupMethod(aDocument, 'title').call(aDocument);
@@ -484,7 +489,7 @@ var ExtService = {
 			if (this.utils.getPref('ctxextensions.override.mailer.webmail.usetab'))
 				this.openNewTab(mailer, null, true);
 			else
-				window.openDialog(this.utils.browserURI, '_blank', 'chrome,all,dialog=no', mailer);
+				window.openDialog(this.utils.mainURI, '_blank', 'chrome,all,dialog=no', mailer);
 
 			return;
 		}
@@ -1383,29 +1388,34 @@ catch(e) {
 		if (typeof aReferrer == 'string')
 			aReferrer = this.utils.makeURIFromSpec(aReferrer);
 
-		if (this.utils.browserWindow &&
+		if (!this.utils.isBrowser) { // Thunderbird
+			this.utils.openURIInExternalApp(aURI);
+			return null;
+		}
+
+		if (this.utils.mainWindow &&
 			(
 				!aOpenIn ||
-				this.utils.browserWindow.ExtService.currentURI(true) == 'about:blank' ||
+				this.utils.mainWindow.ExtService.currentURI(true) == 'about:blank' ||
 				(
 					aURI.split('#')[0] == this.currentURI(true).split('#')[0] &&
 					!this.utils.getPref('ctxextensions.showResultIn.forceNewWindowOrTab')
 				)
 			)
 			) {
-			this.utils.browserWindow.loadURI(aURI, aReferrer);
+			this.utils.mainWindow.loadURI(aURI, aReferrer);
 			var b = this.utils.browser;
 			if ('selectedTab' in b)
 				b = b.getBrowserForTab(b.selectedTab);
 			return b;
 		}
-		else if (!this.utils.browserWindow || aOpenIn == this.NEW_WINDOW) {
+		else if (!this.utils.mainWindow || aOpenIn == this.NEW_WINDOW) {
 			return this.openNewWindow(aURI, aReferrer);
 		}
 		else {
 			var t = this.openNewTab(aURI, aReferrer, aShouldBypassSecurity);
 			if (aOpenIn ? aOpenIn != this.NEW_BG_TAB : !this.utils.getPref('browser.tabs.loadInBackground') )
-				gBrowser.selectedTab = t;
+				this.utils.browser.selectedTab = t;
 
 			return t;
 		}
@@ -1417,22 +1427,32 @@ catch(e) {
  
 	openNewWindow : function(aURI, aReferrer) 
 	{
+		if (!this.utils.isBrowser) { // Thunderbird
+			this.utils.openURIInExternalApp(aURI);
+			return null;
+		}
+
 		if (typeof aReferrer == 'string')
 			aReferrer = this.utils.makeURIFromSpec(aReferrer);
 
-		return window.openDialog(this.utils.browserURI, '_blank', 'chrome,all,dialog=no', aURI, null, aReferrer);
+		return window.openDialog(this.utils.mainURI, '_blank', 'chrome,all,dialog=no', aURI, null, aReferrer);
 	},
  
 	// 新規タブで読み込む 
 	openNewTab : function(aURI, aReferrer, aShouldBypassSecurity)
 	{
+		if (!this.utils.isBrowser) { // Thunderbird
+			this.utils.openURIInExternalApp(aURI);
+			return null;
+		}
+
 		if (typeof aReferrer == 'string')
 			aReferrer = this.utils.makeURIFromSpec(aReferrer);
 
-		if (!this.utils.browserWindow)
+		if (!this.utils.mainWindow)
 			return this.openNewWindow(aURI, aReferrer);
 
-		var b = this.utils.browserWindow.ExtCommonUtils.browser;
+		var b = this.utils.mainWindow.ExtCommonUtils.browser;
 		var newTab = b.addTab(aURI, aReferrer);
 		return newTab;
 	},
@@ -2528,6 +2548,7 @@ catch(e) {
 		}
 
 		var normal = !sel && !this.onLink;
+		var allowShowFrameItem = this.utils.isBrowser;
 
 		var items = [
 				'go',                 hasHistory && showGo && normal,
@@ -2551,10 +2572,12 @@ catch(e) {
 				'showTitles',         this.isWebPage && normal,
 				'showEvents',         this.isWebPage && normal,
 				'showAll',            this.isWebPage && normal,
-				'sendURI',            this.hasRecieverForURI && (this.onLink || !sel),
+				'sendURI',            this.hasRecieverForURI && (this.onLink || (!sel && allowShowFrameItem)),
+				'sendURI-frame',      this.hasRecieverForURI && allowShowFrameItem,
 				'sendStr',            this.hasRecieverForStr && sel,
 				'customScripts',      this.hasCustomScripts,
-				'execApps',           this.hasExecApps
+				'execApps',           this.hasExecApps && (this.onLink || allowShowFrameItem),
+				'execApps-frame',     this.hasExecApps && allowShowFrameItem
 			];
 
 		var prefName;
@@ -2636,6 +2659,8 @@ catch(e) {
 				this.utils.getPref('ctxextensions.showall_enable.showLinks') ||
 				this.utils.getPref('ctxextensions.showall_enable.showTitles');
 
+		var allowSendPageItem = this.utils.isBrowser;
+
 		var items = [
 				'up',                 this.canUp,
 				'openSelectionAsURI', sel,
@@ -2653,12 +2678,12 @@ catch(e) {
 				'showTitles',         this.isWebPage,
 				'showEvents',         this.isWebPage,
 				'showAll',            this.isWebPage,
-				'sendURI',            this.hasRecieverForURI,
-				'sendURI-frame',      this.hasRecieverForURI && this.inFrame,
+				'sendURI',            this.hasRecieverForURI && allowSendPageItem,
+				'sendURI-frame',      this.hasRecieverForURI && allowSendPageItem && this.inFrame,
 				'sendStr',            this.hasRecieverForStr && sel,
 				'customScripts',      this.hasCustomScripts,
-				'execApps',           this.hasExecApps,
-				'execApps-frame',     this.hasExecApps && this.inFrame,
+				'execApps',           this.hasExecApps && allowSendPageItem,
+				'execApps-frame',     this.hasExecApps && allowSendPageItem && this.inFrame,
 				'pref',               true,
 				'help',               true
 			];
@@ -2690,6 +2715,7 @@ catch(e) {
 	updateOutlinePopup : function(aShouldShowEmpty)
 	{
 		var mpopup = document.getElementById('ext-common-outline:mpopup');
+		if (!mpopup) return;
 
 		var info     = this.contentInfo(),
 			headings = ('headings' in info) ? info.headings : [] ;
@@ -2740,6 +2766,7 @@ catch(e) {
 	updateNavigationsPopup : function(aShouldShowEmpty, aAutoGoNavigation)
 	{
 		var mpopup = document.getElementById('ext-common-navigations:mpopup');
+		if (!mpopup) return;
 
 		var info  = this.contentInfo(),
 			links = ('navigations' in info) ? info.navigations : [] ;
@@ -2843,9 +2870,12 @@ catch(e) {
 	{
 		var i;
 
-		var class_authors = 'ex-style-authors',
-			popup    = document.getElementById('ext-common-styleSheets:mpopup'),
-			olditems = popup.getElementsByAttribute('class', class_authors);
+		var popup = document.getElementById('ext-common-styleSheets:mpopup');
+
+		if (!popup) return;
+
+		var class_authors = 'ex-style-authors';
+		var olditems = popup.getElementsByAttribute('class', class_authors);
 		for (i = 0; i < olditems.length; i++) popup.removeChild(olditems[i]);
 
 		var customUserStyle = popup.getElementsByAttribute('styleid', 'ext-common-customUserStyleEditor')[0];
@@ -2868,8 +2898,8 @@ catch(e) {
 		for (i = 0; i < addedstyles.length; i++)
 			if (addedstyles[i].parentNode == popup) {
 				idAttrString = escape(addedstyles[i].getAttribute('styleid')).replace(/%/g, '-');
-				checked = gBrowser.selectedTab.hasAttribute('ctxextensions-optionalstylesheet-'+idAttrString) ?
-						(gBrowser.selectedTab.getAttribute('ctxextensions-optionalstylesheet-'+idAttrString) == 'true') :
+				checked = this.utils.browser.selectedTab.hasAttribute('ctxextensions-optionalstylesheet-'+idAttrString) ?
+						(this.utils.browser.selectedTab.getAttribute('ctxextensions-optionalstylesheet-'+idAttrString) == 'true') :
 						(this.utils.STYLESHEETS.getData(addedstyles[i].getAttribute('styleid'), 'Selected') == 'true');
 				addedstyles[i].setAttribute('checked', checked);
 			}
@@ -2984,6 +3014,8 @@ catch(e) {
 	makeBackList : function()
 	{
 		var goMenu = document.getElementById('context-item-go');
+		if (!goMenu) return;
+
 		var range  = document.createRange();
 		range.selectNodeContents(goMenu);
 		range.deleteContents();

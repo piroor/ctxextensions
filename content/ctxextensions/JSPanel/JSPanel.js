@@ -80,15 +80,15 @@ var JSPanelService = {
 		var script = this.script.value;
 		if (!script.replace(/\s/gi, '')) return;
 
-		if (!this.utils.browserWindow) {
+		if (!this.utils.mainWindow) {
 			this.status.label = this.utils.getMsg('JSPanel_WindowOpen');
-			var w = window.openDialog(this.utils.browserURI, '_blank', 'chrome,all,dialog=no');
+			var w = window.openDialog(this.utils.mainURI, '_blank', 'chrome,all,dialog=no');
 			var progress = new pProgressManager(this.runScriptObserver, 50/*, w*/);
 			progress.appendItem(w, script, window);
 			progress.start();
 		}
 		else {
-			this.utils.browserWindow.ExtFunc.CustomScripts(null, script);
+			this.utils.mainWindow.ExtFunc.CustomScripts(null, script);
 //			this.script.focus();
 			window.focus();
 			this.status.label = this.utils.getMsg('JSPanel_OK');

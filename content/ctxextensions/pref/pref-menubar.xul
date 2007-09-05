@@ -11,6 +11,20 @@
 		orient="vertical"
 		headertitle="&preftree.menubar.label;">
 
+<script type="application/x-javascript" src="chrome://ctxextensions/content/extCommonUtils.js"/>
+<script type="application/x-javascript"><![CDATA[
+window.addEventListener('load', function() {
+	window.removeEventListener('load', arguments.callee, false);
+	if (!ExtCommonUtils.isBrowser) {
+		var nodes = document.getElementsByAttribute('class',  'for-browser');
+		for (var i = nodes.length-1; i > -1; i--)
+		{
+			nodes[i].parentNode.removeChild(nodes[i]);
+		}
+	}
+}, false);
+]]></script>
+
 
 	<groupbox orient="vertical" flex="1">
 		<caption label="&menubar.caption;"/>
@@ -25,15 +39,15 @@
 					<label flex="1" value="&menubar.submenu.label;"/>
 				</row>
 				<separator/>
-				<row>
+				<row class="for-browser">
 					<label value="&menu.outline.label;"/>
 					<checkbox prefstring="ctxextensions.submenu.menubar.outline"/>
 				</row>
-				<row>
+				<row class="for-browser">
 					<label value="&menu.navigations.label;"/>
 					<checkbox prefstring="ctxextensions.submenu.menubar.navigations"/>
 				</row>
-				<row>
+				<row class="for-browser">
 					<label value="&menu.styleSheets.label;"/>
 					<checkbox prefstring="ctxextensions.submenu.menubar.styleSheets"/>
 				</row>

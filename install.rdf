@@ -19,6 +19,11 @@
 				<em:minVersion>8.0</em:minVersion>
 				<em:maxVersion>8.1</em:maxVersion>
 			</Description>
+			<Description><!-- Thunderbird -->
+				<em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
+				<em:minVersion>1.5</em:minVersion>
+				<em:maxVersion>2.0.0.*</em:maxVersion>
+			</Description>
 		</em:targetApplication>
 
 
@@ -32,14 +37,5 @@
 		<em:optionsURL>chrome://ctxextensions/content/pref/prefDialogCall.xul</em:optionsURL>
 		<!--em:aboutURL>chrome://ctxextensions/content/pref/prefDialogCall.xul</em:aboutURL-->
 		<!--em:iconURL></em:iconURL-->
-
-
-		<em:file>
-			<Description about="urn:mozilla:extension:file:ctxextensions.jar">
-				<em:package>content/ctxextensions/</em:package>
-				<em:locale>locale/en-US/ctxextensions/</em:locale>
-				<em:locale>locale/ja-JP/ctxextensions/</em:locale>
-			</Description>
-		</em:file>
 	</Description>
 </RDF>
