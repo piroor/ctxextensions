@@ -5,7 +5,7 @@
   <RDF:Description RDF:about="urn:mozilla:install-manifest"
                    em:id="{4C4D8A1D-1E3C-439e-9298-16073A5C4851}"
                    em:name="ContextMenu Extensions"
-                   em:version="4.1.2007080701"
+                   em:version="4.1.2007090601"
                    em:creator="SHIMODA Hiroshi"
                    em:description="Adds many useful features to the browser."
                    em:homepageURL="http://piro.sakura.ne.jp/xul/ctxextensions/index.html.en"
@@ -27,7 +27,7 @@
                        em:maxVersion="8.*" />
       <!-- Thunderbird -->
       <RDF:Description em:id="{3550f703-e582-4d05-9a08-453d09bdfdc6}"
-                       em:minVersion="1.5"
+                       em:minVersion="2.0"
                        em:maxVersion="2.0.0.*" />
     </em:targetApplication>
   </RDF:Description>
