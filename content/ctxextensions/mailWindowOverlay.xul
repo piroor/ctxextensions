@@ -853,7 +853,7 @@
 
 ]]></script>
 
-<menupopup id="tasksPopup">
+<menupopup id="taskPopup">
 	<menuitem id="tools-item-JSPanel" position="3"
 		label="&menu.JSPanel.label;"
 		oncommand="extOpenDialog('chrome://ctxextensions/content/JSPanel/JSPanel.xul', 'ctxextensions:JSPanel');"/>
