@@ -816,6 +816,22 @@ var ExtFunc = {
 			].join('\n\r'));
 			return window.extCustomScripts[id]();
 		}
+		catch(e) { // Fx 3ではエラーになる（withが正しく動いてる？）
+			try {
+				eval([
+					'window.extCustomScripts[id] = function() { with (window) {',
+						script,
+					' } }'
+				].join('\n\r'));
+			}
+			catch(e) {
+				alert(e);
+				return false;
+			}
+		}
+		try {
+			return window.extCustomScripts[id]();
+		}
 		catch(e) {
 			alert(e);
 		}
