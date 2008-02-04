@@ -3294,6 +3294,7 @@ catch(e) {
 		updateCustomUserStyle : function(aSource)
 		{
 			var b    = ExtCommonUtils.browser.browsers;
+			if (!b) return;
 			var path = ExtCommonUtils.unescapeString(aSource.Value.match(/#urn:\w+:(.*)$/)[1].toString());
 			for (var i = 0; i < b.length; i++)
 				ExtService.applyUserStyleFor(path, b[i].contentWindow, true);
@@ -3302,8 +3303,9 @@ catch(e) {
 
 		updateOptionalStyle : function(aSource)
 		{
-			var id = ExtCommonUtils.unescapeString(aSource.Value.match(/#urn:\w+:(.*)$/)[1].toString());
 			var b  = ExtCommonUtils.browser.browsers;
+			if (!b) return;
+			var id = ExtCommonUtils.unescapeString(aSource.Value.match(/#urn:\w+:(.*)$/)[1].toString());
 			for (var i = 0; i < b.length; i++)
 				ExtService.reapplyOptionalStyle(id, b[i].contentWindow, true);
 		},
