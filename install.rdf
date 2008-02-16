@@ -24,10 +24,14 @@
       <RDF:Description em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
                        em:minVersion="1.5"
                        em:maxVersion="3.0a9" />
+    </em:targetApplication>
+    <em:targetApplication>
       <!-- Netscape Browser 8 -->
       <RDF:Description em:id="{86c18b42-e466-45a9-ae7a-9b95ba6f5640}"
                        em:minVersion="8.0"
                        em:maxVersion="8.*" />
+    </em:targetApplication>
+    <em:targetApplication>
       <!-- Thunderbird -->
       <RDF:Description em:id="{3550f703-e582-4d05-9a08-453d09bdfdc6}"
                        em:minVersion="2.0"
