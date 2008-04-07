@@ -207,7 +207,7 @@
 				</bindings>
 				<action>
 					<key uri="?name" keyid="ext-key:userdefined:?name" label="?label"
-						oncommand="if (!ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) ExtFunc.SendURI(this.getAttribute('label'));"
+						oncommand="if (this.getAttribute('key') &amp;&amp; !ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) ExtFunc.SendURI(this.getAttribute('label'));"
 						key="?key" modifiers="?modifiers"
 						class="key-userdefined"
 						extGenerated="true"/>
@@ -225,7 +225,7 @@
 				</bindings>
 				<action>
 					<key uri="?name" keyid="ext-key:userdefined:?name" label="?label"
-						oncommand="if (!ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) ExtFunc.SendURI(this.getAttribute('label'));"
+						oncommand="if (this.getAttribute('keycode') &amp;&amp; !ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) ExtFunc.SendURI(this.getAttribute('label'));"
 						keycode="?keycode" modifiers="?modifiers"
 						class="key-userdefined"
 						extGenerated="true"/>
@@ -288,7 +288,7 @@
 				</bindings>
 				<action>
 					<key uri="?name" keyid="ext-key:userdefined:?name" label="?label"
-						oncommand="if (!ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) ExtFunc.SendStr(this.getAttribute('label'));"
+						oncommand="if (this.getAttribute('key') &amp;&amp; !ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) ExtFunc.SendStr(this.getAttribute('label'));"
 						key="?key" modifiers="?modifiers"
 						class="key-userdefined"
 						extGenerated="true"/>
@@ -306,7 +306,7 @@
 				</bindings>
 				<action>
 					<key uri="?name" keyid="ext-key:userdefined:?name" label="?label"
-						oncommand="if (!ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) ExtFunc.SendStr(this.getAttribute('label'));"
+						oncommand="if (this.getAttribute('keycode') &amp;&amp; !ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) ExtFunc.SendStr(this.getAttribute('label'));"
 						keycode="?keycode" modifiers="?modifiers"
 						class="key-userdefined"
 						extGenerated="true"/>
@@ -369,7 +369,7 @@
 				</bindings>
 				<action>
 					<key uri="?name" keyid="ext-key:userdefined:?name" label="?label"
-						oncommand="if (!ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) ExtFunc.CustomScripts(this.getAttribute('label'));"
+						oncommand="if (this.getAttribute('key') &amp;&amp; !ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) ExtFunc.CustomScripts(this.getAttribute('label'));"
 						key="?key" modifiers="?modifiers"
 						class="key-userdefined"
 						extGenerated="true"/>
@@ -387,7 +387,7 @@
 				</bindings>
 				<action>
 					<key uri="?name" keyid="ext-key:userdefined:?name" label="?label"
-						oncommand="if (!ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) ExtFunc.CustomScripts(this.getAttribute('label'));"
+						oncommand="if (this.getAttribute('keycode') &amp;&amp; !ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) ExtFunc.CustomScripts(this.getAttribute('label'));"
 						keycode="?keycode" modifiers="?modifiers"
 						class="key-userdefined"
 						extGenerated="true"/>
@@ -450,7 +450,7 @@
 				</bindings>
 				<action>
 					<key uri="?name" keyid="ext-key:userdefined:?name" label="?label"
-						oncommand="if (!ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) ExtFunc.ExecApps(this.getAttribute('label'));"
+						oncommand="if (this.getAttribute('key') &amp;&amp; !ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) ExtFunc.ExecApps(this.getAttribute('label'));"
 						key="?key" modifiers="?modifiers"
 						class="key-userdefined"
 						extGenerated="true"/>
@@ -468,7 +468,7 @@
 				</bindings>
 				<action>
 					<key uri="?name" keyid="ext-key:userdefined:?name" label="?label"
-						oncommand="if (!ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) ExtFunc.ExecApps(this.getAttribute('label'));"
+						oncommand="if (this.getAttribute('keycode') &amp;&amp; !ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) ExtFunc.ExecApps(this.getAttribute('label'));"
 						keycode="?keycode" modifiers="?modifiers"
 						class="key-userdefined"
 						extGenerated="true"/>
@@ -533,7 +533,7 @@
 				</bindings>
 				<action>
 					<key uri="?name" keyid="ext-key:userdefined:?name" styleid="?label" label="?label"
-						oncommand="if (!ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) var id = this.getAttribute('styleid'); ExtCommonUtils.STYLESHEETS.setData(id, (ExtCommonUtils.STYLESHEETS.getData(id, 'Selected') != 'true') ? 'true' : 'false'); ExtFunc.ApplyStyle(id, true);"
+						oncommand="if (this.getAttribute('key') &amp;&amp; !ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) var id = this.getAttribute('styleid'); ExtCommonUtils.STYLESHEETS.setData(id, (ExtCommonUtils.STYLESHEETS.getData(id, 'Selected') != 'true') ? 'true' : 'false'); ExtFunc.ApplyStyle(id, true);"
 						key="?key" modifiers="?modifiers"
 						class="key-userdefined"
 						extGenerated="true"/>
@@ -551,7 +551,7 @@
 				</bindings>
 				<action>
 					<key uri="?name" keyid="ext-key:userdefined:?name" styleid="?label" label="?label"
-						oncommand="if (!ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) var id = this.getAttribute('styleid'); ExtCommonUtils.STYLESHEETS.setData(id, (ExtCommonUtils.STYLESHEETS.getData(id, 'Selected') != 'true') ? 'true' : 'false'); ExtFunc.ApplyStyle(id, true);"
+						oncommand="if (this.getAttribute('keycode') &amp;&amp; !ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) var id = this.getAttribute('styleid'); ExtCommonUtils.STYLESHEETS.setData(id, (ExtCommonUtils.STYLESHEETS.getData(id, 'Selected') != 'true') ? 'true' : 'false'); ExtFunc.ApplyStyle(id, true);"
 						keycode="?keycode" modifiers="?modifiers"
 						class="key-userdefined"
 						extGenerated="true"/>
