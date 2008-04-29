@@ -2587,7 +2587,7 @@ catch(e) {
 			if (items[i] == 'bookmarks') {
 				var shownItemId = 'context-item-'+items[i];
 				var hiddenItemId = 'context-item-'+items[i]+'-places';
-				if ('PlacesUtils' in window) {
+				if ('PlacesUIUtils' in window || 'PlacesUtils' in window) {
 					shownItemId = 'context-item-'+items[i]+'-places';
 					hiddenItemId = 'context-item-'+items[i];
 				}
