@@ -13,3 +13,4 @@ overlay	chrome://messenger/content/messageWindow.xul	chrome://ctxextensions/cont
 
 locale	ctxextensions	en-US	jar:chrome/ctxextensions.jar!/locale/en-US/ctxextensions/
 locale	ctxextensions	ja-JP	jar:chrome/ctxextensions.jar!/locale/ja-JP/ctxextensions/
+locale	ctxextensions	zh-TW	jar:chrome/ctxextensions.jar!/locale/zh-TW/ctxextensions/

@@ -1,0 +1,612 @@
+<!ENTITY common.import "匯入...">
+<!ENTITY common.choose "選擇檔案...">
+<!ENTITY common.save "儲存">
+<!ENTITY common.reload "重新載入">
+<!ENTITY common.clear "清除">
+<!ENTITY common.reset "重置">
+<!ENTITY common.close "關閉">
+<!ENTITY common.rename "重新命名">
+<!ENTITY common.property "特性">
+<!ENTITY common.new "新增項目">
+<!ENTITY common.remove "刪除">
+<!ENTITY common.arrowUp "&#9650; 向上">
+<!ENTITY common.arrowDown "&#9660; 向下">
+<!ENTITY common.moveUp "向上移動">
+<!ENTITY common.moveDown "向下移動">
+<!ENTITY common.undo "復原">
+<!-- Generic Keyboard Shortcuts -->
+
+
+
+<!ENTITY accelKey.save "S">
+<!ENTITY accelKey.run "R">
+<!ENTITY accelKey.reload "R">
+<!ENTITY accelKey.exit "Q">
+<!ENTITY accelKey.close "W">
+<!ENTITY accelKey.edit "E">
+<!ENTITY accelKey.new "N">
+<!ENTITY accelKey.undo "Z">
+
+<!ENTITY accelKey.gotoNextHeading "S">
+<!ENTITY accelKey.gotoPrevHeading "W">
+<!ENTITY accelKey.getLinks "J">
+<!ENTITY accelKey.focusNextByAlphabets "A">
+<!ENTITY accelKey.focusPrevByAlphabets "Q">
+<!ENTITY accelKey.showMenu.navigations "N">
+<!ENTITY accelKey.showMenu.outline "O">
+<!ENTITY accelKey.showMenu.customScripts "C">
+<!ENTITY accelKey.showMenu.styleSheets "S">
+<!ENTITY accelKey.showMenu.execApps "A">
+<!ENTITY accelKey.navigations.top "T">
+<!ENTITY accelKey.navigations.up "U">
+<!ENTITY accelKey.navigations.first "F">
+<!ENTITY accelKey.navigations.prev "P">
+<!ENTITY accelKey.navigations.next "N">
+<!ENTITY accelKey.navigations.last "L">
+<!ENTITY accelKey.navigations.toc "C">
+<!ENTITY accelKey.navigations.chapter "1">
+<!ENTITY accelKey.navigations.section "2">
+<!ENTITY accelKey.navigations.subsection "3">
+<!ENTITY accelKey.navigations.appendix "X">
+<!ENTITY accelKey.navigations.glossary "G">
+<!ENTITY accelKey.navigations.index "I">
+<!ENTITY accelKey.navigations.help "?">
+<!ENTITY accelKey.navigations.search "H">
+<!-- @ -->
+<!ENTITY accelKey.navigations.author "&#64;">
+<!ENTITY accelKey.navigations.copyright "R">
+<!ENTITY accelKey.navigations.bookmark "B">
+<!ENTITY accelKey.navigations.alternate "O">
+<!ENTITY accelKey.navigations.stylesheet "Y">
+<!-- Custom User Style Editor -->
+
+
+
+
+<!ENTITY customUserStyleEditor.title "自訂樣式編輯器">
+<!ENTITY customUserStyleEditor.caption "打造我的個人樣式給「&#37;s」">
+<!ENTITY customUserStyleEditor.dir.before "套用於">
+<!ENTITY customUserStyleEditor.dir.after "">
+<!ENTITY customUserStyleEditor.reload "現行目錄">
+<!ENTITY customUserStyleEditor.import "&common.import;">
+<!ENTITY customUserStyleEditor.save "&common.save;">
+<!ENTITY customUserStyleEditor.clear "&common.clear;">
+<!ENTITY customUserStyleEditor.close "&common.close;">
+<!ENTITY customUserStyleEditor.manage "管理我的樣式">
+<!-- StyleSheets Manager -->
+
+
+
+<!ENTITY styleSheetsManager.title "樣式管理員">
+<!ENTITY styleSheetsManager.import "&common.import;">
+<!ENTITY styleSheetsManager.save "&common.save;">
+<!ENTITY styleSheetsManager.reload "&common.reload;">
+<!ENTITY styleSheetsManager.edit "編輯">
+<!ENTITY styleSheetsManager.open "開啟">
+<!ENTITY styleSheetsManager.delete "刪除">
+<!ENTITY styleSheetsManager.close "&common.close;">
+<!ENTITY styleSheetsManager.clear "&common.clear;">
+
+<!ENTITY styleSheetsManager.userContentCSS.title "全域樣式">
+
+<!ENTITY styleSheetsManager.userStyles.title "自訂我的樣式">
+<!ENTITY styleSheetsManager.userStyles.path "目標資料夾">
+<!ENTITY styleSheetsManager.userStyles.value "我的樣式">
+
+<!ENTITY styleSheetsManager.selectedStyles.title "已選取樣式">
+<!ENTITY styleSheetsManager.selectedStyles.path "目標資料夾">
+<!ENTITY styleSheetsManager.selectedStyles.value "已選取樣式">
+<!-- JavaScript Panel -->
+
+
+
+<!ENTITY JSPanel.title "JavaScript 面板">
+<!ENTITY JSPanel.tabsLabel "page&#37;s">
+<!ENTITY JSPanel.inport "&common.import;">
+<!ENTITY JSPanel.run "執行">
+<!ENTITY JSPanel.clear "&common.clear;">
+<!ENTITY JSPanel.close "&common.close;">
+<!-- Menu Labels -->
+
+
+
+<!ENTITY context.go.label "衝">
+<!ENTITY context.bookmarks.label "書籤">
+<!ENTITY context.up.label "上層目錄">
+<!ENTITY context.up.accesskey "u">
+<!ENTITY context.openSelectionAsURI.label "把選取文字當成 URI 開啟">
+<!ENTITY context.openSelectionAsURI.label_select "把「&#37;s」當成 URI 開啟">
+<!ENTITY context.openSelectionAsURI.accesskey "o">
+<!ENTITY context.nextHeading.label "衝到下個標題">
+<!ENTITY context.nextHeading.accesskey "s">
+<!ENTITY context.prevHeading.label "衝回上個標題">
+<!ENTITY context.prevHeading.accesskey "w">
+<!ENTITY context.openCiteForQuote.label "檢視 Quotation 的原始文件">
+<!ENTITY context.openCiteForQuote.accesskey "q">
+<!ENTITY context.openCiteForEdit.label "顯示編輯解釋">
+<!ENTITY context.openCiteForEdit.accesskey "e">
+<!ENTITY context.openLongdesc.label "檢視圖片描述">
+<!ENTITY context.openLongdesc.accesskey "d">
+<!ENTITY context.extensions.label "擴充功能">
+<!ENTITY context.extensions.accesskey "x">
+<!ENTITY context.outline.label "大綱 (本頁)">
+<!ENTITY context.outline.label_frame "大綱 (本框架頁)">
+<!ENTITY context.navigations.label "網站導航">
+<!ENTITY context.navigations.label_frame "網站導航 (本框架頁)">
+<!ENTITY context.styleSheets.label "樣式表">
+<!ENTITY context.JSPanel.label "&JSPanel.title;">
+<!ENTITY context.getLinks.label "複製鏈結清單">
+<!ENTITY context.getLinks.label_frame "複製鏈結清單 (本框架頁)">
+<!ENTITY context.getLinks.label_select "複製鏈結清單 (選取區)">
+<!ENTITY context.showComments.label "顯示 Comments">
+<!ENTITY context.showLinks.label "顯示 Link References">
+<!ENTITY context.showIDs.label "顯示 IDs/NAMEs">
+<!ENTITY context.showCites.label "顯示 Cited from">
+<!ENTITY context.showTitles.label "顯示 Descriptions">
+<!ENTITY context.showEvents.label "顯示 Events">
+<!ENTITY context.showAll.label "顯示 Any Invisible Data">
+<!ENTITY context.sendURI.label "傳送此頁到">
+<!ENTITY context.sendURI.label_frame "傳送此框架頁到">
+<!ENTITY context.sendURI.label_link "傳送此鏈結到">
+<!ENTITY context.sendStr.label "傳送選取文字到">
+<!ENTITY context.sendStr.label_select "傳送「&#37;s」到">
+<!ENTITY context.customScripts.label "自訂指令碼">
+<!ENTITY context.execApps.label "以外部程式開啟">
+<!ENTITY context.execApps.label_frame "以外部程式開啟本框架頁">
+<!ENTITY context.execApps.label_link "以外部程式開啟鏈結">
+<!ENTITY context.pref.label "偏好設定">
+
+
+<!ENTITY menu.up.label "&context.up.label;">
+<!ENTITY menu.up.accesskey "&context.up.accesskey;">
+<!ENTITY menu.openSelectionAsURI.label "&context.openSelectionAsURI.label;">
+<!ENTITY menu.openSelectionAsURI.label_select "context.openSelectionAsURI.label_select;">
+<!ENTITY menu.openSelectionAsURI.accesskey "&context.openSelectionAsURI.accesskey;">
+<!ENTITY menu.nextHeading.label "&context.nextHeading.label;">
+<!ENTITY menu.nextHeading.accesskey "&context.nextHeading.accesskey;">
+<!ENTITY menu.prevHeading.label "&context.prevHeading.label;">
+<!ENTITY menu.prevHeading.accesskey "&context.prevHeading.accesskey;">
+<!ENTITY menu.openCiteForQuote.label "&context.openCiteForQuote.label;">
+<!ENTITY menu.openCiteForQuote.accesskey "&context.openCiteForQuote.accesskey;">
+<!ENTITY menu.openCiteForEdit.label "&context.openCiteForEdit.label;">
+<!ENTITY menu.openCiteForEdit.accesskey "&context.openCiteForEdit.accesskey;">
+<!ENTITY menu.openLongdesc.label "&context.openLongdesc.label;">
+<!ENTITY menu.openLongdesc.accesskey "&context.openLongdesc.accesskey;">
+<!ENTITY menu.extensions.label "&context.extensions.label;">
+<!ENTITY menu.extensions.accesskey "&context.extensions.accesskey;">
+<!ENTITY menu.outline.label "大綱">
+<!ENTITY menu.outline.label_frame "大綱 (目前框架頁)">
+<!ENTITY menu.outline.accesskey "O">
+<!ENTITY menu.navigations.label "&context.navigations.label;">
+<!ENTITY menu.navigations.label_frame "網站導航 (目前框架頁)">
+<!ENTITY menu.navigations.label_short "導航">
+<!ENTITY menu.navigations.accesskey "N">
+<!ENTITY menu.styleSheets.label "&context.styleSheets.label;">
+<!ENTITY menu.styleSheets.accesskey "S">
+<!ENTITY menu.JSPanel.label "&JSPanel.title;">
+<!ENTITY menu.getLinks.label "&context.getLinks.label;">
+<!ENTITY menu.getLinks.label_frame "context.getLinks.label_frame;">
+<!ENTITY menu.getLinks.label_select "context.getLinks.label_select;">
+<!ENTITY menu.showComments.label "&context.showComments.label;">
+<!ENTITY menu.showLinks.label "&context.showLinks.label;">
+<!ENTITY menu.showIDs.label "&context.showIDs.label;">
+<!ENTITY menu.showCites.label "&context.showCites.label;">
+<!ENTITY menu.showTitles.label "&context.showTitles.label;">
+<!ENTITY menu.showEvents.label "&context.showEvents.label;">
+<!ENTITY menu.showAll.label "&context.showAll.label;">
+<!ENTITY menu.sendURI.label "&context.sendURI.label;">
+<!ENTITY menu.sendURI.label_frame "傳送目前框架頁到">
+<!ENTITY menu.sendStr.label "&context.sendStr.label;">
+<!ENTITY menu.sendStr.label_select "context.sendStr.label_select;">
+<!ENTITY menu.customScripts.label "&context.customScripts.label;">
+<!ENTITY menu.customScripts.label_short "指令碼">
+<!ENTITY menu.customScripts.accesskey "C">
+<!ENTITY menu.execApps.label "&context.execApps.label;">
+<!ENTITY menu.execApps.label_short "外部程式">
+<!ENTITY menu.execApps.label_frame "以外部程式開啟目前框架頁">
+<!ENTITY menu.execApps.accesskey "A">
+<!ENTITY menu.pref.label "&context.pref.label;">
+
+
+<!ENTITY menu.styleSheetsManager.label "&styleSheetsManager.title;">
+<!ENTITY menu.customUserStyleEditor.label "&customUserStyleEditor.title;">
+<!ENTITY menu.customUserStyleEditor.label_site "打造我自己的樣式給「&#37;s」">
+
+<!ENTITY styleSheets.noStyle.label "無樣式">
+<!ENTITY styleSheets.onlyPermanence.label "基本頁面樣式">
+<!ENTITY styleSheets.sources.label "來源">
+
+<!ENTITY styleSheets.editUserContentCSS.label "編輯我的全域樣式">
+
+<!ENTITY styleSheets.cancelPhysical.label "取消 Physical Styles">
+<!ENTITY styleSheets.cancelPhysical.rules "&#64;匯入 url(chrome://ctxextensions/content/res/CancelPhysical.css);">
+<!ENTITY styleSheets.showElements.label "顯示 Elements Model (XHTML1.1)">
+<!ENTITY styleSheets.showElements.rules "&#64;匯入 url(chrome://ctxextensions/content/res/ShowElements-xhtml11.css);">
+<!-- Preferences -->
+
+
+
+
+<!ENTITY preftree.about.label "ContextMenu Extensions">
+<!ENTITY preftree.general.label "一般 (1)">
+<!ENTITY preftree.general2.label "一般 (2)">
+<!ENTITY preftree.contextmenu.label "右鍵選單">
+<!ENTITY preftree.menubar.label "選單列">
+<!ENTITY preftree.navigations.label "網站導航">
+<!ENTITY preftree.override.label "使用外部程式">
+<!ENTITY preftree.styleSheets.label "樣式表">
+<!ENTITY preftree.sendURI.label "傳送此頁到">
+<!ENTITY preftree.sendStr.label "傳送選取文字到">
+<!ENTITY preftree.execApps.label "外部程式">
+<!ENTITY preftree.customScripts.label "自訂指令碼">
+
+<!ENTITY pref.saveSample "以新項目加入">
+
+<!ENTITY pref.listbox.samples.label "範例:">
+<!ENTITY pref.listbox.samples.default "(選擇)">
+<!ENTITY pref.listbox.samples.go "載入此範例">
+<!ENTITY pref.listbox.newItem.message "請稍待...">
+
+<!ENTITY prefDialog.title "ContextMenu Extensions 偏好設定">
+<!ENTITY prefDialog.category "分類">
+<!ENTITY prefDialog.size "width: 52em; height: 41em;">
+<!ENTITY prefDialog.apply "套用">
+
+
+
+<!ENTITY about.datasource.caption "資料檔">
+<!ENTITY about.datasource.import "由其他資料檔匯入">
+<!ENTITY about.datasource.label "使用外部資料檔:">
+<!ENTITY about.datasource.choose "&common.choose;">
+
+<!ENTITY about.expert.caption "專家選項">
+<!ENTITY about.expert.label "使用專家選項">
+
+<!ENTITY about.about.caption "關於 ContextMenu Extensions">
+<!ENTITY about.about.label_before "ContextMenu Extensions Ver.">
+<!ENTITY about.about.label_after "">
+
+<!ENTITY importRDFData.message "請稍待...">
+
+
+
+
+<!ENTITY contextmenu.caption "右鍵選單項目">
+<!ENTITY contextmenu.show.label "顯示">
+<!ENTITY contextmenu.submenu.label "子選單">
+
+
+
+<!ENTITY menubar.caption "選單列項目">
+<!ENTITY menubar.submenu.label "子選單">
+
+
+
+<!ENTITY general.showResultIn.caption "把結果開啟在">
+<!ENTITY general.showResultIn.current "目前分頁">
+<!ENTITY general.showResultIn.newtab "新分頁">
+<!ENTITY general.showResultIn.newbgtab "新背景分頁">
+<!ENTITY general.showResultIn.newwindow "新視窗">
+<!ENTITY general.showResultIn.forceNewWindowOrTab "在新視窗/分頁開啟本頁的內部鏈結">
+
+<!ENTITY general.keys.caption "鍵盤快速鍵">
+<!ENTITY general.keys.goHeadings "分配「&accelKey.gotoNextHeading;」/「&accelKey.gotoPrevHeading;」給「&menu.nextHeading.label;」/「&menu.prevHeading.label;」">
+<!ENTITY general.keys.advanceFocus_alphabet "以「&accelKey.focusNextByAlphabets;」移動焦點到下個鏈結，或以「&accelKey.focusPrevByAlphabets;」到上個鏈結">
+<!ENTITY general.keys.advanceFocus_arrow "以「Ctrl+Down」移動焦點到下個鏈結，或以「Ctrl+Up」到上個鏈結">
+<!ENTITY general.keys.advanceFocus_arrow.mac "以「Command+Down」移動焦點到下個鏈結，或以「Command+Up」到上個鏈結">
+<!ENTITY general.keys.getLinks "分配「Ctrl+&accelKey.getLinks;」給「&menu.getLinks.label;」">
+<!ENTITY general.keys.getLinks.mac "分配「Command+&accelKey.getLinks;」給「&menu.getLinks.label;」">
+<!ENTITY general.keys.up "分配「Alt+Back Space」給「&menu.up.label;」">
+
+<!ENTITY general.misc.caption "雜項">
+<!ENTITY general.autoexec.caption "頁面載入時自動執行">
+<!ENTITY general.showAll.caption "在「&menu.showAll.label;」執行">
+
+<!ENTITY general.outline.caption "頁面大綱">
+<!ENTITY general.outline.scan_in_background "頁面載入時自動更新大綱">
+
+<!ENTITY general.style.caption "元素樣式">
+<!ENTITY general.style.group "生成元素的樣式依據">
+<!ENTITY general.style.showEvents.label "&menu.showEvents.label;: 事件名稱">
+<!ENTITY general.style.showEvents.value "&menu.showEvents.label;: 內容">
+<!ENTITY general.style.default "預設樣式">
+
+
+<!ENTITY general.general2.caption "進階設定">
+<!ENTITY general.getLinks_collectOnClick.label "「&menu.getLinks.label;」時，亦由 onclick 事件尋找 URI">
+
+<!ENTITY general.JSPanel.pageNum.label_before "指令碼頁面的數量:">
+<!ENTITY general.JSPanel.pageNum.label_after "">
+
+
+
+<!ENTITY navigations.scan_in_background "頁面載入時自動掃描網站導航">
+<!ENTITY navigations.shortcut "使用鍵盤快速鍵進行網站導航">
+<!ENTITY navigations.collectLinks "收集具有導航資訊的鏈結">
+<!ENTITY navigations.advanced "由鏈結猜測導航資訊">
+<!ENTITY navigations.regexp.caption "將符合以下正規表達式的鏈結納入網站導航">
+<!ENTITY navigations.regexp.default "預設的正規表達式">
+
+<!ENTITY navigations.regexp.next "下一頁:">
+<!ENTITY navigations.regexp.prev "前一頁:">
+<!ENTITY navigations.regexp.home "首頁:">
+<!ENTITY navigations.regexp.contents "內容:">
+<!ENTITY navigations.regexp.index "索引:">
+<!ENTITY navigations.regexp.glossary "術語:">
+<!ENTITY navigations.regexp.copyright "著作權:">
+<!ENTITY navigations.regexp.appendix "附錄:">
+<!ENTITY navigations.regexp.help "說明:">
+<!ENTITY navigations.regexp.search "搜尋:">
+
+
+
+<!ENTITY override.tab.viewerAndEditor "檢視器 &amp; 編輯器">
+
+<!ENTITY override.viewer.caption "「檢視原始碼」使用的檢視器">
+<!ENTITY override.viewer.path "路徑:">
+<!ENTITY override.viewer.filePicker "&common.choose;">
+<!ENTITY override.viewer.arguments "附加選項 (※):">
+
+<!ENTITY override.CSSEditor.caption "我的全域樣式 (userContent.css) 編輯器">
+<!ENTITY override.CSSEditor.path "路徑:">
+<!ENTITY override.CSSEditor.filePicker "&common.choose;">
+<!ENTITY override.CSSEditor.arguments "附加選項 (※):">
+
+<!ENTITY override.description "※ 附加在 URI 或檔案路徑之後、傳送到外部程式的選項。 如果您想要改變他們的順序，寫入「&#37;S」到想要的位置。">
+
+
+<!ENTITY override.tab.mailer "郵寄管理員">
+
+<!ENTITY override.mailer.caption "郵寄管理員">
+<!ENTITY override.mailer.system "使用系統預設郵件程式">
+<!ENTITY override.mailer.webmail "使用 Web Mail 服務">
+<!ENTITY override.mailer.webmail_path "路徑 (※):">
+<!ENTITY override.mailer.webmail_usetab "在新分頁開啟頁面">
+<!ENTITY override.mailer.path "路徑:">
+<!ENTITY override.mailer.filePicker "&common.choose;">
+<!ENTITY override.mailer.arguments "附加選項 (※):">
+<!ENTITY override.mailer.charset "字元編碼:">
+
+<!ENTITY override.mailer.description "※ 附加在 E-mail 位址後傳送到外部程式的選項。假如您想改變他們的順序或使用其他參數，在您想要的地方插入以下符號:">
+<!ENTITY override.mailer.description.to "&#37;to : E-mail 位址">
+<!ENTITY override.mailer.description.subject "&#37;subject : 主旨">
+<!ENTITY override.mailer.description.cc "&#37;cc : 副本">
+<!ENTITY override.mailer.description.bcc "&#37;bcc : 密件副本">
+<!ENTITY override.mailer.description.body "&#37;body : 郵件內容">
+
+
+
+<!ENTITY styleSheets.description "這些項目會被顯示在「&menu.styleSheets.label;」選單底部。">
+<!ENTITY styleSheets.caption "我自訂的樣式">
+
+
+
+<!ENTITY sendURI.description "這些項目會被顯示在「&menu.sendURI.label;」選單。">
+<!ENTITY sendURI.caption "執行網路服務">
+
+<!ENTITY sendURI.sample1.label "由其他 HTML-lint 驗證">
+<!ENTITY sendURI.sample1.uri "http://openlab.ring.gr.jp/k16/htmllint/htmllint.cgi?Method=URL&amp;ViewSource=on&amp;HTTPHeader=on&amp;URL=&#37;s">
+<!ENTITY sendURI.sample2.label "由 W3C HTML Validator 驗證">
+<!ENTITY sendURI.sample2.uri "http://validator.w3.org/check?charset=&#37;28detect+automatically&#37;29&amp;doctype=Inline&amp;ss=&amp;sp=&amp;outline=&amp;uri=&#37;s">
+<!ENTITY sendURI.sample3.label "由 WDG HTML Validator 驗證">
+<!ENTITY sendURI.sample3.uri "http://www.htmlhelp.com/cgi-bin/validate.cgi?warnings=yes&amp;input=yes&amp;url=&#37;s">
+<!ENTITY sendURI.sample4.label "由 WDG HTML Validator (follow links) 驗證">
+<!ENTITY sendURI.sample4.uri "http://www.htmlhelp.com/cgi-bin/validate.cgi?warnings=yes&amp;spider=yes&amp;url=&#37;s">
+<!ENTITY sendURI.sample5.label "搜尋 Google's cache">
+<!ENTITY sendURI.sample5.uri "http://www.google.com/search?q=cache:&#37;s">
+<!ENTITY sendURI.sample6.label "搜尋 Internet Archive">
+<!ENTITY sendURI.sample6.uri "http://web.archive.org/web/*/&#37;s">
+<!ENTITY sendURI.sample7.label "使用 Infoseek 翻譯: English to Japanese">
+<!ENTITY sendURI.sample7.uri "http://www.infoseek.co.jp/Honyaku?wto=EJ&amp;pg=honyaku_w_out.html&amp;webin=&#37;s">
+
+
+
+<!ENTITY sendStr.description "這些項目會被顯示在「&menu.sendStr.label;」選單。">
+<!ENTITY sendStr.caption "使用網站服務">
+
+<!ENTITY sendStr.sample1.label "使用 Google 搜尋">
+<!ENTITY sendStr.sample1.uri "http://www.google.com/search?hl=zh-TW&amp;ie=utf8&amp;oe=utf8&amp;q=&#37;s">
+<!ENTITY sendStr.sample1.charset "">
+<!ENTITY sendStr.sample2.label "使用 English Dic.(Dictionary.com) 搜尋">
+<!ENTITY sendStr.sample2.uri "http://www.dictionary.com/cgi-bin/dict.pl?term=&#37;s">
+<!ENTITY sendStr.sample2.charset "">
+<!ENTITY sendStr.sample3.label "使用 Japanese Dic.(goo) 搜尋">
+<!ENTITY sendStr.sample3.uri "http://dictionary.goo.ne.jp/cgi-bin/dict_search.cgi?sw=2&amp;MT=&#37;s">
+<!ENTITY sendStr.sample3.charset "ISO-2022-JP">
+<!ENTITY sendStr.sample4.label "使用 IT Words(jp) 搜尋">
+<!ENTITY sendStr.sample4.uri "http://www.wdic.org/?do=m&amp;mode=match&amp;word=&#37;s">
+<!ENTITY sendStr.sample4.charset "ISO-2022-JP">
+<!ENTITY sendStr.sample5.label "使用 Acronym Finder 搜尋">
+<!ENTITY sendStr.sample5.uri "http://www.acronymfinder.com/af-query.asp?String=exact&amp;Find=Find&amp;Acronym=&#37;s">
+<!ENTITY sendStr.sample5.charset "">
+<!ENTITY sendStr.sample6.label "使用 Mozilla Cross-Reference:文字搜尋">
+<!ENTITY sendStr.sample6.uri "http://lxr.mozilla.org/mozilla/search?string=&#37;s">
+<!ENTITY sendStr.sample6.charset "">
+<!ENTITY sendStr.sample7.label "使用 Mozilla Cross-Reference:檔案搜尋">
+<!ENTITY sendStr.sample7.uri "http://lxr.mozilla.org/mozilla/find?string=&#37;s">
+<!ENTITY sendStr.sample7.charset "">
+
+
+
+<!ENTITY execApps.description "這些項目會被顯示在「&menu.execApps.label;」選單。">
+<!ENTITY execApps.caption "執行外部程式">
+
+<!ENTITY execApps.sample1.label "Internet Explorer">
+<!ENTITY execApps.sample1.value "C:\Program Files\Internet Explorer\Iexplore.exe">
+<!ENTITY execApps.sample1.arg "&#37;S">
+<!ENTITY execApps.sample2.label "Hidemaru Editor (Viewer Mode)">
+<!ENTITY execApps.sample2.value "C:\Program Files\hidemaru\hidemaru.exe">
+<!ENTITY execApps.sample2.arg "/b &#37;S">
+
+
+
+<!ENTITY customScripts.description "這些項目會被顯示在「&menu.customScripts.label;」選單。">
+<!ENTITY customScripts.caption "我自訂的指令碼">
+
+<!ENTITY customScripts.sample1.label "建立鏈結到目前頁面">
+<!ENTITY customScripts.sample2.label "引用選取的文字">
+<!ENTITY customScripts.sample3.label "引用選取的文字 (當成 HTML)">
+<!ENTITY customScripts.sample4.label "建立大綱清單">
+<!ENTITY customScripts.sample5.label "為 JavaScript 跳脫字串成 Unicode">
+<!ENTITY customScripts.sample6.label "為 CSS 跳脫字串">
+<!ENTITY customScripts.sample7.label "轉換字串成為 XML numeric character references (十進位)">
+<!ENTITY customScripts.sample8.label "轉換字串成為 XML numeric character references (十六進位)">
+<!ENTITY customScripts.sample9.label "顯示 NOFRAMES 的內容">
+<!ENTITY customScripts.sample10.label "取得 JS Object 的 Properties List">
+<!ENTITY customScripts.sample11.label "取得 JS Object 的 Properties List (2)">
+<!ENTITY customScripts.sample12.label "隱藏 Element">
+<!ENTITY customScripts.sample13.label "建立 Iria 下載清單">
+<!ENTITY customScripts.sample13-2.label "一次下載所有指定檔案">
+<!ENTITY customScripts.sample14.label "反安裝 Package">
+<!ENTITY customScripts.sample15.label "自動調整圖片大小 (MSIE6 相容)">
+<!ENTITY customScripts.sample16.label "加入此頁到資訊方塊列">
+<!ENTITY customScripts.sample17.label "加入此頁到資訊方塊列 (2)">
+<!ENTITY customScripts.sample18.label "自訂 Scripts Launcher">
+<!ENTITY customScripts.sample19.label "啟用/停用 XUL Cache">
+<!ENTITY customScripts.sample20.label "移除 installed-chrome.txt 中重複的輸入">
+<!ENTITY customScripts.sample21.label "標亮會參照「輸入網址」的鏈結">
+<!ENTITY customScripts.sample22.label "將文字檔以 UTF-8 編碼">
+<!-- PrefProp -->
+
+
+
+
+<!ENTITY PrefProp.title "特性">
+<!ENTITY PrefProp.title_for "&#37;s 特性">
+<!ENTITY PrefProp.import "&common.import;">
+<!ENTITY PrefProp.clear "&common.clear;">
+<!ENTITY PrefProp.reset "&common.reset;">
+<!ENTITY PrefProp.run "測試">
+
+<!ENTITY PrefProp.tab.main "資訊">
+<!ENTITY PrefProp.tab.options "選項">
+
+<!ENTITY PrefProp.application.path "路徑:">
+<!ENTITY PrefProp.application.arguments "選項 (※):">
+<!ENTITY PrefProp.application.choose "&common.choose;">
+<!ENTITY PrefProp.application.description "※ 寫入「&#37;S」到您想插入 URIs (或檔案路徑) 的位置，或寫入「&#37;C」到您想插入選取文字的位置。">
+
+<!ENTITY PrefProp.webService.path "路徑 (※):">
+<!ENTITY PrefProp.webService.useCurrent "目前頁面">
+<!ENTITY PrefProp.webService.forURI "※ 寫入「&#37;S」到您想插入 URIs (或檔案路徑) 的位置。">
+<!ENTITY PrefProp.webService.forSelection "※ 寫入「&#37;S」到您想插入選取文字的位置。">
+
+<!ENTITY PrefProp.checkbox.cancelStyles "套用此樣式前取消所有樣式">
+<!ENTITY PrefProp.checkbox.defaultSelected "總是套用此樣式">
+<!ENTITY PrefProp.checkbox.download "傳送暫存的本地檔案代替遠程資源">
+<!ENTITY PrefProp.checkbox.autoExec "網頁載入時自動執行">
+<!ENTITY PrefProp.checkbox.autoExecStartup "網站導航開始時自動執行">
+<!ENTITY PrefProp.checkbox.hiddenInMenu "在選單中隱藏">
+
+<!ENTITY PrefProp.checkbox.newContextItem "附加到右鍵選單">
+<!ENTITY PrefProp.checkbox.contextShowNormal "一直出現">
+<!ENTITY PrefProp.checkbox.contextShowLink "在鏈結上方時">
+<!ENTITY PrefProp.checkbox.contextShowSelect "有選取物件時">
+
+<!ENTITY PrefProp.charset.label "送出文字的字元編碼:">
+
+<!ENTITY PrefProp.openIn.label "將結果開啟在:">
+<!ENTITY PrefProp.openIn.current "目前分頁">
+<!ENTITY PrefProp.openIn.newTab "新分頁">
+<!ENTITY PrefProp.openIn.newBackgroundTab "新背景分頁">
+<!ENTITY PrefProp.openIn.newWindow "新視窗">
+
+<!ENTITY PrefProp.shortcut.label "鍵盤快速鍵:">
+<!ENTITY PrefProp.shortcut.set "設定">
+<!ENTITY PrefProp.shortcut.clear "&common.clear;">
+
+
+
+
+<!ENTITY shortExpressions.label "簡短表達式:">
+<!ENTITY shortExpressions.insert "插入">
+<!ENTITY shortExpressions.default "(選擇)">
+
+<!ENTITY shortExpressions.window "目前頁面的「Window 物件」">
+<!ENTITY shortExpressions.navigations "目前頁面的導航項目">
+<!ENTITY shortExpressions.headings "目前頁面的標題">
+<!ENTITY shortExpressions.contextual "鏈結位置或頁面位置">
+<!ENTITY shortExpressions.focusedElement "焦點所在的元素節點">
+<!ENTITY shortExpressions.popupNode "右鍵選單彈出處所屬的節點">
+<!ENTITY shortExpressions.selection "選取的文字">
+<!ENTITY shortExpressions.selectionSource "選取的原始碼">
+<!ENTITY shortExpressions.selectionNodes "選取區中的節點">
+
+<!ENTITY shortExpressions.profileURI "目前個人設定檔的 URI">
+<!ENTITY shortExpressions.profilePath "目前個人設定檔本地化的路徑">
+<!ENTITY shortExpressions.installedURI "Mozilla/Netscape 安裝目錄的 URI">
+<!ENTITY shortExpressions.installedPath "Mozilla/Netscape 安裝目錄本地化的路徑">
+<!ENTITY shortExpressions.temporaryURI "暫存檔案存放位置的 URI">
+<!ENTITY shortExpressions.temporaryPath "暫存檔案存放位置的本地化路徑">
+<!ENTITY shortExpressions.homeURI "Home directory 的 URI (like desktop)">
+<!ENTITY shortExpressions.homePath "Home directory 本地化的路徑 (like desktop)">
+
+<!ENTITY shortExpressions.isOnline "此瀏覽器連線作業嗎?">
+<!ENTITY shortExpressions.inFrame "此頁是框架頁嗎?">
+<!ENTITY shortExpressions.menuMethods "功能">
+<!ENTITY shortExpressions.getTopWindowOf "擷取具有指定視窗特性的 XUL 視窗">
+<!ENTITY shortExpressions.getWindowsOf "擷取所有具有指定視窗特性的 XUL 視窗">
+<!ENTITY shortExpressions.load "載入 URIs">
+<!ENTITY shortExpressions.newWindow "開啟新視窗">
+<!ENTITY shortExpressions.newTab "開啟新分頁">
+<!ENTITY shortExpressions.loadAndDo "載入 URIs 並執行函數">
+<!ENTITY shortExpressions.newWindowAndDo "開啟新視窗並執行函數">
+<!ENTITY shortExpressions.newTabAndDo "開啟新分頁並執行函數">
+<!ENTITY shortExpressions.selectButton "從按鈕選取">
+<!ENTITY shortExpressions.selectButtonTitle "從按鈕選取 (有標題)">
+<!ENTITY shortExpressions.selectList "從清單中選取">
+<!ENTITY shortExpressions.selectListTitle "從清單中選取 (有標題)">
+<!ENTITY shortExpressions.getClipBoard "擷取剪貼簿字串">
+<!ENTITY shortExpressions.setClipBoard "複製字串到剪貼簿">
+<!ENTITY shortExpressions.getInnerText "擷取並傳回元素中的文字">
+<!ENTITY shortExpressions.convCharset1 "轉換字元集 A 成為 B">
+<!ENTITY shortExpressions.convCharset2 "轉換 Unicode 字串成為其他字元編碼">
+<!ENTITY shortExpressions.addStyleSheet "附加新樣式">
+<!ENTITY shortExpressions.run "執行外部程式">
+<!ENTITY shortExpressions.menuIO "輸入與輸出檔案">
+<!ENTITY shortExpressions.include "載入外部 JavaScript 檔">
+<!ENTITY shortExpressions.read "讀取並傳回內容到純文字檔">
+<!ENTITY shortExpressions.write "儲存字串到純文字檔">
+<!ENTITY shortExpressions.saveURIAs "下載遠端資源並存成檔案">
+<!ENTITY shortExpressions.saveURIInBackgroundAs "在背景下載遠端的資源並存成檔案">
+<!ENTITY shortExpressions.chooseFile "以一般對話方塊選擇檔案">
+<!ENTITY shortExpressions.chooseFileToSave "以一般對話方塊選擇要儲存的檔案">
+
+<!ENTITY shortExpressions.menuExt "擴充功能">
+<!ENTITY shortExpressions.cancelStyles "取消所有樣式">
+<!ENTITY shortExpressions.switchStyleTo "切換到指定樣式">
+<!ENTITY shortExpressions.openStyleSheetSource "開啟指定樣式的原始檔">
+<!ENTITY shortExpressions.addOptionalStyleSheet "啟用指定的選用樣式">
+<!ENTITY shortExpressions.removeOptionalStyleSheet "停用指定的選用樣式">
+<!ENTITY shortExpressions.sendURITo "傳送 URI 到指定的接收器">
+<!ENTITY shortExpressions.sendStrTo "傳送字串到指定的接收器">
+<!ENTITY shortExpressions.openWithApp "以指定的外部程式開啟 URI 與字串">
+<!ENTITY shortExpressions.customScript "執行指定的自訂指令碼">
+<!ENTITY shortExpressions.getLinksWithNode "搜尋本頁的一系列鏈結">
+
+<!ENTITY shortExpressions.menuPrefs "讀取/寫入偏好設定">
+<!ENTITY shortExpressions.getPref "讀取偏好設定">
+<!ENTITY shortExpressions.setPref "儲存偏好設定">
+<!ENTITY shortExpressions.clearPref "清除偏好設定">
+
+
+
+
+
+<!ENTITY initial.desc "使用 CME 預設的設定">
+<!ENTITY initial.note "※ 這些選項只改變預設的設定。您可以藉由偏好設定的對話方塊改變 CME 的運作方式，例如「普通設定」，或甚至你選擇的是「陽春設定」">
+<!ENTITY initial.normal "普通設定:">
+<!ENTITY initial.normal.desc "使用所有推薦的功能">
+<!ENTITY initial.light "陽春設定:">
+<!ENTITY initial.light.desc "僅使用部分功能，但瀏覽器工作會較迅速。">
+<!-- for Firefox 0.9 or later -->
+
+
+
+
+
+<!ENTITY useStyleSheetMenu.label "使用樣式">
+<!ENTITY useStyleSheetMenu.accesskey "U">
+<!ENTITY bookmarksMenu.label "書籤">
+<!ENTITY emptyItem.label "(空)">
+<!ENTITY goMenu.label "衝">
