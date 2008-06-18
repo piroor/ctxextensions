@@ -117,7 +117,7 @@ var ExtCommonUtils = {
 		return this.mDatasource;
 	},
 	mDatasource : null,
-	 
+	
 	// RDFデータソースの位置 
 	get datasourceURI()
 	{
@@ -610,7 +610,7 @@ var ExtCommonUtils = {
 	},
   
 	// URI操作 
-	 
+	
 	// 渡されたURIからnsIURIのオブジェクトを生成する 
 	makeURIFromSpec : function(aURI)
 	{
@@ -726,7 +726,7 @@ var ExtCommonUtils = {
 		var protocolSvc = Components.classes['@mozilla.org/uriloader/external-protocol-service;1'].getService(Components.interfaces.nsIExternalProtocolService);
 		protocolSvc.loadUrl(uri);
 	},
- 	 
+  
 	// ファイル操作 
 	
 	// 渡されたパスからnsIFileのオブジェクトを生成する 
@@ -1145,7 +1145,7 @@ var ExtCommonUtils = {
 	},
    
 	// DOM操作 
-	
+	 
 	getTopWindowOf : function(aType) 
 	{
 		return this.WINMAN.getMostRecentWindow(aType);
@@ -1554,7 +1554,18 @@ var ExtCommonUtils = {
 		}
 //dump(aContainer.getAttribute('ext-datasource')+' / '+obj.length+'('+aContainer.childNodes.length+')\n');
 	},
- 
+	 
+	cleanUpInvalidKeys : function() 
+	{
+		var nodes = this.getNodesFromXPath('/descendant::*[local-name() = "key" and (@key = "" or not(@key)) and (@keycode = "" or not(@keycode))]');
+		var node;
+		for (var i = nodes.snapshotLength-1; i > -1; i--)
+		{
+			node = nodes.snapshotItem(i);
+			node.parentNode.removeChild(node);
+		}
+	},
+ 	 
 	getNodesFromXPath : function(aXPath, aContextNode, aType) 
 	{
 		// http://www.hawk.34sp.com/stdpls/xml/
@@ -1843,6 +1854,7 @@ var ExtCommonUtils = {
 				this.rebuildFromTemplate(nodes[i]);
 			}
 		}
+		this.cleanUpInvalidKeys();
 	},
 	loadPrefs : function()
 	{

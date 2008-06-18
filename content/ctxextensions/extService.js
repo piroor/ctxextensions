@@ -2117,6 +2117,7 @@ catch(e) {
 				window.setTimeout(this.hideContextDuplicatedItems, 10, aNames[i]);
 
 		}
+		this.utils.cleanUpInvalidKeys();
 		return;
 	},
 	hideContextDuplicatedItems : function(aID)
