@@ -795,6 +795,9 @@ var ExtFunc = {
 					'var _selectionNodes = window._selectionNodes;',
 					'var _focusedElement = window._focusedElement;',
 
+					'var Cc = Components.classes;'+
+					'var Ci = Components.interfaces;'+
+
 					// 以前のバージョン'
 					'var _getSelection = window._getSelection;',
 					'var _getSelectionSource = window._getSelectionSource;',
