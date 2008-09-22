@@ -560,7 +560,8 @@
 <!ENTITY shortExpressions.setClipBoard "複製字串到剪貼簿">
 <!ENTITY shortExpressions.getInnerText "擷取並傳回元素中的文字">
 <!ENTITY shortExpressions.convCharset1 "轉換字元集 A 成為 B">
-<!ENTITY shortExpressions.convCharset2 "轉換 Unicode 字串成為其他字元編碼">
+<!ENTITY shortExpressions.convCharset2 "Convert charset: from Unicode(UCS2) to another">
+<!ENTITY shortExpressions.convCharset3 "Convert charset: from another to Unicode(UCS2)">
 <!ENTITY shortExpressions.addStyleSheet "附加新樣式">
 <!ENTITY shortExpressions.run "執行外部程式">
 <!ENTITY shortExpressions.menuIO "輸入與輸出檔案">

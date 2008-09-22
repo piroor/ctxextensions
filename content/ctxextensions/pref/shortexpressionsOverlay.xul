@@ -128,6 +128,8 @@
 						value="_convertCharset(string, charsetFrom, charsetTo)"/>
 					<menuitem label="&shortExpressions.convCharset2;"
 						value="_convertCharset(string, charsetTo)"/>
+					<menuitem label="&shortExpressions.convCharset3;"
+						value="_convertCharsetFrom(string, charsetFrom)"/>
 
 			<menuseparator/>
 

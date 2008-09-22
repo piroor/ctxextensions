@@ -561,7 +561,8 @@
 <!ENTITY shortExpressions.setClipBoard     "クリップボードに文字列をコピーする">
 <!ENTITY shortExpressions.getInnerText     "要素の内部テキストを得、文字列として返す">
 <!ENTITY shortExpressions.convCharset1     "文字列の文字コードを相互変換して返す">
-<!ENTITY shortExpressions.convCharset2     "Unicode文字列を別の文字コードに変換して返す">
+<!ENTITY shortExpressions.convCharset2     "文字列の文字コード変換：Unicode(UCS2)→別の文字コード">
+<!ENTITY shortExpressions.convCharset3     "文字列の文字コード変換：別の文字コード→Unicode(UCS2)">
 <!ENTITY shortExpressions.addStyleSheet    "スタイルシートを加える">
 <!ENTITY shortExpressions.run              "外部アプリを実行する">
 <!ENTITY shortExpressions.menuIO           "ファイルの入出力">

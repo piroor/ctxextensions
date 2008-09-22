@@ -3702,6 +3702,11 @@ function _convertCharset()
 	ExtCommonUtils.UCONV.charset = target;
 	return ExtCommonUtils.UCONV.ConvertFromUnicode(string);
 };
+function _convertCharsetFrom(aString, aFrom)
+{
+	ExtCommonUtils.UCONV.charset = aFrom;
+	return ExtCommonUtils.UCONV.ConvertToUnicode(aString);
+};
 
 
 function _cancelStyles(aWindow)
