@@ -209,7 +209,8 @@ var ExtService = {
 		var framePopup = document.getElementById('frame');
 		if (framePopup) {
 			framePopup = framePopup.lastChild;
-			framePopup.appendChild(document.createElement('menuseparator'));
+			var sep = framePopup.appendChild(document.createElement('menuseparator'));
+			sep.setAttribute('class', 'menuseparator-ctxextensions');
 			for (var i in frameItems)
 				framePopup.appendChild(document.getElementById(frameItems[i]));
 		}
@@ -2274,6 +2275,7 @@ catch(e) {
 			if (i >= 1) {
 				newSep = document.createElement('menuseparator');
 				newSep.setAttribute('ext-item-userdefined', 'true');
+				newSep.setAttribute('class', 'menuseparator-ctxextensions');
 				if (ref)
 					sep.parentNode.insertBefore(newSep, ref);
 				else
@@ -2839,8 +2841,10 @@ catch(e) {
 
 			if (links.length > 1 && i > 1 && links[i-1] &&
 				links[i].elemType != links[i-1].elemType &&
-				!stylesheet)
-				mpopup.appendChild(document.createElement('menuseparator'));
+				!stylesheet) {
+				mpopup.appendChild(document.createElement('menuseparator'))
+					.setAttribute('class', 'menuseparator-ctxextensions');
+			}
 
 			menuitem = document.createElement('menuitem');
 			menuitem.setAttribute('label', links[i].label);
@@ -2865,8 +2869,10 @@ catch(e) {
 
 /*
 		if (stylemenu.firstChild.childNodes.length) {
-			if (mpopup.firstChild)
-				mpopup.appendChild(document.createElement('menuseparator'));
+			if (mpopup.firstChild) {
+				mpopup.appendChild(document.createElement('menuseparator'))
+					.setAttribute('class', 'menuseparator-ctxextensions');
+			}
 			mpopup.appendChild(stylemenu);
 		}
 */

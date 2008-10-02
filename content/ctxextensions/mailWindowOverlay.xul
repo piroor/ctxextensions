@@ -24,7 +24,8 @@
 		oncommand="ExtFunc.doCommand('openSelectionAsURI')"
 		accesskey="&context.openSelectionAsURI.accesskey;"/>
 
-	<menuseparator id="context-sep-extensions"/>
+	<menuseparator id="context-sep-extensions"
+		class="menuseparator-ctxextensions"/>
 	<menu id="context-item-extensions"
 		label="&context.extensions.label;"
 		accesskey="&context.extensions.accesskey;">
@@ -34,7 +35,8 @@
 				label-for-select="&context.openSelectionAsURI.label_select;"
 				oncommand="ExtFunc.doCommand('openSelectionAsURI')"
 				accesskey="&context.openSelectionAsURI.accesskey;"/>
-			<menuseparator id="context-sep-extensionsMisc:submenu"/>
+			<menuseparator id="context-sep-extensionsMisc:submenu"
+				class="menuseparator-ctxextensions"/>
 			<menuitem id="context-item-JSPanel:submenu"
 				label="&context.JSPanel.label;"
 				oncommand="ExtFunc.doCommand('JSPanel')"/>
@@ -44,7 +46,8 @@
 				label-for-frame="&context.getLinks.label_frame;"
 				label-for-select="&context.getLinks.label_select;"
 				oncommand="ExtFunc.getLinks()"/>
-			<menuseparator id="context-sep-send:submenu"/>
+			<menuseparator id="context-sep-send:submenu"
+				class="menuseparator-ctxextensions"/>
 			<menu id="context-item-sendURI:submenu"
 				label="&context.sendURI.label;"
 				label-for-normal="&context.sendURI.label;"
@@ -68,7 +71,8 @@
 					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'SendStr');"
 					ext-datasource="ExtCommonUtils.SENDSTR"/>
 			</menu>
-			<menuseparator id="context-sep-exec:submenu"/>
+			<menuseparator id="context-sep-exec:submenu"
+				class="menuseparator-ctxextensions"/>
 			<menu id="context-item-execApps:submenu"
 				label="&context.execApps.label;"
 				label-for-normal="&context.execApps.label;"
@@ -94,7 +98,8 @@
 		</menupopup>
 	</menu>
 
-	<menuseparator id="context-sep-extensionsMisc"/>
+	<menuseparator id="context-sep-extensionsMisc"
+		class="menuseparator-ctxextensions"/>
 
 	<menuitem id="context-item-JSPanel"
 		label="&context.JSPanel.label;"
@@ -105,7 +110,8 @@
 		label-for-select="&context.getLinks.label_select;"
 		oncommand="ExtFunc.getLinks()"/>
 
-	<menuseparator id="context-sep-send"/>
+	<menuseparator id="context-sep-send"
+		class="menuseparator-ctxextensions"/>
 
 	<menu id="context-item-sendURI"
 		label="&context.sendURI.label;"
@@ -141,7 +147,8 @@
 			ext-datasource="ExtCommonUtils.SENDSTR"/>
 	</menu>
 
-	<menuseparator id="context-sep-exec"/>
+	<menuseparator id="context-sep-exec"
+		class="menuseparator-ctxextensions"/>
 
 	<menu id="context-item-execApps"
 		label="&context.execApps.label;"
@@ -176,7 +183,8 @@
 			ext-datasource="ExtCommonUtils.CUSTOMSCRIPTS"/>
 	</menu>
 
-	<menuseparator id="context-sep-extensionsExtra" hidden="true"/>
+	<menuseparator id="context-sep-extensionsExtra" hidden="true"
+		class="menuseparator-ctxextensions"/>
 </popup>
 
 
@@ -751,13 +759,13 @@
 				label-for-normal="&menu.getLinks.label;"
 				label-for-select="&menu.getLinks.label_select;"
 				oncommand="ExtFunc.getLinks()"/>
-			<menuseparator/>
+			<menuseparator class="menuseparator-ctxextensions"/>
 			<menuitem id="menu-item-openSelectionAsURI:submenu"
 				label="&menu.openSelectionAsURI.label;"
 				label-for-select="&menu.openSelectionAsURI.label_select;"
 				oncommand="ExtFunc.doCommand('openSelectionAsURI')"
 				accesskey="&menu.openSelectionAsURI.accesskey;"/>
-			<menuseparator/>
+			<menuseparator class="menuseparator-ctxextensions"/>
 			<menu id="menu-item-sendURI:submenu"
 				label="&menu.sendURI.label;">
 				<menupopup id="menu-item-sendURI:mpopup:submenu"
@@ -789,7 +797,7 @@
 					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'SendStr');"
 					ext-datasource="ExtCommonUtils.SENDSTR"/>
 			</menu>
-			<menuseparator/>
+			<menuseparator class="menuseparator-ctxextensions"/>
 			<menu id="menu-item-execApps:submenu"
 				label="&menu.execApps.label;"
 				key="ext-key-showMenu:execapps"
@@ -824,7 +832,7 @@
 					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'CustomScripts');"
 					ext-datasource="ExtCommonUtils.CUSTOMSCRIPTS"/>
 			</menu>
-			<menuseparator/>
+			<menuseparator class="menuseparator-ctxextensions"/>
 			<menuitem label="&menu.pref.label;"
 				oncommand="ExtFunc.doCommand('pref')"/>
 

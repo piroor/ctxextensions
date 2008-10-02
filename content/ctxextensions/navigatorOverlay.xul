@@ -114,7 +114,7 @@
 					oncommand="ExtFunc.ApplyStyle(event, true);"
 					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'StyleSheets');"/>
 			</menu>
-			<menuseparator/>
+			<menuseparator class="menuseparator-ctxextensions"/>
 			<menuitem id="menu-item-up:submenu"
 				label="&menu.up.label;"
 				oncommand="ExtFunc.doCommand('up');"
@@ -156,7 +156,7 @@
 					ondragexit="nsDragAndDrop.dragExit(event, ExtService.NavigationDNDObserver); event.stopPropagation(); return;"
 					onerror="event.stopPropagation(); return;"/>
 			</menu>
-			<menuseparator/>
+			<menuseparator class="menuseparator-ctxextensions"/>
 			<menuitem id="menu-item-JSPanel:submenu"
 				label="&menu.JSPanel.label;"
 				oncommand="ExtFunc.doCommand('JSPanel')"/>
@@ -165,7 +165,7 @@
 				label-for-normal="&menu.getLinks.label;"
 				label-for-select="&menu.getLinks.label_select;"
 				oncommand="ExtFunc.getLinks()"/>
-			<menuseparator/>
+			<menuseparator class="menuseparator-ctxextensions"/>
 			<menuitem id="menu-item-showComments:submenu"
 				label="&menu.showComments.label;"
 				oncommand="ExtFunc.doCommand('showComments')"/>
@@ -187,13 +187,13 @@
 			<menuitem id="menu-item-showAll:submenu"
 				label="&menu.showAll.label;"
 				oncommand="ExtFunc.doCommand('showAll')"/>
-			<menuseparator/>
+			<menuseparator class="menuseparator-ctxextensions"/>
 			<menuitem id="menu-item-openSelectionAsURI:submenu"
 				label="&menu.openSelectionAsURI.label;"
 				label-for-select="&menu.openSelectionAsURI.label_select;"
 				oncommand="ExtFunc.doCommand('openSelectionAsURI')"
 				accesskey="&menu.openSelectionAsURI.accesskey;"/>
-			<menuseparator/>
+			<menuseparator class="menuseparator-ctxextensions"/>
 			<menu id="menu-item-sendURI:submenu"
 				label="&menu.sendURI.label;">
 				<menupopup id="menu-item-sendURI:mpopup:submenu"
@@ -225,7 +225,7 @@
 					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'SendStr');"
 					ext-datasource="ExtCommonUtils.SENDSTR"/>
 			</menu>
-			<menuseparator/>
+			<menuseparator class="menuseparator-ctxextensions"/>
 			<menu id="menu-item-execApps:submenu"
 				label="&menu.execApps.label;"
 				key="ext-key-showMenu:execapps"
@@ -260,7 +260,7 @@
 					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'CustomScripts');"
 					ext-datasource="ExtCommonUtils.CUSTOMSCRIPTS"/>
 			</menu>
-			<menuseparator/>
+			<menuseparator class="menuseparator-ctxextensions"/>
 			<menuitem label="&menu.pref.label;"
 				oncommand="ExtFunc.doCommand('pref')"/>
 

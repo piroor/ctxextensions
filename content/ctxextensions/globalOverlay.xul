@@ -749,13 +749,13 @@
 				onpopupshowing="event.stopPropagation();"
 				onpopuphiding="event.stopPropagation();"/>
 		</menu>
-		<menuseparator/>
+		<menuseparator class="menuseparator-ctxextensions"/>
 		<menuitem styleid="ext-common-userContentCSSEditor"
 			label="&styleSheets.editUserContentCSS.label;"/>
 		<menuitem styleid="ext-common-customUserStyleEditor"
 			label="&menu.customUserStyleEditor.label;"
 			label-for-site="&menu.customUserStyleEditor.label_site;"/>
-		<menuseparator/>
+		<menuseparator class="menuseparator-ctxextensions"/>
 		<menuitem styleid="&styleSheets.cancelPhysical.label;"
 				label="&styleSheets.cancelPhysical.label;"
 				value="&styleSheets.cancelPhysical.rules;"

@@ -109,7 +109,8 @@
 			</rule>
 			<rule rdf:type="http://home.netscape.com/NC-rdf#BookmarkSeparator">
 				<menupopup> 
-					<menuseparator uri="rdf:*" />
+					<menuseparator uri="rdf:*"
+						class="menuseparator-ctxextensions"/>
 				</menupopup>
 			</rule>
 			<rule>
@@ -137,7 +138,8 @@
 	</menu>
 
 
-	<menuseparator id="context-sep-extensions"/>
+	<menuseparator id="context-sep-extensions"
+		class="menuseparator-ctxextensions"/>
 	<menu id="context-item-extensions"
 		label="&context.extensions.label;"
 		accesskey="&context.extensions.accesskey;">
@@ -157,7 +159,8 @@
 				label="&context.prevHeading.label;"
 				oncommand="ExtFunc.goHeadings('prev');"
 				accesskey="&context.prevHeading.accesskey;"/>
-			<menuseparator id="context-sep-extensionsOpen:submenu"/>
+			<menuseparator id="context-sep-extensionsOpen:submenu"
+				class="menuseparator-ctxextensions"/>
 			<menuitem id="context-item-openSelectionAsURI:submenu"
 				label="&context.openSelectionAsURI.label;"
 				label-for-select="&context.openSelectionAsURI.label_select;"
@@ -175,7 +178,8 @@
 				label="&context.openLongdesc.label;"
 				oncommand="ExtFunc.doCommand('openLongdesc');"
 				accesskey="&context.openLongdesc.accesskey;"/>
-			<menuseparator id="context-sep-navigations:submenu"/>
+			<menuseparator id="context-sep-navigations:submenu"
+				class="menuseparator-ctxextensions"/>
 			<menu id="context-item-outline:submenu"
 				label="&context.outline.label;"
 				label-for-normal="&context.outline.label;"
@@ -202,7 +206,8 @@
 					oncommand="ExtFunc.ApplyStyle(event, true);"
 					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'StyleSheets');"/>
 			</menu>
-			<menuseparator id="context-sep-extensionsMisc:submenu"/>
+			<menuseparator id="context-sep-extensionsMisc:submenu"
+				class="menuseparator-ctxextensions"/>
 			<menuitem id="context-item-JSPanel:submenu"
 				label="&context.JSPanel.label;"
 				oncommand="ExtFunc.doCommand('JSPanel')"/>
@@ -212,7 +217,8 @@
 				label-for-frame="&context.getLinks.label_frame;"
 				label-for-select="&context.getLinks.label_select;"
 				oncommand="ExtFunc.getLinks()"/>
-			<menuseparator id="context-sep-show:submenu"/>
+			<menuseparator id="context-sep-show:submenu"
+				class="menuseparator-ctxextensions"/>
 			<menuitem id="context-item-showComments:submenu"
 				label="&context.showComments.label;"
 				oncommand="ExtFunc.doCommand('showComments')"/>
@@ -234,7 +240,8 @@
 			<menuitem id="context-item-showAll:submenu"
 				label="&context.showAll.label;"
 				oncommand="ExtFunc.doCommand('showAll')"/>
-			<menuseparator id="context-sep-send:submenu"/>
+			<menuseparator id="context-sep-send:submenu"
+				class="menuseparator-ctxextensions"/>
 			<menu id="context-item-sendURI:submenu"
 				label="&context.sendURI.label;"
 				label-for-normal="&context.sendURI.label;"
@@ -258,7 +265,8 @@
 					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'SendStr');"
 					ext-datasource="ExtCommonUtils.SENDSTR"/>
 			</menu>
-			<menuseparator id="context-sep-exec:submenu"/>
+			<menuseparator id="context-sep-exec:submenu"
+				class="menuseparator-ctxextensions"/>
 			<menu id="context-item-execApps:submenu"
 				label="&context.execApps.label;"
 				label-for-normal="&context.execApps.label;"
@@ -284,7 +292,8 @@
 		</menupopup>
 	</menu>
 
-	<menuseparator id="context-sep-navigations"/>
+	<menuseparator id="context-sep-navigations"
+		class="menuseparator-ctxextensions"/>
 
 	<menu id="context-item-outline"
 		label="&context.outline.label;"
@@ -313,7 +322,8 @@
 			onclick="if (event.button == 1) ExtService.editRDFItem(event, 'StyleSheets');"/>
 	</menu>
 
-	<menuseparator id="context-sep-extensionsMisc"/>
+	<menuseparator id="context-sep-extensionsMisc"
+		class="menuseparator-ctxextensions"/>
 
 	<menuitem id="context-item-JSPanel"
 		label="&context.JSPanel.label;"
@@ -324,7 +334,8 @@
 		label-for-select="&context.getLinks.label_select;"
 		oncommand="ExtFunc.getLinks()"/>
 
-	<menuseparator id="context-sep-show"/>
+	<menuseparator id="context-sep-show"
+		class="menuseparator-ctxextensions"/>
 
 	<menuitem id="context-item-showComments"
 		label="&context.showComments.label;"
@@ -348,7 +359,8 @@
 		label="&context.showAll.label;"
 		oncommand="ExtFunc.doCommand('showAll')"/>
 
-	<menuseparator id="context-sep-send"/>
+	<menuseparator id="context-sep-send"
+		class="menuseparator-ctxextensions"/>
 
 	<menu id="context-item-sendURI"
 		label="&context.sendURI.label;"
@@ -384,7 +396,8 @@
 			ext-datasource="ExtCommonUtils.SENDSTR"/>
 	</menu>
 
-	<menuseparator id="context-sep-exec"/>
+	<menuseparator id="context-sep-exec"
+		class="menuseparator-ctxextensions"/>
 
 	<menu id="context-item-execApps"
 		label="&context.execApps.label;"
@@ -419,7 +432,8 @@
 			ext-datasource="ExtCommonUtils.CUSTOMSCRIPTS"/>
 	</menu>
 
-	<menuseparator id="context-sep-extensionsExtra" hidden="true"/>
+	<menuseparator id="context-sep-extensionsExtra" hidden="true"
+		class="menuseparator-ctxextensions"/>
 </popup>
 
 

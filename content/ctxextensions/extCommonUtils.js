@@ -1451,7 +1451,7 @@ var ExtCommonUtils = {
 	// ポップアップメニューのセパレータの表示 
 	showHideMenuSeparators : function(aPopup)
 	{
-		var nodes = this.getNodesFromXPath('descendant::xul:menuseparator[@hidden]', aPopup);
+		var nodes = this.getNodesFromXPath('descendant::xul:menuseparator[@hidden and @class="menuseparator-ctxextensions"]', aPopup);
 		for (i = 0; i < nodes.snapshotLength; i++)
 			nodes.snapshotItem(i).removeAttribute('hidden');
 
