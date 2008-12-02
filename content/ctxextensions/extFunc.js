@@ -127,8 +127,6 @@ var ExtFunc = {
 	{
 		var d = (aWindow ? aWindow.document : this.service.contentDocument());
 
-		this.applyStyleForShowItems(aWindow);
-
 		var nodes = this.utils.getNodesFromXPath(aXPath, d.documentElement);
 		var max = nodes.snapshotLength;
 		for (var i = 0; i < max; i++)
@@ -343,242 +341,6 @@ var ExtFunc = {
 			aNode.parentNode.insertBefore(output, aNode.nextSibling);
 		else
 			aNode.parentNode.appendChild(output);
-	},
-  
-	// スタイルシート選択/追加適用 
-	ApplyStyle : function(aEventOrID, aShouldSave, aWindow)
-	{
-		if (typeof aEventOrID != 'string' &&
-			'stopPropagation' in aEventOrID) {
-			aEventOrID.stopPropagation();
-			if (aEventOrID.altKey || aEventOrID.ctrlKey || aEventOrID.metaKey)
-				return this.service.editRDFItem(aEventOrID, 'StyleSheets');
-		}
-
-		var w    = (aWindow ? aWindow : this.service.contentWindow() );
-		var d    = w.document,
-			info = this.service.contentInfo(false, w);
-
-		var id,
-			target = null,
-			value  = null;
-
-		if (typeof aEventOrID == 'string') {
-			id = aEventOrID;
-		}
-		else {
-			target = aEventOrID.target;
-			id     = target.getAttribute('styleid');
-		}
-
-
-		if (id == 'ext-common-userContentCSSEditor') {
-			this.editUserContentCSS();
-		}
-		else if (id == 'ext-common-customUserStyleEditor') {
-			this.service.openDialog(this.service.content+'styleSheetsManager/customUserStyleEditor.xul', 'ctxextensions:customUserStyleEditor');
-		}
-		else if (target ? (target.getAttribute('type') == 'radio') : id.match(/^ext_(style:|system)/)) {
-			var path = this.utils.getCurrentDir(w.location.href);
-			var old  = this.utils.SELECTEDSTYLES.getDataFromPath(path, 'SelectedStyle');
-			value = target ? target.getAttribute('value') : id.replace(/^ext_style:/, '') ;
-
-			if (old != value && aShouldSave) {
-				this.utils.SELECTEDSTYLES.setData(path, 'Path', path, 'SelectedStyle', value);
-				this.utils.SELECTEDSTYLES.setData(path, 'Path', path, 'SelectedStyleID', id);
-			}
-
-			// 全てのスタイルシートを解除、あるいは、永続スタイルシートのみ適用
-			if (id == 'ext_system_onlyPermanence') value = null;
-			if (id == 'ext_system_noStyle')
-				this.cancelStyles();
-			else
-				this.service.setStyleTo(value, w.top, true);
-		}
-		else {
-			var idAttrString = escape(id).replace(/%/g, '-');
-			// check selected status
-			var checked = gBrowser.selectedTab.hasAttribute('ctxextensions-optionalstylesheet-'+idAttrString) ?
-				(gBrowser.selectedTab.getAttribute('ctxextensions-optionalstylesheet-'+idAttrString) == 'true') :
-				(this.utils.STYLESHEETS.getData(id, 'Selected') == 'true');
-
-			// 状態を保存
-			if (aShouldSave)
-				gBrowser.selectedTab.setAttribute('ctxextensions-optionalstylesheet-'+idAttrString, !checked ? 'true' : 'false' );
-
-			// for preset items
-			if (typeof aEventOrID != 'string') {
-				value = aEventOrID.target.getAttribute('value');
-			}
-
-			this.toggleOptionalStyleRules(id, value, w);
-		}
-
-		return true;
-	},
-	
-	// userContent.css の編集 
-	editUserContentCSS : function()
-	{
-		var editor = this.utils.getPref('ctxextensions.override.CSSEditor.path');
-		if (editor) {
-			var path = this.utils.userContentCSSFile.path;
-
-			var options = this.utils.getPref('ctxextensions.override.CSSEditor.options');
-			options = (options.match(/%s/i)) ? options.replace(/%s/ig, path) :
-					(options) ? path+' '+options :
-					path ;
-
-			this.service.run(editor, options);
-		}
-		else
-			this.utils.goStyleSheetsManager(0);
-	},
- 
-	// 全てのスタイルを解除 
-	cancelStyles : function(aWindow)
-	{
-		var d = (aWindow ? aWindow.document : this.service.contentDocument()),
-			contentStyles = d.styleSheets,
-			nodes    = d.getElementsByTagName('*');
-		var i;
-
-		for (i = 0; i < contentStyles.length; i++)
-			contentStyles[i].disabled = true;
-
-		for (i = 0; i < nodes.length; i++)
-			if (!('ext_generated' in nodes[i]))
-				nodes[i].removeAttribute('style');
-		return;
-	},
- 
-	toggleOptionalStyleRules : function(aID, aRules, aWindow, aForcedSetOrUnset) 
-	{
-		var d    = (aWindow ? aWindow.document : this.service.contentDocument() ),
-			w    = (aWindow ? aWindow : gBrowser.contentWindow ),
-			info = this.service.contentInfo(false, w);
-		var id   = 'UserdefinedStyleSheet:'+aID+':'+d.URL;
-
-		if (!('sheet' in info)) info.sheet = [];
-
-
-		// if the flag to force to set/unset style is different from current stored status of data, save new status
-
-		// check selected status
-		var idAttrString = escape(aID).replace(/%/g, '-');
-		var checked = gBrowser.selectedTab.hasAttribute('ctxextensions-optionalstylesheet-'+idAttrString) ?
-			(gBrowser.selectedTab.getAttribute('ctxextensions-optionalstylesheet-'+idAttrString) == 'true') :
-			(this.utils.STYLESHEETS.getData(aID, 'Selected') == 'true');
-
-		if (aForcedSetOrUnset !== void(0) && checked != aForcedSetOrUnset) {
-			gBrowser.selectedTab.setAttribute('ctxextensions-optionalstylesheet-'+idAttrString, aForcedSetOrUnset ? 'true' : 'false' );
-			checked = aForcedSetOrUnset;
-		}
-
-
-		if (this.utils.STYLESHEETS.getData(aID, 'Cancel') == 'true')
-			this.cancelStyles();
-
-		if ((aForcedSetOrUnset === void(0) || !aForcedSetOrUnset) &&
-			id in info.sheet && info.sheet[id]) {
-			info.sheet[id].disabled = !checked;
-		}
-		else { // append stylesheet
-			if (id in info.sheet && info.sheet[id]) return;
-
-			var rules = this.utils.unescape(this.utils.STYLESHEETS.getData(aID, 'StyleRules'));
-
-			// プリセットの項目はスタイルルールを直接渡されるので、それをバックアップする。
-			// また、プリセットの内容がバージョンアップなどで変更された場合は、保存されたデータを更新する。
-			if ((!rules && aRules) ||
-				(rules && aRules && rules != aRules)) {
-				rules = aRules;
-				this.utils.STYLESHEETS.setData(aID, 'StyleRules', this.utils.unescape(aRules));
-			}
-
-			var path  = 'about:'+escape(id);
-			if (/^\s*@import\s+(url\()?("|')?.+("|')?\);\s*$/.test(rules)) {
-				path = rules.replace(/^\s*@import\s+(url\()?("|')?/, '').replace(/("|')?\)?;\s*$/, '');
-				rules = '';
-			}
-
-			this.service.appendStyleSheet(id, path, w, rules);
-		}
-	},
- 
-	OpenStyleSheetSource : function(aEventOrID, aWindow) 
-	{
-		var i,
-			name,
-			value    = [],
-			embedded = [];
-
-		if (aEventOrID &&
-			typeof aEventOrID != 'string' &&
-			'stopPropagation' in aEventOrID) {
-			aEventOrID.stopPropagation();
-			name        = aEventOrID.target.label;
-			embedded[0] = aEventOrID.target.getAttribute('embeddedSheet');
-			value[0]    = embedded[0] ? this.utils.unescape(aEventOrID.target.getAttribute('embeddedSheet')) : aEventOrID.target.value ;
-		}
-		else {
-			var d = (aWindow ? aWindow.document : this.service.contentDocument()),
-				sheets = d.styleSheets;
-
-			name = aEventOrID || d.title;
-
-			for (i = 0; i < sheets.length; i++)
-				if (sheets[i].title == aEventOrID ||
-					(!aEventOrID && !sheets[i].title)) {
-					embedded.push(false);
-					value.push(sheets[i].href);
-					if (value[i] == d.URL) {
-						embedded[embedded.length-1] = true;
-						value[value.length-1] = sheets[i].ownerNode.firstChild.nodeValue;
-					}
-				}
-		}
-
-		if (!value) return;
-
-
-		var ref = this.utils.makeURIFromSpec(aWindow ? aWindow.location.href : this.service.currentURI() );
-
-		for (i in value)
-		{
-			if (embedded[i]) {
-				window.openDialog('chrome://ctxextensions/content/pref/prefProperty.xul', '_blank', 'chrome,all,dialog=no,centerscreen',
-					{
-						name        : name+(i == 0 ? '' : '('+i+')'),
-						editorValue : value[i]
-					},
-					'viewerMode'
-				);
-			}
-			else {
-				switch (this.utils.getPref('ctxextensions.showResultIn.styleSheets'))
-				{
-					default:
-					case 0:
-						if (i == 0) {
-							this.service.openNewTab(value[i], ref);
-							break;
-						}
-
-					case 10:
-						this.service.loadURI(value[i], ref, this.service.NEW_TAB);
-						break;
-
-					case 11:
-						this.service.loadURI(value[i], ref, this.service.NEW_BG_TAB);
-						break;
-
-					case 20:
-						this.service.loadURI(value[i], ref, this.service.NEW_WINDOW);
-						break;
-				}
-			}
-		}
 	},
   
 	// 選択文字列を送る 
@@ -1034,7 +796,7 @@ var ExtFunc = {
 	{
 		var type    = aNode.id.split(':')[1],
 			index   = (aNode.id.split(':').length > 2) ? parseInt(aNode.id.split(':')[2]) : -1 ,
-			popupId = (type.match(/^(navigations|outline|styleSheets|customScripts|execApps)$/)) ? 'ext-common-'+type+':mpopup' : null ;
+			popupId = (type.match(/^(navigations|outline|customScripts|execApps)$/)) ? 'ext-common-'+type+':mpopup' : null ;
 
 		if (popupId &&
 			!this.utils.getPref('ctxextensions.submenu.menubar.'+type))
@@ -1058,10 +820,6 @@ var ExtFunc = {
 				this.service.updateOutlinePopup();
 				break;
 
-			case 'styleSheets':
-				this.service.updateStyleSheetsPopup();
-				break;
-
 			case 'execApps':
 				break;
 
@@ -1075,7 +833,7 @@ var ExtFunc = {
 				break;
 		}
 
-		if (type.match(/^(navigations|outline|styleSheets)$/) &&
+		if (type.match(/^(navigations|outline)$/) &&
 			!this.utils.getPref('ctxextensions.submenu.menubar.'+type)) {
 			popup.showPopup();
 			return;
@@ -1156,128 +914,6 @@ var ExtFunc = {
 
 		info.execautoFinished = true;
 
-		return;
-	},
-  
-	// スタイルシートの処理 
-	
-	// 追加のスタイルシートを適用 
-	AddOptionalStyleSheets : function(aWindow)
-	{
-		var d    = (aWindow ? aWindow.document : this.service.contentDocument()),
-			w    = (aWindow ? aWindow : gBrowser.contentWindow ),
-			info = this.service.contentInfo(false, w);
-
-		if ('addOptionalStyleSheetsDone' in info) return;
-
-		var SSObj = this.utils.STYLESHEETS,
-			item,
-			name,
-			idAttrString;
-
-		for (var i = 0; i < SSObj.length; i++)
-		{
-			item = SSObj.item(i);
-			if (!item) continue;
-
-			name = SSObj.getID(item);
-			idAttrString = escape(name).replace(/%/g, '-');
-
-			if (gBrowser.selectedTab.hasAttribute('ctxextensions-optionalstylesheet-'+idAttrString) ?
-				(gBrowser.selectedTab.getAttribute('ctxextensions-optionalstylesheet-'+idAttrString) == 'true') :
-				(SSObj.getData(item, 'Selected') == 'true'))
-				this.toggleOptionalStyleRules(name, null, w, true);
-		}
-
-		info.addOptionalStyleSheetsDone = true;
-
-		return;
-	},
- 
-	// スタイル切り替え情報の読み込みと反映 
-	RestoreSelectedStyle : function(aWindow, aRequest)
-	{
-		var d    = (aWindow ? aWindow.document : this.service.contentDocument()),
-			w    = (aWindow ? aWindow : gBrowser.contentWindow ),
-			info = this.service.contentInfo(false, w);
-
-		if ('restoreStyleDone' in info) return;
-
-		var path = this.utils.getCurrentDir(d.URL);
-		var style = this.utils.SELECTEDSTYLES.getDataFromPath(path, 'SelectedStyle') || '' ;
-		var id = this.utils.SELECTEDSTYLES.getDataFromPath(path, 'SelectedStyleID');
-
-		if (id == 'ext_system_noStyle')
-			this.cancelStyles();
-		else if (style) {
-			if (id == 'ext_system_onlyPermanence') style = null;
-
-			var done;
-			try {
-				var httpChannel;
-				if (aRequest)
-					httpChannel = aRequest.QueryInterface(Components.interfaces.nsIHttpChannel);
-				if (httpChannel) {
-					httpChannel.setResponseHeader('Default-Style', style, false);
-					done = true;
-				}
-			}
-			catch(e) {
-			}
-
-			// スタイルの選択処理だけを受け持つオブジェクトを生成。
-			// タイマーによって、document.styleSheetsが生成され次第処理を行う。
-			// 保存されている名前のスタイルがない場合、何もしない
-//			var hasSavedStyle = this.service.hasStyle(d, style);
-//			if (hasSavedStyle)
-				this.service.selectStyleSheet(d.URL, style, w);
-		}
-
-		info.restoreStyleDone = true;
-
-		return;
-	},
- 
-	ApplyCustomUserStyleRules : function(aWindow) 
-	{
-		var w    = (aWindow ? aWindow : this.service.contentDocument().refaultView ),
-			info = this.service.contentInfo(false, w);
-		var uri;
-		try {
-			uri = Components.lookupMethod(w, 'location').call(w).href;
-		}
-		catch(e) {
-			uri = w.location.href;
-		}
-
-		if ('customUserStyleDone' in info) return;
-
-		var rules = this.utils.unescape(this.utils.USERSTYLES.getDataFromPath(uri, 'StyleRules'));
-		if (rules) {
-			this.service.appendStyleSheet('UserStyle:'+uri, 'about:blank?UserStyle', w, rules);
-			info.customUserStyleDone = true;
-		}
-		return;
-	},
- 
-	applyStyleForShowItems : function(aWindow) 
-	{
-		var d    = (aWindow ? aWindow.document : this.service.contentDocument()),
-			w    = (aWindow ? aWindow : gBrowser.contentWindow ),
-			info = this.service.contentInfo(false, w);
-
-		if ('showStyleRuleDone' in info) return;
-
-		var rules = 'comment     {\n'+this.utils.getPref('ctxextensions.style.showComments', true)+'\n}\n'+
-					'id          {\n'+this.utils.getPref('ctxextensions.style.showIDs', true)+'\n}\n'+
-					'linkandanchor {\n'+this.utils.getPref('ctxextensions.style.showLinks', true)+'\n}\n'+
-					'citedfrom   {\n'+this.utils.getPref('ctxextensions.style.showCites', true)+'\n}\n'+
-					'explanation {\n'+this.utils.getPref('ctxextensions.style.showTitles', true)+'\n}\n'+
-					'eventlabel  {\n'+this.utils.getPref('ctxextensions.style.showEvents.label', true)+'\n}\n'+
-					'eventvalue  {\n'+this.utils.getPref('ctxextensions.style.showEvents.value', true)+'\n}\n';
-
-		this.service.appendStyleSheet('ShowItems:'+d.URL, this.service.content+'res/_EXNS.css?ShowItems', w, rules);
-		info.showStyleRuleDone = true;
 		return;
 	},
   

@@ -63,22 +63,16 @@ function exitDialog()
 function importRDFDataFrom()
 {
 	var data  = [
-			ExtCommonUtils.USERSTYLES,
-			ExtCommonUtils.SELECTEDSTYLES,
 			ExtCommonUtils.CUSTOMSCRIPTS,
 			ExtCommonUtils.EXECAPPS,
 			ExtCommonUtils.SENDSTR,
-			ExtCommonUtils.SENDURI,
-			ExtCommonUtils.STYLESHEETS
+			ExtCommonUtils.SENDURI
 		],
 		oldIDs = [
-			'UserStyles',
-			'SelectedStyles',
 			'CustomScript',
 			'ExecApp',
 			'WordSearch',
-			'SendURI',
-			'StyleSheets'
+			'SendURI'
 		];
 
 	var source = new pRDFData(data[0].id, gSourceURI, data[0].type, gNS, gBase);

@@ -6,7 +6,6 @@ pref("ctxextensions.enable.navigations_advanced", false);
 pref("ctxextensions.enable.navigations_collectLinks", false);
 pref("ctxextensions.enable.navigations_submenu", true);
 
-pref("ctxextensions.styleManager.userContentCSS_reload_alert", true);
 
 pref("ctxextensions.scan_navigations_in_background.enable",   false);
 pref("ctxextensions.scan_outline_in_background.enable",       false);
@@ -15,8 +14,6 @@ pref("ctxextensions.JSPanel.page.number", 5);
 pref("ctxextensions.JSPanel.page.last",   0);
 
 pref("ctxextensions.override.datasource_path", "");
-pref("ctxextensions.override.CSSEditor.path", "");
-pref("ctxextensions.override.CSSEditor.options", "%s");
 
 // show in the context menu
 pref("ctxextensions.show_item.context.bookmarks", false);
@@ -44,7 +41,6 @@ pref("ctxextensions.show_item.context.showEvents", false);
 pref("ctxextensions.show_item.context.showIDs", false);
 pref("ctxextensions.show_item.context.showLinks", false);
 pref("ctxextensions.show_item.context.showTitles", false);
-pref("ctxextensions.show_item.context.styleSheets", false);
 pref("ctxextensions.show_item.context.up", true);
 
 // show in submenu
@@ -70,7 +66,6 @@ pref("ctxextensions.submenu.context.showEvents", true);
 pref("ctxextensions.submenu.context.showIDs", true);
 pref("ctxextensions.submenu.context.showLinks", true);
 pref("ctxextensions.submenu.context.showTitles", true);
-pref("ctxextensions.submenu.context.styleSheets", false);
 
 pref("ctxextensions.submenu.menubar.customScripts", true);
 pref("ctxextensions.submenu.menubar.execApps", true);
@@ -90,7 +85,6 @@ pref("ctxextensions.submenu.menubar.showEvents", true);
 pref("ctxextensions.submenu.menubar.showIDs", true);
 pref("ctxextensions.submenu.menubar.showLinks", true);
 pref("ctxextensions.submenu.menubar.showTitles", true);
-pref("ctxextensions.submenu.menubar.styleSheets", true);
 pref("ctxextensions.submenu.menubar.up", true);
 
 
@@ -103,13 +97,11 @@ pref("ctxextensions.showResultIn.openLongdesc",       10);
 pref("ctxextensions.showResultIn.openSelectionAsURI", 10);
 pref("ctxextensions.showResultIn.sendStr",            10);
 pref("ctxextensions.showResultIn.sendURI",            10);
-pref("ctxextensions.showResultIn.styleSheets",        10);
 pref("ctxextensions.showResultIn.up",                 0);
 
 
 pref("ctxextensions.width.navigations", 24);
 pref("ctxextensions.width.outline", 35);
-pref("ctxextensions.width.customUserStyleEditor.title", 35);
 
 pref("ctxextensions.defaultCharset", "UTF-8");
 

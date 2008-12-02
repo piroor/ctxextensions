@@ -163,22 +163,6 @@ window.addEventListener('load', function() {
 					<spacer/>
 				</row>
 				<row>
-					<label value="&context.styleSheets.label;"/>
-					<menulist prefstring="ctxextensions.showResultIn.styleSheets"
-						preftype="int">
-						<menupopup>
-							<menuitem label="&general.showResultIn.current;" value="0" />
-							<menuitem label="&general.showResultIn.newtab;" value="10" />
-							<menuitem label="&general.showResultIn.newbgtab;" value="11" />
-							<menuitem label="&general.showResultIn.newwindow;" value="20" />
-						</menupopup>
-					</menulist>
-				</row>
-				<row>
-					<separator/>
-					<spacer/>
-				</row>
-				<row>
 					<label value="&context.sendURI.label;"/>
 					<menulist prefstring="ctxextensions.showResultIn.sendURI"
 						preftype="int">

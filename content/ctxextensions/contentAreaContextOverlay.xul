@@ -199,13 +199,6 @@
 					ondragexit="nsDragAndDrop.dragExit(event, ExtService.NavigationDNDObserver); event.stopPropagation(); return;"
 					onerror="event.stopPropagation(); return;"/>
 			</menu>
-			<menu id="context-item-styleSheets:submenu"
-				label="&context.styleSheets.label;">
-				<menupopup id="context-item-styleSheets:submenu:mpopup"
-					onpopupshowing="ExtService.duplicateMPopup('ext-common-styleSheets:mpopup', this.id);"
-					oncommand="ExtFunc.ApplyStyle(event, true);"
-					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'StyleSheets');"/>
-			</menu>
 			<menuseparator id="context-sep-extensionsMisc:submenu"
 				class="menuseparator-ctxextensions"/>
 			<menuitem id="context-item-JSPanel:submenu"
@@ -313,13 +306,6 @@
 			ondraggesture="nsDragAndDrop.startDrag(event, ExtService.NavigationDNDObserver); event.stopPropagation(); return;"
 			ondragexit="nsDragAndDrop.dragExit(event, ExtService.NavigationDNDObserver); event.stopPropagation(); return;"
 			onerror="event.stopPropagation(); return;"/>
-	</menu>
-	<menu id="context-item-styleSheets"
-		label="&context.styleSheets.label;">
-		<menupopup id="context-item-styleSheets:mpopup"
-			onpopupshowing="ExtService.duplicateMPopup('ext-common-styleSheets:mpopup', this.id);"
-			oncommand="ExtFunc.ApplyStyle(event, true);"
-			onclick="if (event.button == 1) ExtService.editRDFItem(event, 'StyleSheets');"/>
 	</menu>
 
 	<menuseparator id="context-sep-extensionsMisc"

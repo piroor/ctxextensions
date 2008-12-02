@@ -8,14 +8,14 @@ var ExtService = {
 	XLinkNS : 'http://www.w3.org/1999/xlink',
 	XULNS   : 'http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul',
 	EXNS    : 'http://piro.sakura.ne.jp/ctxextensions',
-	 
+	
 //============================== Generic Values ===============================
 // プロパティ 
-	 
+	
 	debug : false, 
  
 	// 状態 
-	 
+	
 	// 現在のドキュメントのURIがHTTPスキームを含むかどうか 
 	get isHTTP()
 	{
@@ -93,7 +93,7 @@ var ExtService = {
 		return this._process;
 	},
 	_process : null,
- 	 
+  
 	// content 
 	
 	// 現在のフレームの内容を返す 
@@ -129,12 +129,6 @@ var ExtService = {
 	{
 		var d = this.contentDocument(aForce);
 		return Components.lookupMethod(d, 'URL').call(d);
-	},
-
-	contentStyles : function(aForce)
-	{
-		var d = this.contentDocument(aForce);
-		return Components.lookupMethod(d, 'styleSheets').call(d);
 	},
 
 	contentInfo : function(aForce, aWindow)
@@ -283,7 +277,6 @@ var ExtService = {
 				'showIDs',
 				'showLinks',
 				'showTitles',
-				'styleSheets',
 				'up'
 			];
 		for (i = 0; i < prefs.length; i++)
@@ -334,12 +327,6 @@ var ExtService = {
 		this.insertAttribute('context-item-outline:mpopup', 'style', style_value);
 		this.insertAttribute('context-item-outline:mpopup:submenu', 'style', style_value);
 
-
-
-		// 元からある「スタイルシート」メニューを隠す
-		var StyleSheets = document.getElementById('view-item-styleSheets');
-		if (StyleSheets)
-			StyleSheets.nextSibling.hidden = true;
 
 
 		// キーボードショートカットからポップアップを開くキーボードショートカットの設定
@@ -453,15 +440,6 @@ var ExtService = {
 		if (!w.document) return;
 
 		try {
-			ExtFunc.RestoreSelectedStyle(w);
-			ExtFunc.AddOptionalStyleSheets(w);
-			ExtFunc.ApplyCustomUserStyleRules(w);
-		}
-		catch(e) {
-			if (ExtService.debug) alert('OnEvent:\n\n'+e);
-		}
-
-		try {
 			if (ExtCommonUtils.getPref('ctxextensions.scan_outline_in_background.enable'))
 				ExtService.updateHeadings(w, true);
 			if (ExtCommonUtils.getPref('ctxextensions.scan_navigations_in_background.enable'))
@@ -551,7 +529,6 @@ var ExtService = {
 						'showIDs',
 						'showLinks',
 						'showTitles',
-						'styleSheets',
 						'up'
 					];
 				for (var i in items)
@@ -568,8 +545,6 @@ var ExtService = {
 
 	message                  : {},
 	downloadManagers         : [],
-	appendStyleSheetManagers : [],
-	selectStyleSheetManagers : [],
 
 	duplicatingMPopup  : false,
 	popupshowing       : false,
@@ -1467,118 +1442,6 @@ catch(e) {
 		}
 	},
   
-	// スタイルシートを追加し、ロード完了後にスタイルルールを追加する 
-	appendStyleSheet : function(aManagerID, aPath, aWindow, aRules)
-	{
-		this.addStyle(aPath, null, null, aWindow);
-
-		if (aManagerID in this.appendStyleSheetManagers &&
-			this.appendStyleSheetManagers[aManagerID]) {
-			this.appendStyleSheetManagers[aManagerID].stop()
-			this.appendStyleSheetManagers[aManagerID] = null;
-		}
-
-		this.appendStyleSheetManagers[aManagerID] = new pProgressManager(this.appendStyleSheetObserver, 50, /*aPath, */'progress=undetermined');
-		this.appendStyleSheetManagers[aManagerID].appendItem(aWindow, aManagerID, aPath, aRules);
-		this.appendStyleSheetManagers[aManagerID].count = 0;
-		this.appendStyleSheetManagers[aManagerID].start();
-
-		return;
-	},
-	
-	appendStyleSheetObserver : 
-	{
-		onProgress : function(aManager, aWindow, aID, aPath, aRules)
-		{
-			if (aWindow.document) {
-				var s    = aWindow.document.styleSheets,
-					info = ExtService.contentInfo(false, aWindow);
-
-				for (var i = 0; i < s.length; i++)
-				{
-					if (!s[i].href || s[i].href != aPath) continue;
-
-					s[i].ext_system_added = true;
-					s[i].disabled = false;
-
-					if (!('sheet' in info) || !info.sheet) info.sheet = [];
-					info.sheet[aID] = s[i];
-
-					if (aRules)
-						ExtService.addCSSRules(aRules, s[i]);
-
-					return true;
-				}
-
-			}
-
-			return (++aManager.count > 10);
-		},
-		onProgressEnd : function()
-		{
-		}
-	},
-  
-	// スタイルシートの選択状態を反映 
-	selectStyleSheet : function(aManagerID, aName, aWindow)
-	{
-		var w = (aWindow ? aWindow : this.contentWindow() );
-
-		if (aManagerID in this.selectStyleSheetManagers &&
-			this.selectStyleSheetManagers[aManagerID]) {
-			this.selectStyleSheetManagers[aManagerID].stop()
-			this.selectStyleSheetManagers[aManagerID] = null;
-		}
-
-		this.selectStyleSheetManagers[aManagerID] = new pProgressManager(this.selectStyleSheetObserver, 50, /*aManagerID, */'progress=undetermined');
-		this.selectStyleSheetManagers[aManagerID].appendItem(w, aManagerID, aName);
-		this.selectStyleSheetManagers[aManagerID].count = 0;
-		this.selectStyleSheetManagers[aManagerID].start();
-
-		return;
-	},
-	
-	selectStyleSheetObserver : 
-	{
-		onProgress : function(aManager, aWindow, aID, aName)
-		{
-			if (aWindow.document) {
-				var d = aWindow.document;
-
-				// meta要素でデフォルトのシートを設定
-				var head = 'head' in d ? d.head :
-							d.getElementsByTagName('HEAD')[0] ||
-							d.getElementsByTagNameNS(ExtService.XHTMLNS, 'head')[0];
-				if (head && (!('doneHead' in aManager) || !aManager.doneHead)) {
-					aManager.doneHead = true;
-
-					var meta = document.createElementNS(ExtService.XHTMLNS, 'meta');
-					meta.setAttribute('http-equiv', 'Default-Style');
-					meta.setAttribute('content', aName);
-
-					if (head.hasChildNodes())
-						head.insertBefore(meta, head.firstChild);
-					else
-						head.appendChild(meta);
-				}
-
-				// 切り替えの処理
-				var body = 'body' in d ? d.body :
-							d.getElementsByTagName('BODY')[0] ||
-							d.getElementsByTagNameNS(ExtService.XHTMLNS, 'body')[0];
-				if (body && (!('doneBody' in aManager) || !aManager.doneBody)) {
-					ExtService.setStyleTo(aName, Components.lookupMethod(aWindow, 'top').call(aWindow), true);
-					return true;
-				}
-			}
-
-			return (++aManager.count > 30);
-		},
-		onProgressEnd : function()
-		{
-		}
-	},
-  
 	// 見出しのリストを取得し、保存する 
 	updateHeadings : function(aWindow, aInBackGround)
 	{
@@ -1757,7 +1620,7 @@ catch(e) {
 				name           : id
 			};
 
-		if (aRDFName.match(/^(StyleSheets|SendURI|SendStr|ExecApps|CustomScripts)$/i)) {
+		if (aRDFName.match(/^(SendURI|SendStr|ExecApps|CustomScripts)$/i)) {
 			data.keyboardShortcut = {
 				key      : RDFData.getData(id, 'Key').toUpperCase(),
 				charCode : RDFData.getData(id, 'Key').toUpperCase().charCodeAt(0),
@@ -1770,19 +1633,12 @@ catch(e) {
 
 			data.newContextItem = (RDFData.getData(id, 'NewContextItem') == 'true');
 			data.contextShowNormal = (RDFData.getData(id, 'ShowContextItemNormally') != 'false');
-			if (RDFData != this.utils.STYLESHEETS) {
-				data.contextShowSelect = (RDFData.getData(id, 'ShowContextItemWithSelection') != 'false');
-				data.contextShowLink = (RDFData.getData(id, 'ShowContextItemOnLink') != 'false');
-			}
+			data.contextShowSelect = (RDFData.getData(id, 'ShowContextItemWithSelection') != 'false');
+			data.contextShowLink = (RDFData.getData(id, 'ShowContextItemOnLink') != 'false');
 		}
 
 		switch(aRDFName)
 		{
-			case 'STYLESHEETS':
-				data.styleRules = this.utils.unescape(RDFData.getData(id, 'StyleRules'));
-				data.cancelStyles = RDFData.getData(id, 'Cancel') == 'true';
-				break;
-
 			case 'SENDURI':
 				data.webServicePath = RDFData.getData(id, 'Path');
 				data.webServiceForURI = true;
@@ -1864,8 +1720,6 @@ catch(e) {
 			this.mRDFData.setData(this.name, 'ShowContextItemOnLink', this.contextShowLink ? 'true' : 'false' );
 
 
-		if ('cancelStyles' in this)
-			this.mRDFData.setData(this.name, 'Cancel', this.cancelStyles ? 'true' : 'false' );
 		if ('openIn' in this)
 			this.mRDFData.setData(this.name, 'OpenIn', this.openIn);
 		if ('charset' in this)
@@ -1884,8 +1738,6 @@ catch(e) {
 			this.mRDFData.setData(this.name, 'Automatically', this.autoExec ? 'true' : 'false' );
 		if ('autoExecStartup' in this)
 			this.mRDFData.setData(this.name, 'Startup', this.autoExecStartup ? 'true' : 'false' );
-		if ('styleRules' in this)
-			this.mRDFData.setData(this.name, 'StyleRules', ExtCommonUtils.escape(this.styleRules));
 		if ('customScripts' in this)
 			this.mRDFData.setData(this.name, 'Script', ExtCommonUtils.escape(this.customScripts));
 	},
@@ -1965,16 +1817,6 @@ catch(e) {
 		}
 	},
  
-	// styleSheetsの更新 
-	rebuildStyleSheets : function()
-	{
-		this.rebuild([
-			'ext-key-styleSheets',
-			'ext-common-styleSheets:mpopup'
-		]);
-		this.updateAccelTextFor('ext-key-styleSheets');
-	},
- 
 	// ExecAppの更新 
 	rebuildExecApps : function()
 	{
@@ -2043,9 +1885,6 @@ catch(e) {
 	{
 		// we cannot create menu items at startup...it's a Mozilla's bug.
 		var data = [ /* objID, menuID, func */
-				'StyleSheets',
-					'ext-common-styleSheets:mpopup',
-					'ExtFunc.ApplyStyle(event, true);',
 				'SendURI',
 					'context-item-sendURI:mpopup',
 					'ExtFunc.SendURI(event);',
@@ -2103,14 +1942,10 @@ catch(e) {
 				item = document.createElement('menuitem');
 
 				item.setAttribute('id', 'context-item-userdefined'+j);
-				item.setAttribute('styleid', 'context-item-userdefined'+j);
 				item.setAttribute('oncommand', data[i+2]+'; event.stopPropagation();');
 				item.setAttribute('onclick', 'if (event.button == 1) ExtService.editRDFItem(event, "'+data[i]+'");');
 
 				item.setAttribute('label',   name);
-				item.setAttribute('styleid', name);
-				if (data[i] == 'StyleSheets')
-					item.setAttribute('type', 'checkbox');
 
 				show = [];
 				if (items[j].getAttribute('contextShowNormal') == 'true')
@@ -2329,8 +2164,6 @@ catch(e) {
 			this.updateOutlinePopup();
 		if (this.utils.getPref('ctxextensions.show_item.context.go'))
 			this.makeBackList();
-		if (this.utils.getPref('ctxextensions.show_item.context.styleSheets'))
-			this.updateStyleSheetsPopup();
 
 		var contextMenu = this.utils.contextMenu;
 
@@ -2374,7 +2207,6 @@ catch(e) {
 				'bookmarks',          showMisc && normal,
 				'outline',            this.hasOutline && normal,
 				'navigations',        this.hasNavigations && this.isWebPage && normal,
-				'styleSheets',        normal,
 				'JSPanel',            normal,
 				'getLinks',           this.isWebPage,
 				'showComments',       this.isWebPage && normal,
@@ -2471,8 +2303,6 @@ catch(e) {
 			this.updateNavigationsPopup();
 		if (this.utils.getPref('ctxextensions.submenu.menubar.outline'))
 			this.updateOutlinePopup();
-		if (this.utils.getPref('ctxextensions.submenu.menubar.styleSheets'))
-			this.updateStyleSheetsPopup();
 
 		var menu = document.getElementById('menu-item-extensions');
 
@@ -2497,7 +2327,6 @@ catch(e) {
 				'prevHeading',        this.hasOutline,
 				'outline',            this.hasOutline,
 				'navigations',        this.hasNavigations && this.isWebPage,
-				'styleSheets',        true,
 				'JSPanel',            true,
 				'getLinks',           this.isWebPage,
 				'showComments',       this.isWebPage,
@@ -2632,14 +2461,6 @@ catch(e) {
 			return;
 		}
 
-/*
-		var stylemenu = document.createElement('menu');
-		stylemenu.setAttribute('label', mpopup.getAttribute('label-for-stylesheets'));
-		stylemenu.setAttribute('onpopupshowing', 'event.stopPropagation()');
-		stylemenu.setAttribute('onpopuphiding', 'event.stopPropagation()');
-		stylemenu.appendChild(document.createElement('menupopup'));
-*/
-
 		var label, href, menuitem, stylesheet, j;
 		for (var i in links)
 		{
@@ -2670,21 +2491,8 @@ catch(e) {
 			}
 			menuitem.setAttribute('crop', 'center');
 
-//			if (stylesheet)
-//				stylemenu.firstChild.appendChild(menuitem);
-//			else
-				mpopup.appendChild(menuitem);
+			mpopup.appendChild(menuitem);
 		}
-
-/*
-		if (stylemenu.firstChild.childNodes.length) {
-			if (mpopup.firstChild) {
-				mpopup.appendChild(document.createElement('menuseparator'))
-					.setAttribute('class', 'menuseparator-ctxextensions');
-			}
-			mpopup.appendChild(stylemenu);
-		}
-*/
 
 		mpopup.ex_link_uri = this.currentURI().split('#')[0];
 
@@ -2697,151 +2505,6 @@ catch(e) {
 		return;
 	},
 	updateNavigationsAutoGoNavigation : null,
- 
-	// スタイルシートのリストを更新する 
-	updateStyleSheetsPopup : function()
-	{
-		var i;
-
-		var popup = document.getElementById('ext-common-styleSheets:mpopup');
-
-		if (!popup) return;
-
-		var class_authors = 'ex-style-authors';
-		var olditems = popup.getElementsByAttribute('class', class_authors);
-		for (i = 0; i < olditems.length; i++) popup.removeChild(olditems[i]);
-
-		var customUserStyle = popup.getElementsByAttribute('styleid', 'ext-common-customUserStyleEditor')[0];
-		var title = '';
-		try {
-			title = Components.lookupMethod(this.contentDocument(),'title').call(this.contentDocument());
-		}
-		catch(e) {
-		}
-		this.setLabel(
-			customUserStyle,
-			customUserStyle.getAttribute('label-for-site').replace(/%s/gi, this.utils.getShortString(title, 24, 'cut-end'))
-		);
-
-
-		// update checkboxes
-		var addedstyles = popup.getElementsByAttribute('type', 'checkbox');
-		var idAttrString;
-		var checked;
-		for (i = 0; i < addedstyles.length; i++)
-			if (addedstyles[i].parentNode == popup) {
-				idAttrString = escape(addedstyles[i].getAttribute('styleid')).replace(/%/g, '-');
-				checked = this.utils.browser.selectedTab.hasAttribute('ctxextensions-optionalstylesheet-'+idAttrString) ?
-						(this.utils.browser.selectedTab.getAttribute('ctxextensions-optionalstylesheet-'+idAttrString) == 'true') :
-						(this.utils.STYLESHEETS.getData(addedstyles[i].getAttribute('styleid'), 'Selected') == 'true');
-				addedstyles[i].setAttribute('checked', checked);
-			}
-
-		var sheets      = this.contentStyles(),
-			sourcesmenu = popup.getElementsByAttribute('styleid', 'ext-common-styleSources')[0],
-			items       = [],
-			newItem,
-			lastWithSameTitle,
-			hasNoStyle  = true,
-			current     = this.currentURI(),
-			path        = this.utils.getCurrentDir(current);
-
-		var range = document.createRange();
-		range.selectNodeContents(sourcesmenu.firstChild);
-		range.deleteContents();
-		range.detach();
-
-		var checkedStyle = this.utils.SELECTEDSTYLES.getDataFromPath(path, 'SelectedStyle');
-		var checkedStyleID = this.utils.SELECTEDSTYLES.getDataFromPath(path, 'SelectedStyleID');
-		var hasSavedStyle = checkedStyle ? this.hasStyle(this.contentDocument(), checkedStyle) : false ;
-
-		var source,
-			showMedia,
-			label,
-			label_base;
-
-		for (i = 0; i < sheets.length; i++)
-		{
-			if (sheets[i].href && !('ext_system_added' in sheets[i])) {
-				label_base = this.utils.getMsg((!sheets[i].title ? 'styleSheets_source_permanent' : sheets[i].disabled ? 'styleSheets_source_alternate' : 'styleSheets_source_preferred'));
-
-				showMedia = (sheets[i].media.length && sheets[i].media.mediaText.toLowerCase() != 'all');
-
-				label = this.utils.getMsg(
-						sheets[i].title ?
-							showMedia ?
-								'styleSheets_source_title_media' :
-								'styleSheets_source_title'
-						:
-							showMedia ?
-								'styleSheets_source_media' :
-								'styleSheets_source_none'
-						)
-						.replace(/%m/i, sheets[i].media.mediaText || 'all')
-						.replace(/%s/i, sheets[i].href.match(/[^\/]+$/) || '')
-						.replace(/%t/i, sheets[i].title || this.utils.getMsg('styleSheets_source_anoymous'));
-				label = label_base.replace(/%s/i, label);
-
-				source = document.createElement('menuitem');
-				if (sheets[i].href == current &&
-					sheets[i].ownerNode &&
-					sheets[i].ownerNode.firstChild) {
-					label = this.utils.getMsg('styleSheets_source_embedded').replace(/%s/i, label);
-					source.setAttribute('embeddedSheet', this.utils.escape(sheets[i].ownerNode.firstChild.nodeValue));
-				}
-				source.setAttribute('label', label);
-				source.setAttribute('value', sheets[i].href);
-
-				if (!this.utils.uriSecurityCheck(sheets[i].href, current, true))
-					source.setAttribute('disabled', true);
-
-				sourcesmenu.firstChild.appendChild(source);
-			}
-
-			if (!sheets[i].title) continue;
-
-			hasNoStyle = false;
-
-			lastWithSameTitle = null;
-			if (sheets[i].title in items)
-				lastWithSameTitle = items[sheets[i].title];
-
-			if (!lastWithSameTitle) {
-				newItem = document.createElement('menuitem');
-				newItem.setAttribute('label', sheets[i].title);
-				newItem.setAttribute('value', sheets[i].title);
-				newItem.setAttribute('styleid', 'ext_style:'+sheets[i].title);
-				newItem.setAttribute('type', 'radio');
-				newItem.setAttribute('name', 'ext-styleSheets-pageStyle');
-				if ((hasSavedStyle && !checkedStyleID.match(/^ext_system/) ? checkedStyle == sheets[i].title : !sheets[i].disabled ))
-					newItem.setAttribute('checked', true);
-				newItem.setAttribute('class', class_authors);
-
-				popup.insertBefore(newItem, sourcesmenu);
-				items[sheets[i].title] = newItem;
-
-			} else if (sheets[i].disabled)
-				lastWithSameTitle.removeAttribute('checked');
-		}
-
-		sourcesmenu.hidden = !sourcesmenu.firstChild.hasChildNodes();
-
-		var noStyle = popup.getElementsByAttribute('styleid', 'ext_system_noStyle')[0];
-		var onlyPermanence = popup.getElementsByAttribute('styleid', 'ext_system_onlyPermanence')[0];
-
-		if (checkedStyleID == 'ext_system_noStyle')
-			noStyle.setAttribute('checked', true);
-		else
-			noStyle.removeAttribute('checked');
-
-		if (checkedStyleID == 'ext_system_onlyPermanence' || (checkedStyleID != 'ext_system_noStyle' && hasNoStyle))
-			onlyPermanence.setAttribute('checked', true);
-		else
-			onlyPermanence.removeAttribute('checked');
-
-		// hide needless separators
-//		this.utils.showHideMenuSeparators(popup);
-	},
  
 	// 履歴から戻り先/進み先リストを生成 
 	makeBackList : function()
@@ -2875,152 +2538,6 @@ catch(e) {
 		return true;
 	},
    
-	// スタイルシートの処理 
-	
-	// 与えられた名前のスタイルシートがあるかどうか 
-	hasStyle : function(aDocument, aName)
-	{
-		if (aName == 'ext_system_noStyle' || aName == 'ext_system_onlyPermanence')
-			return true;
-
-		var sheets = aDocument.styleSheets;
-		for (var i = 0; i < sheets.length; i++)
-			if (sheets[i].title == aName) return true;
-
-		return false;
-	},
- 
-	// スタイルの切り替え 
-	setStyleTo : function(aName, aWindow, aTraceFrames)
-	{
-		var i;
-		var w = (aWindow ? aWindow : this.contentWindow() );
-		var d = w.document;
-
-		var sheets   = d.styleSheets,
-			defStyle = null,
-			hasStyle = false,
-			name     = aName;
-		for (i = 0; i < sheets.length; i++)
-			if (sheets[i].title) {
-				if (!sheets[i].disabled)
-					defStyle = sheets[i].title;
-				if (sheets[i].title == aName)
-					hasStyle = true;
-			}
-
-		// if the document doesn't have the stylesheet, select default sheets
-		if (!hasStyle && aName) name = defStyle;
-
-		for (i = 0; i < sheets.length; i++)
-		{
-			if (sheets[i].title)
-				sheets[i].disabled = (sheets[i].title != name);
-			else if (sheets[i].disabled && !sheets[i].ext_system_added)
-				sheets[i].disabled = false;
-		}
-
-		if (aTraceFrames)
-			for (i = 0; i < w.frames.length; i++)
-				this.setStyleTo(aName, w.frames[i], true);
-	},
- 
-	// スタイルシートを加える 
-	addStyle : function(aPath, aType, aMedia, aWindow)
-	{
-		// documentオブジェクトが渡された場合、そのdocumentを対象にして処理する
-		var d     = (aWindow ? aWindow.document : this.contentDocument() ),
-			newPI = document.createProcessingInstruction('xml-stylesheet',
-				'href="'+aPath+'" type="'+(aType || 'text/css')+'" media="'+(aMedia || 'all')+'"');
-		try {
-			d.insertBefore(newPI, d.documentElement);
-		}
-		catch(e) {
-		}
-		return;
-	},
-	
-	// rulesで指定されたスタイル指定を加える 
-	addCSSRules : function(aRules, aSheet)
-	{
-		if (!aSheet) return;
-
-		var rulesIndex = 0;
-		var rules = aRules.match(/@[^\{;]+(\{([^\}]+\{[^\}]*\})*\})?;?|[^\}]+\{[^\}]*\}/g);
-		if (!rules) return;
-		for (var i in rules)
-		{
-			//alert('Add StyleRule:'+rules[i]);
-			try {
-				if (rules[i].match(/@(import|charset|namespace)/)) // いくつかのat-ruleは先頭へ追加。
-					aSheet.insertRule(rules[i], rulesIndex++);
-				else if (rules[i].match(/@media/)) { // @mediaは再起処理でいけるか？
-					aSheet.insertRule(
-						rules[i].match(/^@media[^\{]+/)+'{}',
-						aSheet.cssRules.length);
-					this.addCSSRules(
-						rules[i].replace(/^@media[^\{]+\{/, '').replace(/\};?$/, ''),
-						aSheet.cssRules[targetSheet.cssRules.length-1]);
-				} else
-					aSheet.insertRule(rules[i], aSheet.cssRules.length);
-			} catch(e) {};
-		}
-		return;
-	},
-  
-	reapplyOptionalStyle : function(aID, aWindow, aTraceFrames) 
-	{
-		if (!aWindow) return;
-
-		var info = this.contentInfo(false, aWindow),
-			i;
-
-		if ('sheet' in info) {
-			for (i in info.sheet)
-				if (i.indexOf('UserdefinedStyleSheet:'+aID+':') == 0)
-					try {
-						info.sheet[i].ownerNode.parentNode.removeChild(info.sheet[i].ownerNode);
-						info.sheet[i] = null;
-					}
-					catch(e) {
-					}
-			if (this.utils.STYLESHEETS.getData(aID, 'Selected') == 'true')
-				ExtFunc.toggleOptionalStyleRules(aID, null, aWindow, true);
-		}
-		if (aTraceFrames && 'frames' in aWindow) {
-			for (i = 0; i < aWindow.frames.length; i++)
-				this.reapplyOptionalStyle(aID, aWIndow.frames[i], true);
-		}
-	},
- 
-	applyUserStyleFor : function(aPath, aWindow, aTraceFrames) 
-	{
-		if (!aWindow) return;
-
-		var info = this.contentInfo(false, aWindow),
-			i;
-
-		if (aWindow.location.href.indexOf(aPath) == 0) {
-			if ('sheet' in info)
-				for (i in info.sheet)
-					if (i == 'UserStyle:'+aWindow.location.href)
-						try {
-							info.sheet[i].ownerNode.parentNode.removeChild(info.sheet[i].ownerNode);
-							info.sheet[i] = null;
-						}
-						catch(e) {
-						}
-
-			var rules = this.utils.unescape(this.utils.USERSTYLES.getDataFromPath(aWindow.location.href, 'StyleRules'));
-			if (rules)
-				this.appendStyleSheet('UserStyle:'+aWindow.location.href, 'about:blank?UserStyle', aWindow, rules);
-		}
-		if (aTraceFrames && 'frames' in aWindow) {
-			for (i = 0; i < aWindow.frames.length; i++)
-				this.applyUserStyleFor(aPath, aWIndow.frames[i], true);
-		}
-	},
-  
 	// preferences listeners 
 	
 	// ナビゲーション項目のD&D 
@@ -3109,38 +2626,11 @@ catch(e) {
 	{
 		observe : function(aSource, aProperty)
 		{
-			if (aSource.Value.match(/#urn:SelectedStyles:/)) return;
-
-			if (aSource.Value.match(/#urn:UserStyles:/) &&
-				aProperty.Value.split('#')[1] == 'StyleRules')
-				this.updateCustomUserStyle(aSource);
-			if (aSource.Value.match(/#urn:StyleSheets:/) &&
-				aProperty.Value.split('#')[1] == 'StyleRules')
-				this.updateOptionalStyle(aSource);
-			else if (aSource.Value.match(/#urn:\w+:root$/) ||
+			if (aSource.Value.match(/#urn:\w+:root$/) ||
 				aProperty.Value.split('#')[1] == 'Name')
 				this.rebuildItems(aSource);
 			else if (aProperty.Value.split('#')[1] == 'NewContextItem')
 				ExtService.rebuildExtraItems();
-		},
-
-		updateCustomUserStyle : function(aSource)
-		{
-			var b    = ExtCommonUtils.browser.browsers;
-			if (!b) return;
-			var path = ExtCommonUtils.unescapeString(aSource.Value.match(/#urn:\w+:(.*)$/)[1].toString());
-			for (var i = 0; i < b.length; i++)
-				ExtService.applyUserStyleFor(path, b[i].contentWindow, true);
-
-		},
-
-		updateOptionalStyle : function(aSource)
-		{
-			var b  = ExtCommonUtils.browser.browsers;
-			if (!b) return;
-			var id = ExtCommonUtils.unescapeString(aSource.Value.match(/#urn:\w+:(.*)$/)[1].toString());
-			for (var i = 0; i < b.length; i++)
-				ExtService.reapplyOptionalStyle(id, b[i].contentWindow, true);
 		},
 
 		rebuildItems : function(aSource)
@@ -3150,9 +2640,6 @@ catch(e) {
 
 			switch (aSource.Value.match(/#urn:(\w+):/)[1].toString())
 			{
-				case 'StyleSheets':
-					window.gExtCallBackStatements.styleSheets = 'ExtService.rebuildStyleSheets();'
-					break;
 				case 'ExecApps':
 					window.gExtCallBackStatements.execApps = 'ExtService.rebuildExecApps();';
 					break;
@@ -3524,40 +3011,6 @@ function _convertCharsetFrom(aString, aFrom)
 };
 
 
-function _cancelStyles(aWindow)
-{
-	 ExtFunc.cancelStyles(aWindow || _window);
-};
-function _switchStyleTo(aName, aWindow)
-{
-	if (aName)
-		aName = 'ext_style:'+aName;
-	else
-		aName = 'ext_system_onlyPermanence';
-
-	ExtFunc.ApplyStyle(aName, true, aWindow || _window);
-};
-function _openStyleSheetSource(aName, aWindow)
-{
-	ExtFunc.OpenStyleSheetSource(aName, aWindow || _window);
-};
-function _editGlobalUserStyleSheet()
-{
-	ExtFunc.editUserContentCSS();
-};
-function _editCustomUserStyle(aWindow)
-{
-	ExtFunc.ApplyStyle('ext-common-customUserStyleEditor', false, aWindow || _window);
-};
-function _addOptionalStyleSheet(aIDOrIndex, aWindow)
-{
-	ExtFunc.toggleOptionalStyleRules(ExtService.getIDFromIndex(aIDOrIndex), null, aWindow || _window, true);
-};
-function _removeOptionalStyleSheet(aIDOrIndex, aWindow)
-{
-	ExtFunc.toggleOptionalStyleRules(ExtService.getIDFromIndex(aIDOrIndex), null, aWindow || _window, false);
-};
-
 function _up(aWindow)
 {
 	 ExtFunc.doCommand('Up', aWindow || _window);
@@ -3642,10 +3095,6 @@ function _runCustomScript(aIDOrIndex, aWindow)
 };
 
 
-function _addStyleSheet(path, type, media, aWindow)
-{
-	 ExtService.addStyle(path, type, media, aWindow || _window);
-};
 function _getCookie(name, aWindow)
 {
 	var d = (aWindow || _window).document;

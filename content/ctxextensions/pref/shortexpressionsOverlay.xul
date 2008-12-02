@@ -133,8 +133,6 @@
 
 			<menuseparator/>
 
-					<menuitem label="&shortExpressions.addStyleSheet;"
-						value="_addStyleSheet(path)"/>
 					<menuitem label="&shortExpressions.run;"
 						value="_run(filepath, arguments)"/>
 <!--
@@ -170,21 +168,6 @@
 -->
 
 			<menuseparator/>
-
-					<menuitem label="&shortExpressions.cancelStyles;"
-						value="_cancelStyles()"/>
-					<menuitem label="&shortExpressions.switchStyleTo;"
-						value="_switchStyleTo(aName)"/>
-					<menuitem label="&shortExpressions.openStyleSheetSource;"
-						value="_openStyleSheetSource(aName)"/>
-					<menuitem label="&styleSheets.editUserContentCSS.label;"
-						value="_editGlobalUserStyleSheet()"/>
-					<menuitem label="&menu.customUserStyleEditor.label;"
-						value="_editCustomUserStyle()"/>
-					<menuitem label="&shortExpressions.addOptionalStyleSheet;"
-						value="_addOptionalStyleSheet()"/>
-					<menuitem label="&shortExpressions.removeOptionalStyleSheet;"
-						value="_removeOptionalStyleSheet()"/>
 
 					<menuitem label="&menu.up.label;"
 						value="_up()"/>

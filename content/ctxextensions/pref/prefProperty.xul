@@ -61,18 +61,6 @@
 						<spacer flex="1"/>
 					</box>
 				</box>
-				<box orient="vertical" flex="1" id="styleRules">
-					<textbox multiline="true" flex="1"/>
-					<box orient="horizontal">
-						<button label="&PrefProp.import;"
-							oncommand="PrefPropService.importCSS();"/>
-						<button label="&PrefProp.clear;"
-							oncommand="PrefPropService.clear('styleRules');"/>
-						<button label="&PrefProp.reset;"
-							oncommand="PrefPropService.reset('styleRules');"/>
-						<spacer flex="1"/>
-					</box>
-				</box>
 				<box orient="vertical" flex="1" id="customScripts">
 					<box orient="vertical" flex="1" class="customScriptsEditor">
 						<description value="function() {"/>
@@ -165,9 +153,6 @@
 			<tabpanel id="tabpanel-options" orient="vertical" flex="1">
 			<box orient="vertical" id="checkboxes"
 				oncommand="PrefPropService.data.modified = true;">
-				<checkbox id="cancelStyles" label="&PrefProp.checkbox.cancelStyles;"/>
-				<checkbox id="defaultSelected" label="&PrefProp.checkbox.defaultSelected;"/>
-
 				<checkbox id="download" label="&PrefProp.checkbox.download;"/>
 
 				<checkbox id="autoExec" label="&PrefProp.checkbox.autoExec;"/>

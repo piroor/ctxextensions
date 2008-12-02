@@ -3,20 +3,6 @@
 <RDF:RDF xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 		xmlns:EXT="http://white.sakura.ne.jp/~piro/rdf#">
 
-	<RDF:Seq ID="urn:StyleSheets:root">
-		<RDF:li>
-			<RDF:Description about="urn:StyleSheets:sample1"
-				EXT:Name="&styleSheets.cancelPhysical.label;"
-				EXT:StyleRules="&styleSheets.cancelPhysical.rules;"/>
-		</RDF:li>
-		<RDF:li>
-			<RDF:Description about="urn:StyleSheets:sample2"
-				EXT:Name="&styleSheets.showElements.label;"
-				EXT:StyleRules="&styleSheets.showElements.rules;"/>
-		</RDF:li>
-	</RDF:Seq>
-
-
 	<RDF:Seq ID="urn:SendURI:root">
 		<RDF:li>
 			<RDF:Description about="urn:SendURI:sample1"

@@ -32,11 +32,6 @@ var PrefPropService = {
 		return document.getElementById('editor').getElementsByTagName('textbox')[0];
 	},
  
-	get styleRules() 
-	{
-		return document.getElementById('styleRules').getElementsByTagName('textbox')[0];
-	},
- 
 	get customScripts() 
 	{
 		return document.getElementById('customScripts').getElementsByTagName('textbox')[0];
@@ -179,11 +174,6 @@ dump('5\n');
 			activeEditor = this.customScripts;
 			activeEditor.value = this.data.customScripts;
 			this.activatedItems.push('editor: ScriptEditor');
-		}
-		else if ('styleRules' in this.data) {
-			activeEditor = this.styleRules;
-			activeEditor.value = this.data.styleRules;
-			this.activatedItems.push('editor: StyleRulesEditor');
 		}
 		else if ('editorValue' in this.data) {
 			activeEditor = this.editor;
@@ -429,13 +419,6 @@ dump('5\n');
 		}
 		return;
 	},
- 
-	importCSS : function() 
-	{
-		this.utils.readCSSFor(this.styleRules);
-		this.styleRules.focus();
-		this.utils.doCommand(this.styleRules, 'cmd_moveTop');
-	},
   
 	clear : function(aID) 
 	{
@@ -519,9 +502,6 @@ dump('5\n');
 		// textboxes
 		if ('editorValue' in this.data)
 			this.data.editorValue   = this.editor.value;
-
-		if ('styleRules' in this.data)
-			this.data.styleRules    = this.styleRules.value;
 
 		if ('customScripts' in this.data)
 			this.data.customScripts = this.customScripts.value;

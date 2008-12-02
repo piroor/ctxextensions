@@ -35,7 +35,6 @@
 <!ENTITY accelKey.showMenu.navigations   "N">
 <!ENTITY accelKey.showMenu.outline       "O">
 <!ENTITY accelKey.showMenu.customScripts "C">
-<!ENTITY accelKey.showMenu.styleSheets   "S">
 <!ENTITY accelKey.showMenu.execApps      "A">
 <!ENTITY accelKey.navigations.top        "T">
 <!ENTITY accelKey.navigations.up         "U">
@@ -56,45 +55,7 @@
 <!ENTITY accelKey.navigations.copyright  "R">
 <!ENTITY accelKey.navigations.bookmark   "B">
 <!ENTITY accelKey.navigations.alternate  "O">
-<!ENTITY accelKey.navigations.stylesheet "Y">
 
-
-
-
-<!-- Custom User Style Editor -->
-<!ENTITY customUserStyleEditor.title       "Custom User Style Editor">
-<!ENTITY customUserStyleEditor.caption     "Custom User Style for &quot;&#37;s&quot;">
-<!ENTITY customUserStyleEditor.dir.before  "Apply for">
-<!ENTITY customUserStyleEditor.dir.after   "">
-<!ENTITY customUserStyleEditor.reload      "Current directory">
-<!ENTITY customUserStyleEditor.import      "&common.import;">
-<!ENTITY customUserStyleEditor.save        "&common.save;">
-<!ENTITY customUserStyleEditor.clear       "&common.clear;">
-<!ENTITY customUserStyleEditor.close       "&common.close;">
-<!ENTITY customUserStyleEditor.manage      "Manage User Styles">
-
-
-
-<!-- StyleSheets Manager -->
-<!ENTITY styleSheetsManager.title          "StyleSheets Manager">
-<!ENTITY styleSheetsManager.import         "&common.import;">
-<!ENTITY styleSheetsManager.save           "&common.save;">
-<!ENTITY styleSheetsManager.reload         "&common.reload;">
-<!ENTITY styleSheetsManager.edit           "Edit">
-<!ENTITY styleSheetsManager.open           "Open">
-<!ENTITY styleSheetsManager.delete         "Delete">
-<!ENTITY styleSheetsManager.close          "&common.close;">
-<!ENTITY styleSheetsManager.clear          "&common.clear;">
-
-<!ENTITY styleSheetsManager.userContentCSS.title "Global UserStylesheet">
-
-<!ENTITY styleSheetsManager.userStyles.title "Custom User Styles">
-<!ENTITY styleSheetsManager.userStyles.path  "Target Directory">
-<!ENTITY styleSheetsManager.userStyles.value "User Style">
-
-<!ENTITY styleSheetsManager.selectedStyles.title "Selected Styles">
-<!ENTITY styleSheetsManager.selectedStyles.path  "Target Directory">
-<!ENTITY styleSheetsManager.selectedStyles.value "Selected Style">
 
 
 
@@ -132,7 +93,6 @@
 <!ENTITY context.outline.label_frame          "Outline of This Frame">
 <!ENTITY context.navigations.label            "Site Navigations">
 <!ENTITY context.navigations.label_frame      "Site Navigations of This Frame">
-<!ENTITY context.styleSheets.label            "StyleSheets">
 <!ENTITY context.JSPanel.label                "&JSPanel.title;">
 <!ENTITY context.getLinks.label               "Copy Links List">
 <!ENTITY context.getLinks.label_frame         "Copy Links List of This Frame">
@@ -180,8 +140,6 @@
 <!ENTITY menu.navigations.label_frame      "Site Navigations of Current Frame">
 <!ENTITY menu.navigations.label_short      "Navigations">
 <!ENTITY menu.navigations.accesskey        "N">
-<!ENTITY menu.styleSheets.label            "&context.styleSheets.label;">
-<!ENTITY menu.styleSheets.accesskey        "S">
 <!ENTITY menu.JSPanel.label                "&JSPanel.title;">
 <!ENTITY menu.getLinks.label               "&context.getLinks.label;">
 <!ENTITY menu.getLinks.label_frame         "&context.getLinks.label_frame;">
@@ -207,22 +165,6 @@
 <!ENTITY menu.pref.label                   "&context.pref.label;">
 
 
-<!ENTITY menu.styleSheetsManager.label     "&styleSheetsManager.title;">
-<!ENTITY menu.customUserStyleEditor.label  "&customUserStyleEditor.title;">
-<!ENTITY menu.customUserStyleEditor.label_site "Edit Custom User Style for &quot;&#37;s&quot;">
-
-<!ENTITY styleSheets.noStyle.label         "No Style">
-<!ENTITY styleSheets.onlyPermanence.label  "Basic Page Style">
-<!ENTITY styleSheets.sources.label         "Sources">
-
-<!ENTITY styleSheets.editUserContentCSS.label "Edit Global User StyleSheet">
-
-<!ENTITY styleSheets.cancelPhysical.label  "Cancel Physical Styles">
-<!ENTITY styleSheets.cancelPhysical.rules  "&#64;import url(chrome://ctxextensions/content/res/CancelPhysical.css);">
-<!ENTITY styleSheets.showElements.label    "Show Elements Model (XHTML1.1)">
-<!ENTITY styleSheets.showElements.rules    "&#64;import url(chrome://ctxextensions/content/res/ShowElements-xhtml11.css);">
-
-
 
 
 <!-- Preferences -->
@@ -232,8 +174,6 @@
 <!ENTITY preftree.contextmenu.label        "Context Menu">
 <!ENTITY preftree.menubar.label            "Menubar">
 <!ENTITY preftree.navigations.label        "Site Navigations">
-<!ENTITY preftree.override.label           "Use External Apps">
-<!ENTITY preftree.styleSheets.label        "StyleSheets">
 <!ENTITY preftree.sendURI.label            "Send Page To">
 <!ENTITY preftree.sendStr.label            "Send Selection To">
 <!ENTITY preftree.execApps.label           "Applications">
@@ -336,22 +276,6 @@
 <!ENTITY navigations.regexp.appendix       "Appendix:">
 <!ENTITY navigations.regexp.help           "Help:">
 <!ENTITY navigations.regexp.search         "Search:">
-
-
-
-<!ENTITY override.CSSEditor.caption        "Editor for the Global User StyleSheet(userContent.css)">
-<!ENTITY override.CSSEditor.path           "Path:">
-<!ENTITY override.CSSEditor.filePicker     "&common.choose;">
-<!ENTITY override.CSSEditor.arguments      "Additional Options(*):">
-
-<!ENTITY override.description              "*Additional options are handed to the application after the URI or the file path. Write &quot;&#37;S&quot; to the desirable place to hand it if you want to change their order.">
-
-
-
-
-
-<!ENTITY styleSheets.description           "These items are shown in the bottom of the menu &quot;&menu.styleSheets.label;&quot;.">
-<!ENTITY styleSheets.caption               "User-Defined StyleSheets">
 
 
 
@@ -465,8 +389,6 @@
 <!ENTITY PrefProp.webService.forURI        "*Write &quot;&#37;S&quot; to the desirable place to hand URIs (or file paths).">
 <!ENTITY PrefProp.webService.forSelection  "*Write &quot;&#37;S&quot; to the desirable place to hand selected texts.">
 
-<!ENTITY PrefProp.checkbox.cancelStyles    "Cancel all styles before applying this style">
-<!ENTITY PrefProp.checkbox.defaultSelected "Apply this style always">
 <!ENTITY PrefProp.checkbox.download        "Hand temporary local files instead of remote resources">
 <!ENTITY PrefProp.checkbox.autoExec        "Execute automatically when pages are loaded">
 <!ENTITY PrefProp.checkbox.autoExecStartup "Execute automatically when Navigator starts up">
@@ -536,7 +458,6 @@
 <!ENTITY shortExpressions.convCharset1     "Convert charset A to B">
 <!ENTITY shortExpressions.convCharset2     "Convert charset: from Unicode(UCS2) to another">
 <!ENTITY shortExpressions.convCharset3     "Convert charset: from another to Unicode(UCS2)">
-<!ENTITY shortExpressions.addStyleSheet    "Append New StyleSheet">
 <!ENTITY shortExpressions.run              "Run external applications">
 <!ENTITY shortExpressions.menuIO           "Input and Output Files">
 <!ENTITY shortExpressions.include          "Load an external JavaScript file">
@@ -548,11 +469,6 @@
 <!ENTITY shortExpressions.chooseFileToSave "Choose a file should be saved, with the common dialog">
 
 <!ENTITY shortExpressions.menuExt          "Extensions">
-<!ENTITY shortExpressions.cancelStyles     "Cancel all stylesheets">
-<!ENTITY shortExpressions.switchStyleTo    "Switch to the specified style">
-<!ENTITY shortExpressions.openStyleSheetSource "Open source of the specified sytlesheet">
-<!ENTITY shortExpressions.addOptionalStyleSheet "Enable the specified optional stylesheet">
-<!ENTITY shortExpressions.removeOptionalStyleSheet "Disable the specified optional stylesheet">
 <!ENTITY shortExpressions.sendURITo        "Send an URI to the specified receiver">
 <!ENTITY shortExpressions.sendStrTo        "Send a string to the specified receiver">
 <!ENTITY shortExpressions.openWithApp      "Open an URI and a string with the specified application">
@@ -580,8 +496,6 @@
 
 
 <!-- for Firefox 0.9 or later -->
-<!ENTITY useStyleSheetMenu.label     "Use Style">
-<!ENTITY useStyleSheetMenu.accesskey "U">
 <!ENTITY bookmarksMenu.label         "Bookmarks">
 <!ENTITY emptyItem.label             "(empty)">
 <!ENTITY goMenu.label                "Go">

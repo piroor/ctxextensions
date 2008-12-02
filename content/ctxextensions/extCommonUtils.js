@@ -7,10 +7,10 @@ var ExtCommonUtils = {
 
 	content      : 'chrome://ctxextensions/content/',
 	locale       : 'chrome://ctxextensions/locale/',
-	 
+	
 	// プロパティ 
 	// properties
-	 
+	
 	get mainURI() 
 	{
 		if (this._mainURI === void(0)) {
@@ -146,23 +146,6 @@ var ExtCommonUtils = {
 		return dsourceFile;
 	},
   
-	get userContentCSSFile() 
-	{
-		var UChrm = this.getURISpecFromKey('UChrm');
-		if (!UChrm.match(/\/$/)) UChrm += '/';
-
-		var CSSFile = this.getFileFromURLSpec(UChrm+'userContent.css');
-		if (!CSSFile.exists()) {
-			var exampleURI = UChrm+'userContent-example.css';
-			var example = this.getFileFromURLSpec(exampleURI);
-
-			var sourceURI = (example.exists()) ? exampleURI : 'chrome://ctxextensions/content/default/userContent.css' ;
-			this.saveURIInBackgroundAs(sourceURI, CSSFile);
-		}
-
-		return CSSFile;
-	},
- 
 	// メッセージ文字列 
 	get msg()
 	{
@@ -222,33 +205,6 @@ var ExtCommonUtils = {
 	mNS      : 'http://white.sakura.ne.jp/~piro/rdf#',
 	mBaseURL : 'chrome://ctxextensions/content/ctxextensions.rdf#',
 	
-	// ユーザースタイル 
-	get USERSTYLES()
-	{
-		if (!this.mUSERSTYLES)
-			this.mUSERSTYLES = new pRDFData('UserStyles', this.datasourceURI, 'bag', this.mNS, this.mBaseURL);
-		return this.mUSERSTYLES;
-	},
-	mUSERSTYLES : null,
- 
-	// スタイル選択情報 
-	get SELECTEDSTYLES()
-	{
-		if (!this.mSELECTEDSTYLES)
-			this.mSELECTEDSTYLES = new pRDFData('SelectedStyles', this.datasourceURI, 'bag', this.mNS, this.mBaseURL);
-		return this.mSELECTEDSTYLES;
-	},
-	mSELECTEDSTYLES : null,
- 
-	// スタイルシート 
-	get STYLESHEETS()
-	{
-		if (!this.mSTYLESHEETS)
-			this.mSTYLESHEETS = new pRDFData('StyleSheets', this.datasourceURI, '', this.mNS, this.mBaseURL);
-		return this.mSTYLESHEETS;
-	},
-	mSTYLESHEETS : null,
- 
 	// カスタムスクリプト 
 	get CUSTOMSCRIPTS()
 	{
@@ -1094,16 +1050,7 @@ var ExtCommonUtils = {
 
 		return null;
 	},
-	
-	// CSSファイルを読み込む 
-	readCSSFrom : function(aFile)
-	{
-		var rules = this.readFrom(aFile);
-		var atCharsetArray = rules.match(/@charset[^'"]+(['"])([^'"]+)\1/);
-		this.UCONV.charset = (atCharsetArray && atCharsetArray[0].length > 1) ? atCharsetArray[2] : 'UTF-8' ;
-		return this.UCONV.ConvertToUnicode(rules);
-	},
-  
+ 
 	// 渡されたテキストをファイルに保存する 
 	writeTo : function(aContent, aTarget, aFlags)
 	{
@@ -1135,17 +1082,9 @@ var ExtCommonUtils = {
 
 		return aTarget;
 	},
-	
-	// CSSファイルを保存する 
-	writeCSSTo : function(aRules, aFile)
-	{
-		var atCharsetArray = aRules.match(/@charset[^'"]+(['"])([^'"]+)\1/);
-		this.UCONV.charset = (atCharsetArray && atCharsetArray[0].length > 1) ? atCharsetArray[2] : 'UTF-8' ;
-		this.writeTo(this.UCONV.ConvertFromUnicode(aRules), aFile);
-	},
-   
+  
 	// DOM操作 
-	 
+	
 	getTopWindowOf : function(aType) 
 	{
 		return this.WINMAN.getMostRecentWindow(aType);
@@ -1554,7 +1493,7 @@ var ExtCommonUtils = {
 		}
 //dump(aContainer.getAttribute('ext-datasource')+' / '+obj.length+'('+aContainer.childNodes.length+')\n');
 	},
-	 
+	
 	cleanUpInvalidKeys : function() 
 	{
 		var nodes = this.getNodesFromXPath('/descendant::*[local-name() = "key" and (@key = "" or not(@key)) and (@keycode = "" or not(@keycode))]');
@@ -1565,7 +1504,7 @@ var ExtCommonUtils = {
 			node.parentNode.removeChild(node);
 		}
 	},
- 	 
+  
 	getNodesFromXPath : function(aXPath, aContextNode, aType) 
 	{
 		// http://www.hawk.34sp.com/stdpls/xml/
@@ -1658,37 +1597,6 @@ var ExtCommonUtils = {
 		return resultObj;
 	},
   
-	readCSSFor : function(aTextboxOrID) 
-	{
-		var file = this.chooseFile(
-				this.getMsg('filePicker_title_stylesheets'),
-				null,
-				[
-					this.getMsg('filePicker_filter_stylesheets'),
-					'*.css'
-				]
-			);
-		if (!file) return;
-
-		var rules = this.readCSSFrom(file);
-
-		var textbox = (typeof aTextboxOrID == 'string') ? document.getElementById(aTextboxOrID) : aTextboxOrID ;
-		textbox.value = rules;
-	},
- 
-	goStyleSheetsManager : function(aSelectedTabIndex) 
-	{
-		var target = this.getTopWindowOf('ctxextensions:StyleSheetsManager');
-		if (target) {
-			target.focus();
-			if (aSelectedTabIndex !== void(0))
-				target.StyleSheetsManagerService.selectTab(aSelectedTabIndex);
-		}
-		else
-			window.openDialog('chrome://ctxextensions/content/styleSheetsManager/styleSheetsManager.xul', '_blank', 'chrome,all,dialog=no', aSelectedTabIndex);
-		return;
-	},
- 
 	// prefs.jsの読み書き 
 	
 	addPrefListener : function(aObserver) 
@@ -1818,9 +1726,6 @@ var ExtCommonUtils = {
 		this.loadPrefs();
 
 		try {
-			nullPointer = this.SELECTEDSTYLES;
-			nullPointer = this.USERSTYLES;
-			nullPointer = this.STYLESHEETS;
 			nullPointer = this.SENDSTR;
 			nullPointer = this.SENDURI;
 			nullPointer = this.EXECAPPS;

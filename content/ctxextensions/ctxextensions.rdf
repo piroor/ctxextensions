@@ -2,14 +2,10 @@
 <RDF:RDF xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 		xmlns:EXT="http://white.sakura.ne.jp/~piro/rdf#">
 
-	<RDF:Seq ID="urn:StyleSheets:root"/>
 	<RDF:Seq ID="urn:SendStr:root"/>
 	<RDF:Seq ID="urn:SendURI:root"/>
 	<RDF:Seq ID="urn:ExecApps:root"/>
 	<RDF:Seq ID="urn:CustomScripts:root"/>
-
-	<RDF:Bag ID="urn:UserStyles:root"/>
-	<RDF:Bag ID="urn:SelectedStyles:root"/>
 
 
 </RDF:RDF>

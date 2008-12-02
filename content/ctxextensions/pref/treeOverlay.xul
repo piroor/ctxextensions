@@ -48,20 +48,6 @@
 						url="chrome://ctxextensions/content/pref/pref-navigations.xul"/>
 				</treerow>
 			</treeitem>
-			<treeitem id="ctxextensions-override" class="for-browser">
-				<treerow>
-					<treecell
-						label="&preftree.override.label;"
-						url="chrome://ctxextensions/content/pref/pref-override.xul"/>
-				</treerow>
-			</treeitem>
-			<treeitem id="ctxextensions-styleSheets" class="for-browser">
-				<treerow>
-					<treecell
-						label="&preftree.styleSheets.label;"
-						url="chrome://ctxextensions/content/pref/pref-styleSheets.xul"/>
-				</treerow>
-			</treeitem>
 			<treeitem id="ctxextensions-sendURI">
 				<treerow>
 					<treecell

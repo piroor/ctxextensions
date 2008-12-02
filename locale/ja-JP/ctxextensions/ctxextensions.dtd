@@ -34,7 +34,6 @@
 <!ENTITY accelKey.showMenu.navigations   "N">
 <!ENTITY accelKey.showMenu.outline       "O">
 <!ENTITY accelKey.showMenu.customScripts "C">
-<!ENTITY accelKey.showMenu.styleSheets   "S">
 <!ENTITY accelKey.showMenu.execApps      "A">
 <!ENTITY accelKey.navigations.top        "T">
 <!ENTITY accelKey.navigations.up         "U">
@@ -55,45 +54,7 @@
 <!ENTITY accelKey.navigations.copyright  "R">
 <!ENTITY accelKey.navigations.bookmark   "B">
 <!ENTITY accelKey.navigations.alternate  "O">
-<!ENTITY accelKey.navigations.stylesheet "Y">
 
-
-
-
-<!-- Custom User Style Editor -->
-<!ENTITY customUserStyleEditor.title       "サイト別ユーザースタイルの編集">
-<!ENTITY customUserStyleEditor.caption     "「&#37;s」用のユーザースタイル">
-<!ENTITY customUserStyleEditor.dir.before  "">
-<!ENTITY customUserStyleEditor.dir.after   "に適用">
-<!ENTITY customUserStyleEditor.reload      "現在のディレクトリ">
-<!ENTITY customUserStyleEditor.import      "&common.import;">
-<!ENTITY customUserStyleEditor.save        "&common.save;">
-<!ENTITY customUserStyleEditor.clear       "&common.clear;">
-<!ENTITY customUserStyleEditor.close       "&common.close;">
-<!ENTITY customUserStyleEditor.manage      "ユーザースタイルの管理">
-
-
-
-<!-- StyleSheets Manager -->
-<!ENTITY styleSheetsManager.title          "スタイルシートマネージャ">
-<!ENTITY styleSheetsManager.import         "&common.import;">
-<!ENTITY styleSheetsManager.save           "&common.save;">
-<!ENTITY styleSheetsManager.reload         "&common.reload;">
-<!ENTITY styleSheetsManager.edit           "編集">
-<!ENTITY styleSheetsManager.open           "開く">
-<!ENTITY styleSheetsManager.delete         "削除">
-<!ENTITY styleSheetsManager.close          "&common.close;">
-<!ENTITY styleSheetsManager.clear          "&common.clear;">
-
-<!ENTITY styleSheetsManager.userContentCSS.title "グローバルユーザースタイルの編集">
-
-<!ENTITY styleSheetsManager.userStyles.title "サイト別ユーザースタイル">
-<!ENTITY styleSheetsManager.userStyles.path  "適用するディレクトリ">
-<!ENTITY styleSheetsManager.userStyles.value "ユーザースタイル">
-
-<!ENTITY styleSheetsManager.selectedStyles.title "スタイルの選択状態">
-<!ENTITY styleSheetsManager.selectedStyles.path  "適用するディレクトリ">
-<!ENTITY styleSheetsManager.selectedStyles.value "選択されたスタイル">
 
 
 
@@ -131,7 +92,6 @@
 <!ENTITY context.outline.label_frame          "このフレームのアウトライン">
 <!ENTITY context.navigations.label            "ナビゲーション">
 <!ENTITY context.navigations.label_frame      "このフレームのナビゲーション">
-<!ENTITY context.styleSheets.label            "スタイルシート">
 <!ENTITY context.JSPanel.label                "&JSPanel.title;">
 <!ENTITY context.getLinks.label               "リンクの一覧をコピー">
 <!ENTITY context.getLinks.label_frame         "このフレームのリンクの一覧をコピー">
@@ -179,8 +139,6 @@
 <!ENTITY menu.navigations.label_frame      "現在のフレームのナビゲーション">
 <!ENTITY menu.navigations.label_short      "&context.navigations.label;">
 <!ENTITY menu.navigations.accesskey        "N">
-<!ENTITY menu.styleSheets.label            "&context.styleSheets.label;">
-<!ENTITY menu.styleSheets.accesskey        "S">
 <!ENTITY menu.JSPanel.label                "&JSPanel.title;">
 <!ENTITY menu.getLinks.label               "&context.getLinks.label;">
 <!ENTITY menu.getLinks.label_frame         "&context.getLinks.label_frame;">
@@ -207,24 +165,6 @@
 
 
 
-<!ENTITY menu.styleSheetsManager.label     "&styleSheetsManager.title;">
-<!ENTITY menu.customUserStyleEditor.label  "&customUserStyleEditor.title;">
-<!ENTITY menu.customUserStyleEditor.label_site "「&#37;s」用のサイト別ユーザースタイル">
-
-<!ENTITY styleSheets.noStyle.label         "全て無効">
-<!ENTITY styleSheets.onlyPermanence.label  "基本のスタイルシート">
-<!ENTITY styleSheets.sources.label         "ソース">
-
-<!ENTITY styleSheets.editUserContentCSS.label "グローバルユーザースタイルシートの編集">
-
-<!ENTITY styleSheets.cancelPhysical.label  "物理要素スタイル解除">
-<!ENTITY styleSheets.cancelPhysical.rules  "&#64;import url(chrome://ctxextensions/content/res/CancelPhysical.css);">
-<!ENTITY styleSheets.showElements.label    "要素構造表示（XHTML1.1）">
-<!ENTITY styleSheets.showElements.rules    "&#64;import url(chrome://ctxextensions/content/res/ShowElements-xhtml11.css);">
-
-
-
-
 <!-- Preferences -->
 <!ENTITY preftree.about.label              "コンテキストメニュー拡張">
 <!ENTITY preftree.general.label            "全般(1)">
@@ -232,8 +172,6 @@
 <!ENTITY preftree.contextmenu.label        "コンテキストメニュー">
 <!ENTITY preftree.menubar.label            "メニューバー">
 <!ENTITY preftree.navigations.label        "ナビゲーション">
-<!ENTITY preftree.override.label           "外部アプリの使用">
-<!ENTITY preftree.styleSheets.label        "追加のスタイルシート">
 <!ENTITY preftree.sendURI.label            "ページを送る">
 <!ENTITY preftree.sendStr.label            "選択範囲を送る">
 <!ENTITY preftree.execApps.label           "アプリで開く">
@@ -336,20 +274,6 @@
 <!ENTITY navigations.regexp.appendix       "付録：">
 <!ENTITY navigations.regexp.help           "ヘルプ：">
 <!ENTITY navigations.regexp.search         "検索：">
-
-
-
-<!ENTITY override.CSSEditor.caption        "ユーザースタイルシートの編集に使うエディタ">
-<!ENTITY override.CSSEditor.path           "パス：">
-<!ENTITY override.CSSEditor.filePicker     "&common.choose;">
-<!ENTITY override.CSSEditor.arguments      "追加の起動オプション(※)：">
-
-<!ENTITY override.description              "※起動オプションはURI, ファイルパスの後に渡されます。オプションの後でこれらを渡したい場合、「&#37;S」を任意の位置に書いて下さい。">
-
-
-
-<!ENTITY styleSheets.description           "ここで登録した項目は「&menu.styleSheets.label;」メニューに表示されます。">
-<!ENTITY styleSheets.caption               "ユーザー定義のスタイルシート">
 
 
 
@@ -464,8 +388,6 @@
 <!ENTITY PrefProp.webService.forURI        "※URIを渡したい位置に「&#37;S」を書いて下さい。">
 <!ENTITY PrefProp.webService.forSelection  "※選択範囲のテキストを渡したい位置に「&#37;S」を書いて下さい。">
 
-<!ENTITY PrefProp.checkbox.cancelStyles    "このスタイルを適用する前に他の全てのスタイルを無効にする">
-<!ENTITY PrefProp.checkbox.defaultSelected "このスタイルを常に適用する">
 <!ENTITY PrefProp.checkbox.download        "リモートのファイルの場合、テンポラリファイルを作成して開く">
 <!ENTITY PrefProp.checkbox.autoExec        "ページ読み込み時に自動で実行する">
 <!ENTITY PrefProp.checkbox.autoExecStartup "ブラウザ起動時に自動で実行する">
@@ -535,7 +457,6 @@
 <!ENTITY shortExpressions.convCharset1     "文字列の文字コードを相互変換して返す">
 <!ENTITY shortExpressions.convCharset2     "文字列の文字コード変換：Unicode(UCS2)→別の文字コード">
 <!ENTITY shortExpressions.convCharset3     "文字列の文字コード変換：別の文字コード→Unicode(UCS2)">
-<!ENTITY shortExpressions.addStyleSheet    "スタイルシートを加える">
 <!ENTITY shortExpressions.run              "外部アプリを実行する">
 <!ENTITY shortExpressions.menuIO           "ファイルの入出力">
 <!ENTITY shortExpressions.include          "外部のJavaScriptを実行する">
@@ -547,11 +468,6 @@
 <!ENTITY shortExpressions.chooseFileToSave "コモンダイアログで保存用にファイルを選択する">
 
 <!ENTITY shortExpressions.menuExt          "拡張機能">
-<!ENTITY shortExpressions.cancelStyles     "全てのスタイルシートを無効にする">
-<!ENTITY shortExpressions.switchStyleTo    "指定したスタイルに切り替える">
-<!ENTITY shortExpressions.openStyleSheetSource "指定したスタイルのソースを開く">
-<!ENTITY shortExpressions.addOptionalStyleSheet "指定したユーザー定義スタイルシートを有効にする">
-<!ENTITY shortExpressions.removeOptionalStyleSheet "指定したユーザー定義スタイルシートを無効にする">
 <!ENTITY shortExpressions.sendURITo        "URIを指定した送り先に送る">
 <!ENTITY shortExpressions.sendStrTo        "文字列を指定した送り先に送る">
 <!ENTITY shortExpressions.openWithApp      "URIと文字列を指定した外部アプリに渡す">
@@ -578,8 +494,6 @@
 
 
 <!-- for Firefox 0.9 or later -->
-<!ENTITY useStyleSheetMenu.label     "スタイルシート">
-<!ENTITY useStyleSheetMenu.accesskey "U">
 <!ENTITY bookmarksMenu.label         "ブックマーク">
 <!ENTITY emptyItem.label             "(なし)">
 <!ENTITY goMenu.label                "移動">

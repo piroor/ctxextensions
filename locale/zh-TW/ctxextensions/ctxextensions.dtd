@@ -35,7 +35,6 @@
 <!ENTITY accelKey.showMenu.navigations "N">
 <!ENTITY accelKey.showMenu.outline "O">
 <!ENTITY accelKey.showMenu.customScripts "C">
-<!ENTITY accelKey.showMenu.styleSheets "S">
 <!ENTITY accelKey.showMenu.execApps "A">
 <!ENTITY accelKey.navigations.top "T">
 <!ENTITY accelKey.navigations.up "U">
@@ -57,45 +56,6 @@
 <!ENTITY accelKey.navigations.copyright "R">
 <!ENTITY accelKey.navigations.bookmark "B">
 <!ENTITY accelKey.navigations.alternate "O">
-<!ENTITY accelKey.navigations.stylesheet "Y">
-<!-- Custom User Style Editor -->
-
-
-
-
-<!ENTITY customUserStyleEditor.title "自訂樣式編輯器">
-<!ENTITY customUserStyleEditor.caption "打造我的個人樣式給「&#37;s」">
-<!ENTITY customUserStyleEditor.dir.before "套用於">
-<!ENTITY customUserStyleEditor.dir.after "">
-<!ENTITY customUserStyleEditor.reload "現行目錄">
-<!ENTITY customUserStyleEditor.import "&common.import;">
-<!ENTITY customUserStyleEditor.save "&common.save;">
-<!ENTITY customUserStyleEditor.clear "&common.clear;">
-<!ENTITY customUserStyleEditor.close "&common.close;">
-<!ENTITY customUserStyleEditor.manage "管理我的樣式">
-<!-- StyleSheets Manager -->
-
-
-
-<!ENTITY styleSheetsManager.title "樣式管理員">
-<!ENTITY styleSheetsManager.import "&common.import;">
-<!ENTITY styleSheetsManager.save "&common.save;">
-<!ENTITY styleSheetsManager.reload "&common.reload;">
-<!ENTITY styleSheetsManager.edit "編輯">
-<!ENTITY styleSheetsManager.open "開啟">
-<!ENTITY styleSheetsManager.delete "刪除">
-<!ENTITY styleSheetsManager.close "&common.close;">
-<!ENTITY styleSheetsManager.clear "&common.clear;">
-
-<!ENTITY styleSheetsManager.userContentCSS.title "全域樣式">
-
-<!ENTITY styleSheetsManager.userStyles.title "自訂我的樣式">
-<!ENTITY styleSheetsManager.userStyles.path "目標資料夾">
-<!ENTITY styleSheetsManager.userStyles.value "我的樣式">
-
-<!ENTITY styleSheetsManager.selectedStyles.title "已選取樣式">
-<!ENTITY styleSheetsManager.selectedStyles.path "目標資料夾">
-<!ENTITY styleSheetsManager.selectedStyles.value "已選取樣式">
 <!-- JavaScript Panel -->
 
 
@@ -133,7 +93,6 @@
 <!ENTITY context.outline.label_frame "大綱 (本框架頁)">
 <!ENTITY context.navigations.label "網站導航">
 <!ENTITY context.navigations.label_frame "網站導航 (本框架頁)">
-<!ENTITY context.styleSheets.label "樣式表">
 <!ENTITY context.JSPanel.label "&JSPanel.title;">
 <!ENTITY context.getLinks.label "複製鏈結清單">
 <!ENTITY context.getLinks.label_frame "複製鏈結清單 (本框架頁)">
@@ -181,8 +140,6 @@
 <!ENTITY menu.navigations.label_frame "網站導航 (目前框架頁)">
 <!ENTITY menu.navigations.label_short "導航">
 <!ENTITY menu.navigations.accesskey "N">
-<!ENTITY menu.styleSheets.label "&context.styleSheets.label;">
-<!ENTITY menu.styleSheets.accesskey "S">
 <!ENTITY menu.JSPanel.label "&JSPanel.title;">
 <!ENTITY menu.getLinks.label "&context.getLinks.label;">
 <!ENTITY menu.getLinks.label_frame "context.getLinks.label_frame;">
@@ -208,20 +165,6 @@
 <!ENTITY menu.pref.label "&context.pref.label;">
 
 
-<!ENTITY menu.styleSheetsManager.label "&styleSheetsManager.title;">
-<!ENTITY menu.customUserStyleEditor.label "&customUserStyleEditor.title;">
-<!ENTITY menu.customUserStyleEditor.label_site "打造我自己的樣式給「&#37;s」">
-
-<!ENTITY styleSheets.noStyle.label "無樣式">
-<!ENTITY styleSheets.onlyPermanence.label "基本頁面樣式">
-<!ENTITY styleSheets.sources.label "來源">
-
-<!ENTITY styleSheets.editUserContentCSS.label "編輯我的全域樣式">
-
-<!ENTITY styleSheets.cancelPhysical.label "取消 Physical Styles">
-<!ENTITY styleSheets.cancelPhysical.rules "&#64;匯入 url(chrome://ctxextensions/content/res/CancelPhysical.css);">
-<!ENTITY styleSheets.showElements.label "顯示 Elements Model (XHTML1.1)">
-<!ENTITY styleSheets.showElements.rules "&#64;匯入 url(chrome://ctxextensions/content/res/ShowElements-xhtml11.css);">
 <!-- Preferences -->
 
 
@@ -233,8 +176,6 @@
 <!ENTITY preftree.contextmenu.label "右鍵選單">
 <!ENTITY preftree.menubar.label "選單列">
 <!ENTITY preftree.navigations.label "網站導航">
-<!ENTITY preftree.override.label "使用外部程式">
-<!ENTITY preftree.styleSheets.label "樣式表">
 <!ENTITY preftree.sendURI.label "傳送此頁到">
 <!ENTITY preftree.sendStr.label "傳送選取文字到">
 <!ENTITY preftree.execApps.label "外部程式">
@@ -337,19 +278,6 @@
 <!ENTITY navigations.regexp.appendix "附錄:">
 <!ENTITY navigations.regexp.help "說明:">
 <!ENTITY navigations.regexp.search "搜尋:">
-
-
-
-<!ENTITY override.CSSEditor.caption "我的全域樣式 (userContent.css) 編輯器">
-<!ENTITY override.CSSEditor.path "路徑:">
-<!ENTITY override.CSSEditor.filePicker "&common.choose;">
-<!ENTITY override.CSSEditor.arguments "附加選項 (※):">
-
-<!ENTITY override.description "※ 附加在 URI 或檔案路徑之後、傳送到外部程式的選項。 如果您想要改變他們的順序，寫入「&#37;S」到想要的位置。">
-
-
-<!ENTITY styleSheets.description "這些項目會被顯示在「&menu.styleSheets.label;」選單底部。">
-<!ENTITY styleSheets.caption "我自訂的樣式">
 
 
 
@@ -463,8 +391,6 @@
 <!ENTITY PrefProp.webService.forURI "※ 寫入「&#37;S」到您想插入 URIs (或檔案路徑) 的位置。">
 <!ENTITY PrefProp.webService.forSelection "※ 寫入「&#37;S」到您想插入選取文字的位置。">
 
-<!ENTITY PrefProp.checkbox.cancelStyles "套用此樣式前取消所有樣式">
-<!ENTITY PrefProp.checkbox.defaultSelected "總是套用此樣式">
 <!ENTITY PrefProp.checkbox.download "傳送暫存的本地檔案代替遠程資源">
 <!ENTITY PrefProp.checkbox.autoExec "網頁載入時自動執行">
 <!ENTITY PrefProp.checkbox.autoExecStartup "網站導航開始時自動執行">
@@ -534,7 +460,6 @@
 <!ENTITY shortExpressions.convCharset1 "轉換字元集 A 成為 B">
 <!ENTITY shortExpressions.convCharset2 "Convert charset: from Unicode(UCS2) to another">
 <!ENTITY shortExpressions.convCharset3 "Convert charset: from another to Unicode(UCS2)">
-<!ENTITY shortExpressions.addStyleSheet "附加新樣式">
 <!ENTITY shortExpressions.run "執行外部程式">
 <!ENTITY shortExpressions.menuIO "輸入與輸出檔案">
 <!ENTITY shortExpressions.include "載入外部 JavaScript 檔">
@@ -546,11 +471,6 @@
 <!ENTITY shortExpressions.chooseFileToSave "以一般對話方塊選擇要儲存的檔案">
 
 <!ENTITY shortExpressions.menuExt "擴充功能">
-<!ENTITY shortExpressions.cancelStyles "取消所有樣式">
-<!ENTITY shortExpressions.switchStyleTo "切換到指定樣式">
-<!ENTITY shortExpressions.openStyleSheetSource "開啟指定樣式的原始檔">
-<!ENTITY shortExpressions.addOptionalStyleSheet "啟用指定的選用樣式">
-<!ENTITY shortExpressions.removeOptionalStyleSheet "停用指定的選用樣式">
 <!ENTITY shortExpressions.sendURITo "傳送 URI 到指定的接收器">
 <!ENTITY shortExpressions.sendStrTo "傳送字串到指定的接收器">
 <!ENTITY shortExpressions.openWithApp "以指定的外部程式開啟 URI 與字串">
@@ -578,8 +498,6 @@
 
 
 
-<!ENTITY useStyleSheetMenu.label "使用樣式">
-<!ENTITY useStyleSheetMenu.accesskey "U">
 <!ENTITY bookmarksMenu.label "書籤">
 <!ENTITY emptyItem.label "(空)">
 <!ENTITY goMenu.label "衝">

@@ -10,30 +10,8 @@
 
 
 
-<menupopup id="menu_View_Popup">
-	<menu id="view-item-styleSheets"
-		insertafter="menu_textZoom"
-		label="&useStyleSheetMenu.label;"
-		accesskey="&useStyleSheetMenu.accesskey;">
-		<menupopup id="view-item-styleSheets:mpopup"
-			onpopupshowing="ExtService.updateStyleSheetsPopup(); ExtService.duplicateMPopup('ext-common-styleSheets:mpopup', this.id); event.stopPropagation();"
-			oncommand="ExtFunc.ApplyStyle(event, true); event.stopPropagation();"
-			onclick="if (event.button == 1) ExtService.editRDFItem(event, 'StyleSheets');"/>
-	</menu>
-</menupopup>
-
-
 <menubar id="main-menubar">
 
-	<menu id="menu-item-styleSheets"
-		label="&menu.styleSheets.label;"
-		accesskey="&menu.styleSheets.accesskey;"
-		hidden="true">
-		<menupopup id="menu-item-styleSheets:mpopup"
-			onpopupshowing="ExtService.updateStyleSheetsPopup(); ExtService.duplicateMPopup('ext-common-styleSheets:mpopup', this.id);"
-			oncommand="ExtFunc.ApplyStyle(event, true); event.stopPropagation();"
-			onclick="if (event.button == 1) ExtService.editRDFItem(event, 'StyleSheets');"/>
-	</menu>
 	<menu id="menu-item-outline"
 		label="&menu.outline.label;"
 		accesskey="&menu.outline.accesskey;"
@@ -105,16 +83,6 @@
 		accesskey="&menu.extensions.accesskey;">
 		<menupopup onpopupshowing="if (event.target == this) ExtService.updateMenubarSubmenu();">
 
-			<menu id="menu-item-styleSheets:submenu"
-				label="&menu.styleSheets.label;"
-				key="ext-key-showMenu:stylesheets"
-				ext-key="ext-key-showMenu:stylesheets">
-				<menupopup id="menu-item-styleSheets:mpopup:submenu"
-					onpopupshowing="ExtService.duplicateMPopup('ext-common-styleSheets:mpopup', this.id);"
-					oncommand="ExtFunc.ApplyStyle(event, true);"
-					onclick="if (event.button == 1) ExtService.editRDFItem(event, 'StyleSheets');"/>
-			</menu>
-			<menuseparator class="menuseparator-ctxextensions"/>
 			<menuitem id="menu-item-up:submenu"
 				label="&menu.up.label;"
 				oncommand="ExtFunc.doCommand('up');"

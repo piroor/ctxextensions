@@ -62,9 +62,6 @@
 		key="&accelKey.showMenu.customScripts;" modifiers="alt"
 		oncommand="ExtFunc.showMenu(this)"
 		observes="ext-broadcaster-key:showMenu:customscripts"/>
-	<key id="ext-key-showMenu:styleSheets"
-		key="&accelKey.showMenu.styleSheets;" modifiers="alt"
-		oncommand="ExtFunc.showMenu(this)"/>
 	<key id="ext-key-showMenu:execApps"
 		key="&accelKey.showMenu.execApps;" modifiers="alt"
 		oncommand="ExtFunc.showMenu(this)"
@@ -147,10 +144,6 @@
 			key="&accelKey.navigations.alternate;"
 			oncommand="ExtFunc.goNavigation('alternate', event);"
 			observes="ext-broadcaster-key:goNavigation"/>
-		<!--key id="ext-key-goNavigation:stylesheet"
-			key="&accelKey.navigations.stylesheet;"
-			oncommand="ExtFunc.goNavigation('stylesheet', event);"
-			observes="ext-broadcaster-key:goNavigation"/-->
 	</keyset>
 
 	<keyset id="ext-key-sendURI"
@@ -477,89 +470,6 @@
 			<rule/>
 		</template>
 	</keyset>
-	<keyset id="ext-key-styleSheets"
-			datasources="chrome://ctxextensions/content/ctxextensions.rdf"
-			ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:StyleSheets:root"
-			ext-datasource="ExtCommonUtils.STYLESHEETS">
-		<template ext-template="
-			function(aIndex, aObj)
-			{
-				var obj = ExtCommonUtils.STYLESHEETS;
-				var res = obj.item(aIndex);
-				return (!obj.getData(res, 'Key') &amp;&amp; !obj.getData(res, 'Keycode')) ? {} :
-					obj.getData(res, 'Key') ?
-						{
-							localName : 'key',
-							attr : {
-								uri       : res.Value,
-								keyid     : 'ext-key:userdefined:'+res.Value,
-								styleid   : obj.getData(res, 'Name'),
-								label     : obj.getData(res, 'Name'),
-								oncommand : 'if (!ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) var id = this.getAttribute(\'styleid\'); ExtCommonUtils.STYLESHEETS.setData(id, (ExtCommonUtils.STYLESHEETS.getData(id, \'Selected\') != \'true\') ? \'true\' : \'false\'); ExtFunc.ApplyStyle(id, true);',
-								'key'     : obj.getData(res, 'Key'),
-								modifiers : obj.getData(res, 'Modifier'),
-								'class'   : 'key-userdefined',
-								extGenerated : true
-							}
-						} :
-					obj.getData(res, 'Keycode') ?
-						{
-							localName : 'key',
-							attr : {
-								uri       : res.Value,
-								keyid     : 'ext-key:userdefined:'+res.Value,
-								styleid   : obj.getData(res, 'Name'),
-								label     : obj.getData(res, 'Name'),
-								oncommand : 'if (!ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) var id = this.getAttribute(\'styleid\'); ExtCommonUtils.STYLESHEETS.setData(id, (ExtCommonUtils.STYLESHEETS.getData(id, \'Selected\') != \'true\') ? \'true\' : \'false\'); ExtFunc.ApplyStyle(id, true);',
-								keycode   : obj.getData(res, 'Keycode'),
-								modifiers : obj.getData(res, 'Modifier'),
-								'class'   : 'key-userdefined',
-								extGenerated : true
-							}
-						} :
-					{} ;
-			}
-		">
-			<rule EXRDF:Key="" EXRDF:Keycode=""/>
-			<rule>
-				<conditions>
-					<content uri="?cont"/>
-					<member container="?cont" child="?name"/>
-					<triple subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#Key" object="?key"/>
-					<triple subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#Name" object="?label"/>
-				</conditions>
-				<bindings>
-					<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#Modifier" object="?modifiers"/>
-				</bindings>
-				<action>
-					<key uri="?name" keyid="ext-key:userdefined:?name" styleid="?label" label="?label"
-						oncommand="if (this.getAttribute('key') &amp;&amp; !ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) var id = this.getAttribute('styleid'); ExtCommonUtils.STYLESHEETS.setData(id, (ExtCommonUtils.STYLESHEETS.getData(id, 'Selected') != 'true') ? 'true' : 'false'); ExtFunc.ApplyStyle(id, true);"
-						key="?key" modifiers="?modifiers"
-						class="key-userdefined"
-						extGenerated="true"/>
-				</action>
-			</rule>
-			<rule>
-				<conditions>
-					<content uri="?cont"/>
-					<member container="?cont" child="?name"/>
-					<triple subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#Keycode" object="?keycode"/>
-					<triple subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#Name" object="?label"/>
-				</conditions>
-				<bindings>
-					<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#Modifier" object="?modifiers"/>
-				</bindings>
-				<action>
-					<key uri="?name" keyid="ext-key:userdefined:?name" styleid="?label" label="?label"
-						oncommand="if (this.getAttribute('keycode') &amp;&amp; !ExtService.isEventSentFromTextFields(event) &amp;&amp; !ExtService.isFindTypeAheadActive()) var id = this.getAttribute('styleid'); ExtCommonUtils.STYLESHEETS.setData(id, (ExtCommonUtils.STYLESHEETS.getData(id, 'Selected') != 'true') ? 'true' : 'false'); ExtFunc.ApplyStyle(id, true);"
-						keycode="?keycode" modifiers="?modifiers"
-						class="key-userdefined"
-						extGenerated="true"/>
-				</action>
-			</rule>
-			<rule/>
-		</template>
-	</keyset>
 
 </keyset>
 
@@ -594,7 +504,6 @@
 						localName : 'menuitem',
 						attr : {
 							uri     : res.Value,
-							styleid : obj.getData(res, 'Name'),
 							label   : obj.getData(res, 'Name'),
 							newitem : obj.getData(res, 'NewContextItem'),
 							contextShowNormal : obj.getData(res, 'ShowContextItemNormally'),
@@ -609,7 +518,6 @@
 						attr : {
 							uri       : res.Value,
 							'ext-key' : 'ext-key:userdefined:'+res.Value,
-							styleid   : obj.getData(res, 'Name'),
 							label     : obj.getData(res, 'Name'),
 							newitem   : obj.getData(res, 'NewContextItem'),
 							contextShowNormal : obj.getData(res, 'ShowContextItemNormally'),
@@ -622,7 +530,6 @@
 					localName : 'menuitem',
 					attr : {
 						uri     : res.Value,
-						styleid : obj.getData(res, 'Name'),
 						label   : obj.getData(res, 'Name'),
 						newitem : obj.getData(res, 'NewContextItem'),
 						contextShowNormal : obj.getData(res, 'ShowContextItemNormally'),
@@ -636,7 +543,6 @@
 		<rule EXRDF:Hidden="true"/>
 		<rule EXRDF:Key="" EXRDF:Keycode="">
 			<menuitem uri="rdf:*"
-				styleid="rdf:http://white.sakura.ne.jp/~piro/rdf#Name"
 				label="rdf:http://white.sakura.ne.jp/~piro/rdf#Name"
 				newitem="rdf:http://white.sakura.ne.jp/~piro/rdf#NewContextItem"
 				contextShowNormal="rdf:http://white.sakura.ne.jp/~piro/rdf#ShowContextItemNormally"
@@ -658,7 +564,7 @@
 				<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#ShowContextItemOnLink" object="?showLink"/>
 			</bindings>
 			<action>
-				<menuitem uri="?name" styleid="?label" ext-key="ext-key:userdefined:?name" label="?label"
+				<menuitem uri="?name" ext-key="ext-key:userdefined:?name" label="?label"
 					newitem="?newitem"
 					contextShowNormal="?showNormal"
 					contextShowSelect="?showSelect"
@@ -680,7 +586,7 @@
 				<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#ShowContextItemOnLink" object="?showLink"/>
 			</bindings>
 			<action>
-				<menuitem uri="?name" styleid="?label" ext-key="ext-key:userdefined:?name" label="?label"
+				<menuitem uri="?name"  ext-key="ext-key:userdefined:?name" label="?label"
 					newitem="?newitem"
 					contextShowNormal="?showNormal"
 					contextShowSelect="?showSelect"
@@ -701,7 +607,7 @@
 				<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#ShowContextItemOnLink" object="?showLink"/>
 			</bindings>
 			<action>
-				<menuitem uri="?name" styleid="?label" label="?label"
+				<menuitem uri="?name" label="?label"
 					newitem="?newitem"
 					contextShowNormal="?showNormal"
 					contextShowSelect="?showSelect"
@@ -721,160 +627,6 @@
 		ondraggesture="nsDragAndDrop.startDrag(event, ExtService.NavigationDNDObserver); event.stopPropagation(); return;"
 		ondragexit="nsDragAndDrop.dragExit(event, ExtService.NavigationDNDObserver); event.stopPropagation(); return;"
 		onerror="event.stopPropagation(); return;"/>
-
-	<popupset>
-	<menupopup id="ext-common-styleSheets:mpopup"
-		datasources="chrome://ctxextensions/content/ctxextensions.rdf"
-		ref="chrome://ctxextensions/content/ctxextensions.rdf#urn:StyleSheets:root"
-		oncommand="ExtFunc.ApplyStyle(event, true);"
-		onclick="if (event.button == 1) ExtService.editRDFItem(event, 'StyleSheets');"
-		ext-datasource="ExtCommonUtils.STYLESHEETS">
-		<menuitem label="&styleSheets.noStyle.label;"
-			styleid="ext_system_noStyle"
-			value="&styleSheets.noStyle.label;"
-			type="radio"
-			name="ext-styleSheets-pageStyle"/>
-		<menuitem label="&styleSheets.onlyPermanence.label;"
-			styleid="ext_system_onlyPermanence"
-			value="&styleSheets.onlyPermanence.label;"
-			type="radio"
-			name="ext-styleSheets-pageStyle"/>
-		<menu label="&styleSheets.sources.label;"
-			styleid="ext-common-styleSources">
-			<menupopup
-				oncommand="ExtFunc.OpenStyleSheetSource(event);"
-				ondraggesture="nsDragAndDrop.startDrag(event, ExtService.NavigationDNDObserver); event.stopPropagation(); return;"
-				ondragexit="nsDragAndDrop.dragExit(event, ExtService.NavigationDNDObserver); event.stopPropagation(); return;"
-				onerror="event.stopPropagation(); return;"
-				onpopupshowing="event.stopPropagation();"
-				onpopuphiding="event.stopPropagation();"/>
-		</menu>
-		<menuseparator class="menuseparator-ctxextensions"/>
-		<menuitem styleid="ext-common-userContentCSSEditor"
-			label="&styleSheets.editUserContentCSS.label;"/>
-		<menuitem styleid="ext-common-customUserStyleEditor"
-			label="&menu.customUserStyleEditor.label;"
-			label-for-site="&menu.customUserStyleEditor.label_site;"/>
-		<menuseparator class="menuseparator-ctxextensions"/>
-		<menuitem styleid="&styleSheets.cancelPhysical.label;"
-				label="&styleSheets.cancelPhysical.label;"
-				value="&styleSheets.cancelPhysical.rules;"
-				type="checkbox"/>
-		<menuitem styleid="&styleSheets.showElements.label;"
-				label="&styleSheets.showElements.label;"
-				value="&styleSheets.showElements.rules;"
-				type="checkbox"/>
-		<template ext-template="
-			function(aIndex, aObj)
-			{
-				var obj = ExtCommonUtils.STYLESHEETS;
-				var res = obj.item(aIndex);
-				return ((obj.getData(res, 'Key') || obj.getData(res, 'Keycode')) &amp;&amp; obj.getData(res, 'Name')) ?
-						{
-							localName : 'menuitem',
-							attr : {
-								uri       : res.Value,
-								'ext-key' : 'ext-key:userdefined:'+res.Value,
-								type      : 'checkbox',
-								styleid   : obj.getData(res, 'Name'),
-								label     : obj.getData(res, 'Name'),
-								newitem   : obj.getData(res, 'NewContextItem'),
-								contextShowNormal : obj.getData(res, 'ShowContextItemNormally'),
-								contextShowSelect : obj.getData(res, 'ShowContextItemWithSelection'),
-								contextShowLink : obj.getData(res, 'ShowContextItemOnLink'),
-								extGenerated : true
-							}
-						} :
-					obj.getData(res, 'Name') ?
-						{
-							localName : 'menuitem',
-							attr : {
-								uri     : res.Value,
-								type    : 'checkbox',
-								styleid : obj.getData(res, 'Name'),
-								label   : obj.getData(res, 'Name'),
-								newitem : obj.getData(res, 'NewContextItem'),
-								contextShowNormal : obj.getData(res, 'ShowContextItemNormally'),
-								contextShowSelect : obj.getData(res, 'ShowContextItemWithSelection'),
-								contextShowLink : obj.getData(res, 'ShowContextItemOnLink'),
-								extGenerated : true
-							}
-						} : 
-					{};
-			}
-			">
-			<rule>
-				<conditions>
-					<content uri="?cont"/>
-					<member container="?cont" child="?name"/>
-					<triple subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#Key" object="?key"/>
-					<triple subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#Name" object="?label"/>
-				</conditions>
-				<bindings>
-					<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#NewContextItem" object="?newitem"/>
-					<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#ShowContextItemNormally" object="?showNormal"/>
-					<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#ShowContextItemWithSelection" object="?showSelect"/>
-					<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#ShowContextItemOnLink" object="?showLink"/>
-				</bindings>
-				<action>
-					<menuitem uri="?name" ext-key="ext-key:userdefined:?name" label="?label"
-						styleid="?label" type="checkbox"
-						newitem="?newitem"
-						contextShowNormal="?showNormal"
-						contextShowSelect="?showSelect"
-						contextShowLink="?showLink"
-						extGenerated="true"/>
-				</action>
-			</rule>
-			<rule>
-				<conditions>
-					<content uri="?cont"/>
-					<member container="?cont" child="?name"/>
-					<triple subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#Keycode" object="?keycode"/>
-					<triple subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#Name" object="?label"/>
-				</conditions>
-				<bindings>
-					<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#NewContextItem" object="?newitem"/>
-					<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#ShowContextItemNormally" object="?showNormal"/>
-					<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#ShowContextItemWithSelection" object="?showSelect"/>
-					<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#ShowContextItemOnLink" object="?showLink"/>
-				</bindings>
-				<action>
-					<menuitem uri="?name" ext-key="ext-key:userdefined:?name" label="?label"
-						styleid="?label" type="checkbox"
-						newitem="?newitem"
-						contextShowNormal="?showNormal"
-						contextShowSelect="?showSelect"
-						contextShowLink="?showLink"
-						extGenerated="true"/>
-				</action>
-			</rule>
-			<rule>
-				<conditions>
-					<content uri="?cont"/>
-					<member container="?cont" child="?name"/>
-					<triple subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#Name" object="?label"/>
-				</conditions>
-				<bindings>
-					<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#NewContextItem" object="?newitem"/>
-					<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#ShowContextItemNormally" object="?showNormal"/>
-					<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#ShowContextItemWithSelection" object="?showSelect"/>
-					<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#ShowContextItemOnLink" object="?showLink"/>
-				</bindings>
-				<action>
-					<menuitem uri="?name" label="?label"
-						styleid="?label" type="checkbox"
-						newitem="?newitem"
-						contextShowNormal="?showNormal"
-						contextShowSelect="?showSelect"
-						contextShowLink="?showLink"
-						extGenerated="true"/>
-				</action>
-			</rule>
-			<rule/>
-		</template>
-	</menupopup>
-	</popupset>
 
 	<popupset oncommand="ExtFunc.ExecApps(event);"
 		onclick="if (event.button == 1) ExtService.editRDFItem(event, 'ExecApps');">

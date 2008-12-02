@@ -106,11 +106,6 @@ window.addEventListener('load', function() {
 					<checkbox prefstring="ctxextensions.show_item.context.navigations"/>
 					<checkbox prefstring="ctxextensions.submenu.context.navigations"/>
 				</row>
-				<row class="for-browser">
-					<label value="&context.styleSheets.label;"/>
-					<checkbox prefstring="ctxextensions.show_item.context.styleSheets"/>
-					<checkbox prefstring="ctxextensions.submenu.context.styleSheets"/>
-				</row>
 				<separator class="for-browser"/>
 				<row>
 					<label value="&context.JSPanel.label;"/>

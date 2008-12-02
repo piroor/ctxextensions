@@ -559,7 +559,6 @@
 						localName : 'menuitem',
 						attr : {
 							uri     : res.Value,
-							styleid : obj.getData(res, 'Name'),
 							label   : obj.getData(res, 'Name'),
 							newitem : obj.getData(res, 'NewContextItem'),
 							contextShowNormal : obj.getData(res, 'ShowContextItemNormally'),
@@ -574,7 +573,6 @@
 						attr : {
 							uri       : res.Value,
 							'ext-key' : 'ext-key:userdefined:'+res.Value,
-							styleid   : obj.getData(res, 'Name'),
 							label     : obj.getData(res, 'Name'),
 							newitem   : obj.getData(res, 'NewContextItem'),
 							contextShowNormal : obj.getData(res, 'ShowContextItemNormally'),
@@ -587,7 +585,6 @@
 					localName : 'menuitem',
 					attr : {
 						uri     : res.Value,
-						styleid : obj.getData(res, 'Name'),
 						label   : obj.getData(res, 'Name'),
 						newitem : obj.getData(res, 'NewContextItem'),
 						contextShowNormal : obj.getData(res, 'ShowContextItemNormally'),
@@ -601,7 +598,6 @@
 		<rule EXRDF:Hidden="true"/>
 		<rule EXRDF:Key="" EXRDF:Keycode="">
 			<menuitem uri="rdf:*"
-				styleid="rdf:http://white.sakura.ne.jp/~piro/rdf#Name"
 				label="rdf:http://white.sakura.ne.jp/~piro/rdf#Name"
 				newitem="rdf:http://white.sakura.ne.jp/~piro/rdf#NewContextItem"
 				contextShowNormal="rdf:http://white.sakura.ne.jp/~piro/rdf#ShowContextItemNormally"
@@ -623,7 +619,7 @@
 				<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#ShowContextItemOnLink" object="?showLink"/>
 			</bindings>
 			<action>
-				<menuitem uri="?name" styleid="?label" ext-key="ext-key:userdefined:?name" label="?label"
+				<menuitem uri="?name" ext-key="ext-key:userdefined:?name" label="?label"
 					newitem="?newitem"
 					contextShowNormal="?showNormal"
 					contextShowSelect="?showSelect"
@@ -645,7 +641,7 @@
 				<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#ShowContextItemOnLink" object="?showLink"/>
 			</bindings>
 			<action>
-				<menuitem uri="?name" styleid="?label" ext-key="ext-key:userdefined:?name" label="?label"
+				<menuitem uri="?name" ext-key="ext-key:userdefined:?name" label="?label"
 					newitem="?newitem"
 					contextShowNormal="?showNormal"
 					contextShowSelect="?showSelect"
@@ -666,7 +662,7 @@
 				<binding subject="?name" predicate="http://white.sakura.ne.jp/~piro/rdf#ShowContextItemOnLink" object="?showLink"/>
 			</bindings>
 			<action>
-				<menuitem uri="?name" styleid="?label" label="?label"
+				<menuitem uri="?name" label="?label"
 					newitem="?newitem"
 					contextShowNormal="?showNormal"
 					contextShowSelect="?showSelect"

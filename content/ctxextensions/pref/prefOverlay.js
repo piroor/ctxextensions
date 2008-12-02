@@ -100,12 +100,6 @@ var PrefUtils = {
 			samples[i].setAttribute('label',
 				this.utils.getMsg('pref_sampleLabel').replace(/%N/i, i+1).replace(/%L/i, samples[i].getAttribute('label'))
 			);
-//			samples[i].setAttribute('script',
-//				this.utils.escape(samples[i].getAttribute('script'))
-//			);
-			samples[i].setAttribute('styleRules',
-				this.utils.escape(samples[i].getAttribute('styleRules'))
-			);
 		}
 	},
  

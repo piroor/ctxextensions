@@ -24,35 +24,21 @@
 
 ]]></script>
 
-<menupopup id="taskPopup">
-	<menuitem position="5" id="tasks-item-styleSheetsManager"/>
-</menupopup>
-
 <menupopup id="toolsPopup">
 	<menuitem id="tools-item-JSPanel"/>
-	<menuitem id="tools-item-customUserStyleEditor"/>
 </menupopup>
 
 
 <!-- browser.xul -->
 <menupopup id="menu_ToolsPopup">
-	<menuitem position="3" id="tasks-item-styleSheetsManager"/>
 	<menuitem position="3" id="tools-item-JSPanel"/>
-	<menuitem position="3" id="tools-item-customUserStyleEditor"/>
 </menupopup>
 
 
 
 
-<menuitem id="tasks-item-styleSheetsManager"
-	label="&menu.styleSheetsManager.label;"
-	oncommand="extOpenDialog('chrome://ctxextensions/content/styleSheetsManager/styleSheetsManager.xul', 'ctxextensions:StyleSheetsManager');"/>
-
 <menuitem id="tools-item-JSPanel"
 	label="&menu.JSPanel.label;"
 	oncommand="extOpenDialog('chrome://ctxextensions/content/JSPanel/JSPanel.xul', 'ctxextensions:JSPanel');"/>
-<menuitem id="tools-item-customUserStyleEditor"
-	label="&menu.customUserStyleEditor.label;"
-	oncommand="extOpenDialog('chrome://ctxextensions/content/styleSheetsManager/customUserStyleEditor.xul', 'ctxextensions:customUserStyleEditor');"/>
 
 </overlay>
