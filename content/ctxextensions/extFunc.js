@@ -148,7 +148,9 @@ var ExtFunc = {
 
 		aNode.ex_comment_visible = true;
 
-		var output = document.createElementNS(ExtService.EXNS, 'comment');
+		var output = document.createElementNS(ExtService.XHTMLNS, 'span');
+		output.setAttribute('class', 'ctxextensions-inserted-comment');
+		output.setAttribute('style', ExtCommonUtils.getPref('ctxextensions.style.showComments'));
 		output.appendChild(document.createTextNode(ExtService.message.comment.replace(/%s/i, aNode.nodeValue)));
 		output.ext_generated = true;
 
@@ -173,12 +175,16 @@ var ExtFunc = {
 				aNode.getAttributeNS(ExtService.XLinkNS, 'href') ||
 				'' ;
 
+		var style = ExtCommonUtils.getPref('ctxextensions.style.showLinks');
+
 		if (href) {
 			var hrefLabel = ExtService.message.href.replace(/%s/i, href.replace(aNode.baseURI, ''));
 
-			var output_href = document.createElementNS(ExtService.EXNS, 'linkandanchor');
+			var output_href = document.createElementNS(ExtService.XHTMLNS, 'span');
+			output_href.setAttribute('class', 'ctxextensions-inserted-linkandanchor');
 			output_href.appendChild(document.createTextNode(hrefLabel));
 			output_href.ext_generated = true;
+			output_href.setAttribute('style', style);
 
 			if (aNode.firstChild)
 				aNode.appendChild(output_href);
@@ -193,12 +199,13 @@ var ExtFunc = {
 		if (longdesc) {
 			var longdescLabel = ExtService.message.longdesc.replace(/%s/i, longdesc.replace(aNode.baseURI, ''));
 
-			var output_longdesc = document.createElementNS(ExtService.EXNS, 'linkandanchor');
-			output_longdesc.setAttributeNS(ExtService.XLinkNS, 'xlink:type', 'simple');
-			output_longdesc.setAttributeNS(ExtService.XLinkNS, 'xlink:href',  longdesc);
-			output_longdesc.setAttributeNS(ExtService.XLinkNS, 'xlink:title', longdesc);
+			var output_longdesc = document.createElementNS(ExtService.XHTMLNS, 'a');
+			output_longdesc.setAttribute('class', 'ctxextensions-inserted-linkandanchor');
+			output_longdesc.setAttribute('href',  longdesc);
+			output_longdesc.setAttribute('title', longdesc);
 			output_longdesc.appendChild(document.createTextNode(longdescLabel));
 			output_longdesc.ext_generated = true;
+			output_longdesc.setAttribute('style', style);
 
 			if (aNode.firstChild)
 				aNode.appendChild(output_longdesc);
@@ -223,11 +230,13 @@ var ExtFunc = {
 
 		var label_inner = aNode.id || aNode.name ;
 		var label = ExtService.message.id.replace(/%s/i, aNode.id || aNode.name) ;
-		var output = document.createElementNS(ExtService.EXNS, 'id');
-		output.setAttributeNS(ExtService.XLinkNS, 'xlink:type', 'simple');
-		output.setAttributeNS(ExtService.XLinkNS, 'xlink:href', '#'+label_inner);
+		var output = document.createElementNS(ExtService.XHTMLNS, 'a');
+		output.setAttribute('class', 'ctxextensions-inserted-id');
+		output.setAttribute('type', 'simple');
+		output.setAttribute('href', '#'+label_inner);
 		output.appendChild(document.createTextNode(label));
 		output.ext_generated = true;
+		output.setAttribute('style', ExtCommonUtils.getPref('ctxextensions.style.showIDs'));
 
 		if (aNode.firstChild)
 			aNode.insertBefore(output, aNode.firstChild);
@@ -254,12 +263,13 @@ var ExtFunc = {
 		var label = (/ins|del/i.test(aNode.localName)) ? ExtService.message.cite_edit : ExtService.message.cite ;
 		label = label.replace(/%s/i, aNode.title || cite.replace(aNode.baseURI, ''));
 
-		var output = document.createElementNS(ExtService.EXNS, 'citedfrom');
-		output.setAttributeNS(ExtService.XLinkNS, 'xlink:type', 'simple');
-		output.setAttributeNS(ExtService.XLinkNS, 'xlink:href',  cite);
-		output.setAttributeNS(ExtService.XLinkNS, 'xlink:title', cite);
+		var output = document.createElementNS(ExtService.XHTMLNS, 'a');
+		output.setAttribute('class', 'ctxextensions-inserted-citedfrom');
+		output.setAttribute('href',  cite);
+		output.setAttribute('title', cite);
 		output.appendChild(document.createTextNode(label));
 		output.ext_generated = true;
+		output.setAttribute('style', ExtCommonUtils.getPref('ctxextensions.style.showCites'));
 
 		aNode.appendChild(output);
 	},
@@ -293,9 +303,11 @@ var ExtFunc = {
 		if (summary && alt) summary += '/';
 		var label = ExtService.message.title.replace(/%s/i, title+summary+alt);
 
-		var output = document.createElementNS(ExtService.EXNS, 'explanation');
+		var output = document.createElementNS(ExtService.XHTMLNS, 'span');
+		output.setAttribute('class', 'ctxextensions-inserted-explanation');
 		output.appendChild(document.createTextNode(label));
 		output.ext_generated = true;
+		output.setAttribute('style', ExtCommonUtils.getPref('ctxextensions.style.showTitles'));
 
 		if (aNode.firstChild || !aNode.parentNode)
 			aNode.insertBefore(output, aNode.firstChild);
@@ -317,17 +329,24 @@ var ExtFunc = {
 		aNode.setAttribute('ex_event_visible', true);
 
 		var attr = aNode.attributes;
-		var output = document.createElementNS(ExtService.EXNS, 'event');
+		var output = document.createElementNS(ExtService.XHTMLNS, 'span');
+		output.setAttribute('class', 'ctxextensions-inserted-event');
 		var label, value;
+		var labelStyle = ExtCommonUtils.getPref('ctxextensions.style.showEvents.label');
+		var valueStyle = ExtCommonUtils.getPref('ctxextensions.style.showEvents.value');
 		for (var i = 0; i < attr.length; i++)
 		{
 			if (attr[i].name.toLowerCase().substring(0, 2) != 'on') continue;
 
-			label = document.createElementNS(ExtService.EXNS, 'eventlabel');
+			label = document.createElementNS(ExtService.XHTMLNS, 'span');
+			label.setAttribute('class', 'ctxextensions-inserted-eventlabel');
 			label.appendChild(document.createTextNode(attr[i].name+':'));
+			label.setAttribute('style', labelStyle);
 
-			value = document.createElementNS(ExtService.EXNS, 'eventvalue');
+			value = document.createElementNS(ExtService.XHTMLNS, 'span');
+			value.setAttribute('class', 'ctxextensions-inserted-eventvalue');
 			value.appendChild(document.createTextNode(attr[i].value));
+			value.setAttribute('style', valueStyle);
 
 			output.appendChild(label);
 			output.appendChild(value);
