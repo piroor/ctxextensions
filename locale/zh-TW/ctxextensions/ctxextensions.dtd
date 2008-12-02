@@ -340,12 +340,7 @@
 
 
 
-<!ENTITY override.tab.viewerAndEditor "檢視器 &amp; 編輯器">
-
-<!ENTITY override.viewer.caption "「檢視原始碼」使用的檢視器">
-<!ENTITY override.viewer.path "路徑:">
-<!ENTITY override.viewer.filePicker "&common.choose;">
-<!ENTITY override.viewer.arguments "附加選項 (※):">
+<!ENTITY override.tab.editor      "編輯器">
 
 <!ENTITY override.CSSEditor.caption "我的全域樣式 (userContent.css) 編輯器">
 <!ENTITY override.CSSEditor.path "路徑:">

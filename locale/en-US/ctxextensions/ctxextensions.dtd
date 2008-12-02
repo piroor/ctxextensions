@@ -339,12 +339,7 @@
 
 
 
-<!ENTITY override.tab.viewerAndEditor      "Viewer &amp; Editor">
-
-<!ENTITY override.viewer.caption           "Viewer for &quot;View Source&quot;">
-<!ENTITY override.viewer.path              "Path:">
-<!ENTITY override.viewer.filePicker        "&common.choose;">
-<!ENTITY override.viewer.arguments         "Additional Options(*):">
+<!ENTITY override.tab.editor               "Editor">
 
 <!ENTITY override.CSSEditor.caption        "Editor for the Global User StyleSheet(userContent.css)">
 <!ENTITY override.CSSEditor.path           "Path:">

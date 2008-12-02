@@ -21,8 +21,6 @@ pref("ctxextensions.override.mailer.charset", "UTF-8");
 pref("ctxextensions.override.mailer.webmail.enable", false);
 pref("ctxextensions.override.mailer.webmail.usetab", true);
 pref("ctxextensions.override.mailer.webmail.path", "http://foobar.com/?mailto=%to&subject=%subject");
-pref("ctxextensions.override.source_viewer.path", "");
-pref("ctxextensions.override.source_viewer.options", "%s");
 pref("ctxextensions.override.CSSEditor.path", "");
 pref("ctxextensions.override.CSSEditor.options", "%s");
 

@@ -373,28 +373,6 @@ var ExtService = {
 	overrideFunctions : function()
 	{
 
-		// ソース表示の乗っ取り
-		if (window.BrowserViewSourceOfDocument) {
-			window.__ctxextensions__BrowserViewSourceOfDocument = window.BrowserViewSourceOfDocument;
-			window.BrowserViewSourceOfDocument = function(aDocument)
-			{
-				return ExtService.viewSourceOf('document', aDocument);
-			};
-
-			window.__ctxextensions__BrowserViewSourceOfURL = window.BrowserViewSourceOfURL;
-			window.BrowserViewSourceOfURL = function(aURI, aCharset, aPageCookie)
-			{
-				return ExtService.viewSourceOf('url', aURI, aCharset, aPageCookie);
-			};
-
-			nsContextMenu.prototype.__ctxextensions__viewPartialSource = nsContextMenu.prototype.viewPartialSource;
-			nsContextMenu.prototype.viewPartialSource = function(aContext)
-			{
-				return ExtService.viewSourceOf('partial', aContext, this);
-			};
-		}
-
-
 		// 内容領域をクリックした際の処理
 		window.__ctxextensions__contentAreaClick = window.contentAreaClick;
 		window.contentAreaClick = function(aEvent, aFieldNormalClicks)
@@ -1722,54 +1700,6 @@ catch(e) {
 		}
 	},
   
-	// ソース表示 
-	viewSourceOf : function()
-	{
-		if (!arguments || !arguments.length) return false;
-
-		var viewer = this.utils.getPref('ctxextensions.override.source_viewer.path');
-		if (!viewer)
-			return (arguments[0] == 'document') ? __ctxextensions__BrowserViewSourceOfDocument(arguments[1]) :
-					(arguments[0] == 'url') ? __ctxextensions__BrowserViewSourceOfURL(arguments[1], arguments[2], arguments[3]) :
-					arguments[2].__ctxextensions__viewPartialSource(arguments[1]) ;
-
-
-		var targetURI = (arguments[0] == 'document') ? arguments[1].URL :
-						(arguments[0] == 'url') ? arguments[1] :
-						this.currentURI();
-
-		var options = this.utils.getPref('ctxextensions.override.source_viewer.options');
-		if (!options)
-			options = '%s';
-		else if (!options.match(/%s/i))
-			options = '%s '+options;
-
-		if (!arguments[0] || !arguments[0].match(/selection/)) {
-			this.downloadAndOpenWithApp('viewsource', viewer, options, targetURI, arguments[1]);
-		}
-		else {
-			var source;
-			if (arguments[0] == 'partial')
-				source = this.getSelectionSource(this.contentWindow());
-			else
-				source = this.utils.getSourceOf(gContextMenu.target, String(aMode.match(/[^\/]+$/)));
-
-			this.run(
-				viewer,
-				options.replace(
-					/%s/gi,
-					this.utils.writeTo(
-						source,
-						this.utils.makeTempFileForURI(targetURI),
-						'Overwrite=yes,CreateDirectory=yes'
-					).path
-				)
-			);
-		}
-
-		return true;
-	},
- 
 	// 見出しのリストを取得し、保存する 
 	updateHeadings : function(aWindow, aInBackGround)
 	{

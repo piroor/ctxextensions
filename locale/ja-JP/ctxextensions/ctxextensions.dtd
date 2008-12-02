@@ -339,12 +339,7 @@
 
 
 
-<!ENTITY override.tab.viewerAndEditor      "ビューワーとエディタ">
-
-<!ENTITY override.viewer.caption           "ソース表示に使うビューワー">
-<!ENTITY override.viewer.path              "パス：">
-<!ENTITY override.viewer.filePicker        "&common.choose;">
-<!ENTITY override.viewer.arguments         "追加の起動オプション(※)：">
+<!ENTITY override.tab.editor               "エディタ">
 
 <!ENTITY override.CSSEditor.caption        "ユーザースタイルシートの編集に使うエディタ">
 <!ENTITY override.CSSEditor.path           "パス：">
