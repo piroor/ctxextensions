@@ -1504,6 +1504,12 @@ var ExtCommonUtils = {
 			node.parentNode.removeChild(node);
 		}
 	},
+	cleanUpInvalidKeysWithDelay : function()
+	{
+		window.setTimeout(function(aSelf) {
+			aSelf.cleanUpInvalidKeys();
+		}, 100, this);
+	},
   
 	getNodesFromXPath : function(aXPath, aContextNode, aType) 
 	{
@@ -1759,7 +1765,7 @@ var ExtCommonUtils = {
 				this.rebuildFromTemplate(nodes[i]);
 			}
 		}
-		this.cleanUpInvalidKeys();
+		this.cleanUpInvalidKeysWithDelay();
 	},
 	loadPrefs : function()
 	{
