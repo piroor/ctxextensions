@@ -340,35 +340,12 @@
 
 
 
-<!ENTITY override.tab.editor      "編輯器">
-
 <!ENTITY override.CSSEditor.caption "我的全域樣式 (userContent.css) 編輯器">
 <!ENTITY override.CSSEditor.path "路徑:">
 <!ENTITY override.CSSEditor.filePicker "&common.choose;">
 <!ENTITY override.CSSEditor.arguments "附加選項 (※):">
 
 <!ENTITY override.description "※ 附加在 URI 或檔案路徑之後、傳送到外部程式的選項。 如果您想要改變他們的順序，寫入「&#37;S」到想要的位置。">
-
-
-<!ENTITY override.tab.mailer "郵寄管理員">
-
-<!ENTITY override.mailer.caption "郵寄管理員">
-<!ENTITY override.mailer.system "使用系統預設郵件程式">
-<!ENTITY override.mailer.webmail "使用 Web Mail 服務">
-<!ENTITY override.mailer.webmail_path "路徑 (※):">
-<!ENTITY override.mailer.webmail_usetab "在新分頁開啟頁面">
-<!ENTITY override.mailer.path "路徑:">
-<!ENTITY override.mailer.filePicker "&common.choose;">
-<!ENTITY override.mailer.arguments "附加選項 (※):">
-<!ENTITY override.mailer.charset "字元編碼:">
-
-<!ENTITY override.mailer.description "※ 附加在 E-mail 位址後傳送到外部程式的選項。假如您想改變他們的順序或使用其他參數，在您想要的地方插入以下符號:">
-<!ENTITY override.mailer.description.to "&#37;to : E-mail 位址">
-<!ENTITY override.mailer.description.subject "&#37;subject : 主旨">
-<!ENTITY override.mailer.description.cc "&#37;cc : 副本">
-<!ENTITY override.mailer.description.bcc "&#37;bcc : 密件副本">
-<!ENTITY override.mailer.description.body "&#37;body : 郵件內容">
-
 
 
 <!ENTITY styleSheets.description "這些項目會被顯示在「&menu.styleSheets.label;」選單底部。">

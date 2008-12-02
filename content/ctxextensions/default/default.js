@@ -15,12 +15,6 @@ pref("ctxextensions.JSPanel.page.number", 5);
 pref("ctxextensions.JSPanel.page.last",   0);
 
 pref("ctxextensions.override.datasource_path", "");
-pref("ctxextensions.override.mailer.path", "");
-pref("ctxextensions.override.mailer.options", "-to \"%to\" -subject \"%subject\"");
-pref("ctxextensions.override.mailer.charset", "UTF-8");
-pref("ctxextensions.override.mailer.webmail.enable", false);
-pref("ctxextensions.override.mailer.webmail.usetab", true);
-pref("ctxextensions.override.mailer.webmail.path", "http://foobar.com/?mailto=%to&subject=%subject");
 pref("ctxextensions.override.CSSEditor.path", "");
 pref("ctxextensions.override.CSSEditor.options", "%s");
 

@@ -387,57 +387,6 @@ var ExtService = {
 			return false;
 		};
 
-		// MUAのオーバーライド
-		window.__ctxextensions__handleLinkClick = window.handleLinkClick;
-		window.handleLinkClick = function(aEvent, aURI, aNode)
-		{
-			var mailer;
-			if (!ExtCommonUtils.getPref('network.protocol-handler.external.mailto')) {
-				mailer = ExtCommonUtils.getPref('ctxextensions.override.mailer.webmail.enable') ? ExtCommonUtils.getPref('ctxextensions.override.mailer.webmail.path') : ExtCommonUtils.getPref('ctxextensions.override.mailer.path') ;
-			}
-
-			if (
-				mailer &&
-				aURI && aURI.match(/^mailto:/) &&
-				aEvent.button < 2 &&
-				!aEvent.shiftKey // Shift＋クリックの場合、デフォルトの動作。
-				)
-				{
-				aEvent.preventDefault();
-				aEvent.stopPropagation();
-
-				ExtService.runMailer(aURI);
-
-				return true;
-			}
-
-			return __ctxextensions__handleLinkClick(aEvent, aURI, aNode);
-		};
-
-		// MUAのオーバーライド（「ページを送る」）
-		if ('sendPage' in window) {
-			window.__ctxextensions__sendPage = window.sendPage;
-			window.sendPage = function(aDocument)
-			{
-				var mailer;
-				if (!ExtCommonUtils.getPref('network.protocol-handler.external.mailto')) {
-					mailer = ExtCommonUtils.getPref('ctxextensions.override.mailer.webmail.enable') ? ExtCommonUtils.getPref('ctxextensions.override.mailer.webmail.path') : ExtCommonUtils.getPref('ctxextensions.override.mailer.path') ;
-				}
-
-				if (mailer) {
-					if (!aDocument)
-						aDocument = this.utils.browser.contentDocument;
-
-					var uri   = aDocument.URL;
-					var title = Components.lookupMethod(aDocument, 'title').call(aDocument);
-					ExtService.runMailer(null, title, uri);
-				}
-				else {
-					window.__ctxextensions__sendPage(aDocument);
-				}
-			};
-		}
-
 		// フルスクリーンモードからの復帰
 		if (window.BrowserFullScreen) {
 			window.__ctxextensions__BrowserFullScreen = window.BrowserFullScreen;
@@ -451,76 +400,6 @@ var ExtService = {
 
 		delete this.overrideFunctions;
 		return;
-	},
-
-	runMailer : function(aURI, aPageTitle, aPageURI)
-	{
-		var mailer = ExtCommonUtils.getPref('ctxextensions.override.mailer.webmail.enable') ? ExtCommonUtils.getPref('ctxextensions.override.mailer.webmail.path') : ExtCommonUtils.getPref('ctxextensions.override.mailer.path') ;
-		if (!aURI) aURI = '';
-
-		if (this.utils.getPref('ctxextensions.override.mailer.webmail.enable')) {
-			mailer = this.replaceMailArgumentsFromURI(mailer, aURI);
-			if (aPageTitle)
-				mailer = mailer.replace(/%pagetitle/gi, aPageTitle);
-			if (aPageURI)
-				mailer = mailer.replace(/%pageur[il]/gi, aPageURI);
-
-			if (this.utils.getPref('ctxextensions.override.mailer.webmail.usetab'))
-				this.openNewTab(mailer, null, true);
-			else
-				window.openDialog(this.utils.mainURI, '_blank', 'chrome,all,dialog=no', mailer);
-
-			return;
-		}
-
-		var params  = { value : [] };
-		var options = this.replaceMailArgumentsFromURI(this.utils.getPref('ctxextensions.override.mailer.options'), aURI, params);
-		if (aPageTitle)
-			options = options.replace(/%pagetitle/gi, aPageTitle);
-		if (aPageURI)
-			options = options.replace(/%pageur[il]/gi, aPageURI);
-
-		if (params.value && params.value.length &&
-			options.indexOf(params.value[0]) < 0)
-			options = (options) ? params.value[0]+' '+options : params.value[0] ;
-
-		this.run(mailer, options);
-	},
-
-	// メールアドレスへのリンクを解釈する（RFC2368形式に準拠）
-	replaceMailArgumentsFromURI : function(aBaseString, aURI, aOutArray)
-	{
-		var params = [
-				aURI.match(/^mailto:([^?]+)/) ? RegExp.$1 : '' ,
-				aURI.match(/subject=([^?]+)/) ? RegExp.$1 : '' ,
-				aURI.match(/[^b]cc=([^?]+)/) ? RegExp.$1 : '' ,
-				aURI.match(/bcc=([^?]+)/) ? RegExp.$1 : '' ,
-				aURI.match(/body=([^?]+)/) ? RegExp.$1 : ''
-			];
-
-		var charset = this.utils.getPref('ctxextensions.override.mailer.charset');
-		if (charset != 'UTF-8') {
-			this.utils.UCONV.charset = charset;
-
-			var webMail = ExtCommonUtils.getPref('ctxextensions.override.mailer.webmail.enable');
-
-			for (var i in params)
-			{
-				if (!params[i]) continue;
-				params[i] = decodeURI(params[i]);
-				params[i] = this.utils.UCONV.ConvertFromUnicode(params[i]);
-				if (webMail)
-					params[i] = this.utils.byteEscape(params[i]);
-			}
-		}
-
-		if (aOutArray) aOutArray.value = params;
-
-		return aBaseString.replace(/%to/ig, params[0])
-				.replace(/%subject/ig, params[1])
-				.replace(/%cc/ig, params[2])
-				.replace(/%bcc/ig, params[3])
-				.replace(/%body/ig, params[4]);
 	},
  
 	initEvents : function() 

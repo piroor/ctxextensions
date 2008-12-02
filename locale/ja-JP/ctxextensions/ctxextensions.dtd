@@ -339,35 +339,12 @@
 
 
 
-<!ENTITY override.tab.editor               "エディタ">
-
 <!ENTITY override.CSSEditor.caption        "ユーザースタイルシートの編集に使うエディタ">
 <!ENTITY override.CSSEditor.path           "パス：">
 <!ENTITY override.CSSEditor.filePicker     "&common.choose;">
 <!ENTITY override.CSSEditor.arguments      "追加の起動オプション(※)：">
 
 <!ENTITY override.description              "※起動オプションはURI, ファイルパスの後に渡されます。オプションの後でこれらを渡したい場合、「&#37;S」を任意の位置に書いて下さい。">
-
-
-
-<!ENTITY override.tab.mailer               "メーラー">
-
-<!ENTITY override.mailer.caption           "メーラー">
-<!ENTITY override.mailer.system            "標準のメーラを使う">
-<!ENTITY override.mailer.webmail           "Webメールを使う">
-<!ENTITY override.mailer.webmail_path      "パス（※）：">
-<!ENTITY override.mailer.webmail_usetab    "Webメールのページをタブで開く">
-<!ENTITY override.mailer.path              "パス：">
-<!ENTITY override.mailer.filePicker        "&common.choose;">
-<!ENTITY override.mailer.arguments         "追加の起動オプション(※)：">
-<!ENTITY override.mailer.charset           "パラメータの文字コード：">
-
-<!ENTITY override.mailer.description       "※起動オプションはE-mailアドレスの後に渡されます。オプションの順番を変えたい場合や、その他のパラメータも渡す場合は、以下の記号を任意の位置に置いて下さい。">
-<!ENTITY override.mailer.description.to      "&#37;to      ：メールアドレス">
-<!ENTITY override.mailer.description.subject "&#37;subject ：件名">
-<!ENTITY override.mailer.description.cc      "&#37;cc      ：カーボンコピー">
-<!ENTITY override.mailer.description.bcc     "&#37;bcc     ：ブラインド カーボコピー">
-<!ENTITY override.mailer.description.body    "&#37;body    ：本文">
 
 
 

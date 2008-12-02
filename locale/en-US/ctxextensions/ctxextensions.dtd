@@ -339,8 +339,6 @@
 
 
 
-<!ENTITY override.tab.editor               "Editor">
-
 <!ENTITY override.CSSEditor.caption        "Editor for the Global User StyleSheet(userContent.css)">
 <!ENTITY override.CSSEditor.path           "Path:">
 <!ENTITY override.CSSEditor.filePicker     "&common.choose;">
@@ -349,24 +347,6 @@
 <!ENTITY override.description              "*Additional options are handed to the application after the URI or the file path. Write &quot;&#37;S&quot; to the desirable place to hand it if you want to change their order.">
 
 
-<!ENTITY override.tab.mailer               "Mailer">
-
-<!ENTITY override.mailer.caption           "Mailer">
-<!ENTITY override.mailer.system            "Use default mailer of the system">
-<!ENTITY override.mailer.webmail           "Use Web Mail Service">
-<!ENTITY override.mailer.webmail_path      "Path(*):">
-<!ENTITY override.mailer.webmail_usetab    "Open the page in New Tab">
-<!ENTITY override.mailer.path              "Path:">
-<!ENTITY override.mailer.filePicker        "&common.choose;">
-<!ENTITY override.mailer.arguments         "Additional Options(*):">
-<!ENTITY override.mailer.charset           "Character Coding of parameters:">
-
-<!ENTITY override.mailer.description       "*Additional options are handed to the application after the e-mail address(es). Write signs to the desirable places to hand them if you want to change their order or use other parameters, following:">
-<!ENTITY override.mailer.description.to      "&#37;to      : e-mail address(es)">
-<!ENTITY override.mailer.description.subject "&#37;subject : subject">
-<!ENTITY override.mailer.description.cc      "&#37;cc      : carbon copy(s)">
-<!ENTITY override.mailer.description.bcc     "&#37;bcc     : blind carbon copy(s)">
-<!ENTITY override.mailer.description.body    "&#37;body    : body of the mail">
 
 
 

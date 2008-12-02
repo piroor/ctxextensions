@@ -9,147 +9,31 @@
 
 <window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
 		orient="vertical"
-		headertitle="&preftree.override.label;"
-		onload="window.setTimeout('showHideMailerBox();', 0);">
+		headertitle="&preftree.override.label;">
 
-<script type="application/x-javascript"><![CDATA[
+	<groupbox orient="vertical">
+		<caption label="&override.CSSEditor.caption;"/>
+		<box orient="horizontal">
+			<label value="&override.CSSEditor.path;"
+				control="CSSEditorPath"/>
+			<textbox flex="1"
+				id="CSSEditorPath"
+				prefstring="ctxextensions.override.CSSEditor.path"/>
+			<button label="&override.CSSEditor.filePicker;"
+				oncommand="PrefUtils.getFilePathFor(this.previousSibling.id, ExtCommonUtils.getMsg('filePicker_title_applications'));"/>
+		</box>
+		<box orient="horizontal">
+			<label value="&override.CSSEditor.arguments;"
+				control="CSSEditorArguments"/>
+			<textbox flex="1" style="min-width: 10em;"
+				id="CSSEditorArguments"
+				prefstring="ctxextensions.override.CSSEditor.options"/>
+		</box>
+	</groupbox>
 
-// init charset menu, because the list isn't shown at first. why?
-var observerService = Components.classes['@mozilla.org/observer-service;1'].getService(Components.interfaces.nsIObserverService);
-observerService.notifyObservers(null, 'charsetmenu-selected', 'other');
-
-function showHideMailerBox()
-{
-	var checked = document.getElementById('mailerWeb').checked;
-	document.getElementById('mailerBox').hidden = checked;
-	document.getElementById('mailerWebBox').hidden = !checked;
-}
-
-]]></script>
-
-	<tabbox orient="vertical">
-		<tabs>
-			<tab label="&override.tab.editor;"/>
-			<tab label="&override.tab.mailer;"/>
-		</tabs>
-
-		<tabpanels>
-			<tabpanel orient="vertical">
-				<groupbox orient="vertical">
-					<caption label="&override.CSSEditor.caption;"/>
-					<box orient="horizontal">
-						<label value="&override.CSSEditor.path;"
-							control="CSSEditorPath"/>
-						<textbox flex="1"
-							id="CSSEditorPath"
-							prefstring="ctxextensions.override.CSSEditor.path"/>
-						<button label="&override.CSSEditor.filePicker;"
-							oncommand="PrefUtils.getFilePathFor(this.previousSibling.id, ExtCommonUtils.getMsg('filePicker_title_applications'));"/>
-					</box>
-					<box orient="horizontal">
-						<label value="&override.CSSEditor.arguments;"
-							control="CSSEditorArguments"/>
-						<textbox flex="1" style="min-width: 10em;"
-							id="CSSEditorArguments"
-							prefstring="ctxextensions.override.CSSEditor.options"/>
-					</box>
-				</groupbox>
-
-				<box orient="vertical">
-					<description>&override.description;</description>
-				</box>
-
-			</tabpanel>
-
-			<tabpanel orient="vertical">
-
-				<groupbox orient="vertical">
-					<caption label="&override.mailer.caption;"/>
-					<box orient="vertical">
-						<box orient="horizontal">
-							<checkbox id="mailerSystem"
-								label="&override.mailer.system;"
-								prefstring="network.protocol-handler.external.mailto"
-								oncommand="PrefUtils.controlLinkedItems(this);"
-								linked-reversed="true"
-								linked="mailerWeb mailerWebPath mailerWebPath-label mailerWebUseTab mailerPath mailerPath-label mailerPath-picker mailerArguments mailerArguments-label charsetList charsetList-label"/>
-							<spacer flex="1"/>
-							<checkbox id="mailerWeb"
-								label="&override.mailer.webmail;"
-								prefstring="ctxextensions.override.mailer.webmail.enable"
-								oncommand="showHideMailerBox();"/>
-						</box>
-
-						<box orient="vertical" id="mailerBox">
-							<box orient="horizontal">
-								<label value="&override.mailer.path;"
-									id="mailerPath-label"
-									control="mailerPath"/>
-								<textbox flex="1"
-									id="mailerPath"
-									prefstring="ctxextensions.override.mailer.path"/>
-								<button label="&override.mailer.filePicker;"
-									id="mailerPath-picker"
-									oncommand="PrefUtils.getFilePathFor(this.previousSibling.id, ExtCommonUtils.getMsg('filePicker_title_applications'));"/>
-							</box>
-							<box orient="horizontal">
-								<label value="&override.mailer.arguments;"
-									id="mailerArguments-label"
-									control="mailerArguments"/>
-								<textbox flex="1" style="min-width: 10em;"
-									id="mailerArguments"
-									prefstring="ctxextensions.override.mailer.options"/>
-							</box>
-						</box>
-
-						<box orient="vertical" id="mailerWebBox" hidden="true">
-							<box orient="horizontal">
-								<label value="&override.mailer.webmail_path;"
-									id="mailerWebPath-label"
-									control="mailerWebPath"/>
-								<textbox flex="1"
-									id="mailerWebPath"
-									prefstring="ctxextensions.override.mailer.webmail.path"/>
-							</box>
-							<checkbox label="&override.mailer.webmail_usetab;"
-								id="mailerWebUseTab"
-								prefstring="ctxextensions.override.mailer.webmail.usetab"/>
-						</box>
-
-						<label id="charsetList-label"
-							control="charsetList"
-							value="&override.mailer.charset;"/>
-						<box orient="horizontal">
-							<menulist id="charsetList"
-								prefstring="ctxextensions.override.mailer.charset"
-								preftype="localizedstring"
-								datasources="rdf:charset-menu"
-								ref="NC:DecodersRoot">
-								<template>
-									<menupopup>
-										<menuitem uri="..."
-											label="rdf:http://home.netscape.com/NC-rdf#Name"
-											value="..."/>
-									</menupopup>
-								</template>
-							</menulist>
-						</box>
-					</box>
-				</groupbox>
-
-				<box orient="vertical">
-					<description>&override.mailer.description;</description>
-					<description>&override.mailer.description.to;</description>
-					<description>&override.mailer.description.subject;</description>
-					<description>&override.mailer.description.cc;</description>
-					<description>&override.mailer.description.bcc;</description>
-					<description>&override.mailer.description.body;</description>
-				</box>
-
-			</tabpanel>
-
-		</tabpanels>
-	</tabbox>
+	<box orient="vertical">
+		<description>&override.description;</description>
+	</box>
 
 	<spacer flex="1"/>
 
