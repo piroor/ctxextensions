@@ -5,7 +5,7 @@
   <RDF:Description RDF:about="urn:mozilla:install-manifest"
                    em:id="{4C4D8A1D-1E3C-439e-9298-16073A5C4851}"
                    em:name="ContextMenu Extensions"
-                   em:version="4.1.2008062001"
+                   em:version="4.2.2008120201"
                    em:creator="SHIMODA Hiroshi"
                    em:description="Adds many useful features to the browser."
                    em:homepageURL="http://piro.sakura.ne.jp/xul/ctxextensions/index.html.en"
@@ -20,11 +20,40 @@
     <em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDLI43lgUhWE0E7bfiuTrQMKIP53KM3w71VEPc9FxE7YS3Hpr85dC/GgEUDPd6xD7UP7ckzEusN49LCAKoipepxgyAWzQjZ3CzvkD7PWsZFTi7lpj9ytYDysoFwHs0L96i5oiVopNj1NQM2AC0Y5Lr0b6lz2L5ece0/z6monpZXPQIDAQAB</em:updateKey>
 
 
+    <em:localized>
+      <RDF:Description em:locale="en-US"
+                       em:name="ContextMenu Extensions"
+                       em:description="Adds many useful features to the browser."
+                       em:homepageURL="http://piro.sakura.ne.jp/xul/ctxextensions/index.html.en"
+                       em:creator="SHIMODA Hiroshi">
+		<em:translator>Alan CHENG (zh-TW locale)</em:translator>
+      </RDF:Description>
+    </em:localized>
+    <em:localized>
+      <RDF:Description em:locale="ja-JP"
+                       em:name="コンテキストメニュー拡張"
+                       em:description="コンテキストメニュー拡張（右クリックメニュー）に色々な機能を加えます。"
+                       em:homepageURL="http://piro.sakura.ne.jp/xul/ctxextensions/index.html.en"
+                       em:creator="SHIMODA Hiroshi">
+		<em:translator>Alan CHENG (zh-TW locale)</em:translator>
+      </RDF:Description>
+    </em:localized>
+    <em:localized>
+      <RDF:Description em:locale="zh-TW"
+                       em:name="ContextMenu Extensions"
+                       em:description="Adds many useful features to the browser."
+                       em:homepageURL="http://piro.sakura.ne.jp/xul/ctxextensions/index.html.en"
+                       em:creator="SHIMODA Hiroshi">
+		<em:translator>Alan CHENG (zh-TW locale)</em:translator>
+      </RDF:Description>
+    </em:localized>
+
+
     <em:targetApplication>
       <!-- Firefox -->
       <RDF:Description em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
                        em:minVersion="1.5"
-                       em:maxVersion="3.1b2pre" />
+                       em:maxVersion="3.1b3pre" />
     </em:targetApplication>
     <em:targetApplication>
       <!-- Netscape Browser 8 -->
