@@ -47,10 +47,6 @@ window.addEventListener('load', function() {
 					<label value="&menu.navigations.label;"/>
 					<checkbox prefstring="ctxextensions.submenu.menubar.navigations"/>
 				</row>
-				<row class="for-browser">
-					<label value="&menu.styleSheets.label;"/>
-					<checkbox prefstring="ctxextensions.submenu.menubar.styleSheets"/>
-				</row>
 				<row>
 					<label value="&menu.sendURI.label;"/>
 					<checkbox prefstring="ctxextensions.submenu.menubar.sendURI"/>
