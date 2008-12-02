@@ -1,9 +1,0 @@
-@namespace url(http://piro.sakura.ne.jp/ctxextensions);
-
-@media screen,print {
-	*:before, *:after, projection {
-		content: "" !important;
-		display: none !important;
-		white-space: normal !important;
-	}
-}
