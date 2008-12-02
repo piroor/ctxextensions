@@ -246,12 +246,6 @@
 <!ENTITY general.outline.caption "頁面大綱">
 <!ENTITY general.outline.scan_in_background "頁面載入時自動更新大綱">
 
-<!ENTITY general.style.caption "元素樣式">
-<!ENTITY general.style.group "生成元素的樣式依據">
-<!ENTITY general.style.showEvents.label "&menu.showEvents.label;: 事件名稱">
-<!ENTITY general.style.showEvents.value "&menu.showEvents.label;: 內容">
-<!ENTITY general.style.default "預設樣式">
-
 
 <!ENTITY general.general2.caption "進階設定">
 <!ENTITY general.getLinks_collectOnClick.label "「&menu.getLinks.label;」時，亦由 onclick 事件尋找 URI">

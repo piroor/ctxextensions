@@ -298,7 +298,6 @@ var ExtService = {
 	// ƒƒjƒ…[‚Ì‰Šú‰» 
 	initMenu : function()
 	{
-		this.rebuildStyleSheets();
 		this.rebuildExecApps();
 		this.rebuildCustomScripts();
 		this.rebuildSendStr();

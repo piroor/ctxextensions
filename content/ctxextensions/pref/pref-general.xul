@@ -26,42 +26,11 @@ window.addEventListener('load', function() {
 ]]></script>
 
 
-	<script type="application/x-javascript"><![CDATA[
-
-	function setStyle(aName)
-	{
-		var data = {
-			styleRules : ExtCommonUtils.getPref('ctxextensions.style.'+aName, true),
-
-			mName        : aName,
-			callBackFunc : function()
-			{
-				if ('modified' in this)
-					ExtCommonUtils.setPref('ctxextensions.style.'+this.mNName, this.styleRules, true);
-			}
-		};
-
-		window.openDialog('chrome://ctxextensions/content/pref/prefProperty.xul', '_blank', 'chrome,all,dialog=no,centerscreen', data);
-	}
-
-	function setDefaultStyle(aName)
-	{
-		if (ExtCommonUtils.PromptService.confirm(
-				window,
-				ExtCommonUtils.getMsg('pref_confirm_title'),
-				ExtCommonUtils.getMsg('pref_general_style_setDefault')
-			))
-			ExtCommonUtils.clearPref('ctxextensions.style.'+aName);
-	}
-
-	]]></script>
-
 	<tabbox orient="vertical" flex="1">
 	<tabs orient="horizontal">
 		<tab label="&general.showResultIn.caption;" class="for-browser"/>
 		<tab label="&general.misc.caption;" class="for-browser"/>
 		<tab label="&general.keys.caption;" expert="true"/>
-		<tab label="&general.style.caption;" expert="true" class="for-browser"/>
 	</tabs>
 	<tabpanels flex="1" class="for-browser">
 
@@ -289,77 +258,6 @@ window.addEventListener('load', function() {
 			<data maclabel-for="getLinks"
 				value="&general.keys.getLinks.mac;"/>
 			</box>
-		</box>
-
-
-		<box orient="vertical" class="for-browser">
-		<groupbox>
-			<caption label="&general.style.group;"/>
-			<grid>
-				<columns>
-					<column flex="1"/>
-					<column/>
-				</columns>
-				<rows>
-					<row>
-						<button
-							label="&menu.showComments.label;"
-							oncommand="setStyle('showComments');"/>
-						<button
-							label="&general.style.default;"
-							oncommand="setDefaultStyle('showComments');"/>
-					</row>
-					<row>
-						<button
-							label="&menu.showLinks.label;"
-							oncommand="setStyle('showLinks');"/>
-						<button
-							label="&general.style.default;"
-							oncommand="setDefaultStyle('showLinks');"/>
-					</row>
-					<row>
-						<button
-							label="&menu.showIDs.label;"
-							oncommand="setStyle('showIDs');"/>
-						<button
-							label="&general.style.default;"
-							oncommand="setDefaultStyle('showIDs');"/>
-					</row>
-					<row>
-						<button
-							label="&menu.showCites.label;"
-							oncommand="setStyle('showCites');"/>
-						<button
-							label="&general.style.default;"
-							oncommand="setDefaultStyle('showCites');"/>
-					</row>
-					<row>
-						<button
-							label="&menu.showTitles.label;"
-							oncommand="setStyle('showTitles');"/>
-						<button
-							label="&general.style.default;"
-							oncommand="setDefaultStyle('showTitles');"/>
-					</row>
-					<row>
-						<button
-							label="&general.style.showEvents.label;"
-							oncommand="setStyle('showEvents.label');"/>
-						<button
-							label="&general.style.default;"
-							oncommand="setDefaultStyle('showEvents.label');"/>
-					</row>
-					<row>
-						<button
-							label="&general.style.showEvents.value;"
-							oncommand="setStyle('showEvents.value');"/>
-						<button
-							label="&general.style.default;"
-							oncommand="setDefaultStyle('showEvents.value');"/>
-					</row>
-				</rows>
-			</grid>
-		</groupbox>
 		</box>
 
 

@@ -242,12 +242,6 @@
 <!ENTITY general.outline.caption           "ページのアウトライン">
 <!ENTITY general.outline.scan_in_background "ページ読み込み時にアウトライン情報を自動で更新する">
 
-<!ENTITY general.style.caption             "要素の表示">
-<!ENTITY general.style.group               "ラベルの表示スタイル">
-<!ENTITY general.style.showEvents.label    "&menu.showEvents.label;：イベント名">
-<!ENTITY general.style.showEvents.value    "&menu.showEvents.label;：内容">
-<!ENTITY general.style.default             "初期値に戻す">
-
 
 <!ENTITY general.general2.caption          "特殊な動作">
 <!ENTITY general.getLinks_collectOnClick.label "リンク一覧の取得でonclickイベントも検索する">

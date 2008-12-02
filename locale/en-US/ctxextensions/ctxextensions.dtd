@@ -244,13 +244,6 @@
 <!ENTITY general.outline.caption           "Outline of Pages">
 <!ENTITY general.outline.scan_in_background "Update outline automatically when pages are loaded">
 
-<!ENTITY general.style.caption             "Style of Elements">
-<!ENTITY general.style.group               "Style of Generated Elements by">
-<!ENTITY general.style.showEvents.label    "&menu.showEvents.label;: Name of Events">
-<!ENTITY general.style.showEvents.value    "&menu.showEvents.label;: Contents">
-<!ENTITY general.style.default             "Default Style">
-
-
 <!ENTITY general.general2.caption          "Advanced Behavior">
 <!ENTITY general.getLinks_collectOnClick.label "Find URIs from onclick events too, with &quot;&menu.getLinks.label;&quot;">
 
