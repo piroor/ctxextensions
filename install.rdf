@@ -32,7 +32,7 @@
     <em:localized>
       <RDF:Description em:locale="ja-JP"
                        em:name="コンテキストメニュー拡張"
-                       em:description="コンテキストメニュー拡張（右クリックメニュー）に色々な機能を加えます。"
+                       em:description="コンテキストメニュー（右クリックメニュー）に色々な機能を加えます。"
                        em:homepageURL="http://piro.sakura.ne.jp/xul/ctxextensions/index.html.en"
                        em:creator="SHIMODA Hiroshi">
 		<em:translator>Alan CHENG (zh-TW locale)</em:translator>
