@@ -964,6 +964,7 @@ catch(e) {
 
 		// flags are defined in the code:
 		// http://lxr.mozilla.org/mozilla/source/content/base/public/nsIDocumentEncoder.h
+		// http://mxr.mozilla.org/mozilla-central/source/content/base/public/nsIDocumentEncoder.idl
 		// 128 = make links absolute
 		// 256 = use all entities
 		// 16384 = use only basic entities
