@@ -356,10 +356,7 @@ var ExtFunc = {
 
 		if (aNode.firstChild)
 			aNode.insertBefore(output, aNode.firstChild);
-		else if (aNode.nextSibling)
-			aNode.parentNode.insertBefore(output, aNode.nextSibling);
-		else
-			aNode.parentNode.appendChild(output);
+		aNode.parentNode.insertBefore(output, aNode.nextSibling);
 	},
   
 	// ‘I‘ð•¶Žš—ñ‚ð‘—‚é 

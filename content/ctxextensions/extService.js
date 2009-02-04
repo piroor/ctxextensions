@@ -1924,10 +1924,7 @@ catch(e) {
 				newSep = document.createElement('menuseparator');
 				newSep.setAttribute('ext-item-userdefined', 'true');
 				newSep.setAttribute('class', 'menuseparator-ctxextensions');
-				if (ref)
-					sep.parentNode.insertBefore(newSep, ref);
-				else
-					sep.parentNode.appendChild(newSep);
+				sep.parentNode.insertBefore(newSep, ref);
 			}
 
 			mpopup = document.getElementById(data[i+1]);
@@ -1958,10 +1955,7 @@ catch(e) {
 
 				item.setAttribute('ext-item-userdefined', 'true');
 
-				if (ref)
-					sep.parentNode.insertBefore(item, ref);
-				else
-					sep.parentNode.appendChild(item);
+				sep.parentNode.insertBefore(item, ref);
 
 				count++;
 			}
