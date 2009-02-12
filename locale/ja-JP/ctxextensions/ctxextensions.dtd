@@ -473,6 +473,9 @@
 <!ENTITY shortExpressions.setPref          "設定を保存する">
 <!ENTITY shortExpressions.clearPref        "設定を消去する">
 
+<!ENTITY shortExpressions.getStackTrace    "スタックトレースを取得する">
+<!ENTITY shortExpressions.inspect          "オブジェクトの内容をシリアライズする">
+
 
 
 

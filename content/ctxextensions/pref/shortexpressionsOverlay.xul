@@ -222,6 +222,13 @@
 						value="_setPref(presfstring, value)"/>
 					<menuitem label="&shortExpressions.clearPref;"
 						value="_clearPref(prefstring)"/>
+
+			<menuseparator/>
+
+					<menuitem label="&shortExpressions.getStackTrace;"
+						value="_getStackTrace()"/>
+					<menuitem label="&shortExpressions.inspect;"
+						value="_inspect(object)"/>
 <!--
 				</menupopup>
 			</menu>

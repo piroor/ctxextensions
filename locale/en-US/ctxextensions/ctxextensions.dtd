@@ -473,6 +473,9 @@
 <!ENTITY shortExpressions.setPref          "Save the preference">
 <!ENTITY shortExpressions.clearPref        "Clear the preference">
 
+<!ENTITY shortExpressions.getStackTrace    "Get stack trace">
+<!ENTITY shortExpressions.inspect          "Serialize object">
+
 
 
 

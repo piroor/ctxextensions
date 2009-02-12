@@ -3127,6 +3127,79 @@ function _getInnerText(node)
 	 return node.textContent;
 };
 
+function _getStackTrace()
+{
+	var stacks = [];
+	var stack = Components.stack;
+	while (stack = stack.caller)
+	{
+		stacks.push(stack);
+	}
+	return stacks;
+};
+
+function _inspect(aObject)
+{
+	var inspected = [];
+	var results = [];
+	return Array.slice(arguments).map(function(aObject) {
+		if (aObject === null) {
+			return 'null';
+		}
+		else if (aObject === void(0)) {
+			return 'undefined';
+		}
+		else if (!aObject.__proto__) {
+			return aObject.toString();
+		}
+		var index = inspected.indexOf(aObject);
+		if (index > -1) {
+			return results[index];
+		}
+		var result = '';
+		if (aObject instanceof Array) {
+			aObject.forEach(function(aObject) {
+				inspected.push(aObject);
+				results.push(aObject.toString());
+			});
+			result = '['+aObject.map(arguments.callee).join(', ')+']';
+		}
+		else if (typeof aObject == 'object') {
+			var names = [];
+			for (var i in aObject)
+			{
+				names.push(i);
+				try {
+					inspected.push(aObject[i]);
+				results.push(aObject[i].toString());
+				}
+				catch(e) {
+				}
+			}
+			names.sort();
+			result = '{'+
+				names.map(function(aName) {
+					var namePart = '"'+aName.replace(/"/g, '\\"')+'": ';
+					try {
+						return namePart+this(aObject[aName]);
+					}
+					catch(e) {
+						return namePart+'???';
+					}
+				}, arguments.callee).join(', ')+
+				'}';
+		}
+		else if (typeof aObject == 'string') {
+			result = '"'+aObject.replace(/"/g, '\\"')+'"';
+		}
+		else {
+			result = aObject.toString();
+		}
+		inspected.push(aObject);
+		results.push(result);
+		return result;
+	}).join(', ');
+};
  
 // èâä˙âª 
 window.addEventListener(

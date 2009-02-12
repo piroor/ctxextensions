@@ -476,6 +476,9 @@
 <!ENTITY shortExpressions.setPref "儲存偏好設定">
 <!ENTITY shortExpressions.clearPref "清除偏好設定">
 
+<!ENTITY shortExpressions.getStackTrace    "Get stack trace">
+<!ENTITY shortExpressions.inspect          "Serialize object">
+
 
 
 
