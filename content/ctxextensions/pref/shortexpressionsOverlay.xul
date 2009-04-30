@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE overlay SYSTEM "chrome://ctxextensions/locale/">
 
@@ -8,7 +8,7 @@
 	orient="horizontal" style="border: thin -moz-bg-inset;">
 
 	<script type="application/x-javascript"><![CDATA[
-		// ’èŒ^•¶‚Ì‘}“ü
+		// å®šåž‹æ–‡ã®æŒ¿å…¥
 		function insertExpression()
 		{
 			var box = document.getElementById('shortExpressions');
