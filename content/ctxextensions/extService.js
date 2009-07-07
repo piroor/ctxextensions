@@ -84,16 +84,7 @@ var ExtService = {
 		var mpopup = document.getElementById('ext-common-execApps:mpopup');
 		return mpopup && mpopup.hasChildNodes() && mpopup.lastChild.localName == 'menuitem';
 	},
-  
-	// XPConnect Wraped Object 
-	get PROCESS()
-	{
-		if (!this._process)
-			this._process = Components.classes['@mozilla.org/process/util;1'].getService(Components.interfaces.nsIProcess);
-		return this._process;
-	},
-	_process : null,
-  
+   
 	// content 
 	
 	// 現在のフレームの内容を返す 
@@ -625,9 +616,11 @@ var ExtService = {
 		}
 
 		var app = this.utils.makeFileWithPath(aFilepath);
-		this.PROCESS.init(app);
-		this.PROCESS.run(false, aArgs, aArgs.length, {});
-		return this.PROCESS;
+		var process = Components.classes['@mozilla.org/process/util;1']
+						.createInstance(Components.interfaces.nsIProcess);
+		process.init(app);
+		process.run(false, aArgs, aArgs.length, {});
+		return process;
 	},
  
 	// カスタムスクリプトなどのインデックスからIDを返す 
