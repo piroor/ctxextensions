@@ -3,8 +3,6 @@
 <?xul-overlay href="prefOverlay.xul"?>
 
 <!DOCTYPE window [
-<!ENTITY % versionDTD SYSTEM "chrome://ctxextensions/content/_version.dtd">
-%versionDTD;
 <!ENTITY % ctxextensionsDTD SYSTEM "chrome://ctxextensions/locale/">
 %ctxextensionsDTD;
 ]>
@@ -38,24 +36,6 @@
 				flex="1"/>
 			<button label="&about.datasource.choose;"
 				oncommand="chooseExtensionsData(this.previousSibling.id);"/>
-		</box>
-	</groupbox>
-
-	<spacer flex="1"/>
-
-	<groupbox orient="vertical">
-		<caption label="&about.about.caption;"/>
-		<box orient="horizontal">
-			<spacer flex="1"/>
-			<description value="&about.about.label_before;&version;&about.about.label_after;"/>
-			<spacer flex="1"/>
-		</box>
-		<box orient="horizontal">
-			<spacer flex="1"/>
-			<description value="http://piro.sakura.ne.jp/"
-				onclick="PrefUtils.loadURI('http://piro.sakura.ne.jp/');"
-				class="text-link"/>
-			<spacer flex="1"/>
 		</box>
 	</groupbox>
 

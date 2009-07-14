@@ -201,10 +201,6 @@
 <!ENTITY about.expert.caption              "Expert Preferences">
 <!ENTITY about.expert.label                "Use Expert Preferences">
 
-<!ENTITY about.about.caption               "About ContextMenu Extensions">
-<!ENTITY about.about.label_before          "ContextMenu Extensions Ver.">
-<!ENTITY about.about.label_after           "">
-
 <!ENTITY importRDFData.message             "Please wait...">
 
 

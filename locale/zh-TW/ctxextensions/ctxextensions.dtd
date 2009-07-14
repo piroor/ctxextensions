@@ -203,10 +203,6 @@
 <!ENTITY about.expert.caption "專家選項">
 <!ENTITY about.expert.label "使用專家選項">
 
-<!ENTITY about.about.caption "關於 ContextMenu Extensions">
-<!ENTITY about.about.label_before "ContextMenu Extensions Ver.">
-<!ENTITY about.about.label_after "">
-
 <!ENTITY importRDFData.message "請稍待...">
 
 

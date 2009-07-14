@@ -199,10 +199,6 @@
 <!ENTITY about.expert.caption              "エキスパート設定">
 <!ENTITY about.expert.label                "詳細な設定を利用する">
 
-<!ENTITY about.about.caption               "コンテキストメニュー拡張について">
-<!ENTITY about.about.label_before          "コンテキストメニュー拡張 Ver.">
-<!ENTITY about.about.label_after           "">
-
 <!ENTITY importRDFData.message             "しばらくお待ち下さい...">
 
 

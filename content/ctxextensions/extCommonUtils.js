@@ -1728,9 +1728,6 @@ var ExtCommonUtils = {
 		var i;
 		var nullPointer;
 
-		// デフォルト設定を読み込む
-		this.loadPrefs();
-
 		try {
 			nullPointer = this.SENDSTR;
 			nullPointer = this.SENDURI;
@@ -1766,48 +1763,6 @@ var ExtCommonUtils = {
 			}
 		}
 		this.cleanUpInvalidKeysWithDelay();
-	},
-	loadPrefs : function()
-	{
-		if (this.getPref('ctxextensions.default.type') === null)
-			window.openDialog('chrome://ctxextensions/content/initializeDefaultPref.xul', '_blank', 'chrome,modal,resizable=no,titlebar=no,centerscreen');
-
-
-		var defPref;
-		var i;
-
-		const dir = 'chrome://ctxextensions/content/default/';
-		switch (this.getPref('ctxextensions.default.type'))
-		{
-			default:
-			case 0:
-				defPref = this.readFrom(dir+'default.js');
-				break;
-
-			case 1:
-				defPref = this.readFrom(dir+'default.light.js');
-				break;
-		}
-
-		var prefs = [];
-		var pref = function(aPrefstring, aValue) {
-			prefs[prefs.length] = { name : aPrefstring, value : aValue };
-		}
-		eval(defPref);
-
-
-		const DEFPrefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getDefaultBranch(null);
-		var done = {},
-			nullPointer;
-		for (i = prefs.length-1; i > -1; i--)
-		{
-			if (prefs[i].name in done) continue;
-
-			this.setPref(prefs[i].name, prefs[i].value, false, DEFPrefs);
-
-			nullPointer = this.getPref(prefs[i]);
-			done[prefs[i].name] = true;
-		}
 	}
  
 }; 
