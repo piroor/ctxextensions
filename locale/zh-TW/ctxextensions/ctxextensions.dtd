@@ -74,9 +74,6 @@
 <!ENTITY context.bookmarks.label "書籤">
 <!ENTITY context.up.label "上層目錄">
 <!ENTITY context.up.accesskey "u">
-<!ENTITY context.openSelectionAsURI.label "把選取文字當成 URI 開啟">
-<!ENTITY context.openSelectionAsURI.label_select "把「&#37;s」當成 URI 開啟">
-<!ENTITY context.openSelectionAsURI.accesskey "o">
 <!ENTITY context.nextHeading.label "衝到下個標題">
 <!ENTITY context.nextHeading.accesskey "s">
 <!ENTITY context.prevHeading.label "衝回上個標題">
@@ -118,9 +115,6 @@
 
 <!ENTITY menu.up.label "&context.up.label;">
 <!ENTITY menu.up.accesskey "&context.up.accesskey;">
-<!ENTITY menu.openSelectionAsURI.label "&context.openSelectionAsURI.label;">
-<!ENTITY menu.openSelectionAsURI.label_select "context.openSelectionAsURI.label_select;">
-<!ENTITY menu.openSelectionAsURI.accesskey "&context.openSelectionAsURI.accesskey;">
 <!ENTITY menu.nextHeading.label "&context.nextHeading.label;">
 <!ENTITY menu.nextHeading.accesskey "&context.nextHeading.accesskey;">
 <!ENTITY menu.prevHeading.label "&context.prevHeading.label;">

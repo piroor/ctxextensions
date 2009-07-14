@@ -256,7 +256,6 @@ var ExtService = {
 				'JSPanel',
 				'navigations',
 				'nextHeading',
-				'openSelectionAsURI',
 				'outline',
 				'prevHeading',
 				'sendStr',
@@ -507,7 +506,6 @@ var ExtService = {
 						'JSPanel',
 						'navigations',
 						'nextHeading',
-						'openSelectionAsURI',
 						'outline',
 						'prevHeading',
 						'sendStr',
@@ -2185,7 +2183,6 @@ catch(e) {
 		var items = [
 				'go',                 hasHistory && showGo && normal,
 				'up',                 this.canUp && normal,
-				'openSelectionAsURI', sel,
 				'nextHeading',        showGo && this.hasOutline && normal,
 				'prevHeading',        showGo && this.hasOutline && normal,
 				'openCiteForQuote',   this.getCiteForQuote() && normal,
@@ -2309,7 +2306,6 @@ catch(e) {
 
 		var items = [
 				'up',                 this.canUp,
-				'openSelectionAsURI', sel,
 				'nextHeading',        this.hasOutline,
 				'prevHeading',        this.hasOutline,
 				'outline',            this.hasOutline,

@@ -75,11 +75,6 @@ window.addEventListener('load', function() {
 					<checkbox prefstring="ctxextensions.submenu.context.prevHeading"/>
 				</row>
 				<separator class="for-browser"/>
-				<row>
-					<label value="&context.openSelectionAsURI.label;"/>
-					<checkbox prefstring="ctxextensions.show_item.context.openSelectionAsURI"/>
-					<checkbox prefstring="ctxextensions.submenu.context.openSelectionAsURI"/>
-				</row>
 				<row class="for-browser">
 					<label value="&context.openCiteForQuote.label;"/>
 					<checkbox prefstring="ctxextensions.show_item.context.openCiteForQuote"/>

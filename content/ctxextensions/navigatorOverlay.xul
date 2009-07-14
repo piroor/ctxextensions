@@ -156,12 +156,6 @@
 				label="&menu.showAll.label;"
 				oncommand="ExtFunc.doCommand('showAll')"/>
 			<menuseparator class="menuseparator-ctxextensions"/>
-			<menuitem id="menu-item-openSelectionAsURI:submenu"
-				label="&menu.openSelectionAsURI.label;"
-				label-for-select="&menu.openSelectionAsURI.label_select;"
-				oncommand="ExtFunc.doCommand('openSelectionAsURI')"
-				accesskey="&menu.openSelectionAsURI.accesskey;"/>
-			<menuseparator class="menuseparator-ctxextensions"/>
 			<menu id="menu-item-sendURI:submenu"
 				label="&menu.sendURI.label;">
 				<menupopup id="menu-item-sendURI:mpopup:submenu"

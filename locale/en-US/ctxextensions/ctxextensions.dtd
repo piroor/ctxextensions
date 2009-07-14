@@ -74,9 +74,6 @@
 <!ENTITY context.bookmarks.label              "Bookmarks">
 <!ENTITY context.up.label                     "Up">
 <!ENTITY context.up.accesskey                 "u">
-<!ENTITY context.openSelectionAsURI.label     "Open selection as URI">
-<!ENTITY context.openSelectionAsURI.label_select "Open &quot;&#37;s&quot; as URI">
-<!ENTITY context.openSelectionAsURI.accesskey "o">
 <!ENTITY context.nextHeading.label            "Go to Next Heading">
 <!ENTITY context.nextHeading.accesskey        "s">
 <!ENTITY context.prevHeading.label            "Go to Previous Heading">
@@ -118,9 +115,6 @@
 
 <!ENTITY menu.up.label                     "&context.up.label;">
 <!ENTITY menu.up.accesskey                 "&context.up.accesskey;">
-<!ENTITY menu.openSelectionAsURI.label     "&context.openSelectionAsURI.label;">
-<!ENTITY menu.openSelectionAsURI.label_select "&context.openSelectionAsURI.label_select;">
-<!ENTITY menu.openSelectionAsURI.accesskey "&context.openSelectionAsURI.accesskey;">
 <!ENTITY menu.nextHeading.label            "&context.nextHeading.label;">
 <!ENTITY menu.nextHeading.accesskey        "&context.nextHeading.accesskey;">
 <!ENTITY menu.prevHeading.label            "&context.prevHeading.label;">

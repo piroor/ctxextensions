@@ -17,24 +17,12 @@
 
 <popup id="messagePaneContext">
 
-	<menuitem id="context-item-openSelectionAsURI"
-		insertafter="context-sep-selectall"
-		label="&context.openSelectionAsURI.label;"
-		label-for-select="&context.openSelectionAsURI.label_select;"
-		oncommand="ExtFunc.doCommand('openSelectionAsURI')"
-		accesskey="&context.openSelectionAsURI.accesskey;"/>
-
 	<menuseparator id="context-sep-extensions"
 		class="menuseparator-ctxextensions"/>
 	<menu id="context-item-extensions"
 		label="&context.extensions.label;"
 		accesskey="&context.extensions.accesskey;">
 		<menupopup id="context-item-extensions:mpopup">
-			<menuitem id="context-item-openSelectionAsURI:submenu"
-				label="&context.openSelectionAsURI.label;"
-				label-for-select="&context.openSelectionAsURI.label_select;"
-				oncommand="ExtFunc.doCommand('openSelectionAsURI')"
-				accesskey="&context.openSelectionAsURI.accesskey;"/>
 			<menuseparator id="context-sep-extensionsMisc:submenu"
 				class="menuseparator-ctxextensions"/>
 			<menuitem id="context-item-JSPanel:submenu"
@@ -755,12 +743,6 @@
 				label-for-normal="&menu.getLinks.label;"
 				label-for-select="&menu.getLinks.label_select;"
 				oncommand="ExtFunc.getLinks()"/>
-			<menuseparator class="menuseparator-ctxextensions"/>
-			<menuitem id="menu-item-openSelectionAsURI:submenu"
-				label="&menu.openSelectionAsURI.label;"
-				label-for-select="&menu.openSelectionAsURI.label_select;"
-				oncommand="ExtFunc.doCommand('openSelectionAsURI')"
-				accesskey="&menu.openSelectionAsURI.accesskey;"/>
 			<menuseparator class="menuseparator-ctxextensions"/>
 			<menu id="menu-item-sendURI:submenu"
 				label="&menu.sendURI.label;">

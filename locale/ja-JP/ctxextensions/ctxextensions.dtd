@@ -73,9 +73,6 @@
 <!ENTITY context.bookmarks.label              "ブックマーク">
 <!ENTITY context.up.label                     "一つ上の階層へ">
 <!ENTITY context.up.accesskey                 "u">
-<!ENTITY context.openSelectionAsURI.label     "選択文字列をURIとして開く">
-<!ENTITY context.openSelectionAsURI.label_select "「&#37;s」をURIとして開く">
-<!ENTITY context.openSelectionAsURI.accesskey "o">
 <!ENTITY context.nextHeading.label            "次の見出しへ">
 <!ENTITY context.nextHeading.accesskey        "s">
 <!ENTITY context.prevHeading.label            "前の見出しへ">
@@ -117,9 +114,6 @@
 
 <!ENTITY menu.up.label                     "&context.up.label;">
 <!ENTITY menu.up.accesskey                 "&context.up.accesskey;">
-<!ENTITY menu.openSelectionAsURI.label     "&context.openSelectionAsURI.label;">
-<!ENTITY menu.openSelectionAsURI.label_select "&context.openSelectionAsURI.label_select;">
-<!ENTITY menu.openSelectionAsURI.accesskey "&context.openSelectionAsURI.accesskey;">
 <!ENTITY menu.nextHeading.label            "&context.nextHeading.label;">
 <!ENTITY menu.nextHeading.accesskey        "&context.nextHeading.accesskey;">
 <!ENTITY menu.prevHeading.label            "&context.prevHeading.label;">

@@ -36,16 +36,6 @@ var ExtFunc = {
 
 		case 'linkslist': this.getLinks(null, w); break;
 
-		case 'openselectionasuri':
-			uri = this.service.getSelection();
-			if (!uri) return;
-
-			uri = this.utils.makeURIComplete(uri, this.service.currentURI());
-
-			this.service.loadURI(uri, null, this.utils.getPref('ctxextensions.showResultIn.openSelectionAsURI'));
-			break;
-
-
 		// •s‰Â‹î•ñ‚Ì‰Â‹‰»
 
 		case 'showcomments': this.showComment(w); break;

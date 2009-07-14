@@ -27,13 +27,6 @@
 		oncommand="ExtFunc.doCommand('up');"
 		accesskey="&context.up.accesskey;"/>
 
-	<menuitem id="context-item-openSelectionAsURI"
-		insertafter="context-sep-selectall"
-		label="&context.openSelectionAsURI.label;"
-		label-for-select="&context.openSelectionAsURI.label_select;"
-		oncommand="ExtFunc.doCommand('openSelectionAsURI')"
-		accesskey="&context.openSelectionAsURI.accesskey;"/>
-
 	<menuitem id="context-item-nextHeading"
 		insertbefore="context-sep-stop"
 		label="&context.nextHeading.label;"
@@ -161,11 +154,6 @@
 				accesskey="&context.prevHeading.accesskey;"/>
 			<menuseparator id="context-sep-extensionsOpen:submenu"
 				class="menuseparator-ctxextensions"/>
-			<menuitem id="context-item-openSelectionAsURI:submenu"
-				label="&context.openSelectionAsURI.label;"
-				label-for-select="&context.openSelectionAsURI.label_select;"
-				oncommand="ExtFunc.doCommand('openSelectionAsURI')"
-				accesskey="&context.openSelectionAsURI.accesskey;"/>
 			<menuitem id="context-item-openCiteForQuote:submenu"
 				label="&context.openCiteForQuote.label;"
 				oncommand="ExtFunc.doCommand('openCiteForQuote');"
