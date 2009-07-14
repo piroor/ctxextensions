@@ -5,7 +5,7 @@
   <RDF:Description RDF:about="urn:mozilla:install-manifest"
                    em:id="{4C4D8A1D-1E3C-439e-9298-16073A5C4851}"
                    em:name="ContextMenu Extensions"
-                   em:version="4.2.2008120201"
+                   em:version="4.2.2009071401"
                    em:creator="SHIMODA Hiroshi"
                    em:description="Adds many useful features to the browser."
                    em:homepageURL="http://piro.sakura.ne.jp/xul/ctxextensions/index.html.en"
