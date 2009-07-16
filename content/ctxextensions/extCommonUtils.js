@@ -757,7 +757,7 @@ var ExtCommonUtils = {
 	},
  
 	// ファイル選択ダイアログを開き、選択したファイルを返す 
-	chooseFile : function(aTitle, aDefaultString, aFilters, aMode)
+	chooseFile : function(aTitle, aDefault, aFilters, aMode)
 	{
 		const FP = Components
 					.classes['@mozilla.org/filepicker;1']
@@ -780,8 +780,21 @@ var ExtCommonUtils = {
 
 		FP.init(window, aTitle, mode);
 
-		if (aDefaultString)
-			FP.defaultString = aDefaultString;
+		if (aDefault) {
+			try {
+				if (typeof aDefault == 'string') aDefault = this.makeFileWithPath(aDefault);
+			}
+			catch(e) {
+			}
+			if (aDefault instanceof Components.interfaces.nsIFile) {
+				FP.displayDirectory = aDefault.parent;
+				FP.defaultString = String(aDefault.leafName);
+			}
+			else {
+				FP.defaultString = String(aDefault);
+			}
+		}
+
 		if (aFilters) {
 			for (var i = 0; i < aFilters.length; i += 2)
 				FP.appendFilter(aFilters[i], aFilters[i+1]);
@@ -795,25 +808,74 @@ var ExtCommonUtils = {
 		var flag = FP.show();
 		if (flag & FP.returnCancel) return retVal;
 
-		if (isMultiple) {
-			try {
+		try {
+			if (isMultiple) {
 				var entries = FP.files;
 				while (entries.hasMoreElements())
 				{
 					retVal.push(entries.getNext().QueryInterface(Components.interfaces.nsILocalFile));
 				}
 			}
-			catch(e) {
-			}
-		}
-		else {
-			try {
+			else {
 				retVal = FP.file.QueryInterface(Components.interfaces.nsILocalFile);
 			}
-			catch(e) {
-			}
 		}
+		catch(e) {
+		}
+
 		return retVal;
+	},
+ 
+	zipFilesAs : function(aSources, aZipFile, aCompressionLevel) 
+	{
+		if (!aSources || !aZipFile) return;
+
+		if (typeof aSources == 'string' ||
+			aSources instanceof Components.interfaces.nsIFile)
+			aSources = [aSources];
+
+		if (!aSources.length) return;
+
+		if (!(aZipFile instanceof Components.interfaces.nsIFile))
+			aZipFile = this.makeFileWithPath(String(aZipFile));
+
+		if (aZipFile.exists()) aZipFile.remove(true);
+
+		aSources = aSources.map(function(aSource) {
+			return (aSource instanceof Components.interfaces.nsIFile) ?
+					aSource :
+					this.makeFileWithPath(String(aSource)) ;
+		}, this);
+
+		const PR_RDONLY      = 0x01;
+		const PR_WRONLY      = 0x02;
+		const PR_RDWR        = 0x04;
+		const PR_CREATE_FILE = 0x08;
+		const PR_APPEND      = 0x10;
+		const PR_TRUNCATE    = 0x20;
+		const PR_SYNC        = 0x40;
+		const PR_EXCL        = 0x80;
+
+		var writer = Components
+						.classes['@mozilla.org/zipwriter;1']
+						.createInstance(Components.interfaces.nsIZipWriter);
+
+		if (aCompressionLevel === void(0))
+			aCompressionLevel = writer.COMPRESSION_DEFAULT;
+
+		writer.open(aZipFile, PR_RDWR | PR_CREATE_FILE | PR_TRUNCATE);
+		aSources.forEach(function(aFile) {
+			var entry = this+aFile.leafName;
+			writer.addEntryFile(entry, aCompressionLevel, aFile, false);
+			if (!aFile.isDirectory()) return;
+
+			var files = aFile.directoryEntries;
+			while (files.hasMoreElements())
+			{
+				arguments.callee.call(entry+'/', files.getNext().QueryInterface(Components.interfaces.nsILocalFile));
+			}
+		}, '');
+		writer.close();
 	},
   
 	// File I/O 

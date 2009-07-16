@@ -2914,6 +2914,11 @@ function _saveURIInBackgroundAs(aURI, aFilePathOrFile, aFlags)
 	return ExtCommonUtils.saveURIInBackgroundAs(aURI, (aFilePathOrFile || _chooseFileToSave()), aFlags);
 };
 
+function _zipFilesAs(aFiles, aZip, aComporessionLevel)
+{
+	ExtCommonUtils.zipFilesAs(aFiles, aZip, aComporessionLevel);
+};
+
 function _run(filepath, args)
 {
 	 ExtService.run(filepath, args);

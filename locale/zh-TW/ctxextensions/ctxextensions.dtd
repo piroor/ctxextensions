@@ -451,6 +451,7 @@
 <!ENTITY shortExpressions.write "儲存字串到純文字檔">
 <!ENTITY shortExpressions.saveURIAs "下載遠端資源並存成檔案">
 <!ENTITY shortExpressions.saveURIInBackgroundAs "在背景下載遠端的資源並存成檔案">
+<!ENTITY shortExpressions.zipFilesAs       "Compress files as a ZIP archive">
 <!ENTITY shortExpressions.chooseFile       "以一般對話方塊選擇檔案">
 <!ENTITY shortExpressions.chooseFiles      "Choose multiple files with the common dialog">
 <!ENTITY shortExpressions.chooseFolder     "Choose a folder with the common dialog">

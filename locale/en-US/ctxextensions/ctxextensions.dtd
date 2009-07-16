@@ -448,6 +448,7 @@
 <!ENTITY shortExpressions.write            "Save string to a textfile">
 <!ENTITY shortExpressions.saveURIAs        "Download a remote resource as a file">
 <!ENTITY shortExpressions.saveURIInBackgroundAs "Download a remote resource as a file in the background">
+<!ENTITY shortExpressions.zipFilesAs       "Compress files as a ZIP archive">
 <!ENTITY shortExpressions.chooseFile       "Choose a file with the common dialog">
 <!ENTITY shortExpressions.chooseFiles      "Choose multiple files with the common dialog">
 <!ENTITY shortExpressions.chooseFolder     "Choose a folder with the common dialog">

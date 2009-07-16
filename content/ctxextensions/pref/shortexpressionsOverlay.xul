@@ -155,6 +155,8 @@
 						value="_saveURIAs(URI, filepath)"/>
 					<menuitem label="&shortExpressions.saveURIInBackgroundAs;"
 						value="_saveURIInBackgroundAs(URI, filepath)"/>
+					<menuitem label="&shortExpressions.zipFilesAs;"
+						value="_zipFilesAs(files, zipfile, compression_level)"/>
 
 					<menuitem label="&shortExpressions.chooseFile;"
 						value="_chooseFile(title, default, filter)"/>

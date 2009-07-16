@@ -448,6 +448,7 @@
 <!ENTITY shortExpressions.write            "文字列をテキストファイルに保存する">
 <!ENTITY shortExpressions.saveURIAs        "リモートのリソースをファイルに保存する">
 <!ENTITY shortExpressions.saveURIInBackgroundAs "リモートのリソースをバックグラウンドでファイルに保存する">
+<!ENTITY shortExpressions.zipFilesAs       "ファイルをZIP形式で圧縮する">
 <!ENTITY shortExpressions.chooseFile       "コモンダイアログでファイルを選択する">
 <!ENTITY shortExpressions.chooseFiles      "コモンダイアログでファイルを複数選択する">
 <!ENTITY shortExpressions.chooseFolder     "コモンダイアログでフォルダを選択する">
