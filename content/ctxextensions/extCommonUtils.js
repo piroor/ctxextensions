@@ -874,11 +874,13 @@ var ExtCommonUtils = {
 
 		aSources.forEach(function(aFile) {
 			var entry = this+aFile.leafName;
+			var entryForCheck = aFile.isDirectory() ? entry+'/' : entry ;
 
-			if (writer.hasEntry(entry) && !aFile.isDirectory())
+			if (!aFile.isDirectory() && writer.hasEntry(entryForCheck))
 				writer.removeEntry(entry, false);
 
-			writer.addEntryFile(entry, aCompressionLevel, aFile, false);
+			if (!writer.hasEntry(entryForCheck))
+				writer.addEntryFile(entry, aCompressionLevel, aFile, false);
 
 			if (aFile.isDirectory()) {
 				var files = aFile.directoryEntries;
