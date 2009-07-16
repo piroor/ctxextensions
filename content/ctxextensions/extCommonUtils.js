@@ -828,6 +828,9 @@ var ExtCommonUtils = {
  
 	zipFilesAs : function(aSources, aZipFile, aCompressionLevel) 
 	{
+		if (!('nsIZipWriter' in Components.interfaces))
+			throw Components.results.NS_ERROR_NOT_IMPLEMENTED;
+
 		if (!aSources || !aZipFile) return;
 
 		if (typeof aSources == 'string' ||
@@ -844,6 +847,9 @@ var ExtCommonUtils = {
 					aSource :
 					this.makeFileWithPath(String(aSource)) ;
 		}, this);
+
+		if (aZipFile.exists() && !this.isZipFile(aZipFile))
+			aZipFile.remove(true);
 
 		const PR_RDONLY      = 0x01;
 		const PR_WRONLY      = 0x02;
@@ -887,6 +893,44 @@ var ExtCommonUtils = {
 		}, '');
 
 		writer.close();
+	},
+	isZipFile : function(aFile)
+	{
+		var isZip = false;
+
+		if (!aFile || !aFile.exists()) return isZip;
+
+		var reader = Components
+						.classes['@mozilla.org/libjar/zip-reader;1']
+						.createInstance(Components.interfaces.nsIZipReader);
+		try {
+			reader.open(aFile);
+			try {
+				var entries = reader.findEntries('*');
+				while (entries.hasMore())
+				{
+					entries.getNext();
+					isZip = true;
+					break;
+				}
+				if (!isZip) {
+					entries = reader.findEntries('*/');
+					while (entries.hasMore())
+					{
+						entries.getNext();
+						isZip = true;
+						break;
+					}
+				}
+			}
+			catch(e) {
+			}
+			reader.close();
+		}
+		catch(e) {
+		}
+
+		return isZip;
 	},
   
 	// File I/O 
