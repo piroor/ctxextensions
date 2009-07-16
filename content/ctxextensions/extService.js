@@ -2931,13 +2931,31 @@ function _chooseFile(aTitle, aDefault, aFilter)
 			(aFilter ? [aFilter, aFilter] : null)
 		);
 };
+function _chooseFiles(aTitle, aDefault, aFilter)
+{
+	return ExtCommonUtils.chooseFile(
+			aTitle,
+			aDefault,
+			(aFilter ? [aFilter, aFilter] : null),
+			Components.interfaces.nsIFilePicker.modeOpenMultiple
+		);
+};
+function _chooseFolder(aTitle, aDefault)
+{
+	return ExtCommonUtils.chooseFile(
+			aTitle,
+			aDefault,
+			null,
+			Components.interfaces.nsIFilePicker.modeGetFolder
+		);
+};
 function _chooseFileToSave(aTitle, aDefault, aFilter)
 {
 	return ExtCommonUtils.chooseFile(
 			aTitle,
 			aDefault,
 			(aFilter ? [aFilter, aFilter] : null),
-			true
+			Components.interfaces.nsIFilePicker.modeSave
 		);
 };
 

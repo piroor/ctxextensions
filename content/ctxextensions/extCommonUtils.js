@@ -757,18 +757,28 @@ var ExtCommonUtils = {
 	},
  
 	// ファイル選択ダイアログを開き、選択したファイルを返す 
-	chooseFile : function(aTitle, aDefaultString, aFilters, aSaveMode)
+	chooseFile : function(aTitle, aDefaultString, aFilters, aMode)
 	{
-		const nsIFilePicker = Components.interfaces.nsIFilePicker;
-		const FP = Components.classes['@mozilla.org/filepicker;1'].createInstance(nsIFilePicker);
+		const FP = Components
+					.classes['@mozilla.org/filepicker;1']
+					.createInstance(Components.interfaces.nsIFilePicker);
+
+		var mode = typeof aMode == 'boolean' ? FP.modeSave : aMode ;
+		if (!aMode) aMode = FP.modeOpen;
+
+		var isMultiple = aMode == FP.modeOpenMultiple;
 
 		if (!aTitle) {
-			const STRBUNDLE = Components.classes['@mozilla.org/intl/stringbundle;1'].getService(Components.interfaces.nsIStringBundleService);
-			var strbundle = STRBUNDLE.createBundle('chrome://ctxextensions/locale/ctxextensions.properties');
-			aTitle = strbundle.GetStringFromName('filePicker_title_default');
+			aTitle = this.msg.GetStringFromName(
+					isMultiple ?
+						'filePicker_title_default_multiple' :
+					aMode == FP.modeGetFolder ?
+						'filePicker_title_default_folder' :
+						'filePicker_title_default'
+				);
 		}
 
-		FP.init(window, aTitle, (aSaveMode ? nsIFilePicker.modeSave : nsIFilePicker.modeOpen ));
+		FP.init(window, aTitle, mode);
 
 		if (aDefaultString)
 			FP.defaultString = aDefaultString;
@@ -777,17 +787,33 @@ var ExtCommonUtils = {
 				FP.appendFilter(aFilters[i], aFilters[i+1]);
 		}
 
-		FP.appendFilters(nsIFilePicker.filterAll);
+		FP.appendFilters(FP.filterAll);
+
+		var retVal = null;
+		if (isMultiple) retVal = [];
 
 		var flag = FP.show();
-		if (flag & nsIFilePicker.returnCancel) return null;
+		if (flag & FP.returnCancel) return retVal;
 
-		try {
-			return FP.file.QueryInterface(Components.interfaces.nsILocalFile);
+		if (isMultiple) {
+			try {
+				var entries = FP.files;
+				while (entries.hasMoreElements())
+				{
+					retVal.push(entries.getNext().QueryInterface(Components.interfaces.nsILocalFile));
+				}
+			}
+			catch(e) {
+			}
 		}
-		catch(e) {
-			return null;
+		else {
+			try {
+				retVal = FP.file.QueryInterface(Components.interfaces.nsILocalFile);
+			}
+			catch(e) {
+			}
 		}
+		return retVal;
 	},
   
 	// File I/O 

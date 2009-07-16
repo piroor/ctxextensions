@@ -449,6 +449,8 @@
 <!ENTITY shortExpressions.saveURIAs        "リモートのリソースをファイルに保存する">
 <!ENTITY shortExpressions.saveURIInBackgroundAs "リモートのリソースをバックグラウンドでファイルに保存する">
 <!ENTITY shortExpressions.chooseFile       "コモンダイアログでファイルを選択する">
+<!ENTITY shortExpressions.chooseFiles      "コモンダイアログでファイルを複数選択する">
+<!ENTITY shortExpressions.chooseFolder     "コモンダイアログでフォルダを選択する">
 <!ENTITY shortExpressions.chooseFileToSave "コモンダイアログで保存用にファイルを選択する">
 
 <!ENTITY shortExpressions.menuExt          "拡張機能">

@@ -158,6 +158,10 @@
 
 					<menuitem label="&shortExpressions.chooseFile;"
 						value="_chooseFile(title, default, filter)"/>
+					<menuitem label="&shortExpressions.chooseFiles;"
+						value="_chooseFiles(title, default, filter)"/>
+					<menuitem label="&shortExpressions.chooseFolder;"
+						value="_chooseFolder(title, default)"/>
 					<menuitem label="&shortExpressions.chooseFileToSave;"
 						value="_chooseFileToSave(title, default, filter)"/>
 <!--
