@@ -839,8 +839,6 @@ var ExtCommonUtils = {
 		if (!(aZipFile instanceof Components.interfaces.nsIFile))
 			aZipFile = this.makeFileWithPath(String(aZipFile));
 
-		if (aZipFile.exists()) aZipFile.remove(true);
-
 		aSources = aSources.map(function(aSource) {
 			return (aSource instanceof Components.interfaces.nsIFile) ?
 					aSource :
@@ -863,18 +861,31 @@ var ExtCommonUtils = {
 		if (aCompressionLevel === void(0))
 			aCompressionLevel = writer.COMPRESSION_DEFAULT;
 
-		writer.open(aZipFile, PR_RDWR | PR_CREATE_FILE | PR_TRUNCATE);
+		var flags = aZipFile.exists() ?
+						PR_RDWR | PR_APPEND :
+						PR_RDWR | PR_CREATE_FILE | PR_TRUNCATE ;
+		writer.open(aZipFile, flags);
+
 		aSources.forEach(function(aFile) {
 			var entry = this+aFile.leafName;
-			writer.addEntryFile(entry, aCompressionLevel, aFile, false);
-			if (!aFile.isDirectory()) return;
 
-			var files = aFile.directoryEntries;
-			while (files.hasMoreElements())
-			{
-				arguments.callee.call(entry+'/', files.getNext().QueryInterface(Components.interfaces.nsILocalFile));
+			if (writer.hasEntry(entry) && !aFile.isDirectory())
+				writer.removeEntry(entry, false);
+
+			writer.addEntryFile(entry, aCompressionLevel, aFile, false);
+
+			if (aFile.isDirectory()) {
+				var files = aFile.directoryEntries;
+				while (files.hasMoreElements())
+				{
+					arguments.callee.call(
+						entry+'/',
+						files.getNext().QueryInterface(Components.interfaces.nsILocalFile)
+					);
+				}
 			}
 		}, '');
+
 		writer.close();
 	},
   
