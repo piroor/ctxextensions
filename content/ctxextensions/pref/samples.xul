@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -325,7 +325,7 @@ window.gDLGetList = function(aWindow) {
 	if (!dir) {
 		dir = prompt('Set the name of the output folder.') || '';
 		if (dir)
-			dir = dir.replace(/( +|Å@+)$|^( +|Å@+)/g, '').replace(/ +|Å@+/g, '_');
+			dir = dir.replace(/( +|„ÄÄ+)$|^( +|„ÄÄ+)/g, '').replace(/ +|„ÄÄ+/g, '_');
 		window.gDLDir = dir;
 	}
 
@@ -669,6 +669,5 @@ alert('Encoded successfully.');
 
 
 </data>
-
 
 </overlay>
