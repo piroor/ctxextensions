@@ -118,8 +118,7 @@ var ExtService = {
 
 	currentURI : function(aForce)
 	{
-		var d = this.contentDocument(aForce);
-		return Components.lookupMethod(d, 'URL').call(d);
+		return this.contentDocument(aForce).defaultView.location.href;
 	},
 
 	contentInfo : function(aForce, aWindow)
