@@ -1513,11 +1513,7 @@ var ExtCommonUtils = {
 		// hide needless separators
 		var node;
 		while (node = this.evaluateXPath(
-					'descendant::xul:menuseparator['+
-						'not(following-sibling::*[not(local-name() = "menuseparator") and not(@hidden or @collapsed)]) or '+
-						'not(preceding-sibling::*[not(local-name() = "menuseparator") and not(@hidden or @collapsed)]) or '+
-						'local-name(following-sibling::*[not(@hidden or @collapsed)]) = "menuseparator"'+
-					']',
+					'descendant::xul:menuseparator[not(@hidden)][not(following-sibling::*[not(@hidden)]) or not(preceding-sibling::*[not(@hidden)]) or local-name(following-sibling::*[not(@hidden)]) = "menuseparator"]',
 					aPopup,
 					XPathResult.FIRST_ORDERED_NODE_TYPE
 				).singleNodeValue)
