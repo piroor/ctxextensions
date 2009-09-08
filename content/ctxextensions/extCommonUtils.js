@@ -1,5 +1,4 @@
-// static class "ExtCommonUtils" 
-var ExtCommonUtils = {
+var ExtCommonUtils = { 
 
 	debug : true,
 
@@ -246,10 +245,9 @@ var ExtCommonUtils = {
 	get WINMAN() 
 	{
 		if (!this.mWINMAN) {
-			if (Components.classes['@mozilla.org/appshell/window-mediator;1'])
-				this.mWINMAN = Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator);
-			else
-				this.mWINMAN = Components.classes['@mozilla.org/rdf/datasource;1?name=window-mediator'].getService(Components.interfaces.nsIWindowMediator);
+			this.mWINMAN = Components
+					.classes['@mozilla.org/appshell/window-mediator;1']
+					.getService(Components.interfaces.nsIWindowMediator);
 		}
 		return this.mWINMAN;
 	},
@@ -258,7 +256,9 @@ var ExtCommonUtils = {
 	get PREF() 
 	{
 		if (!this.mPREF) {
-			this.mPREF = Components.classes['@mozilla.org/preferences;1'].getService(Components.interfaces.nsIPrefBranch);
+			this.mPREF = Components
+					.classes['@mozilla.org/preferences;1']
+					.getService(Components.interfaces.nsIPrefBranch);
 		}
 		return this.mPREF;
 	},
@@ -267,7 +267,10 @@ var ExtCommonUtils = {
 	get DEFPREF() 
 	{
 		if (!this.mDEFPREF) {
-			this.mDEFPREF = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getDefaultBranch(null);
+			this.mDEFPREF = Components
+					.classes['@mozilla.org/preferences-service;1']
+					.getService(Components.interfaces.nsIPrefService)
+					.getDefaultBranch(null);
 		}
 		return this.mDEFPREF;
 	},
@@ -276,7 +279,9 @@ var ExtCommonUtils = {
 	get RDF() 
 	{
 		if (!this.mRDF) {
-			this.mRDF = Components.classes['@mozilla.org/rdf/rdf-service;1'].getService(Components.interfaces.nsIRDFService);
+			this.mRDF = Components
+					.classes['@mozilla.org/rdf/rdf-service;1']
+					.getService(Components.interfaces.nsIRDFService);
 		}
 		return this.mRDF;
 	},
@@ -285,7 +290,9 @@ var ExtCommonUtils = {
 	get IOService() 
 	{
 		if (!this.mIOService) {
-			this.mIOService = Components.classes['@mozilla.org/network/io-service;1'].getService(Components.interfaces.nsIIOService);
+			this.mIOService = Components
+					.classes['@mozilla.org/network/io-service;1']
+					.getService(Components.interfaces.nsIIOService);
 		}
 		return this.mIOService;
 	},
@@ -294,7 +301,9 @@ var ExtCommonUtils = {
 	get UCONV() 
 	{
 		if (!this.mUCONV) {
-			this.mUCONV = Components.classes['@mozilla.org/intl/scriptableunicodeconverter'].getService(Components.interfaces.nsIScriptableUnicodeConverter);
+			this.mUCONV = Components
+					.classes['@mozilla.org/intl/scriptableunicodeconverter']
+					.getService(Components.interfaces.nsIScriptableUnicodeConverter);
 		}
 		return this.mUCONV;
 	},
@@ -303,7 +312,9 @@ var ExtCommonUtils = {
 	get StringBundleService() 
 	{
 		if (!this.mStringBundleService)
-			this.mStringBundleService = Components.classes['@mozilla.org/intl/stringbundle;1'].getService(Components.interfaces.nsIStringBundleService);
+			this.mStringBundleService = Components
+					.classes['@mozilla.org/intl/stringbundle;1']
+					.getService(Components.interfaces.nsIStringBundleService);
 		return this.mStringBundleService;
 	},
 	mStringBundleService : null,
@@ -311,7 +322,9 @@ var ExtCommonUtils = {
 	get PromptService() 
 	{
 		if (!this.mPromptService)
-			this.mPromptService = Components.classes['@mozilla.org/embedcomp/prompt-service;1'].getService(Components.interfaces.nsIPromptService);
+			this.mPromptService = Components
+					.classes['@mozilla.org/embedcomp/prompt-service;1']
+					.getService(Components.interfaces.nsIPromptService);
 		return this.mPromptService;
 	},
 	mPromptService : null,
@@ -319,7 +332,9 @@ var ExtCommonUtils = {
 	get CLIPBOARD() 
 	{
 		if (!this._clipboard)
-			this._clipboard = Components.classes['@mozilla.org/widget/clipboard;1'].getService(Components.interfaces.nsIClipboard);
+			this._clipboard = Components
+					.classes['@mozilla.org/widget/clipboard;1']
+					.getService(Components.interfaces.nsIClipboard);
 		return this._clipboard;
 	},
 	_clipboard : null,
@@ -327,7 +342,9 @@ var ExtCommonUtils = {
 	get ClipBoardHelper() 
 	{
 		if (!this._ClipBoardHelper)
-			this._ClipBoardHelper = Components.classes['@mozilla.org/widget/clipboardhelper;1'].getService(Components.interfaces.nsIClipboardHelper);
+			this._ClipBoardHelper = Components
+					.classes['@mozilla.org/widget/clipboardhelper;1']
+					.getService(Components.interfaces.nsIClipboardHelper);
 		return this._ClipBoardHelper;
 	},
 	_ClipBoardHelper : null,
@@ -335,7 +352,9 @@ var ExtCommonUtils = {
 	get TextToSubURI() 
 	{
 		if (!this._TextToSubURI)
-			this._TextToSubURI = Components.classes['@mozilla.org/intl/texttosuburi;1'].getService(Components.interfaces.nsITextToSubURI);
+			this._TextToSubURI = Components
+					.classes['@mozilla.org/intl/texttosuburi;1']
+					.getService(Components.interfaces.nsITextToSubURI);
 		return this._TextToSubURI;
 	},
 	_TextToSubURI : null,
@@ -1908,24 +1927,19 @@ var ExtCommonUtils = {
 			}
 		}
 		this.cleanUpInvalidKeysWithDelay();
+	},
+ 
+	handleEvent : function(aEvent) 
+	{
+		switch (aEvent.type)
+		{
+			case 'load':
+				window.removeEventListener('load', this, false);
+				this.init();
+				return;
+		}
 	}
  
 }; 
- 
-// èâä˙âª 
-// initialize
-window.addEventListener('load', function()
-{
-	if (ExtCommonUtils.activated) return;
-
-	ExtCommonUtils.init();
-},
-false);
-window.addEventListener('load', function()
-{
-	if (ExtCommonUtils.activated) return;
-
-	ExtCommonUtils.init();
-},
-false);
+window.addEventListener('load', ExtCommonUtils, false);
  
