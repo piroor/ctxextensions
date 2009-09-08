@@ -1120,17 +1120,6 @@ var ExtCommonUtils = {
 		}
 
 		var postData = null;
-/*
-		if ('getWebNavigation' in window) {
-			try {
-				var SH = getWebNavigation().sessionHistory;
-				var entry = SH.getEntryAtIndex(SH.index, false).QueryInterface(Components.interfaces.nsISHEntry);
-				postData = entry.postData;
-			}
-			catch (e) {
-			}
-		}
-*/
 
 		var PERSIST = this.createPersist();
 		if (PERSIST.saveURI.arity == 3) // old implementation
@@ -1556,14 +1545,6 @@ var ExtCommonUtils = {
 		if (c.isCommandEnabled(cmd)) {
 			this.doCommand(aNode, 'cmd_delete');
 		}
-
-//		var pos = this.getPositionInTextField(aNode);
-//		var value = aNode.value;
-//		aNode.value = [value.substring(0, pos), aString, value.substring(pos, value.length)].join('');
-
-//		this.doCommand(aNode, 'cmd_moveTop');
-//		for (var i = 0; i < pos; i++)
-//			this.doCommand(aNode, 'cmd_charNext');
 
 		this.setStringToClipBoard(aString);
 		this.doCommand(aNode, 'cmd_paste');
