@@ -65,10 +65,8 @@ var ExtCommonUtils = {
 		if (b.length || !document.popupNode) return b[0] || null ;
 
 		// in undocked sidebar panels, and so on
-		var browsers = this.concatArray(
-					document.getElementsByTagNameNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'tabbrowser'),
-					document.getElementsByTagNameNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'browser')
-				);
+		var browsers = Array.slice(document.getElementsByTagNameNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'tabbrowser'))
+						.concat(Array.slice(document.getElementsByTagNameNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'browser')));
 		var contentURI;
 		for (var i in browsers)
 		{
@@ -1464,18 +1462,6 @@ var ExtCommonUtils = {
 		return getOuterMarkup(aNode, 0);
 	},
  
-	// 配列状の要素を連結する 
-	concatArray : function()
-	{
-		var ret = [],
-			i, j;
-		for (i = 0; i < arguments.length; i++)
-			for (j = 0; j < arguments[i].length; j++)
-				ret.push(arguments[i][j]);
-
-		return ret;
-	},
- 
 	// 選択範囲に含まれる全てのノードを一次配列として返す 
 	getSelectionNodes : function(aWindow)
 	{
@@ -1706,75 +1692,20 @@ var ExtCommonUtils = {
    
 	// prefs.jsの読み書き 
 	
-	addPrefListener : function(aObserver) 
-	{
-		try {
-			var pbi = Components.classes['@mozilla.org/preferences;1'].getService(Components.interfaces.nsIPrefBranchInternal);
-			pbi.addObserver(aObserver.domain, aObserver, false);
-		}
-		catch(e) {
-		}
-	},
- 
-	removePrefListener : function(aObserver) 
-	{
-		try {
-			var pbi = Components.classes['@mozilla.org/preferences;1'].getService(Components.interfaces.nsIPrefBranchInternal);
-			pbi.removeObserver(aObserver.domain, aObserver);
-		}
-		catch(e) {
-		}
-	},
- 
 	getPref : function(aPrefstring, aMultiLine) 
 	{
-		try {
-			var type = this.PREF.getPrefType(aPrefstring);
-			switch (type)
-			{
-				case this.PREF.PREF_STRING:
-					var nsISupportsString = ('nsISupportsWString' in Components.interfaces) ? Components.interfaces.nsISupportsWString : Components.interfaces.nsISupportsString;
-					var string = this.PREF.getComplexValue(aPrefstring, nsISupportsString).data;
-					return (aMultiLine) ? this.unescape(string) : string ;
-					break;
-				case this.PREF.PREF_INT:
-					return this.PREF.getIntPref(aPrefstring);
-					break;
-				default:
-					return this.PREF.getBoolPref(aPrefstring);
-					break;
-			}
-		}
-		catch(e) {
-//			if (this.debug) alert(e+'\n\nCannot load "'+aPrefstring+'" as "'+type+'"');
-		}
-
-		return this.getDefPref(aPrefstring, aMultiLine);
+		var value = window['piro.sakura.ne.jp'].prefs.getPref(aPrefstring);
+		if (this.PREF.getPrefType(aPrefstring) == this.PREF.PREF_STRING && aMultiLine)
+			value = this.unescape(string);
+		return value;
 	},
 	
 	getDefPref : function(aPrefstring, aMultiLine) 
 	{
-		try {
-			var type = this.DEFPREF.getPrefType(aPrefstring);
-			switch (type)
-			{
-				case this.PREF.PREF_STRING:
-					var nsISupportsString = ('nsISupportsWString' in Components.interfaces) ? Components.interfaces.nsISupportsWString : Components.interfaces.nsISupportsString;
-					var string = this.DEFPREF.getComplexValue(aPrefstring, nsISupportsString).data;
-					return (aMultiLine) ? this.unescape(string) : string ;
-					break;
-				case this.PREF.PREF_INT:
-					return this.DEFPREF.getIntPref(aPrefstring);
-					break;
-				default:
-					return this.DEFPREF.getBoolPref(aPrefstring);
-					break;
-			}
-		}
-		catch(e) {
-//			if (this.debug) alert(e+'\n\nCannot load default pref "'+aPrefstring+'" as "'+type+'"');
-		}
-		return null;
+		var value = window['piro.sakura.ne.jp'].prefs.getDefaultPref(aPrefstring);
+		if (this.PREF.getPrefType(aPrefstring) == this.PREF.PREF_STRING && aMultiLine)
+			value = this.unescape(string);
+		return value;
 	},
   
 	setPref : function(aPrefstring, aNewValue, aMultiLine, aPrefObj) 
@@ -1787,38 +1718,9 @@ var ExtCommonUtils = {
 			type = null;
 	//		if (this.debug) alert(e+'\n\n'+aPrefstring);
 		}
-
-		var pref = aPrefObj || this.PREF ;
-
-		switch (type)
-		{
-			case 'string':
-				var nsISupportsString = ('nsISupportsWString' in Components.interfaces) ? Components.interfaces.nsISupportsWString : Components.interfaces.nsISupportsString;
-				var string = ('@mozilla.org/supports-wstring;1' in Components.classes) ?
-						Components.classes['@mozilla.org/supports-wstring;1'].createInstance(nsISupportsString) :
-						Components.classes['@mozilla.org/supports-string;1'].createInstance(nsISupportsString);
-				string.data = (aMultiLine) ? this.escape(aNewValue) : aNewValue ;
-				pref.setComplexValue(aPrefstring, nsISupportsString, string);
-				break;
-			case 'number':
-				pref.setIntPref(aPrefstring, parseInt(aNewValue));
-				break;
-			default:
-				pref.setBoolPref(aPrefstring, aNewValue);
-				break;
-		}
+		if (type == 'string' && aMultiLine) aNewValue = this.escape(aNewValue);
+		window['piro.sakura.ne.jp'].prefs.setPref(aPrefstring, aNewValue, aPrefObj || this.PREF);
 		return true;
-	},
- 
-	clearPref : function(aPrefstring) 
-	{
-		try {
-			this.PREF.clearUserPref(aPrefstring);
-		}
-		catch(e) {
-		}
-
-		return;
 	},
   
 	init : function() 
@@ -1878,5 +1780,6 @@ var ExtCommonUtils = {
 	}
  
 }; 
+ExtCommonUtils.__proto__ = window['piro.sakura.ne.jp'].prefs;
 window.addEventListener('load', ExtCommonUtils, false);
  

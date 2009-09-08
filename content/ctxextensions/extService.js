@@ -1127,13 +1127,13 @@ catch(e) {
 
 	getLinksNodesInWindow : function(aWindow, aShouldFollowFrames)
 	{
-		var links = this.utils.concatArray(
-				aWindow.document.getElementsByTagName('A'),
-				aWindow.document.getElementsByTagName('AREA'),
-				aWindow.document.getElementsByTagName('LINK'),
-				aWindow.document.getElementsByTagName(this.XHTMLNS, 'a'),
-				aWindow.document.getElementsByTagName(this.XHTMLNS, 'area'),
-				aWindow.document.getElementsByTagName(this.XHTMLNS, 'link')
+		var links = [].concat(
+				Array.slice(aWindow.document.getElementsByTagName('A')),
+				Array.slice(aWindow.document.getElementsByTagName('AREA')),
+				Array.slice(aWindow.document.getElementsByTagName('LINK')),
+				Array.slice(aWindow.document.getElementsByTagName(this.XHTMLNS, 'a')),
+				Array.slice(aWindow.document.getElementsByTagName(this.XHTMLNS, 'area')),
+				Array.slice(aWindow.document.getElementsByTagName(this.XHTMLNS, 'link'))
 			);
 		if (aShouldFollowFrames &&
 			aWindow.frames &&
@@ -2054,9 +2054,9 @@ catch(e) {
 			else if (key == '*')
 				keys = [];
 			else
-				keys = this.utils.concatArray(
-					document.getElementsByAttribute('key', key),
-					document.getElementsByAttribute('key', key.toUpperCase())
+				keys = [].concat(
+					Array.slice(document.getElementsByAttribute('key', key)),
+					Array.slice(document.getElementsByAttribute('key', key.toUpperCase()))
 				);
 	//		dump('keys: '+keys.length+'('+keystring+')\n');
 
@@ -2190,10 +2190,10 @@ catch(e) {
 		var inFrame = this.inFrame;
 		var onLink  = this.onLink;
 
-		var items = this.utils.concatArray(
-				aPopup.getElementsByAttribute('label-for-frame', '*'),
-				aPopup.getElementsByAttribute('label-for-select', '*'),
-				aPopup.getElementsByAttribute('label-for-link', '*')
+		var items = [].concat(
+				Array.slice(aPopup.getElementsByAttribute('label-for-frame', '*')),
+				Array.slice(aPopup.getElementsByAttribute('label-for-select', '*')),
+				Array.slice(aPopup.getElementsByAttribute('label-for-link', '*'))
 			);
 		var labeledItems = [];
 		for (i in items)
@@ -2937,7 +2937,7 @@ function _openNewTab(uri, ref)
 function _loadURIAndDo()
 {
 	var b = ExtService.loadURI(arguments[0], arguments[1], false, true);
-	var funcs = ExtCommonUtils.concatArray(arguments);
+	var funcs = Array.slice(arguments);
 	funcs.splice(0, 2);
 	ExtService.doAfterLoaded(b, arguments[0], funcs);
 
@@ -2946,7 +2946,7 @@ function _loadURIAndDo()
 function _openNewWindowAndDo()
 {
 	var w = ExtService.openNewWindow(arguments[0], arguments[1]);
-	var funcs = ExtCommonUtils.concatArray(arguments);
+	var funcs = Array.slice(arguments);
 	funcs.splice(0, 2);
 	ExtService.doAfterLoaded(w, arguments[0], funcs);
 
@@ -2955,7 +2955,7 @@ function _openNewWindowAndDo()
 function _openNewTabAndDo()
 {
 	var t = ExtService.openNewTab(arguments[0], arguments[1], true);
-	var funcs = ExtCommonUtils.concatArray(arguments);
+	var funcs = Array.slice(arguments);
 	funcs.splice(0, 2);
 	ExtService.doAfterLoaded(t, arguments[0], funcs);
 

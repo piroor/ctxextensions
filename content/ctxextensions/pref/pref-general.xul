@@ -11,7 +11,8 @@
 		orient="vertical"
 		headertitle="&preftree.general.label;">
 
-<script type="application/x-javascript" src="chrome://ctxextensions/content/extCommonUtils.js"/>
+<script type="application/x-javascript;version=1.7" src="chrome://ctxextensions/content/prefs.js"/>
+<script type="application/x-javascript;version=1.7" src="chrome://ctxextensions/content/extCommonUtils.js"/>
 <script type="application/x-javascript"><![CDATA[
 window.addEventListener('load', function() {
 	window.removeEventListener('load', arguments.callee, false);

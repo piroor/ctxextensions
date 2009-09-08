@@ -28,7 +28,7 @@
 		var prefstring;
 		for (var i = 0; i < textbox.length; i++)
 		{
-			textbox[i].value = ExtCommonUtils.getDefPref(textbox[i].getAttribute('prefstring'));
+			textbox[i].value = ExtCommonUtils.getDefaultPref(textbox[i].getAttribute('prefstring'));
 		}
 	}
 
@@ -39,11 +39,11 @@
 		var disabled = !document.getElementById('advanced').checked || document.getElementById('advanced').disabled;
 		var group = document.getElementById('regexp');
 
-		var items = ExtCommonUtils.concatArray(
-				group.getElementsByTagName('caption'),
-				group.getElementsByTagName('label'),
-				group.getElementsByTagName('textbox'),
-				group.getElementsByTagName('button')
+		var items = [].concat(
+				Array.slice(group.getElementsByTagName('caption')),
+				Array.slice(group.getElementsByTagName('label')),
+				Array.slice(group.getElementsByTagName('textbox')),
+				Array.slice(group.getElementsByTagName('button'))
 			);
 		for (var i = 0; i < items.length; i++)
 		{

@@ -27,10 +27,11 @@
 
 	<data id="extra1-label" label="&JSPanel.close;"/>
 
-	<script type="application/x-javascript" src="chrome://ctxextensions/content/pProgressManager.js"/>
-	<script type="application/x-javascript" src="chrome://ctxextensions/content/extCommonUtils.js"/>
+	<script type="application/x-javascript;version=1.7" src="chrome://ctxextensions/content/pProgressManager.js"/>
+	<script type="application/x-javascript;version=1.7" src="chrome://ctxextensions/content/prefs.js"/>
+	<script type="application/x-javascript;version=1.7" src="chrome://ctxextensions/content/extCommonUtils.js"/>
 
-	<script type="application/x-javascript" src="JSPanel.js"/>
+	<script type="application/x-javascript;version=1.7" src="JSPanel.js"/>
 
 	<keyset>
 		<key key="&accelKey.run;" modifiers="accel"
