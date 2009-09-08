@@ -117,7 +117,7 @@ var ExtFunc = {
 	{
 		var d = (aWindow ? aWindow.document : this.service.contentDocument());
 
-		var nodes = this.utils.getNodesFromXPath(aXPath, d.documentElement);
+		var nodes = this.utils.evaluateXPath(aXPath, d.documentElement);
 		var max = nodes.snapshotLength;
 		for (var i = 0; i < max; i++)
 			aCallBackFunc(nodes.snapshotItem(i));

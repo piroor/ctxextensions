@@ -73,7 +73,7 @@ stop() :
  * The Original Code is the pProgressManager.
  *
  * The Initial Developer of the Original Code is SHIMODA Hiroshi.
- * Portions created by the Initial Developer are Copyright (C) 2001-2005
+ * Portions created by the Initial Developer are Copyright (C) 2001-2009
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s): SHIMODA Hiroshi <piro@p.club.ne.jp>
@@ -415,7 +415,7 @@ pProgressXPath.prototype =
 		this.mCallBackArgs = [this, [null]];
 
 		var d = aRoot.ownerDocument || aRoot ;
-		this.xpathResult = ExtCommonUtils.getNodesFromXPath(aXPath, d.documentElement);
+		this.xpathResult = ExtCommonUtils.evaluateXPath(aXPath, d.documentElement);
 		return this.xpathResult;
 	},
 

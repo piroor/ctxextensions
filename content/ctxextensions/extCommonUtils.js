@@ -1528,40 +1528,27 @@ var ExtCommonUtils = {
 		return nodes;
 	},
  
-	// findParentNodeで、指定の属性を持つもののみを返す 
-	findParentNodeWithAttr : function(aNode, aLocalName, aAttr)
-	{
-		var node = aNode;
-		while (node)
-		{
-			node = this.findParentNodeWithLocalName(node, aLocalName);
-			if (!node || node.getAttribute(aAttr)) break;
-			node = node.parentNode;
-		}
-		return (node && node.getAttribute(aAttr)) ? node : null ;
-	},
-	findParentNodeWithLocalName : function(aNode, aLocalName)
-	{
-		var name = String(aLocalName).toLowerCase();
-		var node = aNode;
-		while (node &&
-			String(Components.lookupMethod(node, 'localName').call(node)).toLowerCase() != name)
-			node = Components.lookupMethod(node, 'parentNode').call(node);
-
-		return node;
-	},
- 
 	// ポップアップメニューのセパレータの表示 
 	showHideMenuSeparators : function(aPopup)
 	{
-		var nodes = this.getNodesFromXPath('descendant::xul:menuseparator[@hidden and @class="menuseparator-ctxextensions"]', aPopup);
+		var nodes = this.evaluateXPath('descendant::xul:menuseparator[@hidden and @class="menuseparator-ctxextensions"]', aPopup);
 		for (i = 0; i < nodes.snapshotLength; i++)
 			nodes.snapshotItem(i).removeAttribute('hidden');
 
 		// hide needless separators
-		nodes = this.getNodesFromXPath('descendant::xul:menuseparator[not(following-sibling::*[not(local-name() = "menuseparator") and not(@hidden or @collapsed)]) or not(preceding-sibling::*[not(local-name() = "menuseparator") and not(@hidden or @collapsed)]) or local-name(following-sibling::*[not(@hidden or @collapsed)]) = "menuseparator"]', aPopup);
-		for (i = 0; i < nodes.snapshotLength; i++)
-			nodes.snapshotItem(i).setAttribute('hidden', true);
+		var node;
+		while (node = this.evaluateXPath(
+					'descendant::xul:menuseparator['+
+						'not(following-sibling::*[not(local-name() = "menuseparator") and not(@hidden or @collapsed)]) or '+
+						'not(preceding-sibling::*[not(local-name() = "menuseparator") and not(@hidden or @collapsed)]) or '+
+						'local-name(following-sibling::*[not(@hidden or @collapsed)]) = "menuseparator"'+
+					']',
+					aPopup,
+					XPathResult.FIRST_ORDERED_NODE_TYPE
+				).singleNodeValue)
+		{
+			node.setAttribute('hidden', true);
+		}
 	},
  
 	// コマンドの実行 
@@ -1660,7 +1647,7 @@ var ExtCommonUtils = {
 	
 	cleanUpInvalidKeys : function() 
 	{
-		var nodes = this.getNodesFromXPath('/descendant::*[local-name() = "key" and (@key = "" or not(@key)) and (@keycode = "" or not(@keycode))]');
+		var nodes = this.evaluateXPath('/descendant::*[local-name() = "key" and (@key = "" or not(@key)) and (@keycode = "" or not(@keycode))]');
 		var node;
 		for (var i = nodes.snapshotLength-1; i > -1; i--)
 		{
@@ -1675,98 +1662,48 @@ var ExtCommonUtils = {
 		}, 100, this);
 	},
   
-	getNodesFromXPath : function(aXPath, aContextNode, aType) 
+	evaluateXPath : function(aExpression, aContext, aType) 
 	{
-		// http://www.hawk.34sp.com/stdpls/xml/
-		// http://www.hawk.34sp.com/stdpls/xml/dom_xpath.html
-		// http://www.homoon.jp/users/www/doc/CR-css3-selectors-20011113.shtml
-		const xmlDoc  = aContextNode ? aContextNode.ownerDocument : document ;
-		const context = aContextNode || xmlDoc.documentElement;
-		const type    = aType || XPathResult.ORDERED_NODE_SNAPSHOT_TYPE;
-		const resolver = {
-			lookupNamespaceURI : function(aPrefix)
-			{
-				switch (aPrefix)
-				{
-					case 'xul':
-					default:
-						return XULNS;
-	//					return '';
-				}
-			}
-		};
-
-
-		var resultObj = (aType == XPathResult.FIRST_ORDERED_NODE_TYPE) ? null :
-				(type == XPathResult.ORDERED_NODE_ITERATOR_TYPE ||
-					type == XPathResult.UNORDERED_NODE_ITERATOR_TYPE) ?
-				{
-					count       : 0,
-					iterateNext : function()
-					{
-						try {
-							return this.XPathResult.iterateNext();
-						}
-						catch(e) {
-							return null;
-						}
-					}
-				} :
-				{
-					get length() {
-						return this.snapshotLength;
-					},
-					get snapshotLength() {
-						return this.XPathResult.snapshotLength;
-					},
-
-					item : function(aIndex)
-					{
-						return this.snapshotItem(aIndex);
-					},
-					snapshotItem : function(aIndex)
-					{
-						return this.XPathResult.snapshotItem(aIndex);
-					}
-				};
-
+		if (!aType) aType = XPathResult.ORDERED_NODE_SNAPSHOT_TYPE;
 		try {
-			var expression = xmlDoc.createExpression(aXPath, resolver);
-			var result     = expression.evaluate(context, type, null);
-
-			if (aType == XPathResult.FIRST_ORDERED_NODE_TYPE)
-				return result.singleNodeValue;
+			var xpathResult = (aContext.ownerDocument || aContext || document).evaluate(
+					aExpression,
+					(aContext || document),
+					this.NSResolver,
+					aType,
+					null
+				);
 		}
 		catch(e) {
-			dump('=============getNodesFromXPath===========\n');
-			dump('============____ERROR____============\n');
-			dump('XPath   : '+aXPath+'\n');
-			if (aContextNode)
-				dump('Context : '+aContextNode+'('+aContextNode.localName+')\n');
-			dump(e+'\n');
-			dump('============~~~~ERROR~~~~============\n');
-
-			if (aType == XPathResult.FIRST_ORDERED_NODE_TYPE)
-				return null;
-
-			resultObj.XPathResult = {
-				snapshotLength : 0,
-				snapshotItem : function()
-				{
-					return null;
-				},
-				iterateNext : function()
-				{
-					return null;
+			return {
+				singleNodeValue : null,
+				snapshotLength  : 0,
+				snapshotItem    : function() {
+					return null
 				}
 			};
-			return resultObj;
 		}
-
-		resultObj.XPathResult = result;
-		return resultObj;
+		return xpathResult;
 	},
-  
+	
+	NSResolver : { 
+		lookupNamespaceURI : function(aPrefix)
+		{
+			switch (aPrefix)
+			{
+				case 'xul':
+					return 'http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul';
+				case 'html':
+				case 'xhtml':
+					return 'http://www.w3.org/1999/xhtml';
+				case 'xlink':
+					return 'http://www.w3.org/1999/xlink';
+				default:
+					return '';
+			}
+		}
+	},
+   
 	// prefs.jsの読み書き 
 	
 	addPrefListener : function(aObserver) 

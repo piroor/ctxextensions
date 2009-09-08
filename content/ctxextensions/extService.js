@@ -90,26 +90,38 @@ var ExtService = {
  
 	get hasRecieverForStr() 
 	{
-		return this.utils.getNodesFromXPath('descendant::xul:menuitem[not(@hidden)]', document.getElementById('context-item-sendStr')).snapshotLength;
+		return this.utils.evaluateXPath(
+				'count(descendant::xul:menuitem[not(@hidden)])',
+				document.getElementById('context-item-sendStr'),
+				XPathResult.NUMBER_TYPE
+			).numberValue;
 	},
  
 	get hasRecieverForURI() 
 	{
-		return this.utils.getNodesFromXPath('descendant::xul:menuitem[not(@hidden)]', document.getElementById('context-item-sendURI')).snapshotLength;
+		return this.utils.evaluateXPath(
+				'count(descendant::xul:menuitem[not(@hidden)])',
+				document.getElementById('context-item-sendURI'),
+				XPathResult.NUMBER_TYPE
+			).numberValue;
 	},
  
 	get hasCustomScripts() 
 	{
-		return this.utils.getNodesFromXPath('descendant::xul:menuitem[not(@hidden)]', document.getElementById('context-item-customScripts')).snapshotLength;
-		var popup = document.getElementById('ext-common-customScripts:mpopup');
-		return popup && popup.hasChildNodes();
+		return this.utils.evaluateXPath(
+				'count(descendant::xul:menuitem[not(@hidden)])',
+				document.getElementById('context-item-customScripts'),
+				XPathResult.NUMBER_TYPE
+			).numberValue;
 	},
  
 	get hasExecApps() 
 	{
-		return this.utils.getNodesFromXPath('descendant::xul:menuitem[not(@hidden)]', document.getElementById('context-item-execApps')).snapshotLength;
-		var mpopup = document.getElementById('ext-common-execApps:mpopup');
-		return mpopup && mpopup.hasChildNodes() && mpopup.lastChild.localName == 'menuitem';
+		return this.utils.evaluateXPath(
+				'count(descendant::xul:menuitem[not(@hidden)])',
+				document.getElementById('context-item-execApps'),
+				XPathResult.NUMBER_TYPE
+			).numberValue;
 	},
    
 	// content 
@@ -169,11 +181,17 @@ var ExtService = {
  
 	getCiteForQuote : function() 
 	{
-		var node = this.utils.findParentNodeWithAttr(document.popupNode, 'q', 'cite') ||
-				this.utils.findParentNodeWithAttr(document.popupNode, 'blockquote', 'cite');
+		var node = this.utils.evaluateXPath(
+					'ancestor-or-self::*['+
+						'contains(concat(" ",local-name()," "), " q blockquote Q BLOCKQUOTE ") and '+
+						'@cite and @cite != ""'+
+					'][1]',
+					document.popupNode,
+					XPathResult.FIRST_ORDERED_NODE_TYPE
+				).singleNodeValue;
 		if (!node) return '';
 
-		var cite = ('cite' in node && node.cite) ? node.cite :
+		var cite = node.cite ||
 				node.getAttribute('cite') ||
 				node.getAttributeNS(this.XHTMLNS, 'cite') ||
 				'';
@@ -182,11 +200,17 @@ var ExtService = {
  
 	getCiteForEdit : function() 
 	{
-		var node = this.utils.findParentNodeWithAttr(document.popupNode, 'del', 'cite') ||
-				this.utils.findParentNodeWithAttr(document.popupNode, 'ins', 'cite');
+		var node = this.utils.evaluateXPath(
+					'ancestor-or-self::*['+
+						'contains(concat(" ",local-name()," "), " del ins DEL INS ") and '+
+						'@cite and @cite != ""'+
+					'][1]',
+					document.popupNode,
+					XPathResult.FIRST_ORDERED_NODE_TYPE
+				).singleNodeValue;
 		if (!node) return '';
 
-		var cite = ('cite' in node && node.cite) ? node.cite :
+		var cite = node.cite ||
 				node.getAttribute('cite') ||
 				node.getAttributeNS(this.XHTMLNS, 'cite') ||
 				'';
@@ -195,7 +219,14 @@ var ExtService = {
  
 	getLongdesc : function() 
 	{
-		var node = this.utils.findParentNodeWithAttr(document.popupNode, 'img', 'longdesc');
+		var node = this.utils.evaluateXPath(
+					'ancestor-or-self::*['+
+						'contains(concat(" ",local-name()," "), " img IMG ") and '+
+						'@longdesc and @longdesc != ""'+
+					'][1]',
+					document.popupNode,
+					XPathResult.FIRST_ORDERED_NODE_TYPE
+				).singleNodeValue;
 		if (!node) return '';
 
 		var longdesc = ('longdesc' in node && node.longdesc) ? node.longdesc :
@@ -528,18 +559,18 @@ var ExtService = {
 	// 要素がポイントされた際の処理 
 	onMouseOver : function(aEvent)
 	{
-		var target = aEvent.target;
-
 		// citeの内容をステータスバーに表示
 		if (!this.utils.getPref('ctxextensions.enable.cite_as_href')) return false;
 
-		if (/q|blockquote|ins|del/i.test(target.localName)) {
-			target = this.utils.findParentNodeWithLocalName(aEvent.target, 'q') ||
-					this.utils.findParentNodeWithLocalName(aEvent.target, 'blockquote') ||
-					this.utils.findParentNodeWithLocalName(aEvent.target, 'ins') ||
-					this.utils.findParentNodeWithLocalName(aEvent.target, 'del') ;
-		}
-		if (target.cite && !('ex_onmouseout' in target)) {
+		var target = this.utils.evaluateXPath(
+				'ancestor-or-self::*['+
+					'contains(concat(" ",local-name()," "), " q blockquote ins del Q BLOCKQUOTE INS DEL ")'+
+				'][1]',
+				aEvent.target,
+				XPathResult.FIRST_ORDERED_NODE_TYPE
+			).singleNodeValue;
+		if (target &&
+			target.cite && !('ex_onmouseout' in target)) {
 			window.status       = target.cite;
 			target.style.cursor = 'pointer';
 			target.addEventListener('mouseover', this.onMouseOverSetStatus, true);
@@ -1493,7 +1524,7 @@ catch(e) {
 			info.headingsIndex     = [];
 		}
 
-		var nodes = this.utils.getNodesFromXPath('/descendant::*[contains("H1,H2,H3,H4,H5,H6,H7,h1,h2,h3,h4,h5,h6,h7,h", local-name())]', d.documentElement);
+		var nodes = this.utils.evaluateXPath('/descendant::*[contains("H1,H2,H3,H4,H5,H6,H7,h1,h2,h3,h4,h5,h6,h7,h", local-name())]', d.documentElement);
 		var max = nodes.snapshotLength;
 		if (max == info.headingsLastCount) return;
 
@@ -1536,9 +1567,7 @@ catch(e) {
 				return count;
 			},
 			node      : aNode,
-			substance : aNode, // for old implementations
-			findParentNode              : ExtCommonUtils.findParentNodeWithLocalName,
-			findParentNodeWithLocalName : ExtCommonUtils.findParentNodeWithLocalName
+			substance : aNode // for old implementations
 		});
 	},
   
@@ -1566,7 +1595,7 @@ catch(e) {
 		expression.push(']');
 		expression = expression.join('');
 
-		var nodes = this.utils.getNodesFromXPath(expression, d.documentElement);
+		var nodes = this.utils.evaluateXPath(expression, d.documentElement);
 		var max = nodes.snapshotLength;
 
 		if (max == info.navigationsLastCount) return;
@@ -1822,7 +1851,7 @@ catch(e) {
 	},
 	hideContextDuplicatedItems : function(aID)
 	{
-		var duplicatedItems = ExtCommonUtils.getNodesFromXPath('descendant::*[(@newitem = "true") and ((@contextShowNormal and @contextShowSelect = "true") or (@contextShowSelect and @contextShowNormal = "true") or (@contextShowLink and @contextShowLink = "true"))]', document.getElementById(aID));
+		var duplicatedItems = ExtCommonUtils.evaluateXPath('descendant::*[(@newitem = "true") and ((@contextShowNormal and @contextShowSelect = "true") or (@contextShowSelect and @contextShowNormal = "true") or (@contextShowLink and @contextShowLink = "true"))]', document.getElementById(aID));
 		for (var j = 0; j < duplicatedItems.snapshotLength; j++)
 			duplicatedItems.snapshotItem(j).setAttribute('hidden', true);
 	},
