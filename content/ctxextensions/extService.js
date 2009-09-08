@@ -1,14 +1,41 @@
-// 
-if (!('extProgressManagers' in window))
-	window.extProgressManagers = [];
+if (!('extProgressManagers' in window)) window.extProgressManagers = []; 
  
-// static class "ExtService" 
-var ExtService = {
+var ExtService = { 
 	XHTMLNS : 'http://www.w3.org/1999/xhtml',
 	XLinkNS : 'http://www.w3.org/1999/xlink',
 	XULNS   : 'http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul',
 	EXNS    : 'http://piro.sakura.ne.jp/ctxextensions',
 	
+	// 初期値の設定 
+	activated : false,
+
+	utils : ExtCommonUtils,
+
+	message                  : {},
+	downloadManagers         : [],
+
+	duplicatingMPopup  : false,
+	popupshowing       : false,
+
+	userdefinedKeys : [],
+
+	content      : 'chrome://ctxextensions/content/',
+	locale       : 'chrome://ctxextensions/locale/',
+
+	regexp :
+	{
+		link_next      : null,
+		link_prev      : null,
+		link_home      : null,
+		link_contents  : null,
+		link_index     : null,
+		link_glossary  : null,
+		link_copyright : null,
+		link_appendix  : null,
+		link_search    : null,
+		link_help      : null
+	},
+ 
 //============================== Generic Values ===============================
 // プロパティ 
 	
@@ -89,45 +116,45 @@ var ExtService = {
 	
 	// 現在のフレームの内容を返す 
 	// forceフラグがある場合又はフレームが見つからない場合、トップレベルのフレームを返す。
-
-	contentWindow : function(aForce)
+	
+	contentWindow : function(aForce) 
 	{
 		var focusedWindow = document.commandDispatcher.focusedWindow;
 		return (
 				aForce ||
 				!focusedWindow ||
 				focusedWindow == window ||
-				Components.lookupMethod(focusedWindow, 'top').call(focusedWindow) == window
+				focusedWindow.top == window
 			) ?
 				this.utils.browser.contentWindow :
 				focusedWindow ;
 	},
-
-	contentDocument : function(aForce)
+ 
+	contentDocument : function(aForce) 
 	{
 		var focusedWindow = document.commandDispatcher.focusedWindow;
 		return (
 				aForce ||
 				!focusedWindow ||
 				focusedWindow == window ||
-				Components.lookupMethod(focusedWindow, 'top').call(focusedWindow) == window
+				focusedWindow.top == window
 			) ?
 				this.utils.browser.contentDocument :
 				focusedWindow.document ;
 	},
-
-	currentURI : function(aForce)
+ 
+	currentURI : function(aForce) 
 	{
 		return this.contentDocument(aForce).defaultView.location.href;
 	},
-
-	contentInfo : function(aForce, aWindow)
+ 
+	contentInfo : function(aForce, aWindow) 
 	{
 		var d = (aWindow ? aWindow.document : this.contentDocument(aForce) );
 		if (!d.__mozInfo__) d.__mozInfo__ = {};
 		return d.__mozInfo__;
 	},
- 
+  
 	// リンクの上ではリンク先URI、それ以外の場合はドキュメントのURIを帰す 
 	contextualURI : function(aForce, aWindow)
 	{
@@ -233,14 +260,39 @@ var ExtService = {
 		this.overrideFunctions(); // 標準の関数の上書き
 		this.updateKey();
 		this.updateRegExp();      // 正規表現の読み込み
-		this.initEvents();        // イベント時の処理の初期化
 
-		window.setTimeout('ExtService.initDelay();', 0);
+
+		var context = this.utils.contextMenu;
+		if (context)
+			context.addEventListener('popupshowing', this, true);
+
+		var content = document.getElementById('content');
+		if (content) {
+			window.addEventListener('fullscreen', this, false);
+			content.addEventListener('keypress', this, true);
+			content.addEventListener('mouseover', this, true);
+			content.addEventListener('load', this, true);
+			content.addEventListener('TabClose', this, false);
+		}
+
+		// catch the event to start FindTypeAhead
+		window.addEventListener('keypress', this, true);
+
+		this.utils.addPrefListener(this.ShortcutPrefListener);
+		this.utils.addPrefListener(this.RegexpPrefListener);
+		this.utils.addPrefListener(this.UIPrefListener);
+
+		window.setTimeout(function(aSelf) {
+			aSelf.delayedInit();
+		}, 0, this);
+		window.setTimeout(function(aSelf) {
+			aSelf.utils.datasource.AddObserver(aSelf.RDFObserver);
+		}, 100, this);
 
 		delete this.init;
 		return;
 	},
-	initDelay : function()
+	delayedInit : function()
 	{
 		var i;
 
@@ -283,6 +335,31 @@ var ExtService = {
 				ret = ExtFunc.CustomScripts(CSObj.getData(item, 'Name'));
 		}
 	},
+	destroy : function()
+	{
+		// 設定の監視を解除
+		this.utils.removePrefListener(this.ShortcutPrefListener);
+		this.utils.removePrefListener(this.RegexpPrefListener);
+		this.utils.removePrefListener(this.UIPrefListener);
+
+		var dsource = this.utils.datasource;
+		dsource.RemoveObserver(this.RDFObserver);
+
+		// イベントリスナーの登録を解除
+		if (this.utils.contextMenu)
+			this.utils.contextMenu.removeEventListener('popupshowing', this, true);
+
+		var content = document.getElementById('content');
+		if (content) {
+			window.removeEventListener('fullscreen', this, false);
+			content.removeEventListener('keypress', this, true);
+			content.removeEventListener('mouseover', this, true);
+			content.removeEventListener('load', this, true);
+			content.removeEventListener('TabClose', this, false);
+		}
+
+		window.removeEventListener('keypress', this, true);
+	},
 	
 	// メニューの初期化 
 	initMenu : function()
@@ -291,12 +368,6 @@ var ExtService = {
 		this.rebuildCustomScripts();
 		this.rebuildSendStr();
 		this.rebuildSendURI();
-
-
-		// コンテキストメニュー開閉時にメニュー項目を更新
-		var context = this.utils.contextMenu;
-		if (context)
-			context.addEventListener('popupshowing', this.onContextMenuPopupShowing, true);
 
 		// メニューの最大幅を設定
 		var style_value;
@@ -377,48 +448,51 @@ var ExtService = {
 		return;
 	},
  
-	initEvents : function() 
+	handleEvent : function(aEvent) 
 	{
-		var content = document.getElementById('content');
-		if (content) {
-			window.addEventListener('fullscreen', this.onFullScreen, false);
-			content.addEventListener('keypress', window.contentAreaClick, true);
-			content.addEventListener('mouseover', this.onMouseOver, true);
-			content.addEventListener('load', this.onContentLoad, true);
-		}
+		switch (aEvent.type)
+		{
+			case 'popupshowing':
+				if (aEvent.target == aEvent.currentTarget)
+					this.updateContextMenu();
+				return;
 
-		// catch the event to start FindTypeAhead
-		window.addEventListener('keypress', this.onKeyPress, true);
+			case 'fullscreen':
+				this.onFullScreen(aEvent);
+				return;
 
-
-		var b = this.utils.browser;
-		// タブを閉じるときに、エラーの元になりそうなものは後始末しておく。
-		b.__ctxextensions__removeTab = b.removeTab;
-		b.removeTab = function(aTab, aTabExtFlags) {
-			var b = this.getBrowserForTab(aTab);
-
-			var managers = [
-					'headingsManager',
-					'navigationsManager',
-					'showInvisibleInfoForComments',
-					'showInvisibleInfoForLinks',
-					'showInvisibleInfoForIDs',
-					'showInvisibleInfoForCites',
-					'showInvisibleInfoForTitles',
-					'showInvisibleInfoForEvents'
-				];
-			for (var i in managers)
-				if (managers[i] in b && b[managers[i]]) {
-					b[managers[i]].stop();
-					b[managers[i]].walker = null;
-					b[managers[i]] = null;
+			case 'keypress':
+				if (aEvent.currentTarget == window) {
+					this.onKeyPress(aEvent);
 				}
+				else {
+					window.contentAreaClick(aEvent);
+				}
+				return;
 
-			return this.__ctxextensions__removeTab(aTab, aTabExtFlags);
-		};
+			case 'mouseover':
+				this.onMouseOver(aEvent);
+				return;
 
-		delete this.initEvents;
-		return;
+			case 'load':
+				if (aEvent.currentTarget == window) {
+					window.removeEventListener('load', this, false);
+					this.init();
+				}
+				else {
+					this.onContentLoad(aEvent);
+				}
+				return;
+
+			case 'unload':
+				window.removeEventListener('unload', this, false);
+				this.destroy();
+				return;
+
+			case 'TabClose':
+				this.onTabRemoved(aEvent);
+				return;
+		}
 	},
 	
 	onContentLoad : function(aEvent) 
@@ -454,113 +528,87 @@ var ExtService = {
 	// 要素がポイントされた際の処理 
 	onMouseOver : function(aEvent)
 	{
-		var ES = ExtService;
-
 		var target = aEvent.target;
 
 		// citeの内容をステータスバーに表示
-		if (!ExtCommonUtils.getPref('ctxextensions.enable.cite_as_href')) return false;
+		if (!this.utils.getPref('ctxextensions.enable.cite_as_href')) return false;
 
 		if (/q|blockquote|ins|del/i.test(target.localName)) {
-			target = ExtCommonUtils.findParentNodeWithLocalName(aEvent.target, 'q') ||
-					ExtCommonUtils.findParentNodeWithLocalName(aEvent.target, 'blockquote') ||
-					ExtCommonUtils.findParentNodeWithLocalName(aEvent.target, 'ins') ||
-					ExtCommonUtils.findParentNodeWithLocalName(aEvent.target, 'del') ;
+			target = this.utils.findParentNodeWithLocalName(aEvent.target, 'q') ||
+					this.utils.findParentNodeWithLocalName(aEvent.target, 'blockquote') ||
+					this.utils.findParentNodeWithLocalName(aEvent.target, 'ins') ||
+					this.utils.findParentNodeWithLocalName(aEvent.target, 'del') ;
 		}
 		if (target.cite && !('ex_onmouseout' in target)) {
 			window.status       = target.cite;
 			target.style.cursor = 'pointer';
-			target.addEventListener('mouseover', ES.onMouseOverSetStatus, true);
-			target.addEventListener('mouseout', ES.onMouseOutRemoveStatus, true);
+			target.addEventListener('mouseover', this.onMouseOverSetStatus, true);
+			target.addEventListener('mouseout', this.onMouseOutRemoveStatus, true);
 			target.ex_onmouseout = true;
 		}
 		return true;
 	},
-
-	onMouseOverSetStatus : function()
+	
+	onMouseOverSetStatus : function() 
 	{
 		window.status = this.cite;
 	},
-
-	onMouseOutRemoveStatus : function()
+ 
+	onMouseOutRemoveStatus : function() 
 	{
 		window.status = window.defaultStatus;
 	},
- 
-	onContextMenuPopupShowing : function(aEvent) 
-	{
-		if (aEvent.target.id == ExtCommonUtils.contextMenu.id)
-			ExtService.updateContextMenu();
-	},
- 
+  
 	onFullScreen : function(aEvent) 
 	{
-		window.setTimeout(
-			function()
-			{
-				var items = [
-						'customScripts',
-						'execApps',
-						'getLinks',
-						'JSPanel',
-						'navigations',
-						'nextHeading',
-						'outline',
-						'prevHeading',
-						'sendStr',
-						'sendURI',
-						'showAll',
-						'showCites',
-						'showComments',
-						'showEvents',
-						'showIDs',
-						'showLinks',
-						'showTitles',
-						'up'
-					];
-				for (var i in items)
-					ExtService.showHideMenubarItem(items[i]);
-			},
-			0
-		);
+		window.setTimeout(function(aSelf) {
+			var items = [
+					'customScripts',
+					'execApps',
+					'getLinks',
+					'JSPanel',
+					'navigations',
+					'nextHeading',
+					'outline',
+					'prevHeading',
+					'sendStr',
+					'sendURI',
+					'showAll',
+					'showCites',
+					'showComments',
+					'showEvents',
+					'showIDs',
+					'showLinks',
+					'showTitles',
+					'up'
+				];
+			for (var i in items)
+				aSelf.showHideMenubarItem(items[i]);
+		}, 0, this);
 	},
-  
-	// 初期値の設定 
-	activated : false,
-
-	utils : ExtCommonUtils,
-
-	message                  : {},
-	downloadManagers         : [],
-
-	duplicatingMPopup  : false,
-	popupshowing       : false,
-
-	userdefinedKeys : [],
-
-	content      : 'chrome://ctxextensions/content/',
-	locale       : 'chrome://ctxextensions/locale/',
-
-	regexp :
+ 
+	// タブを閉じるときに、エラーの元になりそうなものは後始末しておく。 
+	onTabRemoved : function(aEvent)
 	{
-		link_next      : null,
-		link_prev      : null,
-		link_home      : null,
-		link_contents  : null,
-		link_index     : null,
-		link_glossary  : null,
-		link_copyright : null,
-		link_appendix  : null,
-		link_search    : null,
-		link_help      : null
+		var b = this.getBrowserForTab(aEvent.originalTarget);
+		var managers = [
+				'headingsManager',
+				'navigationsManager',
+				'showInvisibleInfoForComments',
+				'showInvisibleInfoForLinks',
+				'showInvisibleInfoForIDs',
+				'showInvisibleInfoForCites',
+				'showInvisibleInfoForTitles',
+				'showInvisibleInfoForEvents'
+			];
+		for (var i in managers)
+			if (managers[i] in b && b[managers[i]]) {
+				b[managers[i]].stop();
+				b[managers[i]].walker = null;
+				b[managers[i]] = null;
+			}
 	},
-
-
-	XHTMLNS : 'http://www.w3.org/1999/xhtml',
-	XLinkNS : 'http://www.w3.org/1999/xlink',
-	XULNS   : 'http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul',
-	EXNS    : 'http://piro.sakura.ne.jp/ctxextensions',
-  
+   
 	// Utilities 
 	
 	// URIからディレクトリを抜き出す 
@@ -2677,12 +2725,11 @@ catch(e) {
 		// for old implementation
 		beginUpdateBatch: function (aDS) {},
 		endUpdateBatch: function (aDS) {}
-	},
-  
-	destruct : function() 
-	{
 	}
-};
+  
+}; 
+window.addEventListener('load', ExtService, false);
+window.addEventListener('unload', ExtService, false);
   
 // カスタムスクリプト内で使用できる短縮構文 
 
@@ -3213,47 +3260,4 @@ function _inspect(aObject)
 };
  
 // 初期化 
-window.addEventListener(
-'unload',
-function()
-{
-	// 設定の監視を解除
-	ExtCommonUtils.removePrefListener(ExtService.ShortcutPrefListener);
-	ExtCommonUtils.removePrefListener(ExtService.RegexpPrefListener);
-	ExtCommonUtils.removePrefListener(ExtService.UIPrefListener);
-
-	var dsource = ExtCommonUtils.datasource;
-	dsource.RemoveObserver(ExtService.RDFObserver);
-
-	// イベントリスナーの登録を解除
-	if (ExtCommonUtils.contextMenu)
-		ExtCommonUtils.contextMenu.removeEventListener('popupshowing', ExtService.onContextMenuPopupShowing, true);
-
-	var content = document.getElementById('content');
-	if (content) {
-		content.removeEventListener('keypress', window.contentAreaClick, false);
-		content.removeEventListener('mouseover', ExtService.onMouseOver, false);
-	}
-},
-false
-);
-
-window.addEventListener(
-'load',
-function()
-{
-	if (ExtService.activated) return;
-
-	ExtService.init();
-
-	// イベントリスナーの登録
-	ExtCommonUtils.addPrefListener(ExtService.ShortcutPrefListener);
-	ExtCommonUtils.addPrefListener(ExtService.RegexpPrefListener);
-	ExtCommonUtils.addPrefListener(ExtService.UIPrefListener);
-
-	// delayed
-	window.setTimeout('ExtCommonUtils.datasource.AddObserver(ExtService.RDFObserver);', 100);
-},
-false
-);
  
