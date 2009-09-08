@@ -1614,7 +1614,7 @@ var ExtCommonUtils = {
 	
 	cleanUpInvalidKeys : function() 
 	{
-		var nodes = this.evaluateXPath('/descendant::*[local-name() = "key" and (@key = "" or not(@key)) and (@keycode = "" or not(@keycode))]');
+		var nodes = this.evaluateXPath('/descendant::*[local-name() = "key" and not(@key and @key != "") and not(@keycode and @keycode != "")]');
 		var node;
 		for (var i = nodes.snapshotLength-1; i > -1; i--)
 		{
@@ -1633,7 +1633,8 @@ var ExtCommonUtils = {
 	{
 		if (!aType) aType = XPathResult.ORDERED_NODE_SNAPSHOT_TYPE;
 		try {
-			var xpathResult = (aContext.ownerDocument || aContext || document).evaluate(
+			var doc = (aContext ? (aContext.ownerDocument || aContext) : null ) || document ;
+			var xpathResult = doc.evaluate(
 					aExpression,
 					(aContext || document),
 					this.NSResolver,
@@ -1677,7 +1678,7 @@ var ExtCommonUtils = {
 	{
 		var value = window['piro.sakura.ne.jp'].prefs.getPref(aPrefstring);
 		if (this.PREF.getPrefType(aPrefstring) == this.PREF.PREF_STRING && aMultiLine)
-			value = this.unescape(string);
+			value = this.unescape(value);
 		return value;
 	},
 	
@@ -1685,7 +1686,7 @@ var ExtCommonUtils = {
 	{
 		var value = window['piro.sakura.ne.jp'].prefs.getDefaultPref(aPrefstring);
 		if (this.PREF.getPrefType(aPrefstring) == this.PREF.PREF_STRING && aMultiLine)
-			value = this.unescape(string);
+			value = this.unescape(value);
 		return value;
 	},
   

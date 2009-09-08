@@ -484,7 +484,7 @@ var ExtService = {
 		switch (aEvent.type)
 		{
 			case 'popupshowing':
-				if (aEvent.target == aEvent.currentTarget)
+				if (aEvent.target == this.utils.contextMenu)
 					this.updateContextMenu();
 				return;
 
