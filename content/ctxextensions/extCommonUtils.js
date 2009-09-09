@@ -1667,7 +1667,101 @@ var ExtCommonUtils = {
 			}
 		}
 	},
-   
+  
+	$ : function(aNodeOrID, aOwner) 
+	{
+		if (typeof aNodeOrID == 'string') {
+			var doc = this._getDocument(aOwner);
+			return doc.getElementById(aNodeOrID);
+		}
+		return aNodeOrID;
+	},
+	
+	_getDocument : function(aOwner) 
+	{
+		var doc = !aOwner ?
+					document :
+				aOwner instanceof Components.interfaces.nsIDOMDocument ?
+					aOwner :
+				aOwner instanceof Components.interfaces.nsIDOMNode ?
+					aOwner.ownerDocument :
+				aOwner instanceof Components.interfaces.nsIDOMWindow ?
+					aOwner.document :
+					null;
+		if (!doc) throw new Error('invalid owner');
+		return doc;
+	},
+  
+	// http://lowreal.net/logs/2006/03/16/1 
+	$X : function()
+	{
+		if (!arguments || !arguments.length) throw new Error('invalid expression');
+
+		var expression = null,
+			context    = null,
+			resolver   = null,
+			type       = null;
+		arguments = Array.slice(arguments);
+		switch (arguments.length)
+		{
+			case 1:
+				[expression] = arguments;
+				break;
+			case 2:
+				[expression, context] = arguments;
+				break;
+			case 3:
+				[expression, context, type] = arguments;
+				break;
+			default:
+				[expression, context, resolver, type] = arguments;
+				break;
+		}
+
+		if (!expression) throw new Error('invalid expression');
+
+		var doc = this._getDocument(context);
+		if (!context) context = doc;
+
+		var result = doc.evaluate(
+				expression,
+				context,
+				resolver,
+				type || XPathResult.ANY_TYPE,
+				null
+			);
+		switch (type || result.resultType)
+		{
+			case XPathResult.STRING_TYPE:
+				return result.stringValue;
+			case XPathResult.NUMBER_TYPE:
+				return result.numberValue;
+			case XPathResult.BOOLEAN_TYPE:
+				return result.booleanValue;
+			case XPathResult.UNORDERED_NODE_ITERATOR_TYPE:
+			case XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE:
+			case XPathResult.ORDERED_NODE_ITERATOR_TYPE:
+				result = doc.evaluate(
+					expression,
+					context,
+					resolver,
+					XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+					null
+				);
+			case XPathResult.ORDERED_NODE_SNAPSHOT_TYPE:
+				var nodes = [];
+				for (let i = 0, maxi = result.snapshotLength; i < maxi; i++)
+				{
+					nodes.push(result.snapshotItem(i));
+				}
+				return nodes;
+			case XPathResult.ANY_UNORDERED_NODE_TYPE:
+			case XPathResult.FIRST_ORDERED_NODE_TYPE:
+				return result.singleNodeValue;
+		}
+		return null;
+	},
+  
 	// prefs.js‚Ì“Ç‚Ý‘‚« 
 	
 	getPref : function(aPrefstring, aMultiLine) 

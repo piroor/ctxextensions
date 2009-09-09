@@ -563,6 +563,9 @@ var ExtFunc = {
 					'var _selectionNodes = window._selectionNodes;',
 					'var _focusedElement = window._focusedElement;',
 
+					'var $ = function() { ExtCommonUtils.$.apply(ExtCommonUtils, arguments); };',
+					'var $X = function() { ExtCommonUtils.$X.apply(ExtCommonUtils, arguments); };',
+
 					'var Cc = Components.classes;'+
 					'var Ci = Components.interfaces;'+
 
