@@ -621,7 +621,7 @@ var ExtService = {
 	// タブを閉じるときに、エラーの元になりそうなものは後始末しておく。 
 	onTabRemoved : function(aEvent)
 	{
-		var b = this.getBrowserForTab(aEvent.originalTarget);
+		var b = aEvent.currentTarget.getBrowserForTab(aEvent.originalTarget);
 		var managers = [
 				'headingsManager',
 				'navigationsManager',
