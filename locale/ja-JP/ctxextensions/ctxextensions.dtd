@@ -467,7 +467,8 @@
 <!ENTITY shortExpressions.clearPref        "設定を消去する">
 
 <!ENTITY shortExpressions.getStackTrace    "スタックトレースを取得する">
-<!ENTITY shortExpressions.inspect          "オブジェクトの内容をシリアライズする">
+<!ENTITY shortExpressions.inspect          "オブジェクトの内容を詳細に文字列化する">
+<!ENTITY shortExpressions.inspectDOMNode   "DOMノードのソース文字列を取得する">
 
 
 

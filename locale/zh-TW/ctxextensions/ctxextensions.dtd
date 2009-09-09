@@ -470,7 +470,8 @@
 <!ENTITY shortExpressions.clearPref "清除偏好設定">
 
 <!ENTITY shortExpressions.getStackTrace    "Get stack trace">
-<!ENTITY shortExpressions.inspect          "Serialize object">
+<!ENTITY shortExpressions.inspect          "Stringize object with details">
+<!ENTITY shortExpressions.inspectDOMNode   "Stringize DOM Node">
 
 
 

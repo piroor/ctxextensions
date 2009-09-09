@@ -475,7 +475,7 @@ _window.autoResize = function(aEvent, aDocument)
     var d = aEvent ? aEvent.target : aDocument ;
     var w = ExtCommonUtils.getWindowFromDocument(d);
 
-    var button = d.getElementById('button');
+    var button = $('button', d);
 
     var i = w.gImage;
     i.style.width = 'auto';

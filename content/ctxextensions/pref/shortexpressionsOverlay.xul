@@ -235,6 +235,8 @@
 						value="_getStackTrace()"/>
 					<menuitem label="&shortExpressions.inspect;"
 						value="_inspect(object)"/>
+					<menuitem label="&shortExpressions.inspectDOMNode;"
+						value="_inspectDOMNode(object)"/>
 <!--
 				</menupopup>
 			</menu>
