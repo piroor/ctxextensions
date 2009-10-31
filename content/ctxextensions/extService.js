@@ -2700,16 +2700,16 @@ catch(e) {
 			switch (aSource.Value.match(/#urn:(\w+):/)[1].toString())
 			{
 				case 'ExecApps':
-					window.gExtCallBackStatements.execApps = 'ExtService.rebuildExecApps();';
+					window.gExtCallBackStatements.execApps = function() { ExtService.rebuildExecApps(); };
 					break;
 				case 'CustomScripts':
-					window.gExtCallBackStatements.customScripts = 'ExtService.rebuildCustomScripts();';
+					window.gExtCallBackStatements.customScripts = function() { ExtService.rebuildCustomScripts(); };
 					break;
 				case 'SendStr':
-					window.gExtCallBackStatements.sendStr = 'ExtService.rebuildSendStr();';
+					window.gExtCallBackStatements.sendStr = function() { ExtService.rebuildSendStr(); };
 					break;
 				case 'SerdURI':
-					window.gExtCallBackStatements.sendURI = 'ExtService.rebuildSendURI();';
+					window.gExtCallBackStatements.sendURI = function() { ExtService.rebuildSendURI(); };
 					break;
 				default:
 					break;
@@ -2725,7 +2725,7 @@ catch(e) {
 			{
 				if (!gExtCallBackStatements[i]) continue;
 
-				eval(gExtCallBackStatements[i]);
+				gExtCallBackStatements[i]();
 
 				gExtCallBackStatements[i] = null;
 				count++;
@@ -2992,6 +2992,11 @@ function _saveURIInBackgroundAs(aURI, aFilePathOrFile, aFlags)
 function _zipFilesAs(aFiles, aZip, aComporessionLevel)
 {
 	ExtCommonUtils.zipFilesAs(aFiles, aZip, aComporessionLevel);
+};
+
+function _evalInSandbox(aCode, aOwner)
+{
+	return ExtCommonUtils._evalInSandbox(aCode, aOwner);
 };
 
 function _run(filepath, args)

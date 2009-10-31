@@ -1579,9 +1579,9 @@ var ExtCommonUtils = {
 		if (!template || !template.hasAttribute('ext-template')) return;
 
 		if (!('extTemplate' in template))
-			eval('template.extTemplate = '+template.getAttribute('ext-template'));
+			template.extTemplate = this.evalInSandbox(template.getAttribute('ext-template'));
 
-		var obj = eval(aContainer.getAttribute('ext-datasource'));
+		var obj = this.evalInSandbox(aContainer.getAttribute('ext-datasource'));
 		obj.reset();
 
 		var children = aContainer.childNodes;
@@ -1760,6 +1760,17 @@ var ExtCommonUtils = {
 				return result.singleNodeValue;
 		}
 		return null;
+	},
+ 
+	evalInSandbox : function(aCode, aOwner) 
+	{
+		try {
+			var sandbox = new Components.utils.Sandbox(aOwner || 'about:blank');
+			return Components.utils.evalInSandbox(aCode, sandbox);
+		}
+		catch(e) {
+		}
+		return void(0);
 	},
   
 	// prefs.jsÇÃì«Ç›èëÇ´ 
