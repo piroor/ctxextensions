@@ -207,7 +207,7 @@ var string = prompt('Enter a object.', _getClipBoard() || ''),
     prefix = '[obj]';
 if (!string || !string.replace(/\s/g, '')) return;
 
-var obj = _evalInSandbox(string, 'about:blank');
+var obj = eval(string);
 if (!obj) return;
 
 for (var prop in obj)
@@ -232,9 +232,9 @@ var string = prompt('Enter a object.', _getClipBoard() || ''),
         if (depth > 2 ||
             !string || 
             !string.replace(/\s/g, '') ||
-            !_evalInSandbox(string, 'about:blank')) return '';
+            !eval(string)) return '';
 
-        var obj = _evalInSandbox(string, 'about:blank'),
+        var obj = eval(string),
             ret = [];
         for (var prop in obj)
         {

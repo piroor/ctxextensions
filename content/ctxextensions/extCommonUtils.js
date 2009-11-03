@@ -1579,9 +1579,10 @@ var ExtCommonUtils = {
 		if (!template || !template.hasAttribute('ext-template')) return;
 
 		if (!('extTemplate' in template))
-			template.extTemplate = this.evalInSandbox(template.getAttribute('ext-template'));
+			eval('template.extTemplate = '+template.getAttribute('ext-template'));
 
-		var obj = this.evalInSandbox(aContainer.getAttribute('ext-datasource'));
+		var obj;
+		eval('obj = '+aContainer.getAttribute('ext-datasource'));
 		obj.reset();
 
 		var children = aContainer.childNodes;
