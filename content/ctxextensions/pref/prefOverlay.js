@@ -137,7 +137,7 @@ var PrefUtils = {
 		window.openDialog(
 			'chrome://ctxextensions/content/pref/keyDetecter.xul',
 			'',
-			'chrome,modal,resizable=no,titlebar=no,centerscreen',
+			'chrome,modal,resizable=no,centerscreen',
 			aRDFManager.keyData,
 			this.utils.getMsg('input_keyboardShortcut')
 		);

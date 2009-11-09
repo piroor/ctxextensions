@@ -469,7 +469,7 @@ dump('5\n');
 		window.openDialog(
 			'chrome://ctxextensions/content/pref/keyDetecter.xul',
 			'_blank',
-			'chrome,modal,resizable=no,titlebar=no,centerscreen',
+			'chrome,modal,resizable=no,centerscreen',
 			this.keyboardShortcutData,
 			this.utils.getMsg('pref_keyboardShortcut_description'),
 			this.utils.getMsg('pref_keyboardShortcut_cancel')
