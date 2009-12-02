@@ -1967,6 +1967,7 @@ catch(e) {
 			];
 
 		var sep = document.getElementById('context-sep-extensionsExtra');
+		if (!sep) return;
 
 		// clear old items;
 		while (sep.nextSibling &&
