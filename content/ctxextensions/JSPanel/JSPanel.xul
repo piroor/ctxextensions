@@ -60,7 +60,8 @@
 		<tabpanels id="scriptPagePanels" flex="1" orient="vertical"
 			onfocus="JSPanelService.clearStatus();"
 			oninput="JSPanelService.clearStatus();">
-			<box orient="vertical" flex="1">
+			<box orient="vertical" flex="1" class="customScriptsEditor">
+				<description value="function() {"/>
 				<textbox
 					id="script1"
 					multiline="true"
@@ -68,6 +69,7 @@
 					style="min-height: 12em; min-width: 20em;"
 					wrap="true"
 					flex="1"/>
+				<description value="}"/>
 			</box>
 		</tabpanels>
 	</tabbox>
