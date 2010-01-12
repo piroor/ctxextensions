@@ -12,7 +12,7 @@
 		headertitle="&preftree.sendURI.label;"
 		onload="init();">
 
-	<script type="application/x-javascript"><![CDATA[
+	<script type="application/javascript"><![CDATA[
 
 	function init()
 	{

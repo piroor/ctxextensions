@@ -15,9 +15,9 @@
 		onclose="if (!gShouldClose) return false;"
 		buttons="accept,cancel">
 
-	<script type="application/x-javascript;version=1.7" src="chrome://ctxextensions/content/pRDFData.js"/>
-	<script type="application/x-javascript;version=1.7" src="chrome://ctxextensions/content/prefs.js"/>
-	<script type="application/x-javascript;version=1.7" src="chrome://ctxextensions/content/extCommonUtils.js"/>
+	<script type="application/javascript" src="chrome://ctxextensions/content/pRDFData.js"/>
+	<script type="application/javascript" src="chrome://ctxextensions/content/prefs.js"/>
+	<script type="application/javascript" src="chrome://ctxextensions/content/extCommonUtils.js"/>
 
 	<box orient="vertical">
 		<box orient="horizontal">
@@ -28,7 +28,7 @@
 		<progressmeter id="progressbar" mode="undetermined" value="0"/>
 	</box>
 
-	<script type="application/x-javascript"><![CDATA[
+	<script type="application/javascript"><![CDATA[
 
 var gProgressbar;
 var gShouldClose = false;

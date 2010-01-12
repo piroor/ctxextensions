@@ -23,9 +23,9 @@
 		ondialogextra1="PrefPropService.returnValue(); PrefPropService.data.save = true; window.close();"
 		buttons="accept,cancel,extra1">
 
-	<script type="application/x-javascript;version=1.7" src="chrome://ctxextensions/content/prefs.js"/>
-	<script type="application/x-javascript;version=1.7" src="chrome://ctxextensions/content/extCommonUtils.js"/>
-	<script type="application/x-javascript;version=1.7" src="prefProperty.js"/>
+	<script type="application/javascript" src="chrome://ctxextensions/content/prefs.js"/>
+	<script type="application/javascript" src="chrome://ctxextensions/content/extCommonUtils.js"/>
+	<script type="application/javascript" src="prefProperty.js"/>
 
 	<data id="saveSample-label" label="&pref.saveSample;"/>
 

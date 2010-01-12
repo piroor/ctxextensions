@@ -23,7 +23,7 @@
 		</box>
 	</box>
 
-	<script type="application/x-javascript"><![CDATA[
+	<script type="application/javascript"><![CDATA[
 
 var gShouldClose = false;
 var gRDFData = window.arguments[0];

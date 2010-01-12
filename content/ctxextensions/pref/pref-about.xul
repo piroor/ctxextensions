@@ -12,7 +12,7 @@
 		onload="init();"
 		headertitle="&preftree.about.label;">
 
-<script type="application/x-javascript" src="pref-about.js"/>
+<script type="application/javascript" src="pref-about.js"/>
 
 
 	<groupbox orient="vertical">

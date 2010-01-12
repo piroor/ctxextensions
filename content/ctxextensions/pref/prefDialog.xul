@@ -70,7 +70,7 @@
 	restoreLastSelectedPanel="true"
 	resizable="true">
 
-<script type="application/x-javascript" src="chrome://ctxextensions/content/pref/nsWidgetStateManager.js"/>
+<script type="application/javascript" src="chrome://ctxextensions/content/pref/nsWidgetStateManager.js"/>
 
 <box ordinal="horizontal" flex="1">
 	<box orient="vertical">
@@ -106,7 +106,7 @@
 <separator/>
 
 
-<script type="application/x-javascript"><![CDATA[
+<script type="application/javascript"><![CDATA[
 var _elementIDs = [];
 
 var PrefDialogService = 

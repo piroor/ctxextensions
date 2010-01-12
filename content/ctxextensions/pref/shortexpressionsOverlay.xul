@@ -7,7 +7,7 @@
 <box id="shortExpressions"
 	orient="horizontal" style="border: thin -moz-bg-inset;">
 
-	<script type="application/x-javascript"><![CDATA[
+	<script type="application/javascript"><![CDATA[
 		// 定型文の挿入
 		function insertExpression()
 		{

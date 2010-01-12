@@ -8,13 +8,13 @@
 	xmlns:EX="http://piro.sakura.ne.jp/ctxextensions"
 	xmlns:EXRDF="http://white.sakura.ne.jp/~piro/rdf#">
 
-<script type="application/x-javascript;version=1.7" src="chrome://ctxextensions/content/prefs.js"/>
-<script type="application/x-javascript;version=1.7" src="chrome://ctxextensions/content/extCommonUtils.js"/>
-<script type="application/x-javascript;version=1.7" src="chrome://ctxextensions/content/extService.js"/>
-<script type="application/x-javascript;version=1.7" src="chrome://ctxextensions/content/extFunc.js"/>
+<script type="application/javascript" src="chrome://ctxextensions/content/prefs.js"/>
+<script type="application/javascript" src="chrome://ctxextensions/content/extCommonUtils.js"/>
+<script type="application/javascript" src="chrome://ctxextensions/content/extService.js"/>
+<script type="application/javascript" src="chrome://ctxextensions/content/extFunc.js"/>
 
-<script type="application/x-javascript;version=1.7" src="chrome://ctxextensions/content/pRDFData.js"/>
-<script type="application/x-javascript;version=1.7" src="chrome://ctxextensions/content/pProgressManager.js"/>
+<script type="application/javascript" src="chrome://ctxextensions/content/pRDFData.js"/>
+<script type="application/javascript" src="chrome://ctxextensions/content/pProgressManager.js"/>
 
 <popup id="messagePaneContext">
 
@@ -820,7 +820,7 @@
 </menubar>
 
 
-<script type="application/x-javascript"><![CDATA[
+<script type="application/javascript"><![CDATA[
 
 	function extOpenDialog(uri, type)
 	{
