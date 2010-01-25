@@ -12,39 +12,38 @@ var ExtCommonUtils = {
 	
 	get mainURI() 
 	{
-		if (this._mainURI === void(0)) {
-			var uri = this.getPref('browser.chromeURL');
-			if (!uri) {
-				try {
-					var handler = Components.classes['@mozilla.org/commandlinehandler/general-startup;1?type=browser'].getService(Components.interfaces.nsICmdLineHandler);
-					uri = handler.chromeUrlForTask;
-				}
-				catch(e) {
-				}
+		delete this.mainURI;
+		var uri = this.getPref('browser.chromeURL');
+		if (!uri) {
+			try {
+				var handler = Components.classes['@mozilla.org/commandlinehandler/general-startup;1?type=browser'].getService(Components.interfaces.nsICmdLineHandler);
+				uri = handler.chromeUrlForTask;
 			}
-			if (uri) {
-				if (uri.charAt(uri.length-1) == '/')
-					uri = uri.replace(/chrome:\/\/([^\/]+)\/content\//, 'chrome://$1/content/$1.xul');
+			catch(e) {
 			}
-			this._mainURI = uri;
 		}
-		return this._mainURI;
+		if (uri) {
+			if (uri.charAt(uri.length-1) == '/')
+				uri = uri.replace(/chrome:\/\/([^\/]+)\/content\//, 'chrome://$1/content/$1.xul');
+		}
+		this.mainURI = uri;
+		return uri;
 	},
-//	_mainURI : null,
   
 	get isBrowser() 
 	{
-		return (this.mainURI && this.mainURI.indexOf('chrome://browser/') > -1) ? true : false ;
+		delete this.isBrowser;
+		this.isBrowser = (this.mainURI && this.mainURI.indexOf('chrome://browser/') > -1) ? true : false ;
+		return this.isBrowser;
 	},
  
 	get contextMenu() 
 	{
-		if (!this.mContextMenu)
-			this.mContextMenu = document.getElementById('contentAreaContextMenu') || // Firefox
-								document.getElementById('messagePaneContext'); // Thunderbird
-		return this.mContextMenu;
+		delete this.contextMenu;
+		this.contextMenu = document.getElementById('contentAreaContextMenu') || // Firefox
+							document.getElementById('messagePaneContext'); // Thunderbird
+		return this.contextMenu;
 	},
-	mContextMenu : null,
  
 	get browser() 
 	{
@@ -146,11 +145,10 @@ var ExtCommonUtils = {
 	// メッセージ文字列 
 	get msg()
 	{
-		if (!this._msg)
-			this._msg = this.StringBundleService.createBundle(this.locale+'ctxextensions.properties');
-		return this._msg;
+		delete this.msg;
+		this.msg = this.StringBundleService.createBundle(this.locale+'ctxextensions.properties');
+		return this.msg;
 	},
-	_msg : null,
 	
 	getMsg : function(aName) 
 	{
@@ -164,11 +162,10 @@ var ExtCommonUtils = {
   
 	get keys() 
 	{
-		if (!this._keys)
-			this._keys = this.StringBundleService.createBundle('chrome://global/locale/keys.properties');
-		return this._keys;
+		delete this.keys;
+		this.keys = this.StringBundleService.createBundle('chrome://global/locale/keys.properties');
+		return this.keys;
 	},
-	_keys : null,
 	
 	getKey : function(aName) 
 	{
@@ -182,11 +179,10 @@ var ExtCommonUtils = {
   
 	get platformKeys() 
 	{
-		if (!this._platformKeys)
-			this._platformKeys = this.StringBundleService.createBundle('chrome://global-platform/locale/platformKeys.properties');
-		return this._platformKeys;
+		delete this.platformKeys;
+		this.platformKeys = this.StringBundleService.createBundle('chrome://global-platform/locale/platformKeys.properties');
+		return this.platformKeys;
 	},
-	_platformKeys : null,
 	
 	getPlatformKey : function(aName) 
 	{
@@ -205,157 +201,145 @@ var ExtCommonUtils = {
 	// カスタムスクリプト 
 	get CUSTOMSCRIPTS()
 	{
-		if (!this.mCUSTOMSCRIPTS)
-			this.mCUSTOMSCRIPTS = new pRDFData('CustomScripts', this.datasourceURI, '', this.mNS, this.mBaseURL);
-		return this.mCUSTOMSCRIPTS;
+		delete this.CUSTOMSCRIPTS;
+		this.CUSTOMSCRIPTS = new pRDFData('CustomScripts', this.datasourceURI, '', this.mNS, this.mBaseURL);
+		return this.CUSTOMSCRIPTS;
 	},
-	mCUSTOMSCRIPTS : null,
  
 	// 外部アプリ登録情報 
 	get EXECAPPS()
 	{
-		if (!this.mEXECAPPS)
-			this.mEXECAPPS = new pRDFData('ExecApps', this.datasourceURI, '', this.mNS, this.mBaseURL);
-		return this.mEXECAPPS;
+		delete this.EXECAPPS;
+		this.EXECAPPS = new pRDFData('ExecApps', this.datasourceURI, '', this.mNS, this.mBaseURL);
+		return this.EXECAPPS;
 	},
-	mEXECAPPS : null,
  
 	// 選択文字列の送り先 
 	get SENDSTR()
 	{
-		if (!this.mSENDSTR)
-			this.mSENDSTR = new pRDFData('SendStr', this.datasourceURI, '', this.mNS, this.mBaseURL);
-		return this.mSENDSTR;
+		delete this.SENDSTR;
+		this.SENDSTR = new pRDFData('SendStr', this.datasourceURI, '', this.mNS, this.mBaseURL);
+		return this.SENDSTR;
 	},
-	mSENDSTR : null,
  
 	// URIの送り先 
 	get SENDURI()
 	{
-		if (!this.mSENDURI)
-			this.mSENDURI = new pRDFData('SendURI', this.datasourceURI, '', this.mNS, this.mBaseURL);
-		return this.mSENDURI;
+		delete this.SENDURI;
+		this.SENDURI = new pRDFData('SendURI', this.datasourceURI, '', this.mNS, this.mBaseURL);
+		return this.SENDURI;
 	},
-	mSENDURI : null,
   
 	// XPConnect 
 	
 	get WINMAN() 
 	{
-		if (!this.mWINMAN) {
-			this.mWINMAN = Components
+		delete this.WINMAN;
+		this.WINMAN = Components
 					.classes['@mozilla.org/appshell/window-mediator;1']
 					.getService(Components.interfaces.nsIWindowMediator);
-		}
-		return this.mWINMAN;
+		return this.WINMAN;
 	},
-	mWINMAN : null,
  
 	get PREF() 
 	{
-		if (!this.mPREF) {
-			this.mPREF = Components
+		delete this.PREF;
+		this.PREF = Components
 					.classes['@mozilla.org/preferences;1']
 					.getService(Components.interfaces.nsIPrefBranch);
-		}
-		return this.mPREF;
+		return this.PREF;
 	},
-	mPREF : null,
  
 	get DEFPREF() 
 	{
-		if (!this.mDEFPREF) {
-			this.mDEFPREF = Components
+		delete this.DEFPREF;
+		this.DEFPREF = Components
 					.classes['@mozilla.org/preferences-service;1']
 					.getService(Components.interfaces.nsIPrefService)
 					.getDefaultBranch(null);
-		}
-		return this.mDEFPREF;
+		return this.DEFPREF;
 	},
-	mDEFPREF : null,
  
 	get RDF() 
 	{
-		if (!this.mRDF) {
-			this.mRDF = Components
+		delete this.RDF;
+		this.RDF = Components
 					.classes['@mozilla.org/rdf/rdf-service;1']
 					.getService(Components.interfaces.nsIRDFService);
-		}
-		return this.mRDF;
+		return this.RDF;
 	},
-	mRDF : null,
  
 	get IOService() 
 	{
-		if (!this.mIOService) {
-			this.mIOService = Components
+		delete this.IOService;
+		this.IOService = Components
 					.classes['@mozilla.org/network/io-service;1']
 					.getService(Components.interfaces.nsIIOService);
-		}
-		return this.mIOService;
+		return this.IOService;
 	},
-	mIOService : null,
  
 	get UCONV() 
 	{
-		if (!this.mUCONV) {
-			this.mUCONV = Components
+		delete this.UCONV;
+		this.UCONV = Components
 					.classes['@mozilla.org/intl/scriptableunicodeconverter']
 					.getService(Components.interfaces.nsIScriptableUnicodeConverter);
-		}
-		return this.mUCONV;
+		return this.UCONV;
 	},
-	mUCONV : null,
  
 	get StringBundleService() 
 	{
-		if (!this.mStringBundleService)
-			this.mStringBundleService = Components
+		delete this.StringBundleService;
+		this.StringBundleService = Components
 					.classes['@mozilla.org/intl/stringbundle;1']
 					.getService(Components.interfaces.nsIStringBundleService);
-		return this.mStringBundleService;
+		return this.StringBundleService;
 	},
-	mStringBundleService : null,
  
 	get PromptService() 
 	{
-		if (!this.mPromptService)
-			this.mPromptService = Components
+		delete this.PromptService;
+		this.PromptService = Components
 					.classes['@mozilla.org/embedcomp/prompt-service;1']
 					.getService(Components.interfaces.nsIPromptService);
-		return this.mPromptService;
+		return this.PromptService;
 	},
-	mPromptService : null,
  
 	get CLIPBOARD() 
 	{
-		if (!this._clipboard)
-			this._clipboard = Components
+		delete this.CLIPBOARD;
+		this.CLIPBOARD = Components
 					.classes['@mozilla.org/widget/clipboard;1']
 					.getService(Components.interfaces.nsIClipboard);
-		return this._clipboard;
+		return this.CLIPBOARD;
 	},
-	_clipboard : null,
  
 	get ClipBoardHelper() 
 	{
-		if (!this._ClipBoardHelper)
-			this._ClipBoardHelper = Components
+		delete this.ClipBoardHelper;
+		this.ClipBoardHelper = Components
 					.classes['@mozilla.org/widget/clipboardhelper;1']
 					.getService(Components.interfaces.nsIClipboardHelper);
-		return this._ClipBoardHelper;
+		return this.ClipBoardHelper;
 	},
-	_ClipBoardHelper : null,
  
 	get TextToSubURI() 
 	{
-		if (!this._TextToSubURI)
-			this._TextToSubURI = Components
+		delete this.TextToSubURI;
+		this.TextToSubURI = Components
 					.classes['@mozilla.org/intl/texttosuburi;1']
 					.getService(Components.interfaces.nsITextToSubURI);
-		return this._TextToSubURI;
+		return this.TextToSubURI;
 	},
-	_TextToSubURI : null,
+ 
+	get DIR() 
+	{
+		delete this.DIR;
+		this.DIR = Components
+					.classes['@mozilla.org/file/directory_service;1']
+					.getService(Components.interfaces.nsIProperties);
+		return this.DIR;
+	},
    
 	// 文字列処理 
 	
@@ -533,19 +517,14 @@ var ExtCommonUtils = {
 		try {
 			var trans = Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable);
 			trans.addDataFlavor('text/unicode');
-			try {
-				this.CLIPBOARD.getData(trans, this.CLIPBOARD.kSelectionClipboard);
-			}
-			catch(ex) {
-				this.CLIPBOARD.getData(trans, this.CLIPBOARD.kGlobalClipboard);
-			}
+			this.CLIPBOARD.getData(trans, this.CLIPBOARD.kGlobalClipboard);
 
 			var data       = {},
 				dataLength = {};
 			trans.getTransferData('text/unicode', data, dataLength);
 
 			if (data) {
-				data = data.value.QueryInterface(('nsISupportsWString' in Components.interfaces ? Components.interfaces.nsISupportsWString : Components.interfaces.nsISupportsString ));
+				data = data.value.QueryInterface(Components.interfaces.nsISupportsString);
 				return data.data.substring(0, dataLength.value / 2);
 			}
 		}
@@ -591,7 +570,8 @@ var ExtCommonUtils = {
 			var newURI;
 			aURI = aURI || '';
 			if (aURI && aURI.match(/^file:/)) {
-				var fileHandler = this.IOService.getProtocolHandler('file').QueryInterface(Components.interfaces.nsIFileProtocolHandler);
+				var fileHandler = this.IOService.getProtocolHandler('file')
+									.QueryInterface(Components.interfaces.nsIFileProtocolHandler);
 				var tempLocalFile = fileHandler.getFileFromURLSpec(aURI);
 
 				newURI = this.IOService.newFileURI(tempLocalFile); // we can use this instance with the nsIFileURL interface.
@@ -610,8 +590,7 @@ var ExtCommonUtils = {
 	// 内部名からファイル/ディレクトリのURIを得る 
 	getURISpecFromKey : function(aKey)
 	{
-		const DIR = Components.classes['@mozilla.org/file/directory_service;1'].getService(Components.interfaces.nsIProperties);
-		var dir = DIR.get(aKey, Components.interfaces.nsILocalFile);
+		var dir = this.DIR.get(aKey, Components.interfaces.nsILocalFile);
 		return this.getURLFromFilePath(dir.path).spec;
 	},
  
@@ -620,7 +599,8 @@ var ExtCommonUtils = {
 	{
 		if ((aURI || '').indexOf('file://') != 0) return '';
 
-		var fileHandler = this.IOService.getProtocolHandler('file').QueryInterface(Components.interfaces.nsIFileProtocolHandler);
+		var fileHandler = this.IOService.getProtocolHandler('file')
+							.QueryInterface(Components.interfaces.nsIFileProtocolHandler);
 		return fileHandler.getFileFromURLSpec(aURI);
 	},
  
@@ -695,8 +675,9 @@ var ExtCommonUtils = {
    
 	openURIInExternalApp : function(aURI) 
 	{
-		var uri = Components.classes['@mozilla.org/network/io-service;1'].getService(Components.interfaces.nsIIOService).newURI(aURI, null, null);
-		var protocolSvc = Components.classes['@mozilla.org/uriloader/external-protocol-service;1'].getService(Components.interfaces.nsIExternalProtocolService);
+		var uri = this.makeURIFromSpec(aURI);
+		var protocolSvc = Components.classes['@mozilla.org/uriloader/external-protocol-service;1']
+							.getService(Components.interfaces.nsIExternalProtocolService);
 		protocolSvc.loadUrl(uri);
 	},
   
@@ -705,7 +686,8 @@ var ExtCommonUtils = {
 	// 渡されたパスからnsIFileのオブジェクトを生成する 
 	makeFileWithPath : function(aPath)
 	{
-		var newFile = Components.classes['@mozilla.org/file/local;1'].createInstance(Components.interfaces.nsILocalFile);
+		var newFile = Components.classes['@mozilla.org/file/local;1']
+							.createInstance(Components.interfaces.nsILocalFile);
 		newFile.initWithPath(aPath);
 		return newFile;
 	},
@@ -714,8 +696,7 @@ var ExtCommonUtils = {
 	// contentAreaUtil.js の makeTempFile の改造。
 	makeTempFileWithName : function(aName)
 	{
-		const DIR = Components.classes['@mozilla.org/file/directory_service;1'].getService(Components.interfaces.nsIProperties);
-		var tempFile = DIR.get('TmpD', Components.interfaces.nsIFile);
+		var tempFile = this.DIR.get('TmpD', Components.interfaces.nsIFile);
 		tempFile.append(aName);
 		return tempFile;
 	},
@@ -769,7 +750,8 @@ var ExtCommonUtils = {
 			uri = aFilepathOrURI;
 		}
 
-		const loader = Components.classes['@mozilla.org/moz/jssubscript-loader;1'].getService(Components.interfaces.mozIJSSubScriptLoader);
+		const loader = Components.classes['@mozilla.org/moz/jssubscript-loader;1']
+						.getService(Components.interfaces.mozIJSSubScriptLoader);
 		loader.loadSubScript(uri);
 	},
  
@@ -956,7 +938,8 @@ var ExtCommonUtils = {
 	
 	createPersist : function() 
 	{
-		return Components.classes['@mozilla.org/embedding/browser/nsWebBrowserPersist;1'].createInstance(Components.interfaces.nsIWebBrowserPersist)
+		return Components.classes['@mozilla.org/embedding/browser/nsWebBrowserPersist;1']
+				.createInstance(Components.interfaces.nsIWebBrowserPersist)
 	},
  
 	parseSavingFlags : function(aFlags, aFile) 
@@ -1066,7 +1049,8 @@ var ExtCommonUtils = {
 
 		var shouldDecode = false;
 		try {
-			const helperAppService = Components.classes['@mozilla.org/uriloader/external-helper-app-service;1'].getService(Components.interfaces.nsIExternalHelperAppService);
+			const helperAppService = Components.classes['@mozilla.org/uriloader/external-helper-app-service;1']
+										.getService(Components.interfaces.nsIExternalHelperAppService);
 			var url = aSniffer.uri.QueryInterface(Components.interfaces.nsIURL);
 			var urlExt = url.fileExtension;
 			if (helperAppService.applyDecodingForType(aSniffer.contentType) &&
@@ -1091,7 +1075,8 @@ var ExtCommonUtils = {
 			PERSIST.persistFlags &= ~nsIWebBrowserPersist.PERSIST_FLAGS_NO_CONVERSION;
 
 
-		var dl = Components.classes['@mozilla.org/download;1'].createInstance(Components.interfaces.nsIDownload);
+		var dl = Components.classes['@mozilla.org/download;1']
+					.createInstance(Components.interfaces.nsIDownload);
 		dl.init(aSniffer.uri, aData.fileObject, null, null, null, PERSIST);
 
 		if (PERSIST.saveURI.arity == 3) // old implementation
@@ -1176,7 +1161,8 @@ var ExtCommonUtils = {
 		}
 		catch(e) {
 			aTarget = aTarget.QueryInterface(Components.interfaces.nsILocalFile)
-			stream = Components.classes['@mozilla.org/network/file-input-stream;1'].createInstance(Components.interfaces.nsIFileInputStream);
+			stream = Components.classes['@mozilla.org/network/file-input-stream;1']
+						.createInstance(Components.interfaces.nsIFileInputStream);
 			try {
 				stream.init(aTarget, 1, 0, false); // open as "read only"
 			}
@@ -1186,7 +1172,8 @@ var ExtCommonUtils = {
 		}
 
 		try {
-			var scriptableStream = Components.classes['@mozilla.org/scriptableinputstream;1'].createInstance(Components.interfaces.nsIScriptableInputStream);
+			var scriptableStream = Components.classes['@mozilla.org/scriptableinputstream;1']
+						.createInstance(Components.interfaces.nsIScriptableInputStream);
 			scriptableStream.init(stream);
 
 			var fileContents = scriptableStream.read(scriptableStream.available());
@@ -1224,7 +1211,8 @@ var ExtCommonUtils = {
 
 		aTarget.create(aTarget.NORMAL_FILE_TYPE, 0666);
 
-		var stream = Components.classes['@mozilla.org/network/file-output-stream;1'].createInstance(Components.interfaces.nsIFileOutputStream);
+		var stream = Components.classes['@mozilla.org/network/file-output-stream;1']
+						.createInstance(Components.interfaces.nsIFileOutputStream);
 		stream.init(aTarget, 2, 0x200, false); // open as "write only"
 
 		stream.write(aContent, aContent.length);
@@ -1413,7 +1401,8 @@ var ExtCommonUtils = {
 
 		var mEntityConverter;
 		try {
-			mEntityConverter = Components.classes['@mozilla.org/intl/entityconverter;1'].createInstance(Components.interfaces.nsIEntityConverter);
+			mEntityConverter = Components.classes['@mozilla.org/intl/entityconverter;1']
+								.createInstance(Components.interfaces.nsIEntityConverter);
 		}
 		catch(e) {
 		}
