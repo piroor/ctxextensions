@@ -14,13 +14,10 @@ var ExtCommonUtils = {
 	{
 		delete this.mainURI;
 		var uri = this.getPref('browser.chromeURL');
-		if (!uri) {
-			try {
-				var handler = Components.classes['@mozilla.org/commandlinehandler/general-startup;1?type=browser'].getService(Components.interfaces.nsICmdLineHandler);
-				uri = handler.chromeUrlForTask;
-			}
-			catch(e) {
-			}
+		var CID = '@mozilla.org/commandlinehandler/general-startup;1?type=browser';
+		if (!uri && CID in Components.classes) {
+			var handler = Components.classes[CID].getService(Components.interfaces.nsICmdLineHandler);
+			uri = handler.chromeUrlForTask;
 		}
 		if (uri) {
 			if (uri.charAt(uri.length-1) == '/')
