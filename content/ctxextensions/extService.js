@@ -621,7 +621,8 @@ var ExtService = {
 	// タブを閉じるときに、エラーの元になりそうなものは後始末しておく。 
 	onTabRemoved : function(aEvent)
 	{
-		var b = aEvent.currentTarget.getBrowserForTab(aEvent.originalTarget);
+		var b = this.getTabBrowserFromChild(aEvent.currentTarget);
+		b = b.getBrowserForTab(aEvent.originalTarget);
 		var managers = [
 				'headingsManager',
 				'navigationsManager',
@@ -642,6 +643,19 @@ var ExtService = {
    
 	// Utilities 
 	
+	getTabBrowserFromChild : function(aTab) 
+	{
+		var b = aTab.ownerDocument.evaluate(
+				'ancestor-or-self::*[local-name()="tabbrowser"] | '+
+				'ancestor-or-self::*[local-name()="tabs" and @tabbrowser]',
+				aTab,
+				null,
+				XPathResult.FIRST_ORDERED_NODE_TYPE,
+				null
+			).singleNodeValue;
+		return (b && b.tabbrowser) || b;
+	},
+ 
 	// URIからディレクトリを抜き出す 
 	getCurrentDir : function(aURI)
 	{
