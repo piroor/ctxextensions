@@ -30,16 +30,21 @@ var JSPanelService = {
 	init : function() 
 	{
 		var tabs   = this.tabs,
+			tab,
 			label  = tabs.getAttribute('labelTemplate'),
 			panels = this.tabpanels,
+			panel,
 			max    = this.utils.getPref('ctxextensions.JSPanel.page.number');
 		for (var i = 1; i < max; i++)
 		{
-			tabs.appendChild(document.createElement('tab'));
-			tabs.lastChild.label = label.replace(/%s/gi, i+1);
+			tab = document.createElement('tab');
+			tab.setAttribute('label', label.replace(/%s/gi, i+1));
 
-			panels.appendChild(panels.firstChild.cloneNode(true));
-			panels.lastChild.lastChild.id = 'script'+(i+1);
+			panel = panels.firstChild.cloneNode(true);
+			panel.childNodes[1].setAttribute('id', 'script'+(i+1));
+
+			tabs.appendChild(tab);
+			panels.appendChild(panel);
 		}
 		tabs.firstChild.label = label.replace(/%s/gi, 1);
 
