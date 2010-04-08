@@ -26,17 +26,16 @@
 			if (initExpressionItemsDone) return;
 			Array.slice(aPopup.getElementsByTagName('menuitem')).forEach(function(aItem) {
 				var value = aItem.getAttribute('value');
-				var label = aItem.getAttribute('label');
-
+				if (!value) return;
 				aItem.setAttribute('tooltiptext', value);
-
 				// var container = document.getAnonymousElementByAttribute(aItem, 'anonid', 'accel');
 				// if (container) {
-				// 	let newLabel = document.createElement('label');
-				// 	newLabel.setAttribute('value', value);
-				// 	container.insertBefore(newLabel, container.firstChild);
+				// 	let label = document.createElement('label');
+				// 	label.setAttribute('value', value);
+				// 	container.insertBefore(label, container.firstChild);
 				// }
 				// else {
+				// 	let label = aItem.getAttribute('label');
 				// 	aItem.setAttribute('label', label+' ( '+value+' )');
 				// }
 			});
