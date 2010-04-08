@@ -354,17 +354,27 @@ var ExtService = {
 		for (i = 0; i < prefs.length; i++)
 			this.showHideMenubarItem(prefs[i]);
 
-
 		// autoexec on startup
-		var CSObj = this.utils.CUSTOMSCRIPTS,
-			item,
-			ret;
-		for (i = 0; i < CSObj.length; i++)
-		{
-			item = CSObj.item(i);
-			if (CSObj.getData(item, 'Startup') == 'true')
-				ret = ExtFunc.CustomScripts(CSObj.getData(item, 'Name'));
-		}
+		var runScripts = function() {
+				var CSObj = this.utils.CUSTOMSCRIPTS,
+					item,
+					ret;
+				if (!CSObj.length) return false;
+				for (i = 0; i < CSObj.length; i++)
+				{
+					item = CSObj.item(i);
+					if (CSObj.getData(item, 'Startup') == 'true')
+						ret = ExtFunc.CustomScripts(CSObj.getData(item, 'Name'));
+				}
+				return true;
+			};
+		var count = 0;
+		if (!runScripts.call(this))
+			window.setTimeout(function(aSelf) {
+				count++;
+				if (!runScripts.call(aSelf) && count < 10)
+					window.setTimeout(arguments.callee, 10, aSelf);
+			}, 10, this);
 	},
 	destroy : function()
 	{
