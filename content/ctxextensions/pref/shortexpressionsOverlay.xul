@@ -20,12 +20,34 @@
 			ExtCommonUtils.insertTextFor(target.value, textbox);
 			textbox.focus();
 		}
+
+		var initExpressionItemsDone = false;
+		function initExpressionItems(aPopup) {
+			if (initExpressionItemsDone) return;
+			Array.slice(aPopup.getElementsByTagName('menuitem')).forEach(function(aItem) {
+				var value = aItem.getAttribute('value');
+				var label = aItem.getAttribute('label');
+
+				aItem.setAttribute('tooltiptext', value);
+
+				// var container = document.getAnonymousElementByAttribute(aItem, 'anonid', 'accel');
+				// if (container) {
+				// 	let newLabel = document.createElement('label');
+				// 	newLabel.setAttribute('value', value);
+				// 	container.insertBefore(newLabel, container.firstChild);
+				// }
+				// else {
+				// 	aItem.setAttribute('label', label+' ( '+value+' )');
+				// }
+			});
+			initExpressionItemsDone = true;
+		}
 	]]></script>
 
 	<label control="insertExpression" value="&shortExpressions.label;"/>
 	<menulist id="insertExpression" flex="1"
 		oncommand="this.nextSibling.removeAttribute('disabled');">
-		<menupopup>
+		<menupopup onpopupshowing="initExpressionItems(this)">
 			<menuitem label="&shortExpressions.default;" disabled="true"/>
 
 			<menuseparator/>
