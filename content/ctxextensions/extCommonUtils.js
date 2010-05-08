@@ -1232,6 +1232,12 @@ var ExtCommonUtils = {
 
 		var targets = this.WINMAN.getZOrderDOMWindowEnumerator(aType, true),
 			target;
+
+		// By the bug 156333, we cannot find windows by their Z order on Linux.
+		// https://bugzilla.mozilla.org/show_bug.cgi?id=156333
+		if (!targets.hasMoreElements())
+			targets = this.WINMAN.getEnumerator(aType);
+
 		while (targets.hasMoreElements())
 		{
 			target = targets.getNext().QueryInterface(Components.interfaces.nsIDOMWindowInternal);
