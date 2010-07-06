@@ -1517,12 +1517,19 @@ catch(e) {
 			return;
 
 		var d = aTarget.ownerDocument;
-		if (d.__ctxextensions__smoothScrollTask)
+		if (d.__ctxextensions__smoothScrollTask) {
 			this.utils.animationManager.removeTask(d.__ctxextensions__smoothScrollTask);
+			delete d.__ctxextensions__smoothScrollTask;
+		}
 
 		var finalX = aTarget.offsetLeft;
 		var finalY = aTarget.offsetTop;
 		var w = d.defaultView;
+
+		if (!this.getPref('ctxextensions.smoothScroll.enabled')) {
+			w.scrollTo(finalX, finalY);
+			return;
+		}
 
 		var startX = w.scrollX;
 		var startY = w.scrollY;
@@ -1548,10 +1555,9 @@ catch(e) {
 		};
 		this.utils.animationManager.addTask(
 			d.__ctxextensions__smoothScrollTask,
-			0, 0, this.smoothScrollDuration
+			0, 0, this.getPref('ctxextensions.smoothScroll.duration')
 		);
 	},
-	smoothScrollDuration : 250,
  
 	// URIをダウンロードし、ダウンロード完了後にアプリで開く 
 	downloadAndOpenWithApp : function(aManagerID, aApp, aOptions, aURI, aDocument)

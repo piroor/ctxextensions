@@ -5,6 +5,8 @@ pref("ctxextensions.enable.getLinks_collectOnClick", false);
 pref("ctxextensions.enable.navigations_advanced", false);
 pref("ctxextensions.enable.navigations_collectLinks", false);
 pref("ctxextensions.enable.navigations_submenu", true);
+pref("ctxextensions.smoothScroll.enabled", true);
+pref("ctxextensions.smoothScroll.duration", 250);
 
 
 pref("ctxextensions.scan_navigations_in_background.enable",   false);
