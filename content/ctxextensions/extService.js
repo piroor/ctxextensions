@@ -243,6 +243,7 @@ var ExtService = {
 		if (this.activated) return;
 		this.activated = true;
 
+		this.initApplicationMenu();
 
 		var frameItems = [
 				'context-item-sendURI-frame',
@@ -417,6 +418,8 @@ var ExtService = {
 		this.insertAttribute('ext-common-navigations:mpopup', 'style', style_value);
 		this.insertAttribute('menu-item-navigations:mpopup', 'style', style_value);
 		this.insertAttribute('menu-item-navigations:mpopup:submenu', 'style', style_value);
+		this.insertAttribute('appmenu-item-navigations:mpopup', 'style', style_value);
+		this.insertAttribute('appmenu-item-navigations:mpopup:submenu', 'style', style_value);
 		this.insertAttribute('context-item-navigations:mpopup', 'style', style_value);
 		this.insertAttribute('context-item-navigations:mpopup:submenu', 'style', style_value);
 
@@ -424,6 +427,8 @@ var ExtService = {
 		this.insertAttribute('ext-common-outline:mpopup', 'style', style_value);
 		this.insertAttribute('menu-item-outline:mpopup', 'style', style_value);
 		this.insertAttribute('menu-item-outline:mpopup:submenu', 'style', style_value);
+		this.insertAttribute('appmenu-item-outline:mpopup', 'style', style_value);
+		this.insertAttribute('appmenu-item-outline:mpopup:submenu', 'style', style_value);
 		this.insertAttribute('context-item-outline:mpopup', 'style', style_value);
 		this.insertAttribute('context-item-outline:mpopup:submenu', 'style', style_value);
 
@@ -453,7 +458,33 @@ var ExtService = {
 		}
 
 		delete this.initMenu;
-		return;
+	},
+ 
+	initApplicationMenu : function() 
+	{
+		var button = document.getElementById('appmenu-button');
+		if (!button) return;
+
+		var menubar = document.getElementById('main-menubar');
+
+		var fragment = document.createDocumentFragment();
+		Array.slice(menubar.getElementsByAttribute('ctxextensions-item', '*'))
+			.forEach(function(aItem) {
+				if (aItem.parentNode == menubar)
+					fragment.appendChild(aItem.cloneNode(true));
+			});
+
+		var updateID = function(aNodes) {
+				Array.slice(aNodes).forEach(function(aNode) {
+					if (aNode.hasAttribute('id'))
+						aNode.setAttribute('id', 'app'+aNode.getAttribute('id'));
+					if (aNode.hasChildNodes())
+						updateID(aNode.childNodes);
+				});
+			};
+		updateID(fragment.childNodes)
+
+		button.firstChild.insertBefore(fragment, document.getElementById('appmenu_openHelp').nextSibling);
 	},
  
 	// ïWèÄÇÃä÷êîÇÃè„èëÇ´ 
@@ -1917,6 +1948,9 @@ catch(e) {
 			'menu-item-execApps:mpopup',
 			'menu-item-execApps:mpopup:submenu',
 			'menu-item-execApps-frame:mpopup',
+			'appmenu-item-execApps:mpopup',
+			'appmenu-item-execApps:mpopup:submenu',
+			'appmenu-item-execApps-frame:mpopup',
 			'context-item-execApps:mpopup',
 			'context-item-execApps:mpopup:submenu',
 			'context-item-execApps-frame:mpopup'
@@ -1934,6 +1968,8 @@ catch(e) {
 			'ext-common-customScripts:mpopup',
 			'menu-item-customScripts:mpopup',
 			'menu-item-customScripts:mpopup:submenu',
+			'appmenu-item-customScripts:mpopup',
+			'appmenu-item-customScripts:mpopup:submenu',
 			'context-item-customScripts:mpopup',
 			'context-item-customScripts:mpopup:submenu'
 		]);
@@ -1964,6 +2000,9 @@ catch(e) {
 			'menu-item-sendURI:mpopup',
 			'menu-item-sendURI:mpopup:submenu',
 			'menu-item-sendURI-frame:mpopup',
+			'appmenu-item-sendURI:mpopup',
+			'appmenu-item-sendURI:mpopup:submenu',
+			'appmenu-item-sendURI-frame:mpopup',
 			'context-item-sendURI:mpopup',
 			'context-item-sendURI:mpopup:submenu',
 			'context-item-sendURI-frame:mpopup'
@@ -2676,15 +2715,15 @@ catch(e) {
 	{
 		var item = document.getElementById('menu-item-'+aName);
 		if (!item) return;
-		this.setVisible(
-			item,
-			!this.utils.getPref('ctxextensions.submenu.menubar.'+aName) &&
+
+		var visible = !this.utils.getPref('ctxextensions.submenu.menubar.'+aName) &&
 			(
 				!item.hasChildNodes() ||
 				!item.firstChild.builder ||
 				item.firstChild.hasChildNodes()
-			)
-		);
+			);
+		this.setVisible(item, visible);
+		this.setVisible('appmenu-item-'+aName, visible);
 	},
  
 	RDFObserver : 
@@ -3299,7 +3338,7 @@ function _inspect(aObject)
 	}).join(', ');
 };
 
-function _inspectDOMNode(aNode) 
+function _inspectDOMNode(aNode)
 {
 	var self = arguments.callee;
 	var result;
