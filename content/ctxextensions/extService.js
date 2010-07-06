@@ -2313,29 +2313,12 @@ catch(e) {
 		for (i = 0; i < items.length; i += 2)
 		{
 			prefName = items[i].split('-')[0];
-			if (items[i] == 'bookmarks') {
-				var shownItemId = 'context-item-'+items[i];
-				var hiddenItemId = 'context-item-'+items[i]+'-places';
-				if ('PlacesUIUtils' in window || 'PlacesUtils' in window) {
-					shownItemId = 'context-item-'+items[i]+'-places';
-					hiddenItemId = 'context-item-'+items[i];
-				}
-				this.setVisible(
-					shownItemId,
-					items[i+1] &&
-					this.utils.getPref('ctxextensions.show_item.context.'+prefName) &&
-					!this.utils.getPref('ctxextensions.submenu.context.'+prefName)
-				);
-				this.setVisible(hiddenItemId, false);
-			}
-			else {
-				this.setVisible(
-					'context-item-'+items[i],
-					items[i+1] &&
-					this.utils.getPref('ctxextensions.show_item.context.'+prefName) &&
-					!this.utils.getPref('ctxextensions.submenu.context.'+prefName)
-				);
-			}
+			this.setVisible(
+				'context-item-'+items[i],
+				items[i+1] &&
+				this.utils.getPref('ctxextensions.show_item.context.'+prefName) &&
+				!this.utils.getPref('ctxextensions.submenu.context.'+prefName)
+			);
 			this.setVisible(
 				'context-item-'+items[i]+':submenu',
 				items[i+1] &&

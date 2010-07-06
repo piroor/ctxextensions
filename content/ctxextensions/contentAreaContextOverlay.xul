@@ -18,106 +18,51 @@
 <popup id="contentAreaContextMenu">
 
 	<menu id="context-item-go"
+		ctxextensions-item="go"
 		insertbefore="context-sep-stop"
 		label="&goMenu.label;"
 		oncommand="gotoHistoryIndex(event);"/>
 	<menuitem id="context-item-up"
+		ctxextensions-item="up"
 		insertbefore="context-sep-stop"
 		label="&context.up.label;"
 		oncommand="ExtFunc.doCommand('up');"
 		accesskey="&context.up.accesskey;"/>
 
 	<menuitem id="context-item-nextHeading"
+		ctxextensions-item="nextHeading"
 		insertbefore="context-sep-stop"
 		label="&context.nextHeading.label;"
 		oncommand="ExtFunc.goHeadings('next');"
 		accesskey="&context.nextHeading.accesskey;"/>
 	<menuitem id="context-item-prevHeading"
+		ctxextensions-item="prevHeading"
 		insertbefore="context-sep-stop"
 		label="&context.prevHeading.label;"
 		oncommand="ExtFunc.goHeadings('prev');"
 		accesskey="&context.prevHeading.accesskey;"/>
 
 	<menuitem id="context-item-openCiteForQuote"
+		ctxextensions-item="openCiteForQuote"
 		insertbefore="context-metadata"
 		label="&context.openCiteForQuote.label;"
 		oncommand="ExtFunc.doCommand('openCiteForQuote');"
 		accesskey="&context.openCiteForQuote.accesskey;"/>
 	<menuitem id="context-item-openCiteForEdit"
+		ctxextensions-item="openCiteForEdit"
 		insertbefore="context-metadata"
 		label="&context.openCiteForEdit.label;"
 		oncommand="ExtFunc.doCommand('openCiteForEdit');"
 		accesskey="&context.openCiteForEdit.accesskey;"/>
 	<menuitem id="context-item-openLongdesc"
+		ctxextensions-item="openLongdesc"
 		insertbefore="context-sep-image"
 		label="&context.openLongdesc.label;"
 		oncommand="ExtFunc.doCommand('openLongdesc');"
 		accesskey="&context.openLongdesc.accesskey;"/>
 
-
 	<menu id="context-item-bookmarks"
-		insertbefore="context-bookmarkpage"
-		label="&bookmarksMenu.label;"
-		datasources="rdf:bookmarks rdf:files rdf:localsearch rdf:internetsearch"
-		ref="NC:BookmarksRoot"
-		oncommand="
-			if ('OpenBookmarkURL' in window)
-				OpenBookmarkURL(event.target, this.database, event, this);
-			else if (BookmarksMenu.loadBookmark.arity == 2)
-				BookmarksMenu.loadBookmark(event.target, this.database);
-			else
-				BookmarksMenu.loadBookmark(event, event.target, this.database);
-		"
-		onclick="
-			if ('OpenBookmarkURL' in window)
-				OpenBookmarkURL(event.target, this.database, event, this);
-			else if (BookmarksMenu.loadBookmark.arity == 2)
-				BookmarksMenu.loadBookmark(event.target, this.database);
-			else
-				BookmarksMenu.loadBookmark(event, event.target, this.database);
-
-			this.parentNode.hidePopup();
-		">
-		<template xmlns:nc="http://home.netscape.com/NC-rdf#">
-			<rule iscontainer="true" isempty="true"
-				rdf:type="http://home.netscape.com/NC-rdf#Folder">
-				<menupopup>
-					<menu class="menu-iconic bookmark-item" uri="rdf:*" 
-						type="rdf:http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-						label="rdf:http://home.netscape.com/NC-rdf#Name">
-						<menupopup>
-							<menuitem label="&emptyItem.label;" disabled="true"/>
-						</menupopup>
-					</menu>
-				</menupopup>
-			</rule>
-			<rule iscontainer="true">
-				<menupopup>
-					<menu class="menu-iconic bookmark-item" uri="rdf:*"
-						label="rdf:http://home.netscape.com/NC-rdf#Name"
-						type="rdf:http://www.w3.org/1999/02/22-rdf-syntax-ns#type">
-						<menupopup />
-					</menu>
-				</menupopup>
-			</rule>
-			<rule rdf:type="http://home.netscape.com/NC-rdf#BookmarkSeparator">
-				<menupopup> 
-					<menuseparator uri="rdf:*"
-						class="menuseparator-ctxextensions"/>
-				</menupopup>
-			</rule>
-			<rule>
-				<menupopup>
-					<menuitem class="menuitem-iconic bookmark-item" uri="rdf:*"
-						label="rdf:http://home.netscape.com/NC-rdf#Name" 
-						image="rdf:http://home.netscape.com/NC-rdf#Icon"
-						status="rdf:http://home.netscape.com/WEB-rdf#status"/>
-				</menupopup>
-			</rule>
-		</template>
-		<menupopup/>
-	</menu>
-	<menu id="context-item-bookmarks-places"
+		ctxextensions-item="bookmarks"
 		insertbefore="context-bookmarkpage"
 		label="&bookmarksMenu.label;">
 		<menupopup id="bookmarksMenuPopup-context"
@@ -134,41 +79,50 @@
 	<menuseparator id="context-sep-extensions"
 		class="menuseparator-ctxextensions"/>
 	<menu id="context-item-extensions"
+		ctxextensions-item="extensions"
 		label="&context.extensions.label;"
 		accesskey="&context.extensions.accesskey;">
 		<menupopup id="context-item-extensions:mpopup">
 			<menu id="context-item-go:submenu"
+				ctxextensions-item="go"
 				label="&goMenu.label;"
 				oncommand="gotoHistoryIndex(event);"/>
 			<menuitem id="context-item-up:submenu"
+				ctxextensions-item="up"
 				label="&context.up.label;"
 				oncommand="ExtFunc.doCommand('up');"
 				accesskey="&context.up.accesskey;"/>
 			<menuitem id="context-item-nextHeading:submenu"
+				ctxextensions-item="nextHeading"
 				label="&context.nextHeading.label;"
 				oncommand="ExtFunc.goHeadings('next');"
 				accesskey="&context.nextHeading.accesskey;"/>
 			<menuitem id="context-item-prevHeading:submenu"
+				ctxextensions-item="prevHeading"
 				label="&context.prevHeading.label;"
 				oncommand="ExtFunc.goHeadings('prev');"
 				accesskey="&context.prevHeading.accesskey;"/>
 			<menuseparator id="context-sep-extensionsOpen:submenu"
 				class="menuseparator-ctxextensions"/>
 			<menuitem id="context-item-openCiteForQuote:submenu"
+				ctxextensions-item="openCiteForQuote"
 				label="&context.openCiteForQuote.label;"
 				oncommand="ExtFunc.doCommand('openCiteForQuote');"
 				accesskey="&context.openCiteForQuote.accesskey;"/>
 			<menuitem id="context-item-openCiteForEdit:submenu"
+				ctxextensions-item="openCiteForEdit"
 				label="&context.openCiteForEdit.label;"
 				oncommand="ExtFunc.doCommand('openCiteForEdit');"
 				accesskey="&context.openCiteForEdit.accesskey;"/>
 			<menuitem id="context-item-openLongdesc:submenu"
+				ctxextensions-item="openLongdesc"
 				label="&context.openLongdesc.label;"
 				oncommand="ExtFunc.doCommand('openLongdesc');"
 				accesskey="&context.openLongdesc.accesskey;"/>
 			<menuseparator id="context-sep-navigations:submenu"
 				class="menuseparator-ctxextensions"/>
 			<menu id="context-item-outline:submenu"
+				ctxextensions-item="outline"
 				label="&context.outline.label;"
 				label-for-normal="&context.outline.label;"
 				label-for-frame="&context.outline.label_frame;">
@@ -177,6 +131,7 @@
 					oncommand="ExtFunc.Outline(event);"/>
 			</menu>
 			<menu id="context-item-navigations:submenu"
+				ctxextensions-item="navigations"
 				label="&context.navigations.label;"
 				label-for-normal="&context.navigations.label;"
 				label-for-frame="&context.navigations.label_frame;">
@@ -190,9 +145,11 @@
 			<menuseparator id="context-sep-extensionsMisc:submenu"
 				class="menuseparator-ctxextensions"/>
 			<menuitem id="context-item-JSPanel:submenu"
+				ctxextensions-item="JSPanel"
 				label="&context.JSPanel.label;"
 				oncommand="ExtFunc.doCommand('JSPanel')"/>
 			<menuitem id="context-item-getLinks:submenu"
+				ctxextensions-item="getLinks"
 				label="&context.getLinks.label;"
 				label-for-normal="&context.getLinks.label;"
 				label-for-frame="&context.getLinks.label_frame;"
@@ -201,29 +158,37 @@
 			<menuseparator id="context-sep-show:submenu"
 				class="menuseparator-ctxextensions"/>
 			<menuitem id="context-item-showComments:submenu"
+				ctxextensions-item="showComments"
 				label="&context.showComments.label;"
 				oncommand="ExtFunc.doCommand('showComments')"/>
 			<menuitem id="context-item-showLinks:submenu"
+				ctxextensions-item="showLinks"
 				label="&context.showLinks.label;"
 				oncommand="ExtFunc.doCommand('showLinks')"/>
 			<menuitem id="context-item-showIDs:submenu"
+				ctxextensions-item="showIDs"
 				label="&context.showIDs.label;"
 				oncommand="ExtFunc.doCommand('showIDs')"/>
 			<menuitem id="context-item-showCites:submenu"
+				ctxextensions-item="showCites"
 				label="&context.showCites.label;"
 				oncommand="ExtFunc.doCommand('showCites')"/>
 			<menuitem id="context-item-showTitles:submenu"
+				ctxextensions-item="showTitles"
 				label="&context.showTitles.label;"
 				oncommand="ExtFunc.doCommand('showTitles')"/>
 			<menuitem id="context-item-showEvents:submenu"
+				ctxextensions-item="showEvents"
 				label="&context.showEvents.label;"
 				oncommand="ExtFunc.doCommand('showEvents')"/>
 			<menuitem id="context-item-showAll:submenu"
+				ctxextensions-item="showAll"
 				label="&context.showAll.label;"
 				oncommand="ExtFunc.doCommand('showAll')"/>
 			<menuseparator id="context-sep-send:submenu"
 				class="menuseparator-ctxextensions"/>
 			<menu id="context-item-sendURI:submenu"
+				ctxextensions-item="sendURI"
 				label="&context.sendURI.label;"
 				label-for-normal="&context.sendURI.label;"
 				label-for-link="&context.sendURI.label_link;">
@@ -236,6 +201,7 @@
 					ext-datasource="ExtCommonUtils.SENDURI"/>
 			</menu>
 			<menu id="context-item-sendStr:submenu"
+				ctxextensions-item="sendStr"
 				label="&context.sendStr.label;"
 				label-for-select="&context.sendStr.label_select;">
 				<menupopup id="context-item-sendStr:mpopup:submenu"
@@ -249,6 +215,7 @@
 			<menuseparator id="context-sep-exec:submenu"
 				class="menuseparator-ctxextensions"/>
 			<menu id="context-item-execApps:submenu"
+				ctxextensions-item="execApps"
 				label="&context.execApps.label;"
 				label-for-normal="&context.execApps.label;"
 				label-for-link="&context.execApps.label_link;">
@@ -261,6 +228,7 @@
 					ext-datasource="ExtCommonUtils.EXECAPPS"/>
 			</menu>
 			<menu id="context-item-customScripts:submenu"
+				ctxextensions-item="customScripts"
 				label="&context.customScripts.label;">
 				<menupopup id="context-item-customScripts:mpopup:submenu"
 					datasources="chrome://ctxextensions/content/ctxextensions.rdf"
@@ -277,6 +245,7 @@
 		class="menuseparator-ctxextensions"/>
 
 	<menu id="context-item-outline"
+		ctxextensions-item="outline"
 		label="&context.outline.label;"
 		label-for-normal="&context.outline.label;"
 		label-for-frame="&context.outline.label_frame;">
@@ -285,6 +254,7 @@
 			oncommand="ExtFunc.Outline(event);"/>
 	</menu>
 	<menu id="context-item-navigations"
+		ctxextensions-item="navigations"
 		label="&context.navigations.label;"
 		label-for-normal="&context.navigations.label;"
 		label-for-frame="&context.navigations.label_frame;">
@@ -300,9 +270,11 @@
 		class="menuseparator-ctxextensions"/>
 
 	<menuitem id="context-item-JSPanel"
+		ctxextensions-item="JSPanel"
 		label="&context.JSPanel.label;"
 		oncommand="ExtFunc.doCommand('JSPanel')"/>
 	<menuitem id="context-item-getLinks"
+		ctxextensions-item="getLinks"
 		label="&context.getLinks.label;"
 		label-for-normal="&context.getLinks.label;"
 		label-for-select="&context.getLinks.label_select;"
@@ -312,24 +284,31 @@
 		class="menuseparator-ctxextensions"/>
 
 	<menuitem id="context-item-showComments"
+		ctxextensions-item="showComments"
 		label="&context.showComments.label;"
 		oncommand="ExtFunc.doCommand('showComments')"/>
 	<menuitem id="context-item-showLinks"
+		ctxextensions-item="showLinks"
 		label="&context.showLinks.label;"
 		oncommand="ExtFunc.doCommand('showLinks')"/>
 	<menuitem id="context-item-showIDs"
+		ctxextensions-item="showIDs"
 		label="&context.showIDs.label;"
 		oncommand="ExtFunc.doCommand('showIDs')"/>
 	<menuitem id="context-item-showCites"
+		ctxextensions-item="showCites"
 		label="&context.showCites.label;"
 		oncommand="ExtFunc.doCommand('showCites')"/>
 	<menuitem id="context-item-showTitles"
+		ctxextensions-item="showTitles"
 		label="&context.showTitles.label;"
 		oncommand="ExtFunc.doCommand('showTitles')"/>
 	<menuitem id="context-item-showEvents"
+		ctxextensions-item="showEvents"
 		label="&context.showEvents.label;"
 		oncommand="ExtFunc.doCommand('showEvents')"/>
 	<menuitem id="context-item-showAll"
+		ctxextensions-item="showAll"
 		label="&context.showAll.label;"
 		oncommand="ExtFunc.doCommand('showAll')"/>
 
@@ -337,6 +316,7 @@
 		class="menuseparator-ctxextensions"/>
 
 	<menu id="context-item-sendURI"
+		ctxextensions-item="sendURI"
 		label="&context.sendURI.label;"
 		label-for-normal="&context.sendURI.label;"
 		label-for-link="&context.sendURI.label_link;">
@@ -349,6 +329,7 @@
 			ext-datasource="ExtCommonUtils.SENDURI"/>
 	</menu>
 	<menu id="context-item-sendURI-frame"
+		ctxextensions-item="sendURI-frame"
 		label="&context.sendURI.label_frame;">
 		<menupopup id="context-item-sendURI-frame:mpopup"
 			datasources="chrome://ctxextensions/content/ctxextensions.rdf"
@@ -359,6 +340,7 @@
 			ext-datasource="ExtCommonUtils.SENDURI"/>
 	</menu>
 	<menu id="context-item-sendStr"
+		ctxextensions-item="sendStr-frame"
 		label="&context.sendStr.label;"
 		label-for-select="&context.sendStr.label_select;">
 		<menupopup id="context-item-sendStr:mpopup"
@@ -374,6 +356,7 @@
 		class="menuseparator-ctxextensions"/>
 
 	<menu id="context-item-execApps"
+		ctxextensions-item="execApps"
 		label="&context.execApps.label;"
 		label-for-normal="&context.execApps.label;"
 		label-for-link="&context.execApps.label_link;">
@@ -386,6 +369,7 @@
 			ext-datasource="ExtCommonUtils.EXECAPPS"/>
 	</menu>
 	<menu id="context-item-execApps-frame"
+		ctxextensions-item="execApps-frame"
 		label="&context.execApps.label_frame;">
 		<menupopup id="context-item-execApps-frame:mpopup"
 			datasources="chrome://ctxextensions/content/ctxextensions.rdf"
@@ -396,6 +380,7 @@
 			ext-datasource="ExtCommonUtils.EXECAPPS"/>
 	</menu>
 	<menu id="context-item-customScripts"
+		ctxextensions-item="customScripts"
 		label="&context.customScripts.label;">
 		<menupopup id="context-item-customScripts:mpopup"
 			datasources="chrome://ctxextensions/content/ctxextensions.rdf"
