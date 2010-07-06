@@ -269,7 +269,7 @@ dump('5\n');
 
 		if (count < 2) {
 			var container = document.getElementById('contextChecks');
-			document.getElementById('checkboxes').appendChild(this.contextChecks[0].parentNode.removeChild(this.contextChecks[0]));
+			document.getElementById('checkboxes').appendChild(this.contextChecks[0]);
 			container.hidden = true;
 		}
 	},

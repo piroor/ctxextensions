@@ -275,7 +275,7 @@ var mark = document.createElementNS(XHTMLNS, 'object');
 mark.data = 'chrome://communicator/skin/bookmarks/bookmark-item.gif';
 mark.type = 'image/gif';
 mark.title = title;
-mark.setAttribute('ondblclick', 'var node = this.removeChild(this.firstChild); this.parentNode.insertBefore(node, this); this.parentNode.removeChild(this);');
+mark.setAttribute('ondblclick', 'this.parentNode.insertBefore(this.firstChild, this); this.parentNode.removeChild(this);');
 
 node.parentNode.insertBefore(mark, node);
 mark.appendChild(node.parentNode.removeChild(node));
