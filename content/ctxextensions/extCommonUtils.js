@@ -238,25 +238,6 @@ var ExtCommonUtils = {
 		return this.WINMAN;
 	},
  
-	get PREF() 
-	{
-		delete this.PREF;
-		this.PREF = Components
-					.classes['@mozilla.org/preferences;1']
-					.getService(Components.interfaces.nsIPrefBranch);
-		return this.PREF;
-	},
- 
-	get DEFPREF() 
-	{
-		delete this.DEFPREF;
-		this.DEFPREF = Components
-					.classes['@mozilla.org/preferences-service;1']
-					.getService(Components.interfaces.nsIPrefService)
-					.getDefaultBranch(null);
-		return this.DEFPREF;
-	},
- 
 	get RDF() 
 	{
 		delete this.RDF;
@@ -1770,16 +1751,16 @@ var ExtCommonUtils = {
 	
 	getPref : function(aPrefstring, aMultiLine) 
 	{
-		var value = window['piro.sakura.ne.jp'].prefs.getPref(aPrefstring);
-		if (this.PREF.getPrefType(aPrefstring) == this.PREF.PREF_STRING && aMultiLine)
+		var value = this.prefs.getPref(aPrefstring);
+		if (typeof value == 'string' && aMultiLine)
 			value = this.unescape(value);
 		return value;
 	},
 	
 	getDefPref : function(aPrefstring, aMultiLine) 
 	{
-		var value = window['piro.sakura.ne.jp'].prefs.getDefaultPref(aPrefstring);
-		if (this.PREF.getPrefType(aPrefstring) == this.PREF.PREF_STRING && aMultiLine)
+		var value = this.prefs.getDefaultPref(aPrefstring);
+		if (typeof value == 'string' && aMultiLine)
 			value = this.unescape(value);
 		return value;
 	},
@@ -1795,7 +1776,7 @@ var ExtCommonUtils = {
 	//		if (this.debug) alert(e+'\n\n'+aPrefstring);
 		}
 		if (type == 'string' && aMultiLine) aNewValue = this.escape(aNewValue);
-		window['piro.sakura.ne.jp'].prefs.setPref(aPrefstring, aNewValue, aPrefObj || this.PREF);
+		this.prefs.setPref(aPrefstring, aNewValue, aPrefObj);
 		return true;
 	},
   
@@ -1856,6 +1837,11 @@ var ExtCommonUtils = {
 	}
  
 }; 
-ExtCommonUtils.__proto__ = window['piro.sakura.ne.jp'].prefs;
+(function() {
+	var namespace = {};
+	Components.utils.import('resource://ctxextensions-modules/prefs.js', namespace);
+	Components.utils.import('resource://ctxextensions-modules/namespace.jsm', namespace);
+	ExtCommonUtils.prefs = ExtCommonUtils.__proto__ = namespace.prefs;
+})();
 window.addEventListener('load', ExtCommonUtils, false);
  

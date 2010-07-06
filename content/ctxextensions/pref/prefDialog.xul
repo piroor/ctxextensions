@@ -165,37 +165,6 @@ var PrefDialogService =
 	},
 	_wsm : null,
  
-	get pref() 
-	{
-		if (!this._pref) {
-			this._pref = Components.classes['@mozilla.org/preferences;1'].getService(Components.interfaces.nsIPrefBranch);
-			try {
-				this._pref = this._pref.QueryInterface(Components.interfaces.nsIPrefService);
-			}
-			catch(e) {
-			}
-		}
-		return this._pref;
-	},
-	_pref : null,
-	
-	get defpref() 
-	{
-		if (!this._defpref) {
-			this._defpref = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getDefaultBranch(null);
-		}
-		return this._defpref;
-	},
-	_defpref : null,
- 
-	get prefservice() 
-	{
-		if (!this._prefservice) {
-			this._prefservice = Components.classes['@mozilla.org/preferences;1'].getService(Components.interfaces.nsIPref);
-		}
-		return this._prefservice;
-	},
-	_prefservice : null,
     
 	// initializing 
 	init : function()
@@ -228,9 +197,7 @@ var PrefDialogService =
 		}
 
 
-		var nullPointer;
-		nullPointer = this.wsm;
-		nullPointer = this.pref;
+		this.wsm;
 
 
 		if (this.queuedPanel)
@@ -360,94 +327,11 @@ var PrefDialogService =
 					this.setPref(itemObject.prefstring, value);
 			}
 		}
-
-		try {
-			this.pref.savePrefFile(null);
-		}
-		catch(e) {
-		}
 	},
  
 	getPref : function(aType, aPrefstring, aDefaultFlag) 
 	{
-		try {
-			var type = aType;
-			if (type) {
-				type = String(type).toLowerCase();
-				switch (type)
-				{
-					case 'string':
-					case 'localizedstring':
-					case 'color':
-					case 'int':
-						break;
-					default:
-						type = 'bool';
-						break;
-				}
-			}
-			else {
-				type = this.pref.getPrefType(aPrefstring);
-				switch (type)
-				{
-					case this.pref.PREF_STRING:
-						type = 'string';
-						break;
-					case this.pref.PREF_INT:
-						type = 'int';
-						break;
-					default:
-						type = 'bool';
-						break;
-				}
-			}
-
-			switch (type)
-			{
-				case 'string':
-				case 'localizedstring':
-				case 'color':
-					var nsISupportsString = ('nsISupportsWString' in Components.interfaces) ? Components.interfaces.nsISupportsWString : Components.interfaces.nsISupportsString;
-					return aDefaultFlag ? this.defpref.getComplexValue(aPrefstring, nsISupportsString).data : this.pref.getComplexValue(aPrefstring, nsISupportsString).data;
-				case 'int':
-					return aDefaultFlag ? this.defpref.getIntPref(aPrefstring) : this.pref.getIntPref(aPrefstring);
-				default:
-					return aDefaultFlag ? this.defpref.getBoolPref(aPrefstring) : this.pref.getBoolPref(aPrefstring);
-			}
-		}
-		catch(e) {
-		}
-
-		return null;
-	},
- 
-	setPref : function(aPrefstring, aNewValue) 
-	{
-		var type;
-		try {
-			type = typeof aNewValue;
-		}
-		catch(e) {
-			type = null;
-		}
-
-		switch (type)
-		{
-			case 'string':
-				var nsISupportsString = ('nsISupportsWString' in Components.interfaces) ? Components.interfaces.nsISupportsWString : Components.interfaces.nsISupportsString;
-				var string = ('@mozilla.org/supports-wstring;1' in Components.classes) ?
-						Components.classes['@mozilla.org/supports-wstring;1'].createInstance(nsISupportsString) :
-						Components.classes['@mozilla.org/supports-string;1'].createInstance(nsISupportsString) ;
-				string.data = String(aNewValue);
-				this.pref.setComplexValue(aPrefstring, nsISupportsString, string);
-				break;
-			case 'number':
-				this.pref.setIntPref(aPrefstring, parseInt(aNewValue));
-				break;
-			default:
-				this.pref.setBoolPref(aPrefstring, Boolean(aNewValue));
-				break;
-		}
+		return aDefaultFlag ? this.getDefaultPref(aPrefstring) : this.prefs.getPref(aPrefstring) ;
 	},
   
 	onOK : function() 
@@ -610,8 +494,8 @@ var PrefDialogService =
 				if (root[root.prefattribute] === null)
 					root[root.prefattribute] = prefElements[i].getAttribute('prefdefval');
 
-				if (this.prefservice.PrefIsLocked(root.prefstring))
-					root.disabled = 'true';
+//				if (this.prefservice.PrefIsLocked(root.prefstring))
+//					root.disabled = 'true';
 			}
 		}
 
@@ -658,6 +542,14 @@ var PrefDialogService =
 	}
  
 }; 
+
+(function() {
+	var namespace = {};
+	Components.utils.import('resource://ctxextensions-modules/prefs.js', namespace);
+	Components.utils.import('resource://ctxextensions-modules/namespace.jsm', namespace);
+	PrefDialogService.prefs = PrefDialogService.__proto__ = namespace.prefs;
+})();
+
 window.hPrefWindow = PrefDialogService;
  
 function initPanel(aPanelURL) 

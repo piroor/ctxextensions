@@ -26,7 +26,8 @@
    http://www.cozmixng.org/repos/piro/fx3-compatibility-lib/trunk/prefs.test.js
 */
 
-/* To work as a JS Code Module  */
+/* To work as a JS Code Module (*require namespace.jsm)
+   http://www.cozmixng.org/repos/piro/fx3-compatibility-lib/trunk/namespace.jsm */
 if (typeof window == 'undefined') {
 	this.EXPORTED_SYMBOLS = ['prefs'];
 
@@ -34,7 +35,7 @@ if (typeof window == 'undefined') {
 	// See: http://www.cozmixng.org/repos/piro/fx3-compatibility-lib/trunk/namespace.jsm
 	try {
 		let ns = {};
-		Components.utils.import('resource://my-modules/namespace.jsm', ns);
+		Components.utils.import('resource://ctxextensions-modules/namespace.jsm', ns);
 		/* var */ window = ns.getNamespaceFor('piro.sakura.ne.jp');
 	}
 	catch(e) {
