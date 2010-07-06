@@ -1526,7 +1526,7 @@ catch(e) {
 		var finalY = aTarget.offsetTop;
 		var w = d.defaultView;
 
-		if (!this.getPref('ctxextensions.smoothScroll.enabled')) {
+		if (!this.utils.getPref('ctxextensions.smoothScroll.enabled')) {
 			w.scrollTo(finalX, finalY);
 			return;
 		}
@@ -1555,7 +1555,7 @@ catch(e) {
 		};
 		this.utils.animationManager.addTask(
 			d.__ctxextensions__smoothScrollTask,
-			0, 0, this.getPref('ctxextensions.smoothScroll.duration')
+			0, 0, this.utils.getPref('ctxextensions.smoothScroll.duration')
 		);
 	},
  
