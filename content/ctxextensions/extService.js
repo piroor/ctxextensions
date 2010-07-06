@@ -1428,7 +1428,7 @@ catch(e) {
 			aBrowserOrTabOrXULWindow.localName != 'tab'))
 			w = aBrowserOrTabOrXULWindow;
 		else
-			w = this.utils.getWindowFromDocument(aBrowserOrTabOrXULWindow.ownerDocument);
+			w = aBrowserOrTabOrXULWindow.ownerDocument.defaultView;
 
 		if (!('extProgressManagers' in w))
 			w.extProgressManagers = [];
@@ -1475,7 +1475,7 @@ catch(e) {
 				return false;
 			}
 
-			var w = aXULWindow.ExtCommonUtils.getWindowFromDocument(b.ownerDocument);
+			var w = b.ownerDocument.defaultView
 
 			// for custom scripts
 			var originalContextWindow = gExtContextWindow; // save the context window
@@ -1514,7 +1514,7 @@ catch(e) {
 		if (aTarget &&
 			aTarget.offsetLeft !== void(0) &&
 			aTarget.offsetTop  !== void(0))
-			this.utils.getWindowFromDocument(aTarget.ownerDocument).scrollTo(aTarget.offsetLeft, aTarget.offsetTop);
+			aTarget.ownerDocument.defaultView.scrollTo(aTarget.offsetLeft, aTarget.offsetTop);
 		return;
 	},
  
@@ -1570,7 +1570,7 @@ catch(e) {
 	updateHeadings : function(aWindow, aInBackGround)
 	{
 		var d    = (aWindow ? aWindow.document : this.contentDocument()),
-			info = this.contentInfo(false, aWindow || this.utils.getWindowFromDocument(d));
+			info = this.contentInfo(false, aWindow || d.defaultView);
 
 		if (!('headings' in info) || !info.headings) {
 			info.headingsCurrentIndex = -1;
@@ -1630,7 +1630,7 @@ catch(e) {
 	updateNavigations : function(aWindow, aInBackGround, aCallBackFunc)
 	{
 		var d    = (aWindow ? aWindow.document : this.contentDocument()),
-			info = this.contentInfo(false, aWindow || this.utils.getWindowFromDocument(d));
+			info = this.contentInfo(false, aWindow || d.defaultView);
 
 		if (!('navigations' in info) || !info.navigations) {
 			info.navigationsLastCount = 0;
@@ -2291,7 +2291,6 @@ catch(e) {
 			this.makeBackList();
 
 		this.updateMenuLabels(aPopup);
-
 
 
 		var i;

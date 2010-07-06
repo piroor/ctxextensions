@@ -473,7 +473,7 @@ if (!_window.document.contentType.match(/^image\//)) return;
 _window.autoResize = function(aEvent, aDocument)
 {
     var d = aEvent ? aEvent.target : aDocument ;
-    var w = ExtCommonUtils.getWindowFromDocument(d);
+    var w = d.defaultView;
 
     var button = $('button', d);
 
@@ -513,7 +513,7 @@ _window.autoResize = function(aEvent, aDocument)
 _window.cancelAutoResize = function(aEvent)
 {
     var t = aEvent.target;
-    var w = ExtCommonUtils.getWindowFromDocument(t.ownerDocument);
+    var w = t.ownerDocument.defaultView;
     var i = w.gImage;
 
     i.style.width = 'auto';

@@ -1228,18 +1228,6 @@ var ExtCommonUtils = {
 		return windows;
 	},
  
-	getWindowFromDocument : function(aDocument) 
-	{
-		if (aDocument.defaultView)
-			return aDocument.defaultView;
-
-		var docShell = this.getDocShellFromDocument(aDocument);
-		return !docShell ? null :
-				docShell
-					.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-					.getInterface(Components.interfaces.nsIDOMWindow);
-	},
- 
 	getDocShellFromDocument : function(aDocument, aRootDocShell) 
 	{
 		const kDSTreeNode = Components.interfaces.nsIDocShellTreeNode;
