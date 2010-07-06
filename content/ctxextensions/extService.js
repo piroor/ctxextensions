@@ -1511,12 +1511,47 @@ catch(e) {
 	// 指定の要素にジャンプする 
 	scrollTo : function(aTarget)
 	{
-		if (aTarget &&
-			aTarget.offsetLeft !== void(0) &&
-			aTarget.offsetTop  !== void(0))
-			aTarget.ownerDocument.defaultView.scrollTo(aTarget.offsetLeft, aTarget.offsetTop);
-		return;
+		if (!aTarget ||
+			aTarget.offsetLeft === void(0) ||
+			aTarget.offsetTop  === void(0))
+			return;
+
+		var d = aTarget.ownerDocument;
+		if (d.__ctxextensions__smoothScrollTask)
+			this.utils.animationManager.removeTask(d.__ctxextensions__smoothScrollTask);
+
+		var finalX = aTarget.offsetLeft;
+		var finalY = aTarget.offsetTop;
+		var w = d.defaultView;
+
+		var startX = w.scrollX;
+		var startY = w.scrollY;
+		var deltaX = finalX - startX;
+		var deltaY = finalY - startY;
+		var radian = 90 * Math.PI / 180;
+		var self   = this;
+		d.__ctxextensions__smoothScrollTask = function(aTime, aBeginning, aChange, aDuration) {
+			var x, y, finished;
+			if (aTime >= aDuration) {
+				delete d.__ctxextensions__smoothScrollTask;
+				x = finalX;
+				y = finalY
+				finished = true;
+			}
+			else {
+				x = startX + (deltaX * Math.sin(aTime / aDuration * radian));
+				y = startY + (deltaY * Math.sin(aTime / aDuration * radian));
+				finished = false;
+			}
+			w.scrollTo(x, y);
+			return finished;
+		};
+		this.utils.animationManager.addTask(
+			d.__ctxextensions__smoothScrollTask,
+			0, 0, this.smoothScrollDuration
+		);
 	},
+	smoothScrollDuration : 250,
  
 	// URIをダウンロードし、ダウンロード完了後にアプリで開く 
 	downloadAndOpenWithApp : function(aManagerID, aApp, aOptions, aURI, aDocument)

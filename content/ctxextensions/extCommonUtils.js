@@ -139,6 +139,11 @@ var ExtCommonUtils = {
 		return dsourceFile;
 	},
   
+	get animationManager() 
+	{
+		return this.namespace.animationManager;
+	},
+ 
 	// メッセージ文字列 
 	get msg()
 	{
@@ -1830,6 +1835,8 @@ var ExtCommonUtils = {
 	Components.utils.import('resource://ctxextensions-modules/prefs.js', namespace);
 	Components.utils.import('resource://ctxextensions-modules/namespace.jsm', namespace);
 	ExtCommonUtils.prefs = ExtCommonUtils.__proto__ = namespace.prefs;
+	ExtCommonUtils.namespace = namespace.getNamespaceFor('piro.sakura.ne.jp')['piro.sakura.ne.jp'];
+	Components.utils.import('resource://ctxextensions-modules/animationManager.js');
 })();
 window.addEventListener('load', ExtCommonUtils, false);
  
