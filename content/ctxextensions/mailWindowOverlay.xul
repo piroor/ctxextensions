@@ -28,7 +28,7 @@
 			<menuseparator id="context-sep-extensionsMisc:submenu"
 				class="menuseparator-ctxextensions"/>
 			<menuitem id="context-item-JSPanel:submenu"
-				ctxextensions-item="JSPanel"
+				ctxextensions-item="JSPanel:submenu"
 				label="&context.JSPanel.label;"
 				oncommand="ExtFunc.doCommand('JSPanel')"/>
 			<menuitem id="context-item-getLinks:submenu"
@@ -41,7 +41,7 @@
 			<menuseparator id="context-sep-send:submenu"
 				class="menuseparator-ctxextensions"/>
 			<menu id="context-item-sendURI:submenu"
-				ctxextensions-item="sendURI"
+				ctxextensions-item="sendURI:submenu"
 				label="&context.sendURI.label;"
 				label-for-normal="&context.sendURI.label;"
 				label-for-link="&context.sendURI.label_link;">
@@ -54,7 +54,7 @@
 					ext-datasource="ExtCommonUtils.SENDURI"/>
 			</menu>
 			<menu id="context-item-sendStr:submenu"
-				ctxextensions-item="sendStr"
+				ctxextensions-item="sendStr:submenu"
 				label="&context.sendStr.label;"
 				label-for-select="&context.sendStr.label_select;">
 				<menupopup id="context-item-sendStr:mpopup:submenu"
@@ -68,7 +68,7 @@
 			<menuseparator id="context-sep-exec:submenu"
 				class="menuseparator-ctxextensions"/>
 			<menu id="context-item-execApps:submenu"
-				ctxextensions-item="execApps"
+				ctxextensions-item="execApps:submenu"
 				label="&context.execApps.label;"
 				label-for-normal="&context.execApps.label;"
 				label-for-link="&context.execApps.label_link;">
@@ -81,7 +81,7 @@
 					ext-datasource="ExtCommonUtils.EXECAPPS"/>
 			</menu>
 			<menu id="context-item-customScripts:submenu"
-				ctxextensions-item="customScripts"
+				ctxextensions-item="customScripts:submenu"
 				label="&context.customScripts.label;">
 				<menupopup id="context-item-customScripts:mpopup:submenu"
 					datasources="chrome://ctxextensions/content/ctxextensions.rdf"
@@ -755,20 +755,20 @@
 		ctxextensions-item="extensions"
 		label="&menu.extensions.label;"
 		accesskey="&menu.extensions.accesskey;">
-		<menupopup onpopupshowing="if (event.target == this) ExtService.updateMenubarSubmenu();">
+		<menupopup onpopupshowing="if (event.target == this) ExtService.updateMenubarSubmenu(this);">
 			<menuitem id="menu-item-JSPanel:submenu"
-				ctxextensions-item="JSPanel"
+				ctxextensions-item="JSPanel:submenu"
 				label="&menu.JSPanel.label;"
 				oncommand="ExtFunc.doCommand('JSPanel')"/>
 			<menuitem id="menu-item-getLinks:submenu"
-				ctxextensions-item="getLinks"
+				ctxextensions-item="getLinks:submenu"
 				label="&menu.getLinks.label;"
 				label-for-normal="&menu.getLinks.label;"
 				label-for-select="&menu.getLinks.label_select;"
 				oncommand="ExtFunc.getLinks()"/>
 			<menuseparator class="menuseparator-ctxextensions"/>
 			<menu id="menu-item-sendURI:submenu"
-				ctxextensions-item="sendURI"
+				ctxextensions-item="sendURI:submenu"
 				label="&menu.sendURI.label;">
 				<menupopup id="menu-item-sendURI:mpopup:submenu"
 					datasources="chrome://ctxextensions/content/ctxextensions.rdf"
@@ -779,7 +779,7 @@
 					ext-datasource="ExtCommonUtils.SENDURI"/>
 			</menu>
 			<menu id="menu-item-sendURI-frame:submenu"
-				ctxextensions-item="sendURI-frame"
+				ctxextensions-item="sendURI-frame:submenu"
 				label="&menu.sendURI.label_frame;">
 				<menupopup id="menu-item-sendURI-frame:mpopup:submenu"
 					datasources="chrome://ctxextensions/content/ctxextensions.rdf"
@@ -790,7 +790,7 @@
 					ext-datasource="ExtCommonUtils.SENDURI"/>
 			</menu>
 			<menu id="menu-item-sendStr:submenu"
-				ctxextensions-item="sendStr"
+				ctxextensions-item="sendStr:submenu"
 				label="&menu.sendStr.label;"
 				label-for-select="&menu.sendStr.label_select;">
 				<menupopup id="menu-item-sendStr:mpopup:submenu"
@@ -803,7 +803,7 @@
 			</menu>
 			<menuseparator class="menuseparator-ctxextensions"/>
 			<menu id="menu-item-execApps:submenu"
-				ctxextensions-item="execApps"
+				ctxextensions-item="execApps:submenu"
 				label="&menu.execApps.label;"
 				key="ext-key-showMenu:execapps"
 				ext-key="ext-key-showMenu:execapps">
@@ -816,7 +816,7 @@
 					ext-datasource="ExtCommonUtils.EXECAPPS"/>
 			</menu>
 			<menu id="menu-item-execApps-frame:submenu"
-				ctxextensions-item="execApps-frame"
+				ctxextensions-item="execApps-frame:submenu"
 				label="&menu.execApps.label_frame;">
 				<menupopup id="menu-item-execApps-frame:mpopup:submenu"
 					datasources="chrome://ctxextensions/content/ctxextensions.rdf"
@@ -827,7 +827,7 @@
 					ext-datasource="ExtCommonUtils.EXECAPPS"/>
 			</menu>
 			<menu id="menu-item-customScripts:submenu"
-				ctxextensions-item="customScripts"
+				ctxextensions-item="customScripts:submenu"
 				label="&menu.customScripts.label;"
 				key="ext-key-showMenu:customscripts"
 				ext-key="ext-key-showMenu:customscripts">

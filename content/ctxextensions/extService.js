@@ -495,7 +495,7 @@ var ExtService = {
 		{
 			case 'popupshowing':
 				if (aEvent.target == this.utils.contextMenu)
-					this.updateContextMenu();
+					this.updateContextMenu(aEvent.target);
 				return;
 
 			case 'fullscreen':
@@ -2242,7 +2242,7 @@ catch(e) {
 	},
  
 	// コンテキストメニューの表示更新 
-	updateContextMenu : function()
+	updateContextMenu : function(aPopup)
 	{
 		if (this.utils.getPref('ctxextensions.show_item.context.navigations'))
 			this.updateNavigationsPopup();
@@ -2251,9 +2251,7 @@ catch(e) {
 		if (this.utils.getPref('ctxextensions.show_item.context.go'))
 			this.makeBackList();
 
-		var contextMenu = this.utils.contextMenu;
-
-		this.updateMenuLabels(contextMenu);
+		this.updateMenuLabels(aPopup);
 
 
 
@@ -2314,13 +2312,13 @@ catch(e) {
 		{
 			prefName = items[i].split('-')[0];
 			this.setVisible(
-				'context-item-'+items[i],
+				aPopup.getElementsByAttribute('ctxextensions-item', items[i])[0],
 				items[i+1] &&
 				this.utils.getPref('ctxextensions.show_item.context.'+prefName) &&
 				!this.utils.getPref('ctxextensions.submenu.context.'+prefName)
 			);
 			this.setVisible(
-				'context-item-'+items[i]+':submenu',
+				aPopup.getElementsByAttribute('ctxextensions-item', items[i]+':submenu')[0],
 				items[i+1] &&
 				this.utils.getPref('ctxextensions.show_item.context.'+prefName) &&
 				this.utils.getPref('ctxextensions.submenu.context.'+prefName)
@@ -2330,7 +2328,7 @@ catch(e) {
 
 		// show/hide "Extensions" submenu
 		var hasItem = false;
-		var extensions = document.getElementById('context-item-extensions');
+		var extensions = aPopup.getElementsByAttribute('ctxextensions-item', 'extensions')[0]
 		for (i = 0; i < extensions.firstChild.childNodes.length; i++)
 			if (extensions.firstChild.childNodes[i].localName != 'menuseparator' &&
 				!extensions.firstChild.childNodes[i].hidden)
@@ -2345,7 +2343,7 @@ catch(e) {
 
 
 		// visibility of userdefined items
-		var nodes = contextMenu.getElementsByAttribute('ext-item-userdefined', 'true'),
+		var nodes = aPopup.getElementsByAttribute('ext-item-userdefined', 'true'),
 			show;
 		for (i = 0; i < nodes.length; i++)
 		{
@@ -2361,20 +2359,20 @@ catch(e) {
 
 
 		// hide needless separators
-		this.utils.showHideMenuSeparators(contextMenu);
+		this.utils.showHideMenuSeparators(aPopup);
 	},
  
 	// メニューバーの項目の表示更新 
-	updateMenubarSubmenu : function()
+	updateMenubarSubmenu : function(aPopup)
 	{
 		if (this.utils.getPref('ctxextensions.submenu.menubar.navigations'))
 			this.updateNavigationsPopup();
 		if (this.utils.getPref('ctxextensions.submenu.menubar.outline'))
 			this.updateOutlinePopup();
 
-		var menu = document.getElementById('menu-item-extensions');
+		var menu = aPopup.parentNode;
 
-		this.updateMenuLabels(menu.firstChild);
+		this.updateMenuLabels(aPopup);
 
 
 		var i;
@@ -2425,7 +2423,7 @@ catch(e) {
 //			);
 			value = this.utils.getPref('ctxextensions.submenu.menubar.'+prefName);
 			this.setVisible(
-				'menu-item-'+items[i]+':submenu',
+				aPopup.getElementsByAttribute('ctxextensions-item', items[i]+':submenu')[0],
 				items[i+1] &&
 				(value === null ? true : value )
 			);
@@ -2433,7 +2431,7 @@ catch(e) {
 
 
 		// hide needless separators
-		this.utils.showHideMenuSeparators(menu.firstChild);
+		this.utils.showHideMenuSeparators(aPopup);
 	},
  
 	// アウトラインを生成する 
