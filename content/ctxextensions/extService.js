@@ -238,7 +238,7 @@ var ExtService = {
   
 //================================ Initialize =================================
 	// 初期化 
-	init : function()
+	preInit : function()
 	{
 		if (this.activated) return;
 		this.activated = true;
@@ -314,15 +314,23 @@ var ExtService = {
 		this.utils.addPrefListener(this.RegexpPrefListener);
 		this.utils.addPrefListener(this.UIPrefListener);
 
+		this.rebuildMenuItems(); // this fails sometimes...
+
+		delete this.preInit;
+	},
+	init : function()
+	{
+		this.rebuildMenuItems(); // so, do it again now.
+
 		window.setTimeout(function(aSelf) {
 			aSelf.delayedInit();
 		}, 0, this);
+
 		window.setTimeout(function(aSelf) {
 			aSelf.utils.datasource.AddObserver(aSelf.RDFObserver);
 		}, 100, this);
 
 		delete this.init;
-		return;
 	},
 	delayedInit : function()
 	{
@@ -406,34 +414,6 @@ var ExtService = {
 	// メニューの初期化 
 	initMenu : function()
 	{
-		this.rebuildExecApps();
-		this.rebuildCustomScripts();
-		this.rebuildSendStr();
-		this.rebuildSendURI();
-
-		// メニューの最大幅を設定
-		var style_value;
-		style_value = 'max-width:'+this.utils.getPref('ctxextensions.width.navigations')+'em;';
-		this.insertAttribute('ext-common-navigationsSelect:mpopup', 'style', style_value);
-		this.insertAttribute('ext-common-navigations:mpopup', 'style', style_value);
-		this.insertAttribute('menu-item-navigations:mpopup', 'style', style_value);
-		this.insertAttribute('menu-item-navigations:mpopup:submenu', 'style', style_value);
-		this.insertAttribute('appmenu-item-navigations:mpopup', 'style', style_value);
-		this.insertAttribute('appmenu-item-navigations:mpopup:submenu', 'style', style_value);
-		this.insertAttribute('context-item-navigations:mpopup', 'style', style_value);
-		this.insertAttribute('context-item-navigations:mpopup:submenu', 'style', style_value);
-
-		style_value = 'max-width:'+this.utils.getPref('ctxextensions.width.outline')+'em;';
-		this.insertAttribute('ext-common-outline:mpopup', 'style', style_value);
-		this.insertAttribute('menu-item-outline:mpopup', 'style', style_value);
-		this.insertAttribute('menu-item-outline:mpopup:submenu', 'style', style_value);
-		this.insertAttribute('appmenu-item-outline:mpopup', 'style', style_value);
-		this.insertAttribute('appmenu-item-outline:mpopup:submenu', 'style', style_value);
-		this.insertAttribute('context-item-outline:mpopup', 'style', style_value);
-		this.insertAttribute('context-item-outline:mpopup:submenu', 'style', style_value);
-
-
-
 		// キーボードショートカットからポップアップを開くキーボードショートカットの設定
 		var menubar = document.getElementById('main-menubar');
 		if (menubar) {
@@ -544,6 +524,11 @@ var ExtService = {
 
 			case 'mouseover':
 				this.onMouseOver(aEvent);
+				return;
+
+			case 'DOMContentLoaded':
+				window.removeEventListener('DOMContentLoaded', this, false);
+				this.preInit();
 				return;
 
 			case 'load':
@@ -1928,22 +1913,18 @@ catch(e) {
 		var nsIXULTemplateBuilderAvailable = this.utils.getPref('ctxextensions.enable.nsIXULTemplateBuilder');
 
 		if (typeof aNames == 'string') aNames = [aNames];
-		var node;
-		for (var i in aNames)
-		{
-			if ((node = document.getElementById(aNames[i]))) {
+		aNames.forEach(function(aName) {
+			var node;
+			if (node = document.getElementById(aName)) {
 				if (nsIXULTemplateBuilderAvailable)
 					node.builder.rebuild();
 				else
 					this.utils.rebuildFromTemplate(node);
 			}
-
-			if (aNames[i].indexOf('context-') == 0)
-				window.setTimeout(this.hideContextDuplicatedItems, 10, aNames[i]);
-
-		}
+			if (aName.indexOf('context-') == 0)
+				window.setTimeout(this.hideContextDuplicatedItems, 10, aName);
+		}, this);
 		this.utils.cleanUpInvalidKeysWithDelay();
-		return;
 	},
 	hideContextDuplicatedItems : function(aID)
 	{
@@ -1989,12 +1970,15 @@ catch(e) {
 			'menu-item-execApps:mpopup',
 			'menu-item-execApps:mpopup:submenu',
 			'menu-item-execApps-frame:mpopup',
+			'menu-item-execApps-frame:mpopup:submenu',
 			'appmenu-item-execApps:mpopup',
 			'appmenu-item-execApps:mpopup:submenu',
-			'appmenu-item-execApps-frame:mpopup',
+			'appmenu-item-execApps-frame:mpopup',,
+			'appmenu-item-execApps-frame:mpopup:submenu',
 			'context-item-execApps:mpopup',
 			'context-item-execApps:mpopup:submenu',
-			'context-item-execApps-frame:mpopup'
+			'context-item-execApps-frame:mpopup',
+			'context-item-execApps-frame:mpopup:submenu'
 		]);
 		window.setTimeout(this.updateAccelTextFor, 100, 'ext-key-execApps');
 		window.setTimeout('ExtService.showHideMenubarItem("execApps");', 0);
@@ -2041,15 +2025,47 @@ catch(e) {
 			'menu-item-sendURI:mpopup',
 			'menu-item-sendURI:mpopup:submenu',
 			'menu-item-sendURI-frame:mpopup',
+			'menu-item-sendURI-frame:mpopup:submenu',
 			'appmenu-item-sendURI:mpopup',
 			'appmenu-item-sendURI:mpopup:submenu',
 			'appmenu-item-sendURI-frame:mpopup',
+			'appmenu-item-sendURI-frame:mpopup:submenu',
 			'context-item-sendURI:mpopup',
 			'context-item-sendURI:mpopup:submenu',
-			'context-item-sendURI-frame:mpopup'
+			'context-item-sendURI-frame:mpopup',
+			'context-item-sendURI-frame:mpopup:submenu'
 		]);
 		window.setTimeout(this.updateAccelTextFor, 100, 'ext-key-sendURI');
 		window.setTimeout('ExtService.showHideMenubarItem("sendURI");', 0);
+	},
+ 
+	rebuildMenuItems : function() 
+	{
+		this.rebuildExecApps();
+		this.rebuildCustomScripts();
+		this.rebuildSendStr();
+		this.rebuildSendURI();
+
+		// メニューの最大幅を設定
+		var style_value;
+		style_value = 'max-width:'+this.utils.getPref('ctxextensions.width.navigations')+'em;';
+		this.insertAttribute('ext-common-navigationsSelect:mpopup', 'style', style_value);
+		this.insertAttribute('ext-common-navigations:mpopup', 'style', style_value);
+		this.insertAttribute('menu-item-navigations:mpopup', 'style', style_value);
+		this.insertAttribute('menu-item-navigations:mpopup:submenu', 'style', style_value);
+		this.insertAttribute('appmenu-item-navigations:mpopup', 'style', style_value);
+		this.insertAttribute('appmenu-item-navigations:mpopup:submenu', 'style', style_value);
+		this.insertAttribute('context-item-navigations:mpopup', 'style', style_value);
+		this.insertAttribute('context-item-navigations:mpopup:submenu', 'style', style_value);
+
+		style_value = 'max-width:'+this.utils.getPref('ctxextensions.width.outline')+'em;';
+		this.insertAttribute('ext-common-outline:mpopup', 'style', style_value);
+		this.insertAttribute('menu-item-outline:mpopup', 'style', style_value);
+		this.insertAttribute('menu-item-outline:mpopup:submenu', 'style', style_value);
+		this.insertAttribute('appmenu-item-outline:mpopup', 'style', style_value);
+		this.insertAttribute('appmenu-item-outline:mpopup:submenu', 'style', style_value);
+		this.insertAttribute('context-item-outline:mpopup', 'style', style_value);
+		this.insertAttribute('context-item-outline:mpopup:submenu', 'style', style_value);
 	},
  
 	rebuildExtraItems : function() 
@@ -2842,6 +2858,7 @@ catch(e) {
 	}
   
 }; 
+window.addEventListener('DOMContentLoaded', ExtService, false);
 window.addEventListener('load', ExtService, false);
 window.addEventListener('unload', ExtService, false);
   
