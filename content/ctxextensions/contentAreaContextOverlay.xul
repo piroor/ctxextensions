@@ -340,7 +340,7 @@
 			ext-datasource="ExtCommonUtils.SENDURI"/>
 	</menu>
 	<menu id="context-item-sendStr"
-		ctxextensions-item="sendStr-frame"
+		ctxextensions-item="sendStr"
 		label="&context.sendStr.label;"
 		label-for-select="&context.sendStr.label_select;">
 		<menupopup id="context-item-sendStr:mpopup"
