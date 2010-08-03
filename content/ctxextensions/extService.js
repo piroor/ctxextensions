@@ -1326,7 +1326,7 @@ catch(e) {
 			return this.openNewWindow(aURI, aReferrer);
 		}
 		else {
-			var t = this.openNewTab(aURI, aReferrer, aShouldBypassSecurity);
+			var t = this.openNewTab(aURI, aReferrer, aOpenIn, aShouldBypassSecurity);
 			if (aOpenIn ? aOpenIn != this.NEW_BG_TAB : !this.utils.getPref('browser.tabs.loadInBackground') )
 				this.utils.browser.selectedTab = t;
 
@@ -1352,7 +1352,7 @@ catch(e) {
 	},
  
 	// êVãKÉ^ÉuÇ≈ì«Ç›çûÇﬁ 
-	openNewTab : function(aURI, aReferrer, aShouldBypassSecurity)
+	openNewTab : function(aURI, aReferrer, aOpenIn, aShouldBypassSecurity)
 	{
 		if (!this.utils.isBrowser) { // Thunderbird
 			this.utils.openURIInExternalApp(aURI);
@@ -1366,7 +1366,14 @@ catch(e) {
 			return this.openNewWindow(aURI, aReferrer);
 
 		var b = this.utils.mainWindow.ExtCommonUtils.browser;
-		var newTab = b.addTab(aURI, aReferrer);
+
+		if ('TreeStyleTabService' in window)
+			TreeStyleTabService.readyToOpenChildTab(b.selectedTab);
+
+		var newTab = b.addTab(aURI, aReferrer, aShouldBypassSecurity);
+		if (aOpenIn == this.NEW_TAB)
+			b.selectedTab = newTab;
+
 		return newTab;
 	},
  
