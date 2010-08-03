@@ -243,8 +243,6 @@ var ExtService = {
 		if (this.activated) return;
 		this.activated = true;
 
-		this.initApplicationMenu();
-
 		var frameItems = [
 				'context-item-sendURI-frame',
 				'context-item-execApps-frame'
@@ -438,33 +436,6 @@ var ExtService = {
 		}
 
 		delete this.initMenu;
-	},
- 
-	initApplicationMenu : function() 
-	{
-		var button = document.getElementById('appmenu-button');
-		if (!button) return;
-
-		var menubar = document.getElementById('main-menubar');
-
-		var fragment = document.createDocumentFragment();
-		Array.slice(menubar.getElementsByAttribute('ctxextensions-item', '*'))
-			.forEach(function(aItem) {
-				if (aItem.parentNode == menubar)
-					fragment.appendChild(aItem.cloneNode(true));
-			});
-
-		var updateID = function(aNodes) {
-				Array.slice(aNodes).forEach(function(aNode) {
-					if (aNode.hasAttribute('id'))
-						aNode.setAttribute('id', 'app'+aNode.getAttribute('id'));
-					if (aNode.hasChildNodes())
-						updateID(aNode.childNodes);
-				});
-			};
-		updateID(fragment.childNodes)
-
-		button.firstChild.insertBefore(fragment, document.getElementById('appmenu_openHelp').nextSibling);
 	},
  
 	// ïWèÄÇÃä÷êîÇÃè„èëÇ´ 
