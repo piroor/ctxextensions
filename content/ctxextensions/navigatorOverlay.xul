@@ -257,13 +257,12 @@
 	</menu>
 </menubar>
 
-<menupopup id="appmenu-popup">
+<vbox id="appmenuSecondaryPane">
 
 	<menu id="appmenu-item-extensions"
 		ctxextensions-item="extensions"
 		label="&menu.extensions.label;"
-		accesskey="&menu.extensions.accesskey;"
-		insertafter="appmenu_openHelp">
+		accesskey="&menu.extensions.accesskey;">
 		<menupopup onpopupshowing="if (event.target == this) ExtService.updateMenubarSubmenu(this);">
 
 			<menuitem id="appmenu-item-up:submenu"
@@ -510,6 +509,6 @@
 			ext-datasource="ExtCommonUtils.CUSTOMSCRIPTS"/>
 	</menu>
 
-</menupopup>
+</vbox>
 
 </overlay>
