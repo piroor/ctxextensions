@@ -511,4 +511,11 @@
 
 </vbox>
 
+<menupopup id="appmenu_developer_popup">
+	<menuitem id="appmenu-developer-item-JSPanel:submenu"
+		label="&menu.JSPanel.label;"
+		oncommand="ExtFunc.doCommand('JSPanel')"
+		insertbefore="appmenu_pageInspect"/>
+</menupopup>
+
 </overlay>
