@@ -262,7 +262,8 @@
 	<menu id="appmenu-item-extensions"
 		ctxextensions-item="extensions"
 		label="&menu.extensions.label;"
-		accesskey="&menu.extensions.accesskey;">
+		accesskey="&menu.extensions.accesskey;"
+		insertbefore="sync-setup-appmenu">
 		<menupopup onpopupshowing="if (event.target == this) ExtService.updateMenubarSubmenu(this);">
 
 			<menuitem id="appmenu-item-up:submenu"
@@ -430,6 +431,9 @@
 
 		</menupopup>
 	</menu>
+	<spacer id="appmenu-item-extensions-spacer"
+		flex="1"
+		insertbefore="sync-setup-appmenu"/>
 
 	<menu id="appmenu-item-outline"
 		ctxextensions-item="outline"
