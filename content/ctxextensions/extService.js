@@ -442,6 +442,7 @@ var ExtService = {
 	overrideFunctions : function()
 	{
 
+/*
 		// 内容領域をクリックした際の処理
 		window.__ctxextensions__contentAreaClick = window.contentAreaClick;
 		window.contentAreaClick = function(aEvent, aFieldNormalClicks)
@@ -455,6 +456,7 @@ var ExtService = {
 
 			return false;
 		};
+*/
 
 		// フルスクリーンモードからの復帰
 		if (window.BrowserFullScreen) {
