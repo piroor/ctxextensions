@@ -515,7 +515,7 @@
 
 </vbox>
 
-<menupopup id="appmenu_developer_popup">
+<menupopup id="appmenu_webDeveloper_popup">
 	<menuitem id="appmenu-developer-item-JSPanel:submenu"
 		label="&menu.JSPanel.label;"
 		oncommand="ExtFunc.doCommand('JSPanel')"
