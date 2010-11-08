@@ -88,30 +88,30 @@
 		<menupopup id="listBoxContextMenu">
 			<menuitem label="&common.new;"
 				key="key-new"
-				oncommand="PrefUtils.addNewListItem(document.popupNode);"/>
+				oncommand="PrefUtils.addNewListItem(PrefUtils.getPopupNode(this));"/>
 			<menuseparator/>
 			<menuitem label="&common.rename;"
 				ext-for-listbox-item="true"
 				key="key-rename"
-				oncommand="PrefUtils.renameListItem(document.popupNode);"/>
+				oncommand="PrefUtils.renameListItem(PrefUtils.getPopupNode(this));"/>
 			<menuitem label="&common.property;"
 				ext-for-listbox-item="true"
 				key="key-edit"
-				oncommand="PrefUtils.editListItem(document.popupNode);"/>
+				oncommand="PrefUtils.editListItem(PrefUtils.getPopupNode(this));"/>
 			<menuseparator/>
 			<menuitem label="&common.moveUp;"
 				ext-for-listbox-item="true"
 				key="key-moveUp"
-				oncommand="PrefUtils.moveListItemBy(document.popupNode, -1);"/>
+				oncommand="PrefUtils.moveListItemBy(PrefUtils.getPopupNode(this), -1);"/>
 			<menuitem label="&common.moveDown;"
 				ext-for-listbox-item="true"
 				key="key-moveDown"
-				oncommand="PrefUtils.moveListItemBy(document.popupNode, 1);"/>
+				oncommand="PrefUtils.moveListItemBy(PrefUtils.getPopupNode(this), 1);"/>
 			<menuseparator/>
 			<menuitem label="&common.remove;"
 				ext-for-listbox-item="true"
 				key="key-remove"
-				oncommand="PrefUtils.removeListItem(document.popupNode);"/>
+				oncommand="PrefUtils.removeListItem(PrefUtils.getPopupNode(this));"/>
 			<menuseparator/>
 			<menuitem label="&common.undo;"
 				key="key-undo"

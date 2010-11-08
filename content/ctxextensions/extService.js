@@ -186,7 +186,7 @@ var ExtService = {
 						'contains(concat(" ",local-name()," "), " q blockquote Q BLOCKQUOTE ") and '+
 						'@cite and @cite != ""'+
 					'][1]',
-					document.popupNode,
+					this.utils.popupNode,
 					XPathResult.FIRST_ORDERED_NODE_TYPE
 				).singleNodeValue;
 		if (!node) return '';
@@ -205,7 +205,7 @@ var ExtService = {
 						'contains(concat(" ",local-name()," "), " del ins DEL INS ") and '+
 						'@cite and @cite != ""'+
 					'][1]',
-					document.popupNode,
+					this.utils.popupNode,
 					XPathResult.FIRST_ORDERED_NODE_TYPE
 				).singleNodeValue;
 		if (!node) return '';
@@ -224,7 +224,7 @@ var ExtService = {
 						'contains(concat(" ",local-name()," "), " img IMG ") and '+
 						'@longdesc and @longdesc != ""'+
 					'][1]',
-					document.popupNode,
+					this.utils.popupNode,
 					XPathResult.FIRST_ORDERED_NODE_TYPE
 				).singleNodeValue;
 		if (!node) return '';
@@ -2893,7 +2893,7 @@ window.__defineGetter__('_inFrame', function() {
 });
 
 window.__defineGetter__('_popupNode', function() {
-	return (window.gContextMenu ? document.popupNode : null );
+	return (window.gContextMenu ? ExtCommonUtils.popupNode : null );
 });
 
 

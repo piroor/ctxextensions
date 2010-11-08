@@ -158,6 +158,18 @@ var PrefUtils = {
 		aIndicater.value = '';
 	},
  
+	getPopupNode : function(aNode) 
+	{
+		var popup = document.evaluate(
+					'ancestor-or-self::*[local-name()="menupopup"][1]',
+					aNode,
+					null,
+					XPathResult.FIRST_ORDERED_NODE_TYPE,
+					null
+				).singleNodeValue;
+		return popup && popup.triggerNode ? popup.triggerNode : document.popupNode ;
+	},
+ 
 	loadURI : function(aURI) 
 	{
 		var target = this.utils.mainWindow;

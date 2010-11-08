@@ -42,6 +42,11 @@ var ExtCommonUtils = {
 		return this.contextMenu;
 	},
  
+	get popupNode() 
+	{
+		return this.contextMenu && this.contextMenu.triggerNode || document.popupNode;
+	},
+ 
 	get browser() 
 	{
 		if (this._browser === void(0)) {
@@ -58,7 +63,8 @@ var ExtCommonUtils = {
 		if (this._browser) return this._browser;
 
 		var b = this.browsers;
-		if (b.length || !document.popupNode) return b[0] || null ;
+		var popupNode = this.popupNode;
+		if (b.length || !popupNode) return b[0] || null ;
 
 		// in undocked sidebar panels, and so on
 		var browsers = Array.slice(document.getElementsByTagNameNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'tabbrowser'))
@@ -67,11 +73,11 @@ var ExtCommonUtils = {
 		for (var i in browsers)
 		{
 			try {
-				if (document.popupNode.ownerDocument == browsers[i].contentDocument)
+				if (popupNode.ownerDocument == browsers[i].contentDocument)
 					return browsers[i];
 			}
 			catch(e) {
-				if (document.popupNode.ownerDocument.location.href == browsers[i].getAttribute('content'))
+				if (popupNode.ownerDocument.location.href == browsers[i].getAttribute('content'))
 					return browsers[i];
 			}
 		}
