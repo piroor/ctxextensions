@@ -1297,8 +1297,7 @@ catch(e) {
 	
 	// URIを読み込む 
 	// フレーム内で実行した場合、フレームを解除して読み込む。
-	// bypassは、MozillaのセキュリティをバイパスしてURIを読み込むフラグ。
-	loadURI : function(aURI, aReferrer, aOpenIn, aShouldBypassSecurity)
+	loadURI : function(aURI, aReferrer, aOpenIn)
 	{
 		if (typeof aReferrer == 'string')
 			aReferrer = this.utils.makeURIFromSpec(aReferrer);
@@ -1328,7 +1327,7 @@ catch(e) {
 			return this.openNewWindow(aURI, aReferrer);
 		}
 		else {
-			var t = this.openNewTab(aURI, aReferrer, aOpenIn, aShouldBypassSecurity);
+			var t = this.openNewTab(aURI, aReferrer, aOpenIn);
 			if (aOpenIn ? aOpenIn != this.NEW_BG_TAB : !this.utils.getPref('browser.tabs.loadInBackground') )
 				this.utils.browser.selectedTab = t;
 
@@ -1354,7 +1353,7 @@ catch(e) {
 	},
  
 	// 新規タブで読み込む 
-	openNewTab : function(aURI, aReferrer, aOpenIn, aShouldBypassSecurity)
+	openNewTab : function(aURI, aReferrer, aOpenIn)
 	{
 		if (!this.utils.isBrowser) { // Thunderbird
 			this.utils.openURIInExternalApp(aURI);
@@ -1372,7 +1371,7 @@ catch(e) {
 		if ('TreeStyleTabService' in window)
 			TreeStyleTabService.readyToOpenChildTab(b.selectedTab);
 
-		var newTab = b.addTab(aURI, aReferrer, aShouldBypassSecurity);
+		var newTab = aReferrer ? b.addTab(aURI, aReferrer) : b.addTab(aURI) ;
 		if (aOpenIn == this.NEW_TAB)
 			b.selectedTab = newTab;
 
@@ -3005,7 +3004,7 @@ function _getWindowsOf(aType)
 
 function _loadURI(uri, ref)
 {
-	return ExtService.loadURI(uri, ref, false, true);
+	return ExtService.loadURI(uri, ref, ExtService.CURRENT_TAB);
 };
 function _openNewWindow(uri, ref)
 {
@@ -3013,12 +3012,12 @@ function _openNewWindow(uri, ref)
 };
 function _openNewTab(uri, ref)
 {
-	return ExtService.openNewTab(uri, ref, true);
+	return ExtService.openNewTab(uri, ref, ExtService.NEW_TAB);
 };
 
 function _loadURIAndDo()
 {
-	var b = ExtService.loadURI(arguments[0], arguments[1], false, true);
+	var b = ExtService.loadURI(arguments[0], arguments[1], ExtService.CURRENT_TAB);
 	var funcs = Array.slice(arguments);
 	funcs.splice(0, 2);
 	ExtService.doAfterLoaded(b, arguments[0], funcs);
