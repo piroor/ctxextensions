@@ -53,8 +53,10 @@ var JSPanelService = {
 		document.documentElement.getButton('extra1').label = document.getElementById('extra1-label').getAttribute('label');
 
 		this.loadScript();
-		this.script.focus();
-		this.utils.doCommand(this.script, 'cmd_moveTop');
+		window.setTimeout(function(aSelf) {
+			aSelf.script.focus();
+			aSelf.utils.doCommand(aSelf.script, 'cmd_moveTop');
+		}, 0, this);
 	},
 	
 	saveScript : function() 
@@ -72,8 +74,10 @@ var JSPanelService = {
 	loadScript : function() 
 	{
 		var scripts = this.scripts;
-		for (var i = 0; i < scripts.length; i++)
+		for (var i = 0; i < scripts.length; i++) {
 			scripts[i].value = this.utils.getPref('ctxextensions.JSPanel.history.page'+i, true) || '';
+			this.utils.doCommand(scripts[i], 'cmd_moveTop');
+		}
 	},
   
 	// スクリプトの操作 
