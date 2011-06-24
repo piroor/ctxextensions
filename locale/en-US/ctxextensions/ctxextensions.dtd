@@ -221,10 +221,10 @@
 <!ENTITY general.keys.caption              "Keyboard Shortcuts">
 <!ENTITY general.keys.goHeadings           "Assign &quot;&accelKey.gotoNextHeading;&quot;/&quot;&accelKey.gotoPrevHeading;&quot; to &quot;&menu.nextHeading.label;&quot;/&quot;&menu.prevHeading.label;&quot;">
 <!ENTITY general.keys.advanceFocus_alphabet "Focus Next link with &quot;&accelKey.focusNextByAlphabets;&quot; or Prev link with &quot;&accelKey.focusPrevByAlphabets;&quot;">
-<!ENTITY general.keys.advanceFocus_arrow   "Focus Next Link with &quot;Ctrl+Down&quot; or Prev link with &quot;Ctrl+Up&quot;">
-<!ENTITY general.keys.advanceFocus_arrow.mac "Focus Next Link with &quot;Command+Down&quot; or Prev link with &quot;Command+Up&quot;">
+<!ENTITY general.keys.advanceFocus_arrow   "Focus Next Link with &quot;Ctrl+↓&quot; or Prev link with &quot;Ctrl+↑&quot;">
+<!ENTITY general.keys.advanceFocus_arrow.mac "Focus Next Link with &quot;⌘-↓&quot; or Prev link with &quot;⌘+↑&quot;">
 <!ENTITY general.keys.getLinks             "Assign &quot;Ctrl+&accelKey.getLinks;&quot; to &quot;&menu.getLinks.label;&quot;">
-<!ENTITY general.keys.getLinks.mac         "Assign &quot;Command+&accelKey.getLinks;&quot; to &quot;&menu.getLinks.label;&quot;">
+<!ENTITY general.keys.getLinks.mac         "Assign &quot;⌘+&accelKey.getLinks;&quot; to &quot;&menu.getLinks.label;&quot;">
 <!ENTITY general.keys.up                   "Assign &quot;Alt+Back Space&quot; to &quot;&menu.up.label;&quot;">
 
 <!ENTITY general.misc.caption              "Misc">

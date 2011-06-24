@@ -224,9 +224,9 @@
 <!ENTITY general.keys.goHeadings "分配「&accelKey.gotoNextHeading;」/「&accelKey.gotoPrevHeading;」給「&menu.nextHeading.label;」/「&menu.prevHeading.label;」">
 <!ENTITY general.keys.advanceFocus_alphabet "以「&accelKey.focusNextByAlphabets;」移動焦點到下個鏈結，或以「&accelKey.focusPrevByAlphabets;」到上個鏈結">
 <!ENTITY general.keys.advanceFocus_arrow "以「Ctrl+Down」移動焦點到下個鏈結，或以「Ctrl+Up」到上個鏈結">
-<!ENTITY general.keys.advanceFocus_arrow.mac "以「Command+Down」移動焦點到下個鏈結，或以「Command+Up」到上個鏈結">
+<!ENTITY general.keys.advanceFocus_arrow.mac "以「⌘+↓」移動焦點到下個鏈結，或以「⌘+↑」到上個鏈結">
 <!ENTITY general.keys.getLinks "分配「Ctrl+&accelKey.getLinks;」給「&menu.getLinks.label;」">
-<!ENTITY general.keys.getLinks.mac "分配「Command+&accelKey.getLinks;」給「&menu.getLinks.label;」">
+<!ENTITY general.keys.getLinks.mac "分配「⌘+&accelKey.getLinks;」給「&menu.getLinks.label;」">
 <!ENTITY general.keys.up "分配「Alt+Back Space」給「&menu.up.label;」">
 
 <!ENTITY general.misc.caption "雜項">

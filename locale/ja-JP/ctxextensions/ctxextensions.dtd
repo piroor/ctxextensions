@@ -220,9 +220,9 @@
 <!ENTITY general.keys.goHeadings           "「&accelKey.gotoNextHeading;」/「&accelKey.gotoPrevHeading;」に「&menu.nextHeading.label;」/「&menu.prevHeading.label;」を割り当てる">
 <!ENTITY general.keys.advanceFocus_alphabet "「&accelKey.focusNextByAlphabets;」で次のリンク、「&accelKey.focusPrevByAlphabets;」で前のリンクにフォーカスする">
 <!ENTITY general.keys.advanceFocus_arrow   "「Ctrl+↓」で次のリンク、「Ctrl+↑」で前のリンクにフォーカスする">
-<!ENTITY general.keys.advanceFocus_arrow.mac "「Command+↓」で次のリンク、「Command+↑」で前のリンクにフォーカスする">
+<!ENTITY general.keys.advanceFocus_arrow.mac "「⌘+↓」で次のリンク、「⌘+↑」で前のリンクにフォーカスする">
 <!ENTITY general.keys.getLinks             "「Ctrl+&accelKey.getLinks;」に「&menu.getLinks.label;」を割り当てる">
-<!ENTITY general.keys.getLinks.mac         "「Command+&accelKey.getLinks;」に「&menu.getLinks.label;」を割り当てる">
+<!ENTITY general.keys.getLinks.mac         "「⌘+&accelKey.getLinks;」に「&menu.getLinks.label;」を割り当てる">
 <!ENTITY general.keys.up                   "「Alt+Back Space」に「&menu.up.label;」を割り当てる">
 
 <!ENTITY general.misc.caption              "その他">
