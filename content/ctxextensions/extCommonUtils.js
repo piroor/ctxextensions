@@ -1232,7 +1232,9 @@ var ExtCommonUtils = {
 
 		while (targets.hasMoreElements())
 		{
-			target = targets.getNext().QueryInterface(Components.interfaces.nsIDOMWindowInternal);
+			target = targets.getNext().QueryInterface(Components.interfaces.nsIDOMWindow);
+			if ('nsIDOMWindowInternal' in Components.interfaces) // for Firefox 7 or olders
+				target = target.QueryInterface(Components.interfaces.nsIDOMWindowInternal);
 			windows.push(target);
 		}
 
