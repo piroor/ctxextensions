@@ -1068,7 +1068,7 @@ var ExtCommonUtils = {
 					.createInstance(Components.interfaces.nsIDownload);
 		dl.init(aSniffer.uri, aData.fileObject, null, null, null, PERSIST);
 
-		if (PERSIST.saveURI.arity == 3) // old implementation
+		if (PERSIST.saveURI.length == 3) // old implementation
 			PERSIST.saveURI(aSniffer.uri, null, aData.fileObject);
 		else
 			PERSIST.saveURI(aSniffer.uri, null, null, null, null, aData.fileObject);
@@ -1096,7 +1096,7 @@ var ExtCommonUtils = {
 		var postData = null;
 
 		var PERSIST = this.createPersist();
-		if (PERSIST.saveURI.arity == 3) // old implementation
+		if (PERSIST.saveURI.length == 3) // old implementation
 			PERSIST.saveURI(aURI, postData, aFile);
 		else
 			PERSIST.saveURI(aURI, null, null, postData, null, aFile);
