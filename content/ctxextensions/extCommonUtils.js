@@ -120,6 +120,12 @@ var ExtCommonUtils = {
 	// RDFデータソースの位置 
 	get datasourceURI()
 	{
+		return this.getURLFromFilePath(this.datasourceFile.path).spec;
+	},
+ 
+	// RDFデータソースのファイル 
+	get datasourceFile()
+	{
 		var dsource_uri;
 		try {
 			dsource_uri = this.getURLFromFilePath(this.getPref('ctxextensions.override.datasource_path')).spec;
@@ -132,13 +138,8 @@ var ExtCommonUtils = {
 			if (!ProfD.match(/\/$/)) ProfD += '/';
 			dsource_uri = ProfD+'ctxextensions.rdf';
 		}
-		return dsource_uri;
-	},
- 
-	// RDFデータソースのファイル 
-	get datasourceFile()
-	{
-		var dsourceFile = this.getFileFromURLSpec(this.datasourceURI);
+
+		var dsourceFile = this.getFileFromURLSpec(dsource_uri);
 		if (!dsourceFile.exists())
 			dsourceFile.create(dsourceFile.NORMAL_FILE_TYPE, 0644);
 
@@ -1786,14 +1787,11 @@ var ExtCommonUtils = {
 		if (this.activated) return;
 		this.activated = true;
 
-		var i;
-		var nullPointer;
-
 		try {
-			nullPointer = this.SENDSTR;
-			nullPointer = this.SENDURI;
-			nullPointer = this.EXECAPPS;
-			nullPointer = this.CUSTOMSCRIPTS;
+			this.SENDSTR;
+			this.SENDURI;
+			this.EXECAPPS;
+			this.CUSTOMSCRIPTS;
 		}
 		catch(e) {
 		}
@@ -1811,7 +1809,7 @@ var ExtCommonUtils = {
 		}
 		catch(e) {
 		}
-		for (i = 0; i < nodes.length; i++)
+		for (var i = 0; i < nodes.length; i++)
 		{
 			nodes[i].database.AddDataSource(dsource);
 			if (lclst)
