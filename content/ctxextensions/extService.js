@@ -1307,10 +1307,11 @@ catch(e) {
 			return null;
 		}
 
+		var current = this.utils.mainWindow.ExtService.currentURI(true);
 		if (this.utils.mainWindow &&
 			(
 				!aOpenIn ||
-				this.utils.mainWindow.ExtService.currentURI(true) == 'about:blank' ||
+				(window.isBlankPageURL ? isBlankPageURL(current) : (current == 'about:blank')) ||
 				(
 					aURI.split('#')[0] == this.currentURI(true).split('#')[0] &&
 					!this.utils.getPref('ctxextensions.showResultIn.forceNewWindowOrTab')
@@ -1431,7 +1432,10 @@ catch(e) {
 					!b.contentWindow ||
 					!('ctxextensionsDocumentReadyState' in b.contentWindow) ||
 					b.contentWindow.ctxextensionsDocumentReadyState != 'complete' ||
-					(aURI != 'about:blank' && b.currentURI.spec == 'about:blank') // for tab
+					( // for tab
+						(window.isBlankPageURL ? !isBlankPageURL(aURI) : (aURI != 'about:blank')) &&
+						(window.isBlankPageURL ? isBlankPageURL(b.currentURI.spec) : (b.currentURI.spec == 'about:blank'))
+					)
 					)
 					return false;
 			}

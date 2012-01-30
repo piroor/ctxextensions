@@ -440,18 +440,21 @@ var ExtFunc = {
 
 		uri = (!path.match(/%s/i)) ? path+uri : path.replace(/%s/gi, uri) ;
 
+		var current;
 		switch(openIn)
 		{
 			case 'NewWindow':
 				this.service.loadURI(uri, null, this.service.NEW_WINDOW);
 				break;
 			case 'NewTab':
-				if (this.utils.mainWindow.ExtService.currentURI(true) != 'about:blank') {
+				current = this.utils.mainWindow.ExtService.currentURI(true);
+				if (window.isBlankPageURL ? !isBlankPageURL(current) : (current != 'about:blank')) {
 					this.service.openNewTab(uri, null, this.service.NEW_TAB);
 					break;
 				}
 			case 'NewBackgroundTab':
-				if (this.utils.mainWindow.ExtService.currentURI(true) != 'about:blank') {
+				current = this.utils.mainWindow.ExtService.currentURI(true);
+				if (window.isBlankPageURL ? !isBlankPageURL(current) : (current != 'about:blank')) {
 					this.service.openNewTab(uri, null, this.service.NEW_BG_TAB);
 					break;
 				}
