@@ -8,6 +8,7 @@ textbox {
 
 box[orient="horizontal"],
 box.about {
+	box-align: center;
 	-moz-box-align: center;
 }
 
