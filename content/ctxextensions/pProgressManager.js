@@ -72,11 +72,11 @@ stop() :
  *
  * The Original Code is the pProgressManager.
  *
- * The Initial Developer of the Original Code is SHIMODA Hiroshi.
+ * The Initial Developer of the Original Code is YUKI "Piro" Hiroshi.
  * Portions created by the Initial Developer are Copyright (C) 2001-2009
  * the Initial Developer. All Rights Reserved.
  *
- * Contributor(s): SHIMODA Hiroshi <piro.outsider.reflex@gmail.com>
+ * Contributor(s): YUKI "Piro" Hiroshi <piro.outsider.reflex@gmail.com>
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or

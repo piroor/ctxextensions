@@ -206,4 +206,4 @@ MakotoéÅÅEÇªÇ”Ç°Ç†éÅÅA
 
 ------------------------------------------------------------------------
 ContextMenu Extensions for Mozilla Firefox
-Copyright 2001-2006 Piro(SHIMODA Hiroshi)
+Copyright 2001-2006 Piro(YUKI "Piro" Hiroshi)

@@ -6,7 +6,7 @@
                    em:id="{4C4D8A1D-1E3C-439e-9298-16073A5C4851}"
                    em:name="ContextMenu Extensions"
                    em:version="4.3.2010020101"
-                   em:creator="SHIMODA Hiroshi"
+                   em:creator="YUKI &quot;Piro&quot; Hiroshi"
                    em:description="Adds many useful features to the browser."
                    em:homepageURL="http://piro.sakura.ne.jp/xul/ctxextensions/index.html.en"
                    em:optionsURL="chrome://ctxextensions/content/pref/prefDialogCall.xul">
@@ -25,7 +25,7 @@
                        em:name="ContextMenu Extensions"
                        em:description="Adds many useful features to the browser."
                        em:homepageURL="http://piro.sakura.ne.jp/xul/ctxextensions/index.html.en"
-                       em:creator="SHIMODA Hiroshi">
+                       em:creator="YUKI &quot;Piro&quot; Hiroshi">
 		<em:translator>Alan CHENG (zh-TW locale)</em:translator>
       </RDF:Description>
     </em:localized>
@@ -34,7 +34,7 @@
                        em:name="コンテキストメニュー拡張"
                        em:description="コンテキストメニュー（右クリックメニュー）に色々な機能を加えます。"
                        em:homepageURL="http://piro.sakura.ne.jp/xul/ctxextensions/index.html.en"
-                       em:creator="SHIMODA Hiroshi">
+                       em:creator="YUKI &quot;Piro&quot; Hiroshi">
 		<em:translator>Alan CHENG (zh-TW locale)</em:translator>
       </RDF:Description>
     </em:localized>
@@ -43,7 +43,7 @@
                        em:name="ContextMenu Extensions"
                        em:description="Adds many useful features to the browser."
                        em:homepageURL="http://piro.sakura.ne.jp/xul/ctxextensions/index.html.en"
-                       em:creator="SHIMODA Hiroshi">
+                       em:creator="YUKI &quot;Piro&quot; Hiroshi">
 		<em:translator>Alan CHENG (zh-TW locale)</em:translator>
       </RDF:Description>
     </em:localized>
