@@ -3,6 +3,6 @@
 appname=ctxextensions
 
 cp buildscript/makexpi.sh ./
-./makexpi.sh $appname version=0
+./makexpi.sh -n $appname -o
 rm ./makexpi.sh
 
