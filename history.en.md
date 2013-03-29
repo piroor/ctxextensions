@@ -1,5 +1,9 @@
 # History
 
+ - master/HEAD
+   * Modified: "jar" archive is no longer included.
+   * Works on Nightly 22.0a1
+   * Many tiny fixes. See the [commit log](https://github.com/piroor/ctxextensions/commits/master) for more information.
  - 4.3.2010020101
    * Drop support of Firefox 1.5.
    * Improved: New short expressions are introduced:  `$()` ,  `$X()` , and  `_inspectDOMNode()` . They are compatible to [UxU](http://www.clear-code.com/software/uxu/).
