@@ -185,7 +185,7 @@ if (ret.length) _setClipBoard(ret.join(''));
 ]]></data>
 
 <data id="samples:CustomScripts:sample9"><![CDATA[
-var w = Components.lookupMethod(_window, 'top').call(_window),
+var w = _window.top,
     d = w.document,
     i;
 var noframes = d.getElementsByTagName('NOFRAMES');

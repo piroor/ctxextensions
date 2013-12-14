@@ -841,7 +841,7 @@ var ExtService = {
 		var href = ExtService.getAttributeOfLink(aLinkNode, 'href');
 		var uri;
 		try {
-			uri = Components.lookupMethod(aLinkNode.ownerDocument, 'URL').call(aLinkNode.ownerDocument);
+			uri = aLinkNode.ownerDocument.URL;
 		}
 		catch(e) {
 			uri = aLinkNode.baseURI;
@@ -1011,7 +1011,7 @@ var ExtService = {
 	getSelection : function(aWindow)
 	{
 		var targetWindow = aWindow || this.contentWindow();
-		var sel = Components.lookupMethod(targetWindow, 'getSelection').call(targetWindow)
+		var sel = targetWindow.getSelection();
 
 try {
 		// for textfields
@@ -1037,9 +1037,9 @@ catch(e) {
 	{
 		var targetWindow = aWindow || this.contentWindow();
 
-		var selection = Components.lookupMethod(targetWindow, 'getSelection').call(targetWindow);
+		var selection = targetWindow.getSelection();
 		var pSelection = selection.QueryInterface(Components.interfaces.nsISelectionPrivate),
-			cType      = Components.lookupMethod(targetWindow, 'document').call(targetWindow).contentType,
+			cType      = targetWindow.document.contentType,
 			ret;
 
 		if (!pSelection) return '';
@@ -2892,7 +2892,7 @@ window.__defineGetter__('_isOnline', function() {
 	return ExtService.isOnline;
 });
 window.__defineGetter__('_inFrame', function() {
-	return (window._window != Components.lookupMethod(window._window, 'top').call(window._window));
+	return (window._window != window._window.top);
 });
 
 window.__defineGetter__('_popupNode', function() {

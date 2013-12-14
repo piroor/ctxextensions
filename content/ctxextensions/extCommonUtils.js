@@ -1432,10 +1432,10 @@ var ExtCommonUtils = {
 		var nodes = [];
 
 		var targetWindow = aWindow || document.commandDispatcher.focusedWindow;
-		if (!targetWindow || Components.lookupMethod(targetWindow, 'top').call(targetWindow) == window)
+		if (!targetWindow || targetWindow.top == window)
 			targetWindow = gBrowser.contentWindow;
 
-		var selection = Components.lookupMethod(targetWindow, 'getSelection').call(targetWindow);
+		var selection = targetWindow.getSelection();
 		if (!selection || !selection.toString()) return nodes;
 
 
