@@ -1,8 +1,8 @@
 # 更新履歴
 
  - master/HEAD
+   * Firefox 29以降に対応
    * jarファイルを含めない形のパッケージングに変更
-   * Nightly 22.0a1で動作するように修正
    * 細かい修正色々（詳しくは[コミットログ](https://github.com/piroor/ctxextensions/commits/master)を参照）
  - 4.3.2010020101
    * Firefox 2.0未満のサポートを終了

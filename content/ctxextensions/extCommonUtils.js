@@ -1244,8 +1244,8 @@ var ExtCommonUtils = {
  
 	getDocShellFromDocument : function(aDocument, aRootDocShell) 
 	{
-		const kDSTreeNode = Components.interfaces.nsIDocShellTreeNode;
 		const kDSTreeItem = Components.interfaces.nsIDocShellTreeItem;
+		const kDSTreeNode = Components.interfaces.nsIDocShellTreeNode || kDSTreeItem; // nsIDocShellTreeNode is merged to nsIDocShellTreeItem by https://bugzilla.mozilla.org/show_bug.cgi?id=331376
 		const kWebNav     = Components.interfaces.nsIWebNavigation;
 
 		if (aDocument.defaultView)

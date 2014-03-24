@@ -1,8 +1,8 @@
 # History
 
  - master/HEAD
+   * Works on Firefox 29 and later
    * Modified: "jar" archive is no longer included.
-   * Works on Nightly 22.0a1
    * Many tiny fixes. See the [commit log](https://github.com/piroor/ctxextensions/commits/master) for more information.
  - 4.3.2010020101
    * Drop support of Firefox 1.5.
@@ -267,7 +267,7 @@
    * Fixed: Some mistakes in sample scripts have been corrected.
    * Fixed: A crash bug, which browser crashes when the pointer moved on upper menus keeping open submenus, has been fixed (may).
  - 2.7.20020901
-   * FixedÅFBroken order of items in the context menu has been corrected.
+   * Fixed: Broken order of items in the context menu has been corrected.
  - 2.7.20020830
    * Modified: Legacy codes for NS6 have been removed.
    * Improved: "browser.block.target_new_window" has been customizable with GUI.
