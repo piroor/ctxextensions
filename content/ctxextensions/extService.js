@@ -308,9 +308,9 @@ var ExtService = {
 		// catch the event to start FindTypeAhead
 		window.addEventListener('keypress', this, true);
 
-		this.utils.addPrefListener(this.ShortcutPrefListener);
-		this.utils.addPrefListener(this.RegexpPrefListener);
-		this.utils.addPrefListener(this.UIPrefListener);
+		this.utils.prefs.addPrefListener(this.ShortcutPrefListener);
+		this.utils.prefs.addPrefListener(this.RegexpPrefListener);
+		this.utils.prefs.addPrefListener(this.UIPrefListener);
 
 		this.rebuildMenuItems(); // this fails sometimes...
 
@@ -386,9 +386,9 @@ var ExtService = {
 	destroy : function()
 	{
 		// İ’è‚ÌŠÄ‹‚ğ‰ğœ
-		this.utils.removePrefListener(this.ShortcutPrefListener);
-		this.utils.removePrefListener(this.RegexpPrefListener);
-		this.utils.removePrefListener(this.UIPrefListener);
+		this.utils.prefs.removePrefListener(this.ShortcutPrefListener);
+		this.utils.prefs.removePrefListener(this.RegexpPrefListener);
+		this.utils.prefs.removePrefListener(this.UIPrefListener);
 
 		var dsource = this.utils.datasource;
 		dsource.RemoveObserver(this.RDFObserver);
