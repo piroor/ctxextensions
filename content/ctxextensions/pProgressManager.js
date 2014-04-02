@@ -73,7 +73,7 @@ stop() :
  * The Original Code is the pProgressManager.
  *
  * The Initial Developer of the Original Code is YUKI "Piro" Hiroshi.
- * Portions created by the Initial Developer are Copyright (C) 2001-2009
+ * Portions created by the Initial Developer are Copyright (C) 2001-2014
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s): YUKI "Piro" Hiroshi <piro.outsider.reflex@gmail.com>
@@ -92,6 +92,9 @@ stop() :
  *
  * ***** END LICENSE BLOCK ***** */
 
+
+(function() {
+let { inherit } = Components.utils.import('resource://ctxextensions-modules/inherit.jsm', {});
 
 function pProgressManager(aObserver, aInterval, /*aID, */aFlags, aDefaultStatus, aProgressbarID)
 {
@@ -243,6 +246,7 @@ pProgressManager.prototype =
 	}
 };
 
+window.pProgressManager = pProgressManager;
 
 
 
@@ -257,7 +261,7 @@ function pProgressTreeWalker(aObserver, aInterval, /*aID, */aFlags, aDefaultStat
 }
 
 pProgressTreeWalker.prototype =
-{
+inherit(pProgressManager.prototype, {
 	walker     : null,
 	nodeFilter : null,
 	lastNode   : null,
@@ -382,9 +386,9 @@ pProgressTreeWalker.prototype =
 
 		return true;
 	}
-};
+});
 
-pProgressTreeWalker.prototype.__proto__ = pProgressManager.prototype;
+window.pProgressTreeWalker = pProgressTreeWalker;
 
 
 
@@ -399,7 +403,7 @@ function pProgressXPath(aObserver, aInterval, /*aID, */aFlags, aDefaultStatus, a
 }
 
 pProgressXPath.prototype =
-{
+inherit(pProgressManager.prototype, {
 	xpathResult : null,
 	lastNode    : null,
 	count       : 0,
@@ -513,6 +517,8 @@ pProgressXPath.prototype =
 
 		return true;
 	}
-};
+});
 
-pProgressXPath.prototype.__proto__ = pProgressManager.prototype;
+window.pProgressXPath = pProgressXPath;
+
+})();

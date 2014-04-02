@@ -1840,7 +1840,7 @@ var ExtCommonUtils = {
 	var namespace = {};
 	Components.utils.import('resource://ctxextensions-modules/prefs.js', namespace);
 	Components.utils.import('resource://ctxextensions-modules/namespace.jsm', namespace);
-	ExtCommonUtils.prefs = ExtCommonUtils.__proto__ = namespace.prefs;
+	ExtCommonUtils.prefs = namespace.prefs;
 	ExtCommonUtils.namespace = namespace.getNamespaceFor('piro.sakura.ne.jp')['piro.sakura.ne.jp'];
 	Components.utils.import('resource://ctxextensions-modules/animationManager.js');
 })();

@@ -324,14 +324,14 @@ var PrefDialogService =
 				}
 
 				if(value != this.getPref(null, itemObject.prefstring))
-					this.setPref(itemObject.prefstring, value);
+					this.prefs.setPref(itemObject.prefstring, value);
 			}
 		}
 	},
  
 	getPref : function(aType, aPrefstring, aDefaultFlag) 
 	{
-		return aDefaultFlag ? this.getDefaultPref(aPrefstring) : this.prefs.getPref(aPrefstring) ;
+		return aDefaultFlag ? this.prefs.getDefaultPref(aPrefstring) : this.prefs.getPref(aPrefstring) ;
 	},
   
 	onOK : function() 
@@ -547,7 +547,7 @@ var PrefDialogService =
 	var namespace = {};
 	Components.utils.import('resource://ctxextensions-modules/prefs.js', namespace);
 	Components.utils.import('resource://ctxextensions-modules/namespace.jsm', namespace);
-	PrefDialogService.prefs = PrefDialogService.__proto__ = namespace.prefs;
+	PrefDialogService.prefs = namespace.prefs;
 })();
 
 window.hPrefWindow = PrefDialogService;
