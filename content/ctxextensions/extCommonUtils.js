@@ -1657,11 +1657,11 @@ var ExtCommonUtils = {
 	{
 		var doc = !aOwner ?
 					document :
-				aOwner instanceof Components.interfaces.nsIDOMDocument ?
+				aOwner instanceof Document ?
 					aOwner :
-				aOwner instanceof Components.interfaces.nsIDOMNode ?
+				aOwner instanceof Node ?
 					aOwner.ownerDocument :
-				aOwner instanceof Components.interfaces.nsIDOMWindow ?
+				aOwner instanceof Window ?
 					aOwner.document :
 					null;
 		if (!doc) throw new Error('invalid owner');
