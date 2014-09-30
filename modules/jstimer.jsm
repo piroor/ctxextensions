@@ -83,6 +83,9 @@ function clearAllTimers()
 	Timer.cancelAll();
 }
 
+/** Alias, as a handler for bootstrap.js */
+var shutdown = clearAllTimers;
+
 
 function Timer(aCallback, aTime, aType, aOwner) {
 	this.finished = false;
