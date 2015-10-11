@@ -1,4 +1,4 @@
-const ID = '{4C4D8A1D-1E3C-439e-9298-16073A5C4851}';
+var ID = '{4C4D8A1D-1E3C-439e-9298-16073A5C4851}';
 var unreg;
 
 function init()
