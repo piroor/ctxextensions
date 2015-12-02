@@ -1616,7 +1616,7 @@ catch(e) {
 				if ('_label' in this)
 					return this._label;
 				this._label = '';
-				var nodes = this.utils.evaluateXPath('descendant::text() | descendant::*[local-name()="img"]', this.node);
+				var nodes = ExtService.utils.evaluateXPath('descendant::text() | descendant::*[local-name()="img"]', this.node);
 				for (var i = 0, maxi = nodes.snapshotLength; i < maxi; i++)
 				{
 					var node = nodes.snapshotItem(i);
