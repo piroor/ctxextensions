@@ -1613,7 +1613,19 @@ catch(e) {
 			},
 			get label()
 			{
-				return this.node.textContent.replace(/(\n|\r)+/g, ' ').replace(/\t/g, '');
+				if ('_label' in this)
+					return this._label;
+				this._label = '';
+				var nodes = this.utils.evaluateXPath('descendant::text() | descendant::*[local-name()="img"]', this.node);
+				for (var i = 0, maxi = nodes.snapshotLength; i < maxi; i++)
+				{
+					var node = nodes.snapshotItem(i);
+					if (node.nodeType == node.ELEMENT_NODE)
+						this._label += node.getAttribute('alt');
+					else
+						this._label += node.nodeValue;
+				}
+				return this._label;
 			},
 			get level()
 			{
