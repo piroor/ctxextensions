@@ -1141,12 +1141,12 @@ catch(e) {
 	getLinksNodesInWindow : function(aWindow, aShouldFollowFrames)
 	{
 		var links = [].concat(
-				Array.slice(aWindow.document.getElementsByTagName('A')),
-				Array.slice(aWindow.document.getElementsByTagName('AREA')),
-				Array.slice(aWindow.document.getElementsByTagName('LINK')),
-				Array.slice(aWindow.document.getElementsByTagName(this.XHTMLNS, 'a')),
-				Array.slice(aWindow.document.getElementsByTagName(this.XHTMLNS, 'area')),
-				Array.slice(aWindow.document.getElementsByTagName(this.XHTMLNS, 'link'))
+				[...aWindow.document.getElementsByTagName('A')],
+				[...aWindow.document.getElementsByTagName('AREA')],
+				[...aWindow.document.getElementsByTagName('LINK')],
+				[...aWindow.document.getElementsByTagName(this.XHTMLNS, 'a')],
+				[...aWindow.document.getElementsByTagName(this.XHTMLNS, 'area')],
+				[...aWindow.document.getElementsByTagName(this.XHTMLNS, 'link')]
 			);
 		if (aShouldFollowFrames &&
 			aWindow.frames &&
@@ -2171,8 +2171,8 @@ catch(e) {
 				keys = [];
 			else
 				keys = [].concat(
-					Array.slice(document.getElementsByAttribute('key', key)),
-					Array.slice(document.getElementsByAttribute('key', key.toUpperCase()))
+					[...document.getElementsByAttribute('key', key)],
+					[...document.getElementsByAttribute('key', key.toUpperCase())]
 				);
 	//		dump('keys: '+keys.length+'('+keystring+')\n');
 
@@ -2307,9 +2307,9 @@ catch(e) {
 		var onLink  = this.onLink;
 
 		var items = [].concat(
-				Array.slice(aPopup.getElementsByAttribute('label-for-frame', '*')),
-				Array.slice(aPopup.getElementsByAttribute('label-for-select', '*')),
-				Array.slice(aPopup.getElementsByAttribute('label-for-link', '*'))
+				[...aPopup.getElementsByAttribute('label-for-frame', '*')],
+				[...aPopup.getElementsByAttribute('label-for-select', '*')],
+				[...aPopup.getElementsByAttribute('label-for-link', '*')]
 			);
 		var labeledItems = [];
 		for (i in items)
@@ -3031,30 +3031,30 @@ function _openNewTab(uri, ref)
 	return ExtService.openNewTab(uri, ref, ExtService.NEW_TAB);
 };
 
-function _loadURIAndDo()
+function _loadURIAndDo(...aArgs)
 {
-	var b = ExtService.loadURI(arguments[0], arguments[1], ExtService.CURRENT_TAB);
-	var funcs = Array.slice(arguments);
+	var b = ExtService.loadURI(aArgs[0], aArgs[1], ExtService.CURRENT_TAB);
+	var funcs = aArgs.slice(0);
 	funcs.splice(0, 2);
-	ExtService.doAfterLoaded(b, arguments[0], funcs);
+	ExtService.doAfterLoaded(b, aArgs[0], funcs);
 
 	return b;
 };
-function _openNewWindowAndDo()
+function _openNewWindowAndDo(...aArgs)
 {
-	var w = ExtService.openNewWindow(arguments[0], arguments[1]);
-	var funcs = Array.slice(arguments);
+	var w = ExtService.openNewWindow(aArgs[0], aArgs[1]);
+	var funcs = aArgs.slice(0);
 	funcs.splice(0, 2);
-	ExtService.doAfterLoaded(w, arguments[0], funcs);
+	ExtService.doAfterLoaded(w, aArgs[0], funcs);
 
 	return w;
 };
-function _openNewTabAndDo()
+function _openNewTabAndDo(...aArgs)
 {
-	var t = ExtService.openNewTab(arguments[0], arguments[1], true);
-	var funcs = Array.slice(arguments);
+	var t = ExtService.openNewTab(aArgs[0], aArgs[1], true);
+	var funcs = aArgs.slice(0);
 	funcs.splice(0, 2);
-	ExtService.doAfterLoaded(t, arguments[0], funcs);
+	ExtService.doAfterLoaded(t, aArgs[0], funcs);
 
 	return t;
 };
@@ -3327,11 +3327,11 @@ function _getStackTrace()
 	return stacks;
 };
 
-function _inspect(aObject)
+function _inspect(...aArgs)
 {
 	var inspected = [];
 	var results = [];
-	return Array.slice(arguments).map(function(aObject) {
+	return aArgs.map(function(aObject) {
 		if (aObject === null) {
 			return 'null';
 		}
@@ -3399,7 +3399,7 @@ function _inspectDOMNode(aNode)
 		case Node.ELEMENT_NODE:
 		case Node.DOCUMENT_NODE:
 		case Node.DOCUMENT_FRAGMENT_NODE:
-			result = Array.slice(aNode.childNodes).map(function(aNode) {
+			result = [...aNode.childNodes].map(function(aNode) {
 					return self(aNode);
 				}).join('');
 			break;
@@ -3452,7 +3452,7 @@ function _inspectDOMNode(aNode)
 		result = '<'+
 			aNode.localName+
 			(aNode.namespaceURI ? ' xmlns="'+aNode.namespaceURI+'"' : '' )+
-			Array.slice(aNode.attributes).map(function(aAttr) {
+			[...aNode.attributes].map(function(aAttr) {
 				return ' '+self(aAttr);
 			}).sort().join('')+
 			(result ? '>' : '/>' )+

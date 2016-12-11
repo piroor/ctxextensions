@@ -40,10 +40,10 @@
 		var group = document.getElementById('regexp');
 
 		var items = [].concat(
-				Array.slice(group.getElementsByTagName('caption')),
-				Array.slice(group.getElementsByTagName('label')),
-				Array.slice(group.getElementsByTagName('textbox')),
-				Array.slice(group.getElementsByTagName('button'))
+				[...group.getElementsByTagName('caption')],
+				[...group.getElementsByTagName('label')],
+				[...group.getElementsByTagName('textbox')],
+				[...group.getElementsByTagName('button')]
 			);
 		for (var i = 0; i < items.length; i++)
 		{

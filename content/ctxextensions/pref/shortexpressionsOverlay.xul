@@ -24,7 +24,8 @@
 		var initExpressionItemsDone = false;
 		function initExpressionItems(aPopup) {
 			if (initExpressionItemsDone) return;
-			Array.slice(aPopup.getElementsByTagName('menuitem')).forEach(function(aItem) {
+			for (let aItem of aPopup.getElementsByTagName('menuitem'))
+			{
 				var value = aItem.getAttribute('value');
 				if (!value) return;
 				aItem.setAttribute('tooltiptext', value);
@@ -38,7 +39,7 @@
 				// 	let label = aItem.getAttribute('label');
 				// 	aItem.setAttribute('label', label+' ( '+value+' )');
 				// }
-			});
+			}
 			initExpressionItemsDone = true;
 		}
 	]]></script>

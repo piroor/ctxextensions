@@ -67,8 +67,8 @@ var ExtCommonUtils = {
 		if (b.length || !popupNode) return b[0] || null ;
 
 		// in undocked sidebar panels, and so on
-		var browsers = Array.slice(document.getElementsByTagNameNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'tabbrowser'))
-						.concat(Array.slice(document.getElementsByTagNameNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'browser')));
+		var browsers = [...document.getElementsByTagNameNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'tabbrowser')]
+						.concat([...document.getElementsByTagNameNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'browser')]);
 		var contentURI;
 		for (var i in browsers)
 		{
@@ -1669,28 +1669,27 @@ var ExtCommonUtils = {
 	},
   
 	// http://lowreal.net/logs/2006/03/16/1 
-	$X : function()
+	$X : function(...aArgs)
 	{
-		if (!arguments || !arguments.length) throw new Error('invalid expression');
+		if (!aArgs.length) throw new Error('invalid expression');
 
 		var expression = null,
 			context    = null,
 			resolver   = null,
 			type       = null;
-		arguments = Array.slice(arguments);
-		switch (arguments.length)
+		switch (aArgs.length)
 		{
 			case 1:
-				[expression] = arguments;
+				[expression] = aArgs;
 				break;
 			case 2:
-				[expression, context] = arguments;
+				[expression, context] = aArgs;
 				break;
 			case 3:
-				[expression, context, type] = arguments;
+				[expression, context, type] = aArgs;
 				break;
 			default:
-				[expression, context, resolver, type] = arguments;
+				[expression, context, resolver, type] = aArgs;
 				break;
 		}
 
