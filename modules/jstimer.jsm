@@ -35,11 +35,17 @@ function setTimeout(aCallback, aTimeout, ...aArgs)
 	var source = aCallback;
 	aCallback = function() { source.apply(getGlobal(), aArgs); };
 	aCallback.source = source;
+	var owner;
+	try {
+		owner = getOwnerWindowFromCaller(arguments.callee.caller);
+	}
+	catch(e) {
+	}
 	return (new Timer(
 		aCallback,
 		aTimeout,
 		Ci.nsITimer.TYPE_ONE_SHOT,
-		getOwnerWindowFromCaller(arguments.callee.caller)
+		owner
 	)).id;
 }
 
@@ -48,7 +54,7 @@ function clearTimeout(aId)
 	Timer.cancel(aId);
 }
 
-function setInterval(aCallbackaCallback, aInterval, ...aArgs)
+function setInterval(aCallback, aInterval, ...aArgs)
 {
 	if (typeof aCallback != 'function' && !('call' in aCallback))
 		throw new Error('String type callback is obsolete.');
@@ -56,11 +62,17 @@ function setInterval(aCallbackaCallback, aInterval, ...aArgs)
 	var source = aCallback;
 	aCallback = function() { source.apply(getGlobal(), aArgs); };
 	aCallback.source = source;
+	var owner;
+	try {
+		owner = getOwnerWindowFromCaller(arguments.callee.caller);
+	}
+	catch(e) {
+	}
 	return (new Timer(
 		aCallback,
 		aInterval,
 		Ci.nsITimer.TYPE_REPEATING_SLACK,
-		getOwnerWindowFromCaller(arguments.callee.caller)
+		owner
 	)).id;
 }
 
