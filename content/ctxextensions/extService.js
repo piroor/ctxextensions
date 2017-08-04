@@ -302,7 +302,7 @@ var ExtService = {
 			content.addEventListener('keypress', this, true);
 			content.addEventListener('mouseover', this, true);
 			content.addEventListener('load', this, true);
-			content.mTabContainer.addEventListener('TabClose', this, false);
+			content.tabContainer.addEventListener('TabClose', this, false);
 		}
 
 		// catch the event to start FindTypeAhead
@@ -403,7 +403,7 @@ var ExtService = {
 			content.removeEventListener('keypress', this, true);
 			content.removeEventListener('mouseover', this, true);
 			content.removeEventListener('load', this, true);
-			content.mTabContainer.removeEventListener('TabClose', this, false);
+			content.tabContainer.removeEventListener('TabClose', this, false);
 		}
 
 		window.removeEventListener('keypress', this, true);
