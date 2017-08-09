@@ -580,7 +580,7 @@ var ExtCommonUtils = {
 	// 内部名からファイル/ディレクトリのURIを得る 
 	getURISpecFromKey : function(aKey)
 	{
-		var dir = this.DIR.get(aKey, Components.interfaces.nsILocalFile);
+		var dir = this.DIR.get(aKey, Components.interfaces.nsIFile);
 		return this.getURLFromFilePath(dir.path).spec;
 	},
  
@@ -677,7 +677,7 @@ var ExtCommonUtils = {
 	makeFileWithPath : function(aPath)
 	{
 		var newFile = Components.classes['@mozilla.org/file/local;1']
-							.createInstance(Components.interfaces.nsILocalFile);
+							.createInstance(Components.interfaces.nsIFile);
 		newFile.initWithPath(aPath);
 		return newFile;
 	},
@@ -802,11 +802,11 @@ var ExtCommonUtils = {
 				var entries = FP.files;
 				while (entries.hasMoreElements())
 				{
-					retVal.push(entries.getNext().QueryInterface(Components.interfaces.nsILocalFile));
+					retVal.push(entries.getNext().QueryInterface(Components.interfaces.nsIFile));
 				}
 			}
 			else {
-				retVal = FP.file.QueryInterface(Components.interfaces.nsILocalFile);
+				retVal = FP.file.QueryInterface(Components.interfaces.nsIFile);
 			}
 		}
 		catch(e) {
@@ -877,7 +877,7 @@ var ExtCommonUtils = {
 				{
 					arguments.callee.call(
 						entry+'/',
-						files.getNext().QueryInterface(Components.interfaces.nsILocalFile)
+						files.getNext().QueryInterface(Components.interfaces.nsIFile)
 					);
 				}
 			}
@@ -1150,7 +1150,7 @@ var ExtCommonUtils = {
 			stream = channel.open();
 		}
 		catch(e) {
-			aTarget = aTarget.QueryInterface(Components.interfaces.nsILocalFile)
+			aTarget = aTarget.QueryInterface(Components.interfaces.nsIFile)
 			stream = Components.classes['@mozilla.org/network/file-input-stream;1']
 						.createInstance(Components.interfaces.nsIFileInputStream);
 			try {
@@ -1190,7 +1190,7 @@ var ExtCommonUtils = {
 		}
 
 		try {
-			aTarget = aTarget.QueryInterface(Components.interfaces.nsILocalFile)
+			aTarget = aTarget.QueryInterface(Components.interfaces.nsIFile)
 		}
 		catch(e) {
 			aTarget = aTarget.QueryInterface(Components.interfaces.nsIURI);

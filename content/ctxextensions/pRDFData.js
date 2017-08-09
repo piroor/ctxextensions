@@ -675,7 +675,7 @@ pRDFData.prototype =
 	getURISpecFromKey : function(aKey) 
 	{
 		const DIR = Components.classes['@mozilla.org/file/directory_service;1'].getService(Components.interfaces.nsIProperties);
-		var dir = DIR.get(aKey, Components.interfaces.nsILocalFile);
+		var dir = DIR.get(aKey, Components.interfaces.nsIFile);
 		return this.getURLSpecFromFilePath(dir.path);
 	},
 	
@@ -688,7 +688,7 @@ pRDFData.prototype =
   
 	makeFileWithPath : function(aPath) 
 	{
-		var newFile = Components.classes['@mozilla.org/file/local;1'].createInstance(Components.interfaces.nsILocalFile);
+		var newFile = Components.classes['@mozilla.org/file/local;1'].createInstance(Components.interfaces.nsIFile);
 		newFile.initWithPath(aPath);
 		return newFile;
 	},
